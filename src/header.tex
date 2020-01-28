@@ -1,0 +1,115 @@
+ % page format, etc.
+\documentclass[pdftex, a4paper, oneside, parskip, numbers=noenddot, listof=totoc, bibliography=totocnumbered, hyperfootnotes=false]{scrreprt}
+
+% geometry
+\usepackage[bindingoffset=1cm, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+
+% Headline
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\ #1}{}}
+\lhead{\leftmark} \rhead{\thepage}
+\cfoot{}
+\fancypagestyle{plain}{}
+
+% Select input encodung, usually utf8 is the best choice, on windows, \usepackage[latin1]{inputenc} maybe required
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Colors
+\usepackage{color}
+\usepackage{colortbl}
+
+% Tables
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% Drawing graphs etc.
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+% math
+\usepackage{amsmath} 
+
+% lists
+\usepackage{paralist}
+
+% Figures
+\usepackage{graphicx, wrapfig}
+
+% Hyperlinks
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\hypersetup{colorlinks, citecolor=black, linkcolor=black, urlcolor=black}
+
+% Listings
+\usepackage{listings}
+
+% Modify the following to the language you want to display
+\lstloadlanguages{C}
+\lstset{numbers=left,stepnumber=1,numberstyle=\small,numbersep=5pt,mathescape=true,basicstyle=\small\ttfamily,xleftmargin=10pt,frame=bottom,framexrightmargin=-10pt}
+%\lstloadlanguages{XML,Java}
+%\lstset{
+%	language=Java,
+%	alsolanguage=XML,
+%	numbers=none,
+%	breaklines=true,
+%	frame=tlrb,
+%	basicstyle=\scriptsize\tt,
+%	keywordstyle=\color{black}\bfseries,
+%	identifierstyle=\color{black},
+%	commentstyle=\color{black},
+%	showstringspaces=false,
+%	extendedchars=true,
+%	stringstyle=\color{blue},
+%	tabsize=4,
+%	captionpos=b,
+%	xleftmargin=1cm,
+%	stepnumber=5,
+%	aboveskip=0.7cm,
+%	belowskip=0.7cm
+%	}
+
+% list of abbreviations
+\usepackage[printonlyused]{acronym}
+
+% Set line pitch
+\usepackage{setspace}
+\onehalfspacing              % anderthalbzeilig (oder auch \doublespace)
+
+% Newcommand TODO (red in text)
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+
+% Newcommand TODOM (red at border)
+\newcommand{\todom}[1]{\marginpar{\parbox{1.5cm}{\textcolor{red}{TODO:\\ #1}}}}
+
+%fancyBox
+%\usepackage{fancybox}
+
+% Layout corrections (Schusterjungen)
+\clubpenalty = 10000 
+% Layout corrections (Hurenkinder) 
+\widowpenalty = 10000 
+\displaywidowpenalty = 10000
+
+% Figures
+\usepackage{caption}
+\usepackage[hypcap=true,labelformat=simple]{subcaption}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+
+% Tables
+\usepackage{booktabs} 
+
+% Frequently used column types
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % centering column type with fixed width
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % right aligned column type with fixed width
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % left aligned column type with fixed width
+
+% Shortcuts for referencing floats:
+\newcommand{\fig}[1]{\figurename~\ref{#1}} %shortcut for a figure reference
+\newcommand{\tab}[1]{Table~\ref{#1}} %shortcut for a table reference
+\newcommand{\eq}[1]{(\ref{#1})} %shortcut for an equation reference
+\newcommand{\lst}[1]{Listing~\ref{#1}} %shortcut for a listing reference
+\newcommand{\sect}[1]{Section~\ref{#1}} %shortcut for a Section reference
+

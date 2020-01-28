@@ -1,0 +1,175 @@
+
+\newcommand{\thesistitle}{TITEL DER ARBEIT}
+\newcommand{\thesistype}{B A C H E L O R A R B E I T}
+\newcommand{\thesistypedesc}{zur Erlangung des Grades eines Bachelor of Science \\im Fachbereich Elektrotechnik/Informatik \\der Universit\"at Kassel}
+\newcommand{\thesisauthorname}{VORNAME NACHNAME}
+\newcommand{\thesisauthorhomestreet}{ANSCHRIFT}
+\newcommand{\thesisauthorhometown}{PLZ ORT}
+\newcommand{\thesisauthormatrikelnumber}{MATRIKELNUMMER}
+\newcommand{\thesisauthoremail}{EMAILADRESSE}
+\newcommand{\thesisdepartment}{Fachgebiet Digitaltechnik}
+\newcommand{\thesisfirstreviewer}{!ERSTPR\"UFER! TITEL VORNAME NACHNAME}
+\newcommand{\thesissecondreviewer}{!ZWEITPR\"UFER! TITEL VORNAME NACHNAME}
+\newcommand{\thesissupervisor}{TITEL VORNAME NACHNAME}
+\newcommand{\thesisdate}{DATUM}
+
+\input{header_german}
+%\input{header_english}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Zusammenfassung / Abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inhaltsverzeichnis und Kopfzeile
+\addcontentsline{toc}{chapter}{Zusammenfassung / Abstract}
+\markboth{Zusammenfassung / Abstract}{Zusammenfassung / Abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%5-6 Sätze!
+
+dolor sit amet, consectetur adipiscing elit. Etiam quam sapien, mattis non varius eu, rutrum eget nisl. Morbi venenatis molestie ante, sed aliquet lectus aliquet id. Pellentesque consectetur nisl a massa ornare congue. Curabitur pellentesque hendrerit dolor eget faucibus. Etiam non risus arcu, id fermentum elit. Quisque suscipit posuere semper. Vestibulum sit amet dolor nec risus malesuada interdum aliquam in turpis. Maecenas mollis, magna at porttitor fringilla, risus libero commodo justo, non tempus nibh massa lacinia sapien. Aenean sodales ullamcorper massa, eu ullamcorper ipsum tempus sed. In adipiscing congue scelerisque. Pellentesque molestie, quam vel dictum iaculis, metus nunc mollis mi, nec venenatis tellus turpis eu arcu. Praesent at ultricies nibh. Proin neque libero, tincidunt dignissim ornare in, sagittis in ligula. Nunc sagittis sodales massa, a tempus felis vehicula id. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla adipiscing vestibulum eros, ut imperdiet augue scelerisque id. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse aliquam pulvinar lectus id dictum. Etiam dictum sollicitudin elit sed scelerisque. Nullam sodales semper interdum.
+
+\input{declaration_german}
+%\input{declaration_english}
+
+% TOC, list of figures, list of listings, etc. (use what is appropriate)
+\addtocontents{toc}{\protect\vspace{0.2cm}}
+\tableofcontents
+\listoffigures
+\listoftables
+\lstlistoflistings
+
+% arabic page numbering
+\pagebreak
+\pagenumbering{arabic}
+\addtocontents{toc}{\protect\vspace{1.0cm}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Einleitung / Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Some guidelines and examples are given in the following.
+
+\section{Citations}
+
+Citations should be made using BibTeX in the file \verb|thesis.bib|. 
+Using BibTeX, different styles are available for different types of publications. Examples are books \cite{Adams90}, journal articles \cite{Zhang99}, conference proceeding \cite{Yee99} and 
+electronic resources \cite{Fear05}. Multiple references can be made by \cite{Adams90,Zhang99,Yee99,Fear05}.
+
+
+\section{Figures}
+
+A simple example of a figure can be found in \fig{fig:simple_figure}. A more complex figure including subfigures is show in \fig{fig:figure_with_subfigures}. Here each subfigure can be addressed separately (e.g., \fig{fig:subfigure1} and \fig{fig:subfigure2}). Please use vector graphics (pdf, eps obtained from svg, etc.) whenever possible. Pixel formats like jpeg, bmp, etc. should only be used for real photographs.
+
+\begin{figure}[!h]
+	\centering
+  \fbox{\parbox{5cm}{\centering ~\vspace{1.5cm}\\Dummy\\~\vspace{1.5cm}}} %replace this line by: \includegraphics{path to image}
+  \caption{Simple figure}
+  \label{fig:simple_figure}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[b]{7cm}
+	  \centering
+    \fbox{\parbox{5cm}{\centering ~\vspace{1.5cm}\\Dummy\\~\vspace{1.5cm}}} %replace this line by: \includegraphics{path to image}
+		\caption{Caption of subfigure a (can be empty)}
+		\label{fig:subfigure1}
+	\end{subfigure}
+	\begin{subfigure}[b]{7cm}
+    \centering
+    \fbox{\parbox{5cm}{\centering ~\vspace{1.5cm}\\Dummy\\~\vspace{1.5cm}}} %replace this line by: \includegraphics{path to image}
+		\caption{Caption of subfigure b (can be empty)}
+		\label{fig:subfigure2}
+	\end{subfigure}
+\caption{Figure using subfigures}
+\label{fig:figure_with_subfigures}
+\end{figure}
+
+
+\section{Tables}
+
+Examples of tables can be found in \tab{tab:simple_table} and \tab{tab:complex_table}. In general vertical lines are not necessary and should be avoided (see \cite{Fear05} for more about table styles).
+
+\begin{table}[!h]
+	\renewcommand{\arraystretch}{1.1}
+	\caption{A very simple table}
+	\label{tab:simple_table}
+	\centering
+	\begin{tabular}{cccc}
+	  \toprule
+	               & Apple & Orange & Banana \\
+		\midrule
+	  Colour       & green & orange & yellow\\
+	  \bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+	\renewcommand{\arraystretch}{1.1}
+	\caption{An example of a more complex table}
+	\label{tab:complex_table}
+	\centering
+	\begin{tabular}{ccC{1cm}C{1cm}C{1cm}C{1cm}C{1cm}C{1cm}C{1cm}C{1cm}C{1cm}C{1cm}C{1cm}}
+	  \toprule
+& & \multicolumn{4}{c}{RPAG algorithm} & \multicolumn{5}{c}{RPAGT (proposed)}\\
+\cmidrule(rl){3-6} \cmidrule(rl){7-11}
+$N$ & $N_\text{uq}$ & S & add ops & pure reg. & reg. ops & S & add ops & pure reg. & reg. ops & impr.\\
+\cmidrule(rl){1-11}
+6   & 3  & 3 & 8  & 1 & 9  & 2 & 5  & 0 & 5  & 44.4\% \\
+10  & 5  & 3 & 10 & 3 & 13 & 2 & 6  & 2 & 8  & 38.5\% \\
+13  & 7  & 3 & 14 & 2 & 16 & 2 & 8  & 2 & 10 & 37.5\% \\
+20  & 10 & 3 & 15 & 4 & 18 & 2 & 9  & 3 & 12 & 33.3\% \\
+28  & 14 & 3 & 20 & 3 & 23 & 2 & 15 & 2 & 17 & 26.1\% \\
+41  & 21 & 3 & 31 & 1 & 32 & 2 & 23 & 2 & 25 & 21.9\% \\
+61  & 31 & 3 & 39 & 3 & 42 & 2 & 32 & 2 & 34 & 19.0\% \\
+119 & 54 & 3 & 62 & 7 & 69 & 2 & 56 & 1 & 57 & 17.4\% \\
+151 & 71 & 3 & 79 & 4 & 83 & 2 & 72 & 2 & 74 & 10.8\% \\
+\cmidrule(rl){1-11}
+avg.: & 24 & & 30.89 & 3.56 & 33.89 & & 25.11 & 1.78 & 26.89 & 27.7\% \\
+	  \bottomrule
+	\end{tabular}
+\end{table}
+
+\section{Listings}
+
+Listings can be included in the text using the \verb|lstlisting| environment. An example listing is shown in \lst{lst:pseudocode}. The listing format is set for pseudocodes (based on the C language). For other languages adjust the settings in \verb|header.tex|.
+
+\begin{lstlisting}[float,caption=RPAGT Algorithm,label=lst:pseudocode]
+RPAGT($T$)
+  $\displaystyle S := \max_{t\in T} \, \text{AD}_{\text{min}}^3(t)$
+  $X_S := \{\text{odd}(t) \ | \ t \in T\} \setminus \{0\}$
+  for $s=S\ldots 2$
+    $W := X_s$
+    $P := \emptyset$
+    do
+      $p \leftarrow \text{best\_single\_predecessor}(P,W,s)$
+      if $p \neq 0$
+        $P \leftarrow P \cup \{p\}$
+      else
+        $P' \leftarrow \text{best\_msd\_predecessor\_set}(W,s)$
+        $P \leftarrow P \cup P'$
+      $W \leftarrow W \setminus \mathcal{A}^3_{*}(P)$
+    while $|W|\neq \emptyset$
+    $X_{s-1} \leftarrow P$
+\end{lstlisting}
+
+\section{ToDo's}
+
+During the writing of the thesis, ToDo's in the text can be highlighted using \verb|\todo|. Notes at the border of the text can be done using \verb|\todom|.
+\todo{This has to be more extended}
+\todom{ToDo remark at the border}
+
+
+\begin{appendix}
+	\chapter{Anhang / Appendix}
+\end{appendix}
+
+\bibliographystyle{alphadin} %use this for german DIN style
+%\bibliographystyle{unsrt} %use this for english texts
+
+\bibliography{thesis}
+
+\end{document}
