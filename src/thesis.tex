@@ -1,4 +1,3 @@
-% page format, etc.
 \documentclass[pdftex, a4paper, oneside, parskip, numbers=noenddot, listof=totoc, bibliography=totocnumbered, hyperfootnotes=false]{scrreprt}
 
 \newcommand{\thesistitle}{Natürlichsprachliche Mustererkennung für natürlichsprachliche Objektszenarien}
@@ -21,22 +20,18 @@ der Universität Kassel}
 
 \begin{document}
 
-% use small roman page numbering
 \pagenumbering{roman}
 
 \input{titlepage_german}
 \input{abstract}
 \input{declaration_german}
-%\input{declaration_english}
 
-% TOC, list of figures, list of listings, etc. (use what is appropriate)
 \addtocontents{toc}{\protect\vspace{0.2cm}}
 \tableofcontents
 \listoffigures
 \listoftables
 \lstlistoflistings
 
-% arabic page numbering
 \pagebreak
 \pagenumbering{arabic}
 \addtocontents{toc}{\protect\vspace{1.0cm}}
@@ -47,8 +42,7 @@ der Universität Kassel}
 	\input{appendix}
 \end{appendix}
 
-\bibliographystyle{alphadin} %use this for german DIN style
-%\bibliographystyle{unsrt} %use this for english texts
+\bibliographystyle{alphadin}
 
 \bibliography{thesis}
 
