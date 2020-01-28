@@ -8,7 +8,10 @@ _minted-main/
 *.bbl
 *.blg
 *.docx
+*.lof
 *.log
+*.lol
+*.lot
 *.out
 *.pdf
 *.synctex.gz
