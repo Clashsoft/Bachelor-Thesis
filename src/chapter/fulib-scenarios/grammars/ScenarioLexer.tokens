@@ -1,0 +1,15 @@
+A=1
+AND=2
+IS=3
+THERE=4
+WITH=5
+HEADLINE=6
+FULL_STOP=7
+INTEGER=8
+WORD=9
+WS=10
+'a'=1
+'and'=2
+'is'=3
+'with'=5
+'.'=7

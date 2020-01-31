@@ -74,6 +74,41 @@ so erhält man die in Listing~\ref{lst:CompilationExampleTokens.txt} gezeigte Li
 
 \codelisting{text}{chapter/fulib-scenarios/grammars}{CompilationExampleTokens.txt}{Aus Listing~\ref{lst:CompilationExample.md} abgeleitete Token-Liste}
 
+Als nächstes sollen diese Tokens in einen CST umgewandelt werden.
+Dies ist die Aufgabe des Parsers.
+Listing~\ref{lst:ScenarioParser.g4} zeigt einen Ausschnitt der Grammatik,
+die diesen für das Beispiel-Scenario ausreichend definiert.
+
+\codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioParser.g4}{Ausschnitt der Scenario-Parser-Grammatik}
+
+Die Struktur der Parser-Grammatik ist ähnlich zur Lexer-Grammatik.
+Wieder gibt es benannte Regeln, jedoch bestehen deren rechte Seite nicht aus regulären Ausdrücken, sondern aus
+weiteren Parser-Regeln, genannt \emph{Nicht-Terminale}, gemischt mit Lexer-Regeln, den \emph{Terminalen}.
+Die \code{thereSentence}-Regel aus Listing~\ref{lst:ScenarioParser.g4} beginnt beispielsweise mit den Terminalen \code{THERE}, \code{IS}, \code{A} und \code{WORD}, gefolgt von dem Nicht-Terminal \code{withClause}.
+Beim Ableiten eines konkreten Syntaxbaumes werden alle Terminale zu den Blättern;
+die Nicht-Terminale werden zu Elternknoten.
+
+In Listing~\ref{lst:ScenarioParser.g4} dient \code{file} als Startregel.
+Nun wird diese Regel \emph{abgeleitet}, d.h.\ die Tokens, die derzeit am Anfang unserer Liste stehen, werden entweder einem Terminal zugeordnet oder ein Nicht-Terminal wird rekursiv abgeleitet.
+Da \code{file} mit dem Nicht-Terminal \code{heading} beginnt, wird zunächst dieses abgeleitet.
+Dabei wird dem Terminal \code{HEADLINE} das Token \code{HEADLINE(# My First Scenario)} zugeordnet.
+Als nächstes werden \code{sentence} und \code{thereSentence} abgeleitet, wobei den Terminalen \code{THERE}, \code{IS} und \code{A} und \code{WORD} das entsprechende Token zugeordnet wird.
+Bei der Ableitung von \code{withClause} muss entschieden werden, welche Alternative der Regel zutrifft.
+Im Fall von dem Teilsatz \code{with name Alice} wird die erste Alternative ausgewählt, da \code{name} ein \code{WORD}-Token ist und nicht dem \code{INTEGER}-Terminal zugeordnet werden kann.
+Der Ausdruck \code{withClause (AND withClause)*} in der \code{thereSentence}-Regel bedeutet, dass auf eine \code{with}-Klausel beliebig viele weitere \code{with}-Klauseln folgen können, solange dazwischen ein \code{AND}-Token steht.
+Da dies im Beispiel der Fall ist, wird \code{AND(and)} dem \code{AND}-Terminal zugeordnet und \code{withClause} erneut abgeleitet.
+Diesmal wird dabei die zweite Alternative gewählt, da \code{INTEGER(30)} dem \code{INTEGER}-Terminal zugeordnet werden kann.
+Zuletzt wird der Punkt am Ende des Satzes dem \code{FULL_STOP}-Terminal zugeordnet.
+
+Nun sind alle Token, die der Lexer aus der Eingabe produziert hat, verbraucht, und der Parse-Vorgang ist abgeschlossen.
+Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{chapter/fulib-scenarios/img/parsetree.pdf}
+	\caption{Syntaxbaum von Listing~\ref{lst:CompilationExample.md}}
+	\label{fig:parsetree}
+\end{figure}
+
 \todo{
 Warum ANTLR4 sehr gut für die Sprachstruktur geeignet ist~\cite{adaptive-ll-star,antlr4-reference}.
 }
