@@ -1,5 +1,18 @@
 \section{Compiler}\label{sec:compiler}
 
+Damit eine Programmiersprache verwendbar ist, muss sie nicht nur eine Spezifikation haben, sondern auch ausführbar sein.
+Dies kann durch direktes Ausführen des Programmtexts geschehen;
+in diesem Fall wird das ausführende Programm Interpreter genannt.
+FulibScenarios verwendet jedoch den zweiten Ansatz der Kompilierung.
+Dabei werden die vorliegenden Quelltexte zunächst in eine andere Text- oder Binärsprache übersetzt.
+Ziel der Kompilierung von FulibScenarios sind Java-Quelltextdateien.
+Die Übersetzung von Markdown-Scenario-Quelltexte in Java-Quelltexte wird durch den Scenario-Compiler durchgeführt.
+Dessen Architektur und Implementierung sind Inhalt dieses Abschnitts.
+Dabei wird des öfteren auf das Beispiel in Listing~\ref{lst:CompilationExample.md} Bezug genommen, dessen Übersetzung in den einzelnen Teilabschnitten stückweise erarbeitet wird:
+
+% TODO markdown
+\codelisting{text}{chapter/fulib-scenarios/scenarios}{CompilationExample.md}{Beispiel-Szenario für diesen Abschnitt}
+
 \subsection{Architektur}\label{subsec:compiler-architecture}
 
 \todo{
