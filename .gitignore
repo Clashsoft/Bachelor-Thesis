@@ -4,6 +4,8 @@
 
 _minted-main/
 
+!img/*.pdf
+
 *.aux
 *.bbl
 *.blg
