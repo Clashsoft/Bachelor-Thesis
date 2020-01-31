@@ -76,29 +76,6 @@ Examples of tables can be found in \tab{tab:simple_table} and \tab{tab:complex_t
 	\end{tabular}
 \end{table}
 
-\section{Listings}
-
-Listings can be included in the text using the \verb|lstlisting| environment. An example listing is shown in \lst{lst:pseudocode}. The listing format is set for pseudocodes (based on the C language). For other languages adjust the settings in \verb|header.tex|.
-
-\begin{lstlisting}[float,caption=RPAGT Algorithm,label=lst:pseudocode]
-	RPAGT($T$)
-	$\displaystyle S := \max_{t\in T} \, \text{AD}_{\text{min}}^3(t)$
-	$X_S := \{\text{odd}(t) \ | \ t \in T\} \setminus \{0\}$
-	for $s=S\ldots 2$
-	$W := X_s$
-	$P := \emptyset$
-	do
-	$p \leftarrow \text{best\_single\_predecessor}(P,W,s)$
-	if $p \neq 0$
-	$P \leftarrow P \cup \{p\}$
-	else
-	$P' \leftarrow \text{best\_msd\_predecessor\_set}(W,s)$
-	$P \leftarrow P \cup P'$
-	$W \leftarrow W \setminus \mathcal{A}^3_{*}(P)$
-	while $|W|\neq \emptyset$
-	$X_{s-1} \leftarrow P$
-\end{lstlisting}
-
 \section{ToDo's}
 
 During the writing of the thesis, ToDo's in the text can be highlighted using \verb|\todo|. Notes at the border of the text can be done using \verb|\todom|.

@@ -40,33 +40,22 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks, citecolor=black, linkcolor=black, urlcolor=black}
 
-% Listings
-\usepackage{listings}
+% Minted
+\usepackage{minted}
+\usemintedstyle{vs}
+\setminted{frame=single,tabsize=2,linenos}
 
-% Modify the following to the language you want to display
-\lstloadlanguages{C}
-\lstset{numbers=left,stepnumber=1,numberstyle=\small,numbersep=5pt,mathescape=true,basicstyle=\small\ttfamily,xleftmargin=10pt,frame=bottom,framexrightmargin=-10pt}
-%\lstloadlanguages{XML,Java}
-%\lstset{
-%	language=Java,
-%	alsolanguage=XML,
-%	numbers=none,
-%	breaklines=true,
-%	frame=tlrb,
-%	basicstyle=\scriptsize\tt,
-%	keywordstyle=\color{black}\bfseries,
-%	identifierstyle=\color{black},
-%	commentstyle=\color{black},
-%	showstringspaces=false,
-%	extendedchars=true,
-%	stringstyle=\color{blue},
-%	tabsize=4,
-%	captionpos=b,
-%	xleftmargin=1cm,
-%	stepnumber=5,
-%	aboveskip=0.7cm,
-%	belowskip=0.7cm
-%	}
+\newmintinline[code]{java}{}
+\newmintinline[plain]{text}{breaklines}
+
+\newcommand{\outquote}[1]{``{#1}''}
+
+\newcommand{\codelisting}[4]{\begin{listing}[htp]
+	\inputminted{#1}{#2/#3}
+	\vspace{-3ex}
+	\caption{#4}
+	\label{lst:#3}
+\end{listing}}
 
 % list of abbreviations
 % TODO problematic (missing package suffix)

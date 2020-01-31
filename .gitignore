@@ -2,7 +2,7 @@
 /out/
 /auxil/
 
-_minted-main/
+_minted-*/
 
 !img/*.pdf
 
