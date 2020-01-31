@@ -19,10 +19,14 @@ Dragon Book~\cite{dragonbook}.
 Warum ANTLR4 sehr gut für die Sprachstruktur geeignet ist~\cite{adaptive-ll-star,antlr4-reference}.
 }
 
-\subsection{Datenmodell - GenTreeSrc}\label{subsec:data-model-gentreesrc}
+\subsection{AST, Analyse und Transformation}\label{subsec:data-model-gentreesrc}
 
 \todo{
-Eigenes Projekt, kurze Erklärung.
+AST mit GenTreeSrc;
+eigenes Projekt, kurze Erklärung.
+Prä-Transformation: Gruppieren von Sätzen zu Methoden
+Analyse: Variablen, Konflikte bei Attributen und Assoziationen, Programmstruktur.
+Transformation: Bauen von Klassenmodell, Vereinfachung des AST in Vorbereitung auf CodeGen.
 }
 
 \subsection{Codegenerierung - Fulib}\label{subsec:codegen-fulib}
