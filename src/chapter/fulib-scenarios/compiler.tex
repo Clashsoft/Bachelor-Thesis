@@ -28,6 +28,52 @@ Dragon Book~\cite{dragonbook}.
 
 \subsection{Frontend - ANTLR v4}\label{subsec:frontend-antlr4}
 
+Die Übersetzung der Markdown-Datei beginnt mit deren Einlesen und Umwandeln in verarbeitbare Daten.
+Im Compilerbau wird die klassisch in zwei Phasen unterteilt:
+Dem Lexer, der die Zeichenfolge in eine Liste von Wörtern mit Typinformationen, genannt Tokens, umwandelt;
+und dem Parser, der die flache Liste von Tokens nach den Regeln der Grammatik in eine Baumstruktur bringt,
+die Concrete Syntax Tree (CST) genannt wird.
+
+Da die Umwandlung in Tokens und deren Strukturierung Anwendung in den meisten Compilern findet
+und deren Implementierung immer nach einem festen Muster stattfindet,
+existieren Tools die diesen Prozess vereinfachen.
+Diese werden Compiler-Compiler, Lexer- und Parsergeneratoren genannt.
+
+Das Frontend des Scenario-Compilers basiert auf dem ANTLR4-Parsergenerator~\cite{antlr4-reference}.
+Mit diesem können Grammatiken in einem EBNF-ähnlichen Format spezifiziert werden.
+Aus der Grammatik generiert das Tool dann Java-Code, der Dateien einlesen kann und einen CST generiert.
+
+Zunächst soll betrachtet werden, wie die FulibScenarios-Grammatik definiert ist.
+Dies beginnt mit der Definition des Lexers.
+In Listing~\ref{lst:ScenarioLexer.g4} ist ein Ausschnitt der ANTLR4-Grammatik zu sehen, die diesen definiert.
+Der Ausschnitt ist gerade ausreichend um das Scenario aus Listing~\ref{lst:CompilationExample.md} zu akzeptieren.
+
+\codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioLexer.g4}{Ausschnitt der Scenario-Lexer-Grammatik}
+
+Die Grammatik besteht aus mehreren Regeln, die einem Muster einen Namen zuordnen.
+Dieser Name wird später den Tokens zugeordnet.
+So haben Tokens mit dem Text \code{and} später den Namen \code{AND};
+und jene, die eine Zahl darstellen, den namen \code{INTEGER}.
+Im Folgenden werden Tokens mit der Kurzschreibweise \code{<name>(<text>)} bezeichnet;
+beispielsweise \code{AND(and)} und \code{INTEGER(12)}.
+
+Die rechte Seite jeder Regel ähnelt einem regulären Ausdruck.
+Bei Schlüsselwörtern wie \code{a}, \code{is} und \code{with} muss der Text exakt entsprechen;
+\code{There} darf auch kleingeschrieben werden.
+Ein \code{HEADLINE}-Token entsteht, wenn auf ein \code{#}-Zeichen beliebig viele Zeichen und ein Zeilenumbruch folgen\footnote{
+Dabei bedeutet \code{~[\n]*?} \outquote{beliebig viele Zeichen ausgenommen Zeilenumbruch}.}.
+Ganze Zahlen können mit einem Minus-Zeichen beginnen und bestehen aus mindestens einer Ziffer.
+Wörter beginnen mit einem Buchstaben, gefolgt von beliebig vielen Buchstaben, Ziffern, Apostrophen, Unterstrichen und Bindestrichen.
+Die Regel \code{WS} sorgt durch die Angabe \code{-> skip} dafür, dass keine Whitespace-Zeichen zu Token werden.
+Falls mehrere Regeln infrage kommen würden, wird zunächst die längstmögliche Übereinstimmung angewandt;
+falls das nicht eindeutig bestimmbar ist, gewinnt die als erstes definierte Regel.
+So wird aus dem Text \code{ampersand} nicht die Token-Folge \code{A(a), WORD(mpers), AND(and)}, sondern \code{WORD(ampersand)}.
+
+Wendet man die Regeln aus Listing~\ref{lst:ScenarioLexer.g4} auf das Scenario aus Listing~\ref{lst:CompilationExample.md} an,
+so erhält man die in Listing~\ref{lst:CompilationExampleTokens.txt} gezeigte Liste von Tokens.
+
+\codelisting{text}{chapter/fulib-scenarios/grammars}{CompilationExampleTokens.txt}{Aus Listing~\ref{lst:CompilationExample.md} abgeleitete Token-Liste}
+
 \todo{
 Warum ANTLR4 sehr gut für die Sprachstruktur geeignet ist~\cite{adaptive-ll-star,antlr4-reference}.
 }
