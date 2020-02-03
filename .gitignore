@@ -16,5 +16,6 @@ _minted-*/
 *.lot
 *.out
 *.pdf
+*.pyg
 *.synctex.gz
 *.toc
