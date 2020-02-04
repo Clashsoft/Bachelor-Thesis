@@ -3,12 +3,19 @@
 Damit eine Programmiersprache verwendbar ist, muss sie nicht nur eine Spezifikation haben, sondern auch ausführbar sein.
 Dies kann durch direktes Ausführen des Programmtexts geschehen;
 in diesem Fall wird das ausführende Programm Interpreter genannt.
-FulibScenarios verwendet jedoch den zweiten Ansatz der Kompilierung.
-Dabei werden die vorliegenden Quelltexte zunächst in eine andere Text- oder Binärsprache übersetzt.
-Ziel der Kompilierung von FulibScenarios sind Java-Quelltextdateien.
-Die Übersetzung von Markdown-Scenario-Quelltexte in Java-Quelltexte wird durch den Scenario-Compiler durchgeführt.
-Dessen Architektur und Implementierung sind Inhalt dieses Abschnitts.
-Dabei wird des öfteren auf das Beispiel in Listing~\ref{lst:CompilationExample.md} Bezug genommen, dessen Übersetzung in den einzelnen Teilabschnitten stückweise erarbeitet wird:
+Andererseits kann eine Programmiersprache auch in ein maschinenlesbares Format übersetzt werden,
+das dann direkt oder durch eine virtuelle Maschine ausgeführt wird.
+Dieser Ansatz nennt sich Kompilierung.
+In Java wird die Kompilierung durch den Java Compiler (\code{javac}) durchgeführt, welcher Bytecode erzeugt;
+dieser kann von einer Java Virtual Machine (JVM) ausgeführt werden.
+
+FulibScenarios wird hingegen in zwei Schritten kompiliert.
+Zunächst werden die Markdown-Scenario-Quelltexte in Java-Quelltexte übersetzt;
+dies ist Aufgabe des Scenario-Compilers.
+Der erzeugte Java-Quellcode wird dann vom Java-Compiler kompiliert.
+Die Architektur und Implementierung des Scenario-Compilers sind Inhalt dieses Abschnitts.
+Dabei wird des öfteren auf das Beispiel in Listing~\ref{lst:CompilationExample.md} Bezug genommen,
+dessen Übersetzung bis zum Java-Quellcode in den einzelnen Teilabschnitten stückweise erarbeitet wird.
 
 % TODO markdown
 \codelisting{text}{chapter/fulib-scenarios/scenarios}{CompilationExample.md}{Beispiel-Szenario für diesen Abschnitt}
@@ -30,43 +37,44 @@ Dragon Book~\cite{dragonbook}.
 
 Die Übersetzung der Markdown-Datei beginnt mit deren Einlesen und Umwandeln in verarbeitbare Daten.
 Im Compilerbau wird die klassisch in zwei Phasen unterteilt:
-Dem Lexer, der die Zeichenfolge in eine Liste von Wörtern mit Typinformationen, genannt Tokens, umwandelt;
-und dem Parser, der die flache Liste von Tokens nach den Regeln der Grammatik in eine Baumstruktur bringt,
-die Concrete Syntax Tree (CST) genannt wird.
+Dem \emph{Lexer}, der die Zeichenfolge in eine Liste von Wörtern mit Typinformationen, genannt \emph{Tokens}, umwandelt;
+und dem \emph{Parser}, der die flache Liste von Tokens nach den Regeln der Grammatik in eine Baumstruktur bringt,
+die \emph{Concrete Syntax Tree (CST)} genannt wird.
 
 Da die Umwandlung in Tokens und deren Strukturierung Anwendung in den meisten Compilern findet
-und deren Implementierung immer nach einem festen Muster stattfindet,
-existieren Tools die diesen Prozess vereinfachen.
-Diese werden Compiler-Compiler, Lexer- und Parsergeneratoren genannt.
+und deren Implementierung meist nach einem festen Muster stattfindet,
+existieren Tools, die diesen Prozess vereinfachen.
+Diese werden \emph{Compiler-Compiler} oder \emph{Lexer- und Parsergeneratoren} genannt.
 
-Das Frontend des Scenario-Compilers basiert auf dem ANTLR4-Parsergenerator~\cite{antlr4-reference}.
+Das Frontend des Scenario-Compilers basiert auf dem Parsergenerator ANTLR4~\cite{antlr4-reference}.
 Mit diesem können Grammatiken in einem EBNF-ähnlichen Format spezifiziert werden.
 Aus der Grammatik generiert das Tool dann Java-Code, der Dateien einlesen kann und einen CST generiert.
 
 Zunächst soll betrachtet werden, wie die FulibScenarios-Grammatik definiert ist.
 Dies beginnt mit der Definition des Lexers.
 In Listing~\ref{lst:ScenarioLexer.g4} ist ein Ausschnitt der ANTLR4-Grammatik zu sehen, die diesen definiert.
-Der Ausschnitt ist gerade ausreichend um das Scenario aus Listing~\ref{lst:CompilationExample.md} zu akzeptieren.
+Der Ausschnitt ist ausreichend um das Scenario aus Listing~\ref{lst:CompilationExample.md} verarbeiten zu können;
+die eigentliche Grammatik von FulibScenarios besteht aus vielen weiteren Regeln, um alle Funktionen der Sprache zu implementieren.
 
 \codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioLexer.g4}{Ausschnitt der Scenario-Lexer-Grammatik}
 
 Die Grammatik besteht aus mehreren Regeln, die einem Muster einen Namen zuordnen.
 Dieser Name wird später den Tokens zugeordnet.
 So haben Tokens mit dem Text \code{and} später den Namen \code{AND};
-und jene, die eine Zahl darstellen, den namen \code{INTEGER}.
-Im Folgenden werden Tokens mit der Kurzschreibweise \code{<name>(<text>)} bezeichnet;
-beispielsweise \code{AND(and)} und \code{INTEGER(12)}.
+und jene, die eine Zahl darstellen, den Namen \code{INTEGER}.
+Im Folgenden werden Tokens mit der Kurzschreibweise \code{<name>(<text>)} bezeichnet,
+z.B.\ \code{AND(and)} und \code{INTEGER(12)}.
 
 Die rechte Seite jeder Regel ähnelt einem regulären Ausdruck.
 Bei Schlüsselwörtern wie \code{a}, \code{is} und \code{with} muss der Text exakt entsprechen;
-\code{There} darf auch kleingeschrieben werden.
+\code{There} darf beispielsweise auch kleingeschrieben werden.
 Ein \code{HEADLINE}-Token entsteht, wenn auf ein \code{#}-Zeichen beliebig viele Zeichen und ein Zeilenumbruch folgen\footnote{
 Dabei bedeutet \code{~[\n]*?} \outquote{beliebig viele Zeichen ausgenommen Zeilenumbruch}.}.
 Ganze Zahlen können mit einem Minus-Zeichen beginnen und bestehen aus mindestens einer Ziffer.
 Wörter beginnen mit einem Buchstaben, gefolgt von beliebig vielen Buchstaben, Ziffern, Apostrophen, Unterstrichen und Bindestrichen.
 Die Regel \code{WS} sorgt durch die Angabe \code{-> skip} dafür, dass keine Whitespace-Zeichen zu Token werden.
 Falls mehrere Regeln infrage kommen würden, wird zunächst die längstmögliche Übereinstimmung angewandt;
-falls das nicht eindeutig bestimmbar ist, gewinnt die als erstes definierte Regel.
+falls das nicht eindeutig bestimmbar ist, gewinnt die als erste definierte Regel.
 So wird aus dem Text \code{ampersand} nicht die Token-Folge \code{A(a), WORD(mpers), AND(and)}, sondern \code{WORD(ampersand)}.
 
 Wendet man die Regeln aus Listing~\ref{lst:ScenarioLexer.g4} auf das Scenario aus Listing~\ref{lst:CompilationExample.md} an,
@@ -76,7 +84,7 @@ so erhält man die in Listing~\ref{lst:CompilationExampleTokens.txt} gezeigte Li
 
 Als nächstes sollen diese Tokens in einen CST umgewandelt werden.
 Dies ist die Aufgabe des Parsers.
-Listing~\ref{lst:ScenarioParser.g4} zeigt einen Ausschnitt der Grammatik,
+Listing~\ref{lst:ScenarioParser.g4} zeigt wieder einen Ausschnitt der Grammatik,
 die diesen für das Beispiel-Scenario ausreichend definiert.
 
 \codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioParser.g4}{Ausschnitt der Scenario-Parser-Grammatik}
@@ -110,7 +118,8 @@ Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
 \end{figure}
 
 \todo{
-Warum ANTLR4 sehr gut für die Sprachstruktur geeignet ist~\cite{adaptive-ll-star,antlr4-reference}.
+Warum gerade ANTLR4 so gut für die Sprachstruktur geeignet ist (Erweiterbarkeit im Vergleich zu handgeschriebenem Parser,
+adaptives Parsing)~\cite{adaptive-ll-star,antlr4-reference}.
 }
 
 \subsection{AST, Analyse und Transformation}\label{subsec:data-model-gentreesrc}
