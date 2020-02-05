@@ -36,7 +36,7 @@ Dragon Book~\cite{dragonbook}.
 \subsection{Frontend - ANTLR v4}\label{subsec:frontend-antlr4}
 
 Die Übersetzung der Markdown-Datei beginnt mit deren Einlesen und Umwandeln in verarbeitbare Daten.
-Im Compilerbau wird die klassisch in zwei Phasen unterteilt:
+Im Compilerbau wird dies klassisch in zwei Phasen unterteilt:
 Dem \emph{Lexer}, der die Zeichenfolge in eine Liste von Wörtern mit Typinformationen, genannt \emph{Tokens}, umwandelt;
 und dem \emph{Parser}, der die flache Liste von Tokens nach den Regeln der Grammatik in eine Baumstruktur bringt,
 die \emph{Concrete Syntax Tree (CST)} genannt wird.
@@ -55,6 +55,7 @@ Dies beginnt mit der Definition des Lexers.
 In Listing~\ref{lst:ScenarioLexer.g4} ist ein Ausschnitt der ANTLR4-Grammatik zu sehen, die diesen definiert.
 Der Ausschnitt ist ausreichend um das Scenario aus Listing~\ref{lst:CompilationExample.md} verarbeiten zu können;
 die eigentliche Grammatik von FulibScenarios besteht aus vielen weiteren Regeln, um alle Funktionen der Sprache zu implementieren.
+Sie ist in Anhang~\ref{sec:scenario-lexer-grammar} zu finden.
 
 \codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioLexer.g4}{Ausschnitt der Scenario-Lexer-Grammatik}
 
@@ -86,6 +87,7 @@ Als nächstes sollen diese Tokens in einen CST umgewandelt werden.
 Dies ist die Aufgabe des Parsers.
 Listing~\ref{lst:ScenarioParser.g4} zeigt wieder einen Ausschnitt der Grammatik,
 die diesen für das Beispiel-Scenario ausreichend definiert.
+Die vollständige Parser-Grammatik ist Inhalt von Anhang~\ref{sec:scenario-parser-grammar}.
 
 \codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioParser.g4}{Ausschnitt der Scenario-Parser-Grammatik}
 
