@@ -92,8 +92,9 @@ Die vollständige Parser-Grammatik ist Inhalt von Anhang~\ref{sec:scenario-parse
 \codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioParser.g4}{Ausschnitt der Scenario-Parser-Grammatik}
 
 Die Struktur der Parser-Grammatik ist ähnlich zur Lexer-Grammatik.
-Wieder gibt es benannte Regeln, jedoch bestehen deren rechte Seite nicht aus regulären Ausdrücken, sondern aus
-weiteren Parser-Regeln, genannt \emph{Nicht-Terminale}, gemischt mit Lexer-Regeln, den \emph{Terminalen}.
+Wieder gibt es benannte Regeln, jedoch bestehen deren rechte Seite nicht aus regulären Ausdrücken,
+sondern aus \emph{Nicht-Terminal}-Symbolen, die weitere Parser-Regeln referenzieren\footnote{Diese sind in der ANTLR-Grammatik daran zu erkennen, dass sie mit einem Kleinbuchstaben beginnen.},
+sowie \emph{Terminal}-Symbolen, die analog Verweise auf Lexer-Regeln sind\footnote{In ANTLR beginnen diese immer mit einem Großbuchstaben.}.
 Die \code{thereSentence}-Regel aus Listing~\ref{lst:ScenarioParser.g4} beginnt beispielsweise mit den Terminalen \code{THERE}, \code{IS}, \code{A} und \code{WORD}, gefolgt von dem Nicht-Terminal \code{withClause}.
 Beim Ableiten eines konkreten Syntaxbaumes werden alle Terminale zu den Blättern;
 die Nicht-Terminale werden zu Elternknoten.
