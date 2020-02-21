@@ -1,0 +1,25 @@
+ScenarioFile(
+	name: "CompilationExample.md"
+	scenarios: {
+		// # My Scenario
+		"My Scenario": Scenario(
+			name: "My Scenario"
+			body: SentenceList(items: [
+				// There is ...
+				ThereSentence(descriptor: MultiDescriptor(
+					// a Student
+					type: UnresolvedType(name: "Student")
+					names: []
+					attributes: [
+						// with name Alice
+						NamedExpr(name: UnresolvedName(value: "name")
+						          expr: UnresolvedName(value: "Alice"))
+						// with 30 credits
+						NamedExpr(name: UnresolvedName(value: "credits")
+						          expr: IntLiteral(value: 30))
+					]
+				))
+			])
+		)
+	}
+)

@@ -125,6 +125,63 @@ Warum gerade ANTLR4 so gut für die Sprachstruktur geeignet ist (Erweiterbarkeit
 adaptives Parsing)~\cite{adaptive-ll-star,antlr4-reference}.
 }
 
+Der CST ist eng an die Struktur der Grammatik gebunden.
+Bei Änderungen an der Grammatik, beispielsweise das Einfügen von gemeinsamen Hilfsregeln beim Refactoring,
+ändert sich auch die Struktur des CST\@.
+Würde man also den CST für weitere Schritte des Compile-Vorgangs verwenden,
+müsste man die Implementierung dieser Schritte bei Änderung der Grammatik an die neue CST-Struktur anpassen,
+was zu einem Wartungsproblem führt.
+
+Deshalb hat das Frontend zusätzlich die Aufgabe, den CST in eine umgänglichere Form umzuwandeln.
+Diese nennt man \emph{Abstract Syntax Tree} (AST).
+Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
+
+Technisch gesehen besteht der AST aus einem weiteren Klassenmodell neben dem Klassenmodell des Parsers.
+Während letzteres von ANTLR aus der Grammatik hergeleitet und generiert wird,
+ist das Klassenmodell des AST manuell definiert und am logischen Aufbau eines Szenarios orientiert.
+So gibt es AST-Klassen für Pakete, Dateien, Scenarios in Dateien und jegliche Arten von Sätzen und Ausdrücken.
+Für bestimmte Konstrukte, die in mehreren Sätzen vorkommen, gibt es Hilfsklassen um Code-Duplizierung zu vermeiden.
+Dazu gehören z.B.\ mit Namen versehene Ausdrücke.
+
+Das Klassenmodell des AST wird ebenfalls automatisch generiert.
+Grund dafür ist, dass jede AST-Klasse lediglich aus Klassenvariablen, Gettern und Settern sowie einer Factory-Methode besteht.
+Diese können mit einer Liste von Attributen ausreichend definiert werden.
+
+Die Generierung des AST erfolgt durch das GenTreeSrc-Tool~\cite{gentreesrc}.
+Dieses erlaubt die Definition von Klassen und Attributen in einer \code{gts}-Datei,
+aus der dann Java-Klassen generiert werden.
+Listing~\ref{lst:FulibScenarios.gts} zeigt einen Ausschnitt der \code{gts}-Datei von FulibScenarios,
+in dem die für Beispiel~\ref{lst:CompilationExample.md} und im Folgenden benötigten Definitionen abgebildet sind.
+Die vollständige Definitionsdatei ist in Anhang~\ref{sec:gts-definitions} zu finden.
+
+\codelisting{java}{chapter/fulib-scenarios/grammars}{FulibScenarios.gts}{Ausschnitt der FulibScenarios.gts-Datei}
+
+Die Syntax dieser Datei ist wie folgt zu Lesen:
+Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, z.B. \code{org.fulib.scenarios.ast.Node}.
+Das Schlüsselwort \code{abstract} bedeutet hier, dass diese ein Interface ist und nicht instanziiert werden kann.
+In den geschweiften Klammern werden die Unterklassen definiert.
+Diese werden entweder im selben Package (\code{org.fulib.scenarios.ast.ScenarioFile}) oder in einem Unterpackage
+(\code{org.fulib.scenarios.ast.decl.Name}) abgelegt.
+Runde Klammern nach dem Klassennamen enthalten die Attribute, die die Syntax \code{name: Typ} verwenden.
+Die Typausdrücke \code{[T]} und \code{[T:U]} stehen für \code{List<T>} und \code{Map<T, U>}.
+Einfache Attribute haben einen Getter und Setter;
+Attribute mit \code{List}- oder \code{Map}-Typen oder dem Schlüsselwort \code{readonly} haben lediglich einen Getter.
+Aus jedem Attribut wird ein Parameter im Konstruktor bzw.\ der Factory-Methode der generierten Klasse.
+
+Mit den generierten Klassen kann nun ein AST erzeugt werden.
+Dafür gibt es im Frontend eine Klasse, die für die meisten CST-Knoten einen Übersetzungsschritt implementiert,
+der diese bei den Blättern beginnend in AST-Knoten umwandelt.
+
+Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten CST ist der AST,
+der in Listing~\ref{lst:CompilationExampleAST.txt} in seinem Ausgabeformat dargestellt ist\footnote{
+Im Scenario-Compiler steht auf der obersten Ebene ein \code{CompilationContext}-Knoten, der u.a.\ Kompilierungsoptionen enthält.
+Darunter befinden sich Knoten für Pakete;
+erst diese enthalten den \code{ScenarioFile}-Knoten.
+Aus Gründen der Einfachheit wurden diese beiden Ebenen hier und im Folgenden ausgelassen.
+}.
+
+\codelisting{java}{chapter/fulib-scenarios/grammars}{CompilationExampleAST.txt}{AST von Listing~\ref{lst:CompilationExample.md}}
+
 \subsection{AST, Analyse und Transformation}\label{subsec:data-model-gentreesrc}
 
 \todo{
