@@ -23,14 +23,14 @@ dessen Übersetzung bis zum Java-Quellcode in den einzelnen Teilabschnitten stü
 \subsection{Architektur}\label{subsec:compiler-architecture}
 
 \todo{
-Visitor Pattern~\cite{gof-design-patterns}.
-Dragon Book~\cite{dragonbook}.
+    Visitor Pattern~\cite{gof-design-patterns}.
+    Dragon Book~\cite{dragonbook}.
 }
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{chapter/fulib-scenarios/img/architecture.pdf}
-	\caption{Compiler-Architektur}
-	\label{fig:compiler-architecture}
+    \includegraphics[width=\textwidth]{chapter/fulib-scenarios/img/architecture.pdf}
+    \caption{Compiler-Architektur}
+    \label{fig:compiler-architecture}
 \end{figure}
 
 \subsection{Frontend - ANTLR v4}\label{subsec:frontend-antlr4}
@@ -70,7 +70,8 @@ Die rechte Seite jeder Regel ähnelt einem regulären Ausdruck.
 Bei Schlüsselwörtern wie \code{a}, \code{is} und \code{with} muss der Text exakt entsprechen;
 \code{There} darf beispielsweise auch kleingeschrieben werden.
 Ein \code{HEADLINE}-Token entsteht, wenn auf ein \code{#}-Zeichen beliebig viele Zeichen und ein Zeilenumbruch folgen\footnote{
-Dabei bedeutet \code{~[\n]*?} \outquote{beliebig viele Zeichen ausgenommen Zeilenumbruch}.}.
+    Dabei bedeutet \code{~[\n]*?} \outquote{beliebig viele Zeichen ausgenommen Zeilenumbruch}.
+}.
 Ganze Zahlen können mit einem Minus-Zeichen beginnen und bestehen aus mindestens einer Ziffer.
 Wörter beginnen mit einem Buchstaben, gefolgt von beliebig vielen Buchstaben, Ziffern, Apostrophen, Unterstrichen und Bindestrichen.
 Die Regel \code{WS} sorgt durch die Angabe \code{-> skip} dafür, dass keine Whitespace-Zeichen zu Token werden.
@@ -115,14 +116,14 @@ Nun sind alle Token, die der Lexer aus der Eingabe produziert hat, verbraucht, u
 Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{chapter/fulib-scenarios/img/parsetree.pdf}
-	\caption{Syntaxbaum von Listing~\ref{lst:CompilationExample.md}}
-	\label{fig:parsetree}
+    \includegraphics[width=\textwidth]{chapter/fulib-scenarios/img/parsetree.pdf}
+    \caption{Syntaxbaum von Listing~\ref{lst:CompilationExample.md}}
+    \label{fig:parsetree}
 \end{figure}
 
 \todo{
-Warum gerade ANTLR4 so gut für die Sprachstruktur geeignet ist (Erweiterbarkeit im Vergleich zu handgeschriebenem Parser,
-adaptives Parsing)~\cite{adaptive-ll-star,antlr4-reference}.
+    Warum gerade ANTLR4 so gut für die Sprachstruktur geeignet ist (Erweiterbarkeit im Vergleich zu handgeschriebenem Parser,
+    adaptives Parsing)~\cite{adaptive-ll-star,antlr4-reference}.
 }
 
 Der CST ist eng an die Struktur der Grammatik gebunden.
@@ -174,10 +175,10 @@ der diese bei den Blättern beginnend in AST-Knoten umwandelt.
 
 Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten CST ist der AST,
 der in Listing~\ref{lst:CompilationExampleAST.txt} in seinem Ausgabeformat dargestellt ist\footnote{
-Im Scenario-Compiler steht auf der obersten Ebene ein \code{CompilationContext}-Knoten, der u.a.\ Kompilierungsoptionen enthält.
-Darunter befinden sich Knoten für Pakete;
-erst diese enthalten den \code{ScenarioFile}-Knoten.
-Aus Gründen der Einfachheit wurden diese beiden Ebenen hier und im Folgenden ausgelassen.
+    Im Scenario-Compiler steht auf der obersten Ebene ein \code{CompilationContext}-Knoten, der u.a.\ Kompilierungsoptionen enthält.
+    Darunter befinden sich Knoten für Pakete;
+    erst diese enthalten den \code{ScenarioFile}-Knoten.
+    Aus Gründen der Einfachheit wurden diese beiden Ebenen hier und im Folgenden ausgelassen.
 }.
 
 \codelisting{java}{chapter/fulib-scenarios/grammars}{CompilationExampleAST.txt}{AST von Listing~\ref{lst:CompilationExample.md}}
@@ -185,16 +186,16 @@ Aus Gründen der Einfachheit wurden diese beiden Ebenen hier und im Folgenden au
 \subsection{AST, Analyse und Transformation}\label{subsec:data-model-gentreesrc}
 
 \todo{
-AST mit GenTreeSrc;
-eigenes Projekt, kurze Erklärung.
-Prä-Transformation: Gruppieren von Sätzen zu Methoden
-Analyse: Variablen, Konflikte bei Attributen und Assoziationen, Programmstruktur.
-Transformation: Bauen von Klassenmodell, Vereinfachung des AST in Vorbereitung auf CodeGen.
+    AST mit GenTreeSrc;
+    eigenes Projekt, kurze Erklärung.
+    Prä-Transformation: Gruppieren von Sätzen zu Methoden
+    Analyse: Variablen, Konflikte bei Attributen und Assoziationen, Programmstruktur.
+    Transformation: Bauen von Klassenmodell, Vereinfachung des AST in Vorbereitung auf CodeGen.
 }
 
 \subsection{Codegenerierung - Fulib}\label{subsec:codegen-fulib}
 
 \todo{
-Modellgenerierung mit Fulib.
-Testgenerierung selbst.
+    Modellgenerierung mit Fulib.
+    Testgenerierung selbst.
 }
