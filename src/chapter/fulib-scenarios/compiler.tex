@@ -82,7 +82,7 @@ So wird aus dem Text \code{ampersand} nicht die Token-Folge \code{A(a), WORD(mpe
 Wendet man die Regeln aus Listing~\ref{lst:ScenarioLexer.g4} auf das Scenario aus Listing~\ref{lst:CompilationExample.md} an,
 so erhält man die in Listing~\ref{lst:CompilationExampleTokens.txt} gezeigte Liste von Tokens.
 
-\codelisting{text}{chapter/fulib-scenarios/grammars}{CompilationExampleTokens.txt}{Aus Listing~\ref{lst:CompilationExample.md} abgeleitete Token-Liste}
+\codelisting{text}{chapter/fulib-scenarios/trees}{CompilationExampleTokens.txt}{Aus Listing~\ref{lst:CompilationExample.md} abgeleitete Token-Liste}
 
 Als nächstes sollen diese Tokens in einen CST umgewandelt werden.
 Dies ist die Aufgabe des Parsers.
@@ -155,7 +155,7 @@ Listing~\ref{lst:FulibScenarios.gts} zeigt einen Ausschnitt der \code{gts}-Datei
 in dem die für Beispiel~\ref{lst:CompilationExample.md} und im Folgenden benötigten Definitionen abgebildet sind.
 Die vollständige Definitionsdatei ist in Anhang~\ref{sec:gts-definitions} zu finden.
 
-\codelisting{java}{chapter/fulib-scenarios/grammars}{FulibScenarios.gts}{Ausschnitt der FulibScenarios.gts-Datei}
+\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios.gts}{Ausschnitt der FulibScenarios.gts-Datei}
 
 Die Syntax dieser Datei ist wie folgt zu Lesen:
 Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, z.B. \code{org.fulib.scenarios.ast.Node}.
@@ -181,7 +181,7 @@ der in Listing~\ref{lst:CompilationExampleAST.txt} in seinem Ausgabeformat darge
     Aus Gründen der Einfachheit wurden diese beiden Ebenen hier und im Folgenden ausgelassen.
 }.
 
-\codelisting{java}{chapter/fulib-scenarios/grammars}{CompilationExampleAST.txt}{AST von Listing~\ref{lst:CompilationExample.md}}
+\codelisting{java}{chapter/fulib-scenarios/trees}{CompilationExampleAST.txt}{AST von Listing~\ref{lst:CompilationExample.md}}
 
 \subsection{AST, Analyse und Transformation}\label{subsec:data-model-gentreesrc}
 
