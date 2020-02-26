@@ -1,0 +1,25 @@
+// ScenarioFile ...
+Scenario(
+	name: "My Scenario"
+	body: SentenceList(items: [
+		// Alice is a Student
+		IsSentence(descriptor: var1 = VarDecl(
+			name: "alice"
+			type: null
+			expr: CreationExpr(
+				type: UnresolvedType(name: "Student")
+				attributes: []
+			)
+		))
+		// Alice has name 'Alice'
+		HasSentence(
+			object: NameAccess(name: ResolvedName(decl: var1))
+			clauses: [
+				NamedExpr(
+					name: UnresolvedName(value: "name")
+					expr: NameAccess(name: UnresolvedName(value: "alice"))
+				)
+			]
+		)
+	])
+)

@@ -218,6 +218,19 @@ müssen folgende Schritte nicht mehr für diese erste Knotenart implementiert we
 da man sichergehen kann, dass sie nicht mehr vorkommt.
 Dadurch kann Code-Duplizierung vermieden und die Code-Generierung vereinfacht werden.
 
+Es soll nun der im vorherigen Abschnitt angelegte AST, der in Listing~\ref{lst:CompilationExampleAST.txt} gezeigt wurde, weiter verarbeitet werden.
+Da die Gruppierung in diesem Beispiel keine Veränderungen durchführt, können wir als nächstes die Namensauflösung betrachten.
+Dabei führt der Scenario-Compiler zunächst einen Umformungsschritt durch, der den \code{ThereSentence} durch einen \code{IsSentence} und einen \code{HasSentence} ersetzt.
+Diese Umformung erhält die Semantik, dass ein Object angelegt und einer Variable zugewiesen wird und daraufhin ein Attribute gesetzt wird.
+In Listing~\ref{lst:PreprocessedAST.txt} ist der AST nach dieser Umformung abgebildet.
+Zur Vereinfachung ist nur der \code{Scenario}-Knoten gezeigt;
+der \code{ScenarioFile}- sowie darüberliegende Knoten bleiben unverändert.
+Listing~\ref{lst:FulibScenarios2.gts} zeigt die neuen AST-Klassendefinitionen, die dafür notwendig sind.
+
+\codelisting{java}{chapter/fulib-scenarios/trees}{PreprocessedAST.txt}{AST nach Umformung von \code{ThereSentence} zu \code{IsSentence} + \code{HasSentence}}
+
+\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios2.gts}{Neue AST-Klassendefinitionen für Listing~\ref{lst:PreprocessedAST.txt}}
+
 \todo{
     AST mit GenTreeSrc;
     eigenes Projekt, kurze Erklärung.
