@@ -1,0 +1,31 @@
+ScenarioGroup(sourceDir: "src/main/java", packageDir: "org/example"
+	classes: [
+		"Student": student = ClassDecl(name: "Student", attributes: [
+			"name": studentName = AttributeDecl(name: "name", type: String)
+		])
+	]
+	files: [
+		"CompilationExample.md": ScenarioFile(
+			name: "CompilationExample.md",
+			scenario: Scenario(
+				name: "My Scenario"
+				body: SentenceList(items: [
+					IsSentence(descriptor: var1 = VarDecl(
+						name: "alice"
+						type: ClassType(student)
+						expr: CreationExpr(type: ClassType(student), attributes: [])
+					))
+					HasSentence(
+						object: NameAccess(name: ResolvedName(decl: var1))
+						clauses: [
+							NamedExpr(
+								name: ResolvedName(decl: studentName)
+								expr: StringLiteral("alice")
+							)
+						]
+					)
+				])
+			)
+		)
+	]
+)

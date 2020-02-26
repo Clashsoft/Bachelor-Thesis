@@ -231,6 +231,56 @@ Listing~\ref{lst:FulibScenarios2.gts} zeigt die neuen AST-Klassendefinitionen, d
 
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios2.gts}{Neue AST-Klassendefinitionen für Listing~\ref{lst:PreprocessedAST.txt}}
 
+Im nächsten Schritt werden die neu erzeugten \code{Sentence}-Knoten aufgelöst.
+Dafür muss im \code{IsSentence}-Knoten der \code{type} der \code{CreationExpr} aufgelöst werden.
+
+Der Compiler verwendet dafür einen Scope, der aus mehreren Ebenen besteht die ihrerseits Deklarationen bereitstellen können.
+Beim Auflösen eines Namens wird beginnend beim inneren Scope eine Deklaration mit diesem Namen gesucht;
+falls dies kein Ergebnis liefert wird im jeweils nächstäußeren Scope gesucht.
+Gelangt man im äußersten Scope an ohne eine Deklaration gefunden zu haben,
+kann diese automatisch erzeugt werden oder eine Fehlermeldung generiert werden.
+Dies findet wieder auf der zuständigen Scope-Ebene statt.
+
+Die Scope-Hierarchie ist in Fall der \code{CreationExpr} von außen nach innen wie folgt:
+Global, Gruppe, Scenario-Datei, Scenario, Satz-Liste.
+Dabei ist die Satz-Liste für das Auflösen und Anlegen von lokalen Variablen zuständig,
+die Scenario-Datei für Hilfsmethoden,
+die Gruppe für angelegte Klassen und der globale Scope für extern importierte Klassen zuständig.
+Wird nun versucht, die Klasse \code{Student} in diesem Scope aufzulösen,
+findet man zunächst keine entsprechende Deklaration.
+Deshalb wird eine neue Klasse im Datenmodell des Compilers angelegt,
+die \code{Student} heißt und zur gleichen Gruppe wie die Scenario-Datei gehört.
+Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese neue Klasse verweist.
+Nun ist der Typ der \code{CreationExpr} aufgelöst und kann als Typ der Variable \code{alice} inferiert werden.
+
+Als nächstes müssen die beiden \code{UnresolvedName}s im \code{HasSentence} einer Deklaration zugeordnet werden.
+Der \code{HasSentence} fügt der Scope-Hierarchie eine weitere Ebene hinzu, die den Namen \code{alice} \code{versteckt}.
+Deshalb wird die gleichnamige Variable \emph{nicht} dem \code{UnresolvedName} zugeordnet.
+Wäre dies der Fall, würde der \code{has}-Satz eine Assoziation von \code{Student} zu sich selbst erzeugen,
+was offensichtlich nicht gewollt ist.
+Da \code{alice} nicht aufgelöst werden kann, wird aus dem \code{NameAccess} hier ein \code{StringLiteral}.
+
+Die Auflösung von \code{UnresolvedName(value: "name")} wird besonders gehandhabt.
+Hier erfolgt nicht wie üblich eine Suche im aktuellen Scope,
+sondern im Typ des \code{object}s des \code{HasSentence}.
+Dies ist der Klassentyp \code{Student}, der beim Auflösen des \code{IsSentence} der Variable \code{var1} inferiert wurde.
+Nun wird in diesem nach einem Attribute oder einer Assoziation namens \code{name} gesucht.
+Wäre eines davon bereits vorhanden, würden der Compiler diverse Überprüfungen durchführen,
+ob diese mit dem Wertetyp \code{String} des zuvor erzeugten \code{StringLiteral} kompatibel sind.
+Da die Klasse \code{Student} jedoch noch keine Attribute oder Assoziationen hat,
+wird ein neues Attribute mit dem Namen \code{name} und dem Typ \code{String} angelegt
+und im Datenmodell der Klasse \code{Student} gespeichert.
+Daraufhin wird der \code{UnresolvedName} durch einen \code{ResolvedName} ausgetauscht,
+der auf das neue Attribute verweist.
+
+Die Analyse und Transformation des AST ist nun abgeschlossen.
+Listing~\ref{lst:FinalAST.txt} zeigt den vollständigen AST\@.
+Die darin verwendeten neuen AST-Definitionen sind in Listing~\ref{lst:FulibScenarios3.gts} zu finden.
+
+\codelisting{java}{chapter/fulib-scenarios/trees}{FinalAST.txt}{AST nach Analyse und Transformation}
+
+\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios3.gts}{Für Auflösung und vollständingen AST benötigte AST-Definitionen}
+
 \todo{
     AST mit GenTreeSrc;
     eigenes Projekt, kurze Erklärung.
