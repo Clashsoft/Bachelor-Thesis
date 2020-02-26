@@ -140,7 +140,7 @@ Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
 Technisch gesehen besteht der AST aus einem weiteren Klassenmodell neben dem Klassenmodell des Parsers.
 Während letzteres von ANTLR aus der Grammatik hergeleitet und generiert wird,
 ist das Klassenmodell des AST manuell definiert und am logischen Aufbau eines Szenarios orientiert.
-So gibt es AST-Klassen für Pakete, Dateien, Scenarios in Dateien und jegliche Arten von Sätzen und Ausdrücken.
+So gibt es AST-Klassen für Gruppen (Pakete), Dateien, Scenarios in Dateien und jegliche Arten von Sätzen und Ausdrücken.
 Für bestimmte Konstrukte, die in mehreren Sätzen vorkommen, gibt es Hilfsklassen um Code-Duplizierung zu vermeiden.
 Dazu gehören z.B.\ mit Namen versehene Ausdrücke.
 
@@ -150,9 +150,9 @@ Diese können mit einer Liste von Attributen ausreichend definiert werden.
 
 Die Generierung des AST erfolgt durch das GenTreeSrc-Tool~\cite{gentreesrc}.
 Dieses erlaubt die Definition von Klassen und Attributen in einer \code{gts}-Datei,
-aus der dann Java-Klassen generiert werden.
+aus der dann Java-Dateien generiert werden.
 Listing~\ref{lst:FulibScenarios.gts} zeigt einen Ausschnitt der \code{gts}-Datei von FulibScenarios,
-in dem die für Beispiel~\ref{lst:CompilationExample.md} und im Folgenden benötigten Definitionen abgebildet sind.
+in dem die für Beispiel~\ref{lst:CompilationExample.md} benötigten Definitionen abgebildet sind.
 Die vollständige Definitionsdatei ist in Anhang~\ref{sec:gts-definitions} zu finden.
 
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios.gts}{Ausschnitt der FulibScenarios.gts-Datei}
@@ -166,7 +166,7 @@ Diese werden entweder im selben Package (\code{org.fulib.scenarios.ast.ScenarioF
 Runde Klammern nach dem Klassennamen enthalten die Attribute, die die Syntax \code{name: Typ} verwenden.
 Die Typausdrücke \code{[T]} und \code{[T:U]} stehen für \code{List<T>} und \code{Map<T, U>}.
 Einfache Attribute haben einen Getter und Setter;
-Attribute mit \code{List}- oder \code{Map}-Typen oder dem Schlüsselwort \code{readonly} haben lediglich einen Getter.
+das Schlüsselwort \code{readonly} sorgt dafür, dass kein Setter erzeugt wird.
 Aus jedem Attribut wird ein Parameter im Konstruktor bzw.\ der Factory-Methode der generierten Klasse.
 
 Mit den generierten Klassen kann nun ein AST erzeugt werden.
@@ -176,9 +176,9 @@ der diese bei den Blättern beginnend in AST-Knoten umwandelt.
 Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten CST ist der AST,
 der in Listing~\ref{lst:CompilationExampleAST.txt} in seinem Ausgabeformat dargestellt ist\footnote{
     Im Scenario-Compiler steht auf der obersten Ebene ein \code{CompilationContext}-Knoten, der u.a.\ Kompilierungsoptionen enthält.
-    Darunter befinden sich Knoten für Pakete;
+    Darunter befinden sich Knoten für Gruppen;
     erst diese enthalten den \code{ScenarioFile}-Knoten.
-    Aus Gründen der Einfachheit wurden diese beiden Ebenen hier und im Folgenden ausgelassen.
+    Aus Gründen der Einfachheit wurden diese beiden Ebenen hier ausgelassen.
 }.
 
 \codelisting{java}{chapter/fulib-scenarios/trees}{CompilationExampleAST.txt}{AST von Listing~\ref{lst:CompilationExample.md}}
@@ -189,11 +189,11 @@ Sobald der AST im Frontend erzeugt wurde, beginnt die Analyse- und Transformatio
 Deren Aufgabe ist es, den AST auf semantische Gültigkeit zu überprüfen und ihn so vorzubereiten,
 dass in der folgenden Codegenerierungsphase alle Informationen bereitstehen.
 
-Bei der Analyse werden außerdem die Fehler- und Warnmeldungen erzeugt, die die Ausgabe des Compilers bilden.
+Bei der Analyse werden die Fehler- und Warnmeldungen erzeugt, die die Ausgabe des Compilers bilden.
 Dafür werden im AST durch das Frontend Positionsinformationen von Tokens hinterlegt, die es ermöglichen,
 in den Meldungen Dateinamen, Zeilen- und Spaltennummern einzubringen.
 Die entsprechenden Attribute in AST-Klassen wurden hier zur Einfachheit ausgelassen,
-sie sind jedoch in Anhang~\ref{sec:gts-definitions} zu sehen.
+sie sind jedoch in Anhang~\ref{sec:gts-definitions} enthalten.
 
 Die Analyse- und Transformationphase besteht im Scenario-Compiler aus zwei logisch getrennten Unterphasen,
 der Gruppierung und der Namensauflösung.
@@ -212,16 +212,16 @@ Grund dafür ist, dass diese Aufgaben eng verzahnt und meist in einem Schritt au
 Beim Auflösen von Assoziation beispielsweise kann diese angelegt werden, falls es sie noch nicht gibt,
 andernfalls kann die bestehene Assoziation auf Konflikte überprüft werden und ggf.\ eine Fehlermeldung erzeugt werden.
 
-Des Weiteren ist es meist vorteilhaft, dann AST vor der Auflösung zu vereinfachen.
+Des Weiteren ist es meist vorteilhaft, den AST vor der Auflösung zu vereinfachen.
 Bildet man beispielsweise eine Art von AST-Knoten immer auf eine andere ab,
-müssen folgende Schritte nicht mehr für diese erste Knotenart implementiert werden,
+müssen folgende Schritte nicht mehr für die erste Knotenart implementiert werden,
 da man sichergehen kann, dass sie nicht mehr vorkommt.
 Dadurch kann Code-Duplizierung vermieden und die Code-Generierung vereinfacht werden.
 
 Es soll nun der im vorherigen Abschnitt angelegte AST, der in Listing~\ref{lst:CompilationExampleAST.txt} gezeigt wurde, weiter verarbeitet werden.
 Da die Gruppierung in diesem Beispiel keine Veränderungen durchführt, können wir als nächstes die Namensauflösung betrachten.
 Dabei führt der Scenario-Compiler zunächst einen Umformungsschritt durch, der den \code{ThereSentence} durch einen \code{IsSentence} und einen \code{HasSentence} ersetzt.
-Diese Umformung erhält die Semantik, dass ein Object angelegt und einer Variable zugewiesen wird und daraufhin ein Attribute gesetzt wird.
+Diese Umformung erhält die Semantik, dass ein Objekt angelegt und einer Variable zugewiesen wird und daraufhin ein Attribut gesetzt wird.
 In Listing~\ref{lst:PreprocessedAST.txt} ist der AST nach dieser Umformung abgebildet.
 Zur Vereinfachung ist nur der \code{Scenario}-Knoten gezeigt;
 der \code{ScenarioFile}- sowie darüberliegende Knoten bleiben unverändert.
@@ -232,20 +232,21 @@ Listing~\ref{lst:FulibScenarios2.gts} zeigt die neuen AST-Klassendefinitionen, d
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios2.gts}{Neue AST-Klassendefinitionen für Listing~\ref{lst:PreprocessedAST.txt}}
 
 Im nächsten Schritt werden die neu erzeugten \code{Sentence}-Knoten aufgelöst.
-Dafür muss im \code{IsSentence}-Knoten der \code{type} der \code{CreationExpr} aufgelöst werden.
+Meist ist an dem Wort \code{Unresolved} zu erkennen, dass ein AST-Knoten aufgelöst werden muss.
+Im \code{IsSentence}-Knoten fällt dabei der \code{type} der \code{CreationExpr} auf.
 
-Der Compiler verwendet dafür einen Scope, der aus mehreren Ebenen besteht die ihrerseits Deklarationen bereitstellen können.
+Der Compiler verwendet für die Auflösung einen Scope, der aus mehreren Ebenen besteht die jeweils Deklarationen bereitstellen können.
 Beim Auflösen eines Namens wird beginnend beim inneren Scope eine Deklaration mit diesem Namen gesucht;
 falls dies kein Ergebnis liefert wird im jeweils nächstäußeren Scope gesucht.
 Gelangt man im äußersten Scope an ohne eine Deklaration gefunden zu haben,
 kann diese automatisch erzeugt werden oder eine Fehlermeldung generiert werden.
 Dies findet wieder auf der zuständigen Scope-Ebene statt.
 
-Die Scope-Hierarchie ist in Fall der \code{CreationExpr} von außen nach innen wie folgt:
+Die Scope-Hierarchie ist im Fall der \code{CreationExpr} von außen nach innen wie folgt:
 Global, Gruppe, Scenario-Datei, Scenario, Satz-Liste.
 Dabei ist die Satz-Liste für das Auflösen und Anlegen von lokalen Variablen zuständig,
-die Scenario-Datei für Hilfsmethoden,
-die Gruppe für angelegte Klassen und der globale Scope für extern importierte Klassen zuständig.
+die Scenario-Datei und Gruppe enthalten Hilfsmethoden bzw.\ Klassen,
+und der globale Scope stellt extern importierte Klassen bereit.
 Wird nun versucht, die Klasse \code{Student} in diesem Scope aufzulösen,
 findet man zunächst keine entsprechende Deklaration.
 Deshalb wird eine neue Klasse im Datenmodell des Compilers angelegt,
@@ -254,19 +255,19 @@ Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese n
 Nun ist der Typ der \code{CreationExpr} aufgelöst und kann als Typ der Variable \code{alice} inferiert werden.
 
 Als nächstes müssen die beiden \code{UnresolvedName}s im \code{HasSentence} einer Deklaration zugeordnet werden.
-Der \code{HasSentence} fügt der Scope-Hierarchie eine weitere Ebene hinzu, die den Namen \code{alice} \code{versteckt}.
+Der \code{HasSentence} fügt der Scope-Hierarchie eine weitere Ebene hinzu, die den Namen \code{alice} \emph{versteckt}.
 Deshalb wird die gleichnamige Variable \emph{nicht} dem \code{UnresolvedName} zugeordnet.
 Wäre dies der Fall, würde der \code{has}-Satz eine Assoziation von \code{Student} zu sich selbst erzeugen,
 was offensichtlich nicht gewollt ist.
 Da \code{alice} nicht aufgelöst werden kann, wird aus dem \code{NameAccess} hier ein \code{StringLiteral}.
 
-Die Auflösung von \code{UnresolvedName(value: "name")} wird besonders gehandhabt.
+Die Auflösung von \code{UnresolvedName(value: "name")} als Teil der \code{NamedExpr} wird besonders gehandhabt.
 Hier erfolgt nicht wie üblich eine Suche im aktuellen Scope,
-sondern im Typ des \code{object}s des \code{HasSentence}.
-Dies ist der Klassentyp \code{Student}, der beim Auflösen des \code{IsSentence} der Variable \code{var1} inferiert wurde.
+sondern im Typ des Empfängers, also des \code{object}s des \code{HasSentence}.
+Dies ist der Typ der Variable \code{var1}, der beim Auflösen des \code{IsSentence} als der Klassentyp \code{Student} inferiert wurde.
 Nun wird in diesem nach einem Attribute oder einer Assoziation namens \code{name} gesucht.
-Wäre eines davon bereits vorhanden, würden der Compiler diverse Überprüfungen durchführen,
-ob diese mit dem Wertetyp \code{String} des zuvor erzeugten \code{StringLiteral} kompatibel sind.
+Wäre eines davon bereits vorhanden, würde der Compiler diverse Überprüfungen durchführen,
+ob diese mit dem Typ des Attributwerts kompatibel sind.
 Da die Klasse \code{Student} jedoch noch keine Attribute oder Assoziationen hat,
 wird ein neues Attribute mit dem Namen \code{name} und dem Typ \code{String} angelegt
 und im Datenmodell der Klasse \code{Student} gespeichert.
@@ -274,7 +275,7 @@ Daraufhin wird der \code{UnresolvedName} durch einen \code{ResolvedName} ausgeta
 der auf das neue Attribute verweist.
 
 Die Analyse und Transformation des AST ist nun abgeschlossen.
-Listing~\ref{lst:FinalAST.txt} zeigt den vollständigen AST\@.
+Listing~\ref{lst:FinalAST.txt} zeigt den vollständigen AST, der nun für die Codegenerierung vorbereitet ist.
 Die darin verwendeten neuen AST-Definitionen sind in Listing~\ref{lst:FulibScenarios3.gts} zu finden.
 
 \codelisting{java}{chapter/fulib-scenarios/trees}{FinalAST.txt}{AST nach Analyse und Transformation}
