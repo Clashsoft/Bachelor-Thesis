@@ -103,6 +103,63 @@ Der entsprechende Java-Code ist wie folgt:
 \code{kassel.setName("Kassel");}\\
 \code{kassel.setPostcode(34117);}
 
+\subsection{Test-Sätze und Diagramme}\label{subsec:test-sentences-and-diagrams}
+
+Während die erzeugten Klassen Teil zum Programmquellcode gehören,
+werden aus den Sätzen eines Scenarios Tests generiert.
+Genauer wird aus jeder Scenario-Datei eine Testklasse,
+und aus jedem Scenario wird eine Testmethode.
+Mit Ausnahme von Sätzen, die zu Aufrufen gehören (siehe Unterabschnitt~\ref{subsec:methods}),
+werden aus jedem Satz eine oder mehrere Anweisungen im Rumpf dieser Testmethode.
+
+Damit Tests aussagekräftig sind, müssen sie die Ergebnisse der durchgeführten Aktionen überprüfen.
+Dazu dienen in Java Assertions, welche sowohl von der Sprache als Schlüsselwort als auch von verschiedenen Test-Frameworks bereitgestellt werden.
+Die Scenario-Sprache generiert Test-Code, der das Test-Framework JUnit~4~\cite{junit4} verwendet.
+Sie bietet einige Sätze an, die auf Assertions abgebildet werden;
+diese werden zusammengefasst als \code{Expect}-Sätze bezeichnet.
+Im Folgenden werden diese nur in einer einfachen, statischen Form betrachtet.
+Kapitel~\ref{ch:pattern-matching} führt eine erweiterte Form ein, die dynamische Erwartungen an Objektstrukturen mithilfe von Mustererkennung ermöglicht.
+
+\code{Expect}-Sätze sind zu erkennen an dem Schlüsselwort \code{expect}, dem das Schlüsselwort \code{We} vorangestellt ist.
+Diese stellt den Handelnden des Satzes da, wobei sich ``Wir'' auf den Test bezieht.
+Bestimmte Sätze erlauben andere Handelnde;
+dies wird in Unterabschnitt~\ref{subsec:methods} behandelt.
+Ein Beispiel für einen \code{Expect}-Satz auf dem im vorherigen Unterabschnitt erstellten Objekt \code{kassel} ist:
+
+\code{We expect that Kassel has postcode 34117.}
+
+Dieser Satz fragt den Wert des \code{postcode}-Attributs des \code{kassel}-Objekts ab, und prüft ob dieser gleich 34117 ist.
+Zu beachten ist hierbei die Analogie zu dem \code{has}-Satz, der in vorherigen Unterabschnitt das Attribut des \code{kassel}-Objekts gesetzt hat.
+Der Satz erzeugt die folgende Java-Anweisung:
+
+\code{assertEquals(34117, kassel.getPostcode())}
+
+Der gleiche Java-Code wird generiert, wenn man den Satz umstellt:
+
+\code{We expect that postcode of Kassel is 34117.}
+
+Dabei ist \code{of} ein Schlüsselwort, mit dem der Wert eines Attributs erhalten werden kann.
+Das Schlüsselwort \code{is} dient hier als binärer Operator der Gleichheit.
+Würde man \code{34117} und \code{postcode of Kassel} vertauschen, würde der resultierende Satz die gleiche Bedeutung haben,
+mit dem Unterschied dass Erwartungs- und tatsächlicher Wert der Assertion getauscht wären.
+Neben \code{is} existieren weitere Operatoren zum Vergleichen von Werten;
+diese werden in Unterabschnitt~\ref{subsec:control-structures} näher erläutert.
+
+\subsection{Kontrollstrukturen}\label{subsec:control-structures}
+
+\todo{
+If/As,
+Take,
+}
+
+\subsection{Methoden}\label{subsec:methods}
+
+\todo{
+Aufrufe,
+Handelnde,
+Stückweise Definition,
+}
+
 \todo{
 The paper~\cite{explain}.
 }
