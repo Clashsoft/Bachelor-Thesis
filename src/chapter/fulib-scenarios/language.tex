@@ -178,6 +178,34 @@ mit dem Unterschied dass Erwartungs- und tatsächlicher Wert der Assertion getau
 Neben \code{is} existieren weitere Operatoren zum Vergleichen von Werten;
 diese werden in Unterabschnitt~\ref{subsec:control-structures} näher erläutert.
 
+Die Scenario-Sprache bietet neben automatischen Tests auch die Möglichkeit, Objektstrukturen zu visualisieren.
+Diese können sowohl der Verständlichkeit dienen als auch für die Dokumentation verwendet werden.
+Dafür kommen Diagrammsätze zum Einsatz, die die Markdown-Syntax für Bilder (\code{![Beschreibung](dateiname.png)}) verwenden und daher keine englischen Sätze sind.
+Als Beschreibung dienen ein oder mehrere Objekte, die mit ihren über Assoziationen erreichbaren Nachbarn in einem Objektdiagramm dargestellt werden.
+Dafür wird die FulibTools\cite{fulibTools}-Bibliothek verwendet.
+Diese kann gegeben einige Startobjekte einen Objektgraphen bilden, diesen übersichtlich anordnen und als PNG-Bild oder Vektorgrafik zeichnen.
+Um die zuvor definierten und verknüpften Objekte darzustellen, kann der folgende Diagramm-Satz verwendet werden:
+
+\code{![Germany](germany.png)}
+
+Dies entspricht dem Aufruf zur Verwendung von FulibTools:
+
+\code{FulibTools.objectDiagrams().dumpPng("germany.png", germany);}
+
+Führt man das Scenario aus, wird die Datei \code{germany.png} erstellt.
+Abbildung~\ref{fig:germany.png} zeigt das Objektdiagramm, das von dieser darstellt wird.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{chapter/fulib-scenarios/img/germany.png}
+    \caption{Objektdiagramm von \code{germany}}
+    \label{fig:germany.png}
+\end{figure}
+
+Neben der Dateiendung \code{.png} wird auch \code{.svg} für Vektorgrafiken unterstützt.
+Diese werden zwar vergrößert besser dargestellt, eignen sich aber u.U.\ nicht für die Einbettung in Markdown.
+Des Weiteren existieren diverse weitere Ausgabeformate, welche in der Dokumentation~\cite[Language.Sentences.Test Sentences.Diagram Sentences]{documentation} näher erläutert werden.
+
 \subsection{Kontrollstrukturen}\label{subsec:control-structures}
 
 \todo{
