@@ -11,6 +11,28 @@ Markdown-Dateien können leicht in HTML umgewandelt werden.
 Somit können in der Scenario-Sprache verfasste Dateien als Dokumentation verwendet werden.
 Im Folgenden werden einige Grundlagen der Scenario-Sprache dargestellt und erklärt.
 
+\subsection{Grundlagen}\label{subsec:basics}
+
+In der Scenario-Sprache verfasster Quellcode wird in \code{.md}-Dateien abgelegt.
+Diese beginnen stets mit einer Überschrift, welche in Markdown mit dem \code{#}-Symbol beginnen.
+Mit der Überschrift beginnt ein \emph{Scenario};
+deren Text wird zu dessen Namen.
+Eine Scenario-Datei kann mehrere Überschriften und damit mehrere Scenarios enthalten.
+
+Nach einer Überschrift können ein oder mehrere Sätze und Unterüberschriften folgen;
+diese Bilden den Rumpf des Scenarios.
+Unterüberschriften sind an \code{##} am Anfang einer Zeile zu erkennen und ermöglichen die Strukturierung von langen Scenarios.
+
+Im Rumpf von Scenarios gibt es einige Möglichkeiten, Kommentare zu hinterlassen.
+Mit \code{//} wird wie in anderen Programmiersprachen ein Zeilenkommentar begonnen,
+der mit dem nächsten Zeilenumbruch endet.
+Dieser ist sowohl nach Umwaldeln des Markdown in HTML sichtbar,
+als auch im erzeugten Java-Quellcode vorhanden.
+Text der in runden Klammern \code{(...)} steht ist ebenfalls im HTML sichtbar,
+jedoch nicht im Java-Quellcode.
+Zuletzt können mit \code{<!-- ... -->} Kommentare eingebettet werden,
+die weder im HTML sichtbar noch im Java-Code vorhanden sind.
+
 \todo{
 The paper~\cite{explain}.
 }
