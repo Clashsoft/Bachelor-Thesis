@@ -103,6 +103,39 @@ Der entsprechende Java-Code ist wie folgt:
 \code{kassel.setName("Kassel");}\\
 \code{kassel.setPostcode(34117);}
 
+Als nächstes soll die \code{City}-Klasse eine Assoziation erhalten.
+Dafür wird zunächst ein anderes Objekt, hier \code{germany}, und eine andere Klasse, hier \code{Country}, benötigt.
+Eine Assoziation von \code{kassel} zu \code{germany} kann nun wie ein Attribut angelegt werden.
+
+\code{There is a country with name Germany.}\\
+\code{Kassel has country Germany.}
+
+Der entsprechende Java-Code ist:
+
+\code{Country germany = new Country();}\\
+\code{germany.setName("Germany");}\\
+\code{kassel.setCountry(germany);}
+
+Nun ist \code{country} eine \emph{unidirektionale} Zu-1-Assoziation von \code{City} zu \code{Country}.
+Um diese bidirektional zu machen, muss der Name sowie die Kardinalität der Rückrichtung angegeben werden:
+
+\code{Kassel has country and is one of the cities of Germany.}
+
+Dabei ist \code{cities} der Name der Rückrichtung.
+Die zugehörige Java-Zeile ist wie zuvor \code{kassel.setCountry(germany);}.
+Offensichtlich ist der Name der Rückrichtung nicht in dieser vertreten.
+Lediglich anhand des Quellcodes der \code{City}- bzw. \code{Country}-Klassen lässt sich dieser Zusammenhang erschließen.
+\code{one of} gibt an, dass es sich dabei um eine Zu-n-Assoziation handelt;
+durch dessen Entfernen kann auch die Rückrichtung zu-1 gemacht werden.
+Dies ist aber in diesem Beispiel unerwünscht, da ein Land mehr als eine Stadt haben kann.
+
+Alternativ kann die Assoziation auch ausgehend vom \code{Germany}-Objekt definiert werden:
+
+\code{Germany has cities and is the country of Kassel and Berlin.}
+
+Wichtig ist dabei, dass mehrere Zielobjekte angegeben werden (\code{Kassel} und \code{Berlin}, davon ausgehend dass \code{Berlin} analog zu \code{Kassel} definiert wurde).
+Andernfalls würde aus \code{cities} trotz der Pluralform eine Zu-1-Assoziation werden.
+
 \subsection{Test-Sätze und Diagramme}\label{subsec:test-sentences-and-diagrams}
 
 Während die erzeugten Klassen Teil zum Programmquellcode gehören,
