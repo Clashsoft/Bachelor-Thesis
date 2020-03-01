@@ -144,7 +144,7 @@ Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
 Technisch gesehen besteht der AST aus einem weiteren Datenmodell neben dem Datenmodell des Parsers.
 Während letzteres von ANTLR aus der Grammatik hergeleitet und generiert wird,
 ist das Datenmodell des AST manuell definiert und am logischen Aufbau eines Szenarios orientiert.
-So gibt es AST-Klassen für Gruppen (Pakete), Dateien, Scenarios in Dateien und jegliche Arten von Sätzen und Ausdrücken.
+So gibt es AST-Klassen für Pakete, Dateien, Scenarios in Dateien und jegliche Arten von Sätzen und Ausdrücken.
 Für bestimmte Konstrukte, die in mehreren Sätzen vorkommen, gibt es Hilfsklassen um Code-Duplizierung zu vermeiden.
 Dazu gehören z.B.\ mit Namen versehene Ausdrücke.
 
@@ -180,7 +180,7 @@ der diese bei den Blättern beginnend in AST-Knoten umwandelt.
 Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten CST ist der AST,
 der in Listing~\ref{lst:CompilationExampleAST.txt} in seinem Ausgabeformat dargestellt ist\footnote{
     Im Scenario-Compiler steht auf der obersten Ebene ein \code{CompilationContext}-Knoten, der u.a.\ Kompilierungsoptionen enthält.
-    Darunter befinden sich Knoten für Gruppen;
+    Darunter befinden sich Knoten für Pakete;
     erst diese enthalten den \code{ScenarioFile}-Knoten.
     Aus Gründen der Einfachheit wurden diese beiden Ebenen hier ausgelassen.
 }.
@@ -247,14 +247,14 @@ kann diese automatisch erzeugt werden oder eine Fehlermeldung generiert werden.
 Dies findet wieder auf der zuständigen Scope-Ebene statt.
 
 Die Scope-Hierarchie ist im Fall der \code{CreationExpr} von außen nach innen wie folgt:
-Global, Gruppe, Scenario-Datei, Scenario, Satz-Liste.
+Global, Paket, Scenario-Datei, Scenario, Satz-Liste.
 Dabei ist die Satz-Liste für das Auflösen und Anlegen von lokalen Variablen zuständig,
-die Scenario-Datei und Gruppe enthalten Hilfsmethoden bzw.\ Klassen,
+die Scenario-Datei und Paket enthalten Hilfsmethoden bzw.\ Klassen,
 und der globale Scope stellt extern importierte Klassen bereit.
 Wird nun versucht, die Klasse \code{Student} in diesem Scope aufzulösen,
 findet man zunächst keine entsprechende Deklaration.
 Deshalb wird eine neue Klasse im Datenmodell des Compilers angelegt,
-die \code{Student} heißt und zur gleichen Gruppe wie die Scenario-Datei gehört.
+die \code{Student} heißt und zur gleichen Paket wie die Scenario-Datei gehört.
 Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese neue Klasse verweist.
 Nun ist der Typ der \code{CreationExpr} aufgelöst und kann als Typ der Variable \code{alice} inferiert werden.
 
