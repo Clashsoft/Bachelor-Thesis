@@ -33,6 +33,76 @@ jedoch nicht im Java-Quellcode.
 Zuletzt können mit \code{<!-- ... -->} Kommentare eingebettet werden,
 die weder im HTML sichtbar noch im Java-Code vorhanden sind.
 
+\subsection{Einfache Sätze und Ausdrücke}\label{subsec:simple-sentences-and-expressions}
+
+Sätze bilden den Inhalt eines Scenarios und definieren dessen Ablauf.
+Die Scenario-Sprache definiert eine Vielzahl von Sätzen,
+die sich sowohl in ihrer Funktionalität ergänzen,
+als auch syntaktische Alternativen mit gleicher Semantik füreinander darstellen.
+
+Die einfachste Art von Satz ist der \code{Is}-Satz.
+Dieser ermöglicht es, ein Objekt zu definieren und diesem Name und Typ zuzuweisen.
+Ein Beispiel dafür ist
+
+\code{Kassel is a City.}
+
+Dabei ist \code{Kassel} der Name des Objekts,
+und \code{City} dessen Typ.
+\code{is} und \code{a} sind Schlüsselwörter.
+Die äquivalente Java-Anweisung ist
+
+\code{City kassel = new City();}
+
+Zu beachten ist hier, dass die Klasse \code{City} nicht vorher deklariert werden muss.
+Durch Verwenden des Namens wird diese automatisch angelegt.
+Es gibt in der Scenario-Sprache keine Syntax für das manuelle Definieren von Klassen.
+
+Ein weiterer einfacher Satz ist der \code{Has}-Satz.
+Damit können Attribute von bereits bestehenden Objekten einen Wert zugewiesen bekommen.
+Ein Beispiel dafür ist folgendes:
+
+\code{Kassel has postcode 34117.}
+
+Dabei ist \code{Kassel} der Name des Zielobjekts, in diesem Fall jenes, welches zuvor mit dem \code{Is}-Satz angelegt wurde.
+\code{postcode} ist der Name des Attributs; \code{34117} der zuzuweisende Wert.
+Aus diesem Satz wird der folgende Java-Code:
+
+\code{kassel.setPostcode(34117)}
+
+Wieder ist zu beachten, dass das Attribute \code{postcode} bzw.\ der Setter \code{setPostcode} nicht im Vorhinein deklariert wurde;
+dieses wurde durch die Verwendung automatisch angelegt.
+Durch den Ausdruck \code{34117} konnte ermittelt werden, dass der Typ dieses Attributes \code{int} sein muss.
+Wäre der Wert stattdessen \code{D-34117}, was von der Scenario-Sprache als Zeichenkette verstanden wird,
+hätte das Attribut den Typ \code{String} erhalten und der entsprechende Java-Code wäre \code{kassel.setPostcode("D-34117")}.
+
+Da das Definieren von Objekten und die Zuweisung von Attributen sehr häufig in Kombination geschieht, bietet die Scenario-Sprache eine alternativ Satzart an, die beides gleichzeitig durchführt.
+Diese Sätze heißen \code{There}-Sätze.
+Die obigen Beispiele lassen sich mit einem There-Satz verkürzen:
+
+\code{There is the City Kassel with postcode 34117.}
+
+Hierbei sind die Schlüsselwörter \code{There is the} der Ersatz für \code{is},
+während \code{has} durch \code{with} ersetzt wurde.
+Der Java-Code ist äquivalent zu den beiden zuvor gezeigten Zeilen.
+
+Bei erneuter Betrachtung des Java-Codes fällt auf, dass das Wort \code{Kassel} darin nur als Variablenname, jedoch nicht als Wert vorkommt.
+Somit ist der Name der Stadt zur Laufzeit nicht zu ermitteln;
+dies ist bei der Modellierung von Objektstrukturen i.d.R.\ unpraktisch.
+Aus diesem Grund bieten \code{There}-Sätze eine Möglichkeit, eine Zeichenkette sowohl als Attributwert als auch als Variablennamen zu verwenden:
+
+\code{There is a City with name Kassel and with postcode 34117.}
+
+Hier ist zu sehen, dass in einem \code{There}-Satz mehrere Attributzuweisungen mit \code{with} möglich sind, indem sie durch \code{and} getrennt werden\footnote{
+Alternativ können diese auch durch \code{,} (Komma) und \code{, and} (And mit Oxford-Komma) getrennt werden, da dies bei mehr als zwei \code{with} die Lesbarkeit erhöht.
+}.
+Das ansonsten unbenannte Objekt bezieht seinen Namen aus der ersten Attributzuweisung,
+heißt also wieder \code{kassel}.
+Der entsprechende Java-Code ist wie folgt:
+
+\code{City kassel = new City();}\\
+\code{kassel.setName("Kassel");}\\
+\code{kassel.setPostcode(34117);}
+
 \todo{
 The paper~\cite{explain}.
 }
