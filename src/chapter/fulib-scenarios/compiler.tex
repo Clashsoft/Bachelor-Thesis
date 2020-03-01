@@ -288,7 +288,27 @@ Die darin verwendeten neuen AST-Definitionen sind in Listing~\ref{lst:FulibScena
 
 \subsection{Codegenerierung - Fulib}\label{subsec:codegen-fulib}
 
+Die letzte Aufgabe des Scenario-Compilers ist die Codegenerierung.
+Dabei werden mit den in vorherigen Phasen gesammelten Informationen neue Java-Dateien erzeugt bzw.\ bestehende verändert.
+Der Scenario-Compiler verwendet für diesen Zweck die Fulib\cite{fulib}-Bibliothek.
+Diese stellt wie der Scenario-Compiler ein Datenmodell für Klassen, Attributen, Assoziationen und Methoden bereit,
+bietet aber auch deren Umwandlung in Java-Code an.
+Der Codegenerator von Fulib unterstützt dabei das Zusammenführen von bestehenden Java-Dateien mit neu generiertem Code,
+wodurch er mit handgeschriebenem Code kompatibel ist.
 
+Die Aufgabe des Codegenerators des Scenario-Compilers ist es also \emph{nicht},
+Java-Dateien anzulegen und zeilenweise auszufüllen;
+dies wird an Fulib delegiert.
+Dazu konvertiert der Scenario-Compiler sein internes, an die Scenario-Sprache angepasstes Datenmodell in das Datenmodell von Fulib.
+Für Klassen, Attribute und Assoziationen ist diese Umwandlung annähernd 1-zu-1;
+lediglich Methoden werden gesondert gehandhabt.
+Grund dafür ist, dass das Datenmodell von Fulib zwar Methodendeklarationen versteht,
+deren Rumpf jedoch als Zeichenkette modelliert,
+da es kein Modell für Anweisungen und Ausdrücke bereitstellt.
+Der Scenario-Compiler ist also dafür zuständig, Methodenrümpfe zeilenweise zusammenzusetzen.
+
+Ferner sieht der Scenario-Codegenerator eine logische Trennung von Modell und Tests vor.
+Fulib selbst kennt diese Trennung nicht, daher erzeugt der Scenario-Compiler zwei getrennte Fulib-Datenmodelle, welche später auch in getrennte Verzeichnisse Java-Dateien ablegen.
 
 \todo{
     Modellgenerierung mit Fulib.
