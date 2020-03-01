@@ -131,7 +131,7 @@ Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
 }
 
 Der CST ist eng an die Struktur der Grammatik gebunden.
-Bei Änderungen an der Grammatik, beispielsweise das Einfügen von gemeinsamen Hilfsregeln beim Refactoring,
+Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsamen Hilfsregeln beim Refactoring,
 ändert sich auch die Struktur des CST\@.
 Würde man also den CST für weitere Schritte des Compile-Vorgangs verwenden,
 müsste man die Implementierung dieser Schritte bei Änderung der Grammatik an die neue CST-Struktur anpassen,
@@ -161,10 +161,10 @@ Die vollständige Definitionsdatei ist in Anhang~\ref{sec:gts-definitions} zu fi
 
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios.gts}{Ausschnitt der FulibScenarios.gts-Datei}
 
-Die Syntax dieser Datei ist wie folgt zu Lesen:
+Diese Datei verwendet die Syntax von GenTreeSrc, welche wie folgt zu lesen ist:
 Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, z.B. \code{org.fulib.scenarios.ast.Node}.
 Das Schlüsselwort \code{abstract} bedeutet hier, dass diese ein Interface ist und nicht instanziiert werden kann.
-In den geschweiften Klammern werden die Unterklassen definiert.
+In den geschweiften Klammern nach einer Klassendefinition werden weitere Klasse definiert, die von dieser erben.
 Diese werden entweder im selben Package (\code{org.fulib.scenarios.ast.ScenarioFile}) oder in einem Unterpackage
 (\code{org.fulib.scenarios.ast.decl.Name}) abgelegt.
 Runde Klammern nach dem Klassennamen enthalten die Attribute, die die Syntax \code{name: Typ} verwenden.
@@ -174,7 +174,7 @@ das Schlüsselwort \code{readonly} sorgt dafür, dass kein Setter erzeugt wird.
 Aus jedem Attribut wird ein Parameter im Konstruktor bzw.\ der Factory-Methode der generierten Klasse.
 
 Mit den generierten Klassen kann nun ein AST erzeugt werden.
-Dafür gibt es im Frontend eine Klasse, die für die meisten CST-Knoten einen Übersetzungsschritt implementiert,
+Dafür implementiert das Frontend einen Übersetzungsschritt für eine Vielzahl von CST-Knoten,
 der diese bei den Blättern beginnend in AST-Knoten umwandelt.
 
 Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten CST ist der AST,
@@ -203,7 +203,7 @@ Die Analyse- und Transformationphase besteht im Scenario-Compiler aus zwei logis
 der Gruppierung und der Namensauflösung.
 Die Gruppierung ist zuständig dafür, aus der linearen Abfolge von Sätzen in einem Scenario eine Baumstruktur zur erzeugen,
 wenn Sätze anderen untergeordnet werden können.
-Dies ist beispielsweise bei jenen der Fall, die unter einem \todo{Call/Tell}-Satz stehen.
+Dies ist beispielsweise bei jenen der Fall, die unter einem \todo{Call/Tell}-Satz stehen, welche im vorherigen Abschnitt unter~\ref{subsec:methods} näher erläutert wurden.
 Jeder Satz, dessen Akteur dem \todo{Call/Tell}-Satz entspricht, wird diesem untergeordnet und ist nicht länger direkt Teil der Satzliste des Scenarios.
 Grund dafür ist, dass der Code für diese Sätze später nicht im Test, sondern in der entsprechenden Methode auftaucht.
 Da für die Bestimmung von Akteuren keine komplexe Namensauflösung notwendig ist,
@@ -225,7 +225,8 @@ Dadurch kann Code-Duplizierung vermieden und die Code-Generierung vereinfacht we
 Es soll nun der im vorherigen Abschnitt angelegte AST, der in Listing~\ref{lst:CompilationExampleAST.txt} gezeigt wurde, weiter verarbeitet werden.
 Da die Gruppierung in diesem Beispiel keine Veränderungen durchführt, können wir als nächstes die Namensauflösung betrachten.
 Dabei führt der Scenario-Compiler zunächst einen Umformungsschritt durch, der den \code{ThereSentence} durch einen \code{IsSentence} und einen \code{HasSentence} ersetzt.
-Diese Umformung erhält die Semantik, dass ein Objekt angelegt und einer Variable zugewiesen wird und daraufhin ein Attribut gesetzt wird.
+Diese Umformung erhält die Semantik, dass ein Objekt angelegt und einer Variable zugewiesen wird und daraufhin ein Attribut gesetzt wird,
+wie im vorherigen Abschnitt unter~\ref{subsec:simple-sentences-and-expressions} gezeigt wurde.
 In Listing~\ref{lst:PreprocessedAST.txt} ist der AST nach dieser Umformung abgebildet.
 Zur Vereinfachung ist nur der \code{Scenario}-Knoten gezeigt;
 der \code{ScenarioFile}- sowie darüberliegende Knoten bleiben unverändert.
@@ -251,10 +252,10 @@ Global, Paket, Scenario-Datei, Scenario, Satz-Liste.
 Dabei ist die Satz-Liste für das Auflösen und Anlegen von lokalen Variablen zuständig,
 die Scenario-Datei und Paket enthalten Hilfsmethoden bzw.\ Klassen,
 und der globale Scope stellt extern importierte Klassen bereit.
-Wird nun versucht, die Klasse \code{Student} in diesem Scope aufzulösen,
+Wird nun versucht, den Typnamen \code{Student} in diesem Scope aufzulösen,
 findet man zunächst keine entsprechende Deklaration.
-Deshalb wird eine neue Klasse im Datenmodell des Compilers angelegt,
-die \code{Student} heißt und zur gleichen Paket wie die Scenario-Datei gehört.
+Deshalb wird ein neues Objekt im Datenmodell des Compilers angelegt,
+das die Klasse \code{Student} repräsentiert und deren Zugehörigkeit zum gleichen Paket wie die Scenario-Datei darstellt.
 Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese neue Klasse verweist.
 Nun ist der Typ der \code{CreationExpr} aufgelöst und kann als Typ der Variable \code{alice} inferiert werden.
 
