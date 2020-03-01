@@ -14,23 +14,23 @@ Im Folgenden werden einige Grundlagen der Scenario-Sprache dargestellt und erkl�
 \subsection{Grundlagen}\label{subsec:basics}
 
 In der Scenario-Sprache verfasster Quellcode wird in \code{.md}-Dateien abgelegt.
-Diese beginnen stets mit einer Überschrift, welche in Markdown mit dem \code{#}-Symbol beginnen.
+Diese beginnen stets mit einer Überschrift, welche in Markdown mit dem \mdcode{#}-Symbol beginnen.
 Mit der Überschrift beginnt ein \emph{Scenario};
 deren Text wird zu dessen Namen.
 Eine Scenario-Datei kann mehrere Überschriften und damit mehrere Scenarios enthalten.
 
 Nach einer Überschrift können ein oder mehrere Sätze und Unterüberschriften folgen;
 diese Bilden den Rumpf des Scenarios.
-Unterüberschriften sind an \code{##} am Anfang einer Zeile zu erkennen und ermöglichen die Strukturierung von langen Scenarios.
+Unterüberschriften sind an \mdcode{##} am Anfang einer Zeile zu erkennen und ermöglichen die Strukturierung von langen Scenarios.
 
 Im Rumpf von Scenarios gibt es einige Möglichkeiten, Kommentare zu hinterlassen.
-Mit \code{//} wird wie in anderen Programmiersprachen ein Zeilenkommentar begonnen,
+Mit \jcode{//} wird wie in anderen Programmiersprachen ein Zeilenkommentar begonnen,
 der mit dem nächsten Zeilenumbruch endet.
 Dieser ist sowohl nach Umwaldeln des Markdown in HTML sichtbar,
 als auch im erzeugten Java-Quellcode vorhanden.
 Text der in runden Klammern \code{(...)} steht ist ebenfalls im HTML sichtbar,
 jedoch nicht im Java-Quellcode.
-Zuletzt können mit \code{<!-- ... -->} Kommentare eingebettet werden,
+Zuletzt können mit \mdcode{<!-- ... -->} Kommentare eingebettet werden,
 die weder im HTML sichtbar noch im Java-Code vorhanden sind.
 
 \subsection{Einfache Sätze und Ausdrücke}\label{subsec:simple-sentences-and-expressions}
@@ -51,7 +51,7 @@ und \code{City} dessen Typ.
 \code{is} und \code{a} sind Schlüsselwörter.
 Die äquivalente Java-Anweisung ist
 
-\code{City kassel = new City();}
+\jcode{City kassel = new City();}
 
 Zu beachten ist hier, dass die Klasse \code{City} nicht vorher deklariert werden muss.
 Durch Verwenden des Namens wird diese automatisch angelegt.
@@ -67,13 +67,13 @@ Dabei ist \code{Kassel} der Name des Zielobjekts, in diesem Fall jenes, welches 
 \code{postcode} ist der Name des Attributs; \code{34117} der zuzuweisende Wert.
 Aus diesem Satz wird der folgende Java-Code:
 
-\code{kassel.setPostcode(34117)}
+\jcode{kassel.setPostcode(34117)}
 
 Wieder ist zu beachten, dass das Attribute \code{postcode} bzw.\ der Setter \code{setPostcode} nicht im Vorhinein deklariert wurde;
 dieses wurde durch die Verwendung automatisch angelegt.
 Durch den Ausdruck \code{34117} konnte ermittelt werden, dass der Typ dieses Attributes \code{int} sein muss.
 Wäre der Wert stattdessen \code{D-34117}, was von der Scenario-Sprache als Zeichenkette verstanden wird,
-hätte das Attribut den Typ \code{String} erhalten und der entsprechende Java-Code wäre \code{kassel.setPostcode("D-34117")}.
+hätte das Attribut den Typ \code{String} erhalten und der entsprechende Java-Code wäre \jcode{kassel.setPostcode("D-34117")}.
 
 Da das Definieren von Objekten und die Zuweisung von Attributen sehr häufig in Kombination geschieht, bietet die Scenario-Sprache eine alternativ Satzart an, die beides gleichzeitig durchführt.
 Diese Sätze heißen \code{There}-Sätze.
@@ -99,9 +99,9 @@ Das ansonsten unbenannte Objekt bezieht seinen Namen aus der ersten Attributzuwe
 heißt also wieder \code{kassel}.
 Der entsprechende Java-Code ist wie folgt:
 
-\code{City kassel = new City();}\\
-\code{kassel.setName("Kassel");}\\
-\code{kassel.setPostcode(34117);}
+\jcode{City kassel = new City();}\\
+\jcode{kassel.setName("Kassel");}\\
+\jcode{kassel.setPostcode(34117);}
 
 Als nächstes soll die \code{City}-Klasse eine Assoziation erhalten.
 Dafür wird zunächst ein anderes Objekt, hier \code{germany}, und eine andere Klasse, hier \code{Country}, benötigt.
@@ -112,9 +112,9 @@ Eine Assoziation von \code{kassel} zu \code{germany} kann nun wie ein Attribut a
 
 Der entsprechende Java-Code ist:
 
-\code{Country germany = new Country();}\\
-\code{germany.setName("Germany");}\\
-\code{kassel.setCountry(germany);}
+\jcode{Country germany = new Country();}\\
+\jcode{germany.setName("Germany");}\\
+\jcode{kassel.setCountry(germany);}
 
 Nun ist \code{country} eine \emph{unidirektionale} Zu-1-Assoziation von \code{City} zu \code{Country}.
 Um diese bidirektional zu machen, muss der Name sowie die Kardinalität der Rückrichtung angegeben werden:
@@ -122,7 +122,7 @@ Um diese bidirektional zu machen, muss der Name sowie die Kardinalität der Rüc
 \code{Kassel has country and is one of the cities of Germany.}
 
 Dabei ist \code{cities} der Name der Rückrichtung.
-Die zugehörige Java-Zeile ist wie zuvor \code{kassel.setCountry(germany);}.
+Die zugehörige Java-Zeile ist wie zuvor \jcode{kassel.setCountry(germany);}.
 Offensichtlich ist der Name der Rückrichtung nicht in dieser vertreten.
 Lediglich anhand des Quellcodes der \code{City}- bzw. \code{Country}-Klassen lässt sich dieser Zusammenhang erschließen.
 \code{one of} gibt an, dass es sich dabei um eine Zu-n-Assoziation handelt;
@@ -165,7 +165,7 @@ Dieser Satz fragt den Wert des \code{postcode}-Attributs des \code{kassel}-Objek
 Zu beachten ist hierbei die Analogie zu dem \code{has}-Satz, der in vorherigen Unterabschnitt das Attribut des \code{kassel}-Objekts gesetzt hat.
 Der Satz erzeugt die folgende Java-Anweisung:
 
-\code{assertEquals(34117, kassel.getPostcode())}
+\jcode{assertEquals(34117, kassel.getPostcode())}
 
 Der gleiche Java-Code wird generiert, wenn man den Satz umstellt:
 
@@ -180,17 +180,17 @@ diese werden in Unterabschnitt~\ref{subsec:control-structures} näher erläutert
 
 Die Scenario-Sprache bietet neben automatischen Tests auch die Möglichkeit, Objektstrukturen zu visualisieren.
 Diese können sowohl der Verständlichkeit dienen als auch für die Dokumentation verwendet werden.
-Dafür kommen Diagrammsätze zum Einsatz, die die Markdown-Syntax für Bilder (\code{![Beschreibung](dateiname.png)}) verwenden und daher keine englischen Sätze sind.
+Dafür kommen Diagrammsätze zum Einsatz, die die Markdown-Syntax für Bilder (\mdcode{![Beschreibung](dateiname.png)}) verwenden und daher keine englischen Sätze sind.
 Als Beschreibung dienen ein oder mehrere Objekte, die mit ihren über Assoziationen erreichbaren Nachbarn in einem Objektdiagramm dargestellt werden.
 Dafür wird die FulibTools\cite{fulibTools}-Bibliothek verwendet.
 Diese kann gegeben einige Startobjekte einen Objektgraphen bilden, diesen übersichtlich anordnen und als PNG-Bild oder Vektorgrafik zeichnen.
 Um die zuvor definierten und verknüpften Objekte darzustellen, kann der folgende Diagramm-Satz verwendet werden:
 
-\code{![Germany](germany.png)}
+\mdcode{![Germany](germany.png)}
 
 Dies entspricht dem Aufruf zur Verwendung von FulibTools:
 
-\code{FulibTools.objectDiagrams().dumpPng("germany.png", germany);}
+\jcode{FulibTools.objectDiagrams().dumpPng("germany.png", germany);}
 
 Führt man das Scenario aus, wird die Datei \code{germany.png} erstellt.
 Abbildung~\ref{fig:germany.png} zeigt das Objektdiagramm, das von dieser darstellt wird.
