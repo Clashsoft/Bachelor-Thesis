@@ -331,8 +331,29 @@ Hat ein \code{call}-Satz ein anderes Subjekt als \code{we}, können geschachtelt
 Dadurch lässt sich u.A.\ Rekursion realisieren.
 Der geschachtelte Aufruf kann zwar wieder einen neuen Rumpf beginnen, davon ist jedoch aus Gründen der Verständlichkeit abzuraten.
 
+Während eine \code{init}-Methode für gemeinsam genutzen Code in einem Test akzeptabel ist,
+sollten Methoden mit Business Logic üblicherweise nicht in Tests implementiert sein.
+Dabei kommt der Empfänger bei \code{call}-Sätzen zum Einsatz.
+Dieser wird zum Empfänger des Aufrufs in Java, und die Methode wird Teil dessen Klasse, wie das folgende Beispiel zeigt.
+
+\code{We call do-work on Alice.}\\
+\code{Do-work removes 1 from motivation of Alice.}
+
+\jcode{alice.doWork();}
+
+\jcode|class Student {|\\
+\jcode|    // ...|\\
+\jcode|    void doWork() {|\\
+\jcode|        this.setMotivation(this.getMotivation() - 1);|\\
+\jcode|    }|\\
+\jcode|}|
+
+Hier ist auffällig, dass im zweiten Satz, der den Rumpf der Methode bildet,
+aus der Referenz zu \code{Alice} das Schlüsselwort \code{this} wird.
+Dies ist eine Konsequenz dessen, dass innerhalb des Rumpfes die Variablen des Tests nicht mehr zugänglich sind.
+Ausnahme ist dabei der Empfänger des Aufrufs, der mit \code{this} zugänglich ist.
+
 \todo{
-Empfänger,
 Parameter,
 Answer,
 Stückweise Definition,
