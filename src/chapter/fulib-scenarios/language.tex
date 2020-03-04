@@ -294,6 +294,44 @@ Filter?,
 
 \subsection{Methoden}\label{subsec:methods}
 
+Bisher wurde sämtlicher Code von Sätzen in Testmethoden generiert.
+Die Scenario-Sprache sieht es aber auch vor, Aktionen auf Objekten durchzuführen, welche in Methoden gekapselt werden.
+Dafür soll neben dem Satz für Methodenaufrufe auch die Zuordnung über Subjekte betrachtet werden.
+
+Ein Methodenaufruf in der Scenario-Sprache beginnt stets mit einem \code{call}-Satz.
+Dieser nimmt die Form \code{We call <name> on <receiver> with <parameters...>} an, wobei sowohl Empfänger als auch Parameter optional sind.
+Ein einfaches Beispiel ist folglich:
+
+\code{We call init.}
+
+Da sich \code{we} auf den Test bezieht und es keinen Empfänger gibt, ist das Testobjekt der Empfänger.
+In der Testklasse wird eine Methode \code{init} angelegt, die an der Stelle des Satzes aufgerufen wird:
+
+\jcode{init();}\\
+\jcode{// ...}\\
+\jcode|void init() {|\\
+\jcode|}|
+
+Nach dem \code{call}-Satz folgt der Rumpf.
+Da es in der Scenario-Sprache keine geschweiften Klammern o.ä.\ gibt,
+muss auf andere Weise zwischen den Sätzen unterschieden werden, die zum Rumpf gehören,
+und jeden, die in der Testmethode auf den Aufruf folgen sollen.
+Dafür dienen die Subjekte jedes Satzes.
+Bei den meisten bisher kennengelernten Sätzen war dies \code{We}, welches sich auf die Testmethode bezieht.
+Viele Sätze erlauben jedoch alternativ die Angabe eines Methodennamens wie \code{init} aus dem obigen Beispiel.
+So kann festgelegt werden, dass sie zum Rumpf eines vorherigen Aufrufs gehören.
+Die \code{init}-Methode kann also wie folgt gefüllt werden:
+
+\code{We call init.}\\
+\code{Init writes ... into students.}\\
+\code{Init takes a student from students and init adds ... .}
+
+Zu beachten ist, dass einige Sätze wie \code{expect} oder Diagramme nur in Tests erlaubt sind.
+Bei anderen Sätzen wie \code{is} und \code{has} hat das Subjekt eine andere Bedeutung,
+wodurch sie automatisch zum aktuell beschriebenen Rumpf oder Test gehören.
+Zudam lassen sich Subjekte nicht mischen;
+verwendet ein Satz ein anderes Subjekt als der vorherige, wird der vorherige Aufruf geschlossen.
+
 \todo{
 Aufrufe,
 Handelnde,
