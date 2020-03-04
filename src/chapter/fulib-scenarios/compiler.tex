@@ -191,10 +191,10 @@ Die Analyse- und Transformationphase besteht im Scenario-Compiler aus zwei logis
 der Gruppierung und der Namensauflösung.
 Die Gruppierung ist zuständig dafür, aus der linearen Abfolge von Sätzen in einem Scenario eine Baumstruktur zur erzeugen,
 wenn Sätze anderen untergeordnet werden können.
-Dies ist beispielsweise bei jenen der Fall, die unter einem \todo{Call/Tell}-Satz stehen, welche im vorherigen Abschnitt unter~\ref{subsec:methods} näher erläutert wurden.
-Jeder Satz, dessen Akteur dem \todo{Call/Tell}-Satz entspricht, wird diesem untergeordnet und ist nicht länger direkt Teil der Satzliste des Scenarios.
+Dies ist beispielsweise bei jenen der Fall, die unter einem \code{call}-Satz stehen, welche im vorherigen Abschnitt unter~\ref{subsec:methods} näher erläutert wurden.
+Jeder Satz, dessen Subjekt dem des \code{call}-Satz entspricht, wird diesem untergeordnet und ist nicht länger direkt Teil der Satzliste des Scenarios.
 Grund dafür ist, dass der Code für diese Sätze später nicht im Test, sondern in der entsprechenden Methode auftaucht.
-Da für die Bestimmung von Akteuren keine komplexe Namensauflösung notwendig ist,
+Da für die Bestimmung von Subjekten keine komplexe Namensauflösung notwendig ist,
 die Unterordnung von Sätzen jedoch deren Scope beeinflusst, geschieht die Gruppierung vor der Namensauflösung.
 
 Die Namensauflösung bündelt sowohl die direkte Namensauflösung anhand des Scopes,
