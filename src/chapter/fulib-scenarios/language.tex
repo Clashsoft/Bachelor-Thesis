@@ -246,8 +246,50 @@ Um mehrere Sätze im Rumpf der If-Anweisung zu erhalten, können mehrere Sätze 
 \jcode|   alice.setMotivation(alice.getMotivation() - 3);|\\
 \jcode|}|
 
+Die zweite Art von Kontrollstruktur in der Scenario-Sprache ist der \code{Take}-Satz, der auf \code{for}-Schleifen in Java abgebildet wird.
+Dieser nimmt die Form \code{We take a <name> from <expr> and <sentence...>} an, wobei \code{<name>} den Namen der Schleifenvariable, \code{<expr>} die zu durchlaufende Liste und \code{<sentence...>} den Schleifenrumpf bilden.
+Im folgenden Beispiel ist diese Form ersichtlich:
+
+\code{We take a student from students of uni and we add 1 to semester of student.}
+
+Übersetzt in Java-Code ergibt sich die \code{for}-Schleife:
+
+\jcode|for (Student student : uni.getStudents()) {|\\
+\jcode|    student.setSemester(student.getSemester() + 1);|\\
+\jcode|}|
+
+Wichtig bei der Verwendung von \code{take} ist, dass der Ausdruck nach \code{from} einen \emph{Listentyp} hat.
+Diese entsprechen in Java dem Typ \jcode{java.util.List<T>}, wobei \code{T} der Elementtyp ist.
+Der Getter von Zu-n-Assoziationen hat automatisch einen Listentyp mit der Zielklasse als Elementtyp.
+
+Es ist jedoch auch möglich, Listenausdrücke zu verwenden.
+Diese bestehen in der einfachsten Form aus anderen Ausdrücken, die durch Komma oder \code{and} getrennt sind.
+Beispiele dafür sind \code{1, 2, 3}, \code{Alice, Bob and Charlie} und \code{'left' and 'right'}.
+In Java werden daraus Ausdrücke wie \code{Arrays.asList(1, 2, 3)} vom Typ \code{List<Integer>}.
+
+Diese Listen lassen sich beispielsweise mit \code{write}-Sätzen in einer Variable speichern:
+
+\code{We write Alice, Bob and Charlie into students.}
+
+Daraus entsteht der folgende Java-Code:
+
+\jcode{List<Student> students = new ArrayList<>(Arrays.asList(alice, bob, charlie));}
+
+Zu beachten ist hier die Verwendung von \code{ArrayList};
+durch diese können der Liste Elemente hinzugefügt oder entfernt werden.
+Dies ist mit den \code{add}- und \code{remove}-Schlüsselwörtern möglich:
+
+\code{We add David to students.}\\
+\code{We remove Bob and Charlie from students.}
+
+\jcode{students.add(david);}\\
+\jcode{students.removeAll(bob, charlie);}
+
 \todo{
-Take,
+Ranges?,
+Vector Access?,
+Contains conditional operator?,
+Filter?,
 }
 
 \subsection{Methoden}\label{subsec:methods}
