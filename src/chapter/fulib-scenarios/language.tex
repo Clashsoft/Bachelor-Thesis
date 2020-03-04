@@ -327,6 +327,9 @@ Bei anderen Sätzen wie \code{is} und \code{has} hat das Subjekt eine andere Bed
 wodurch sie automatisch zum aktuell beschriebenen Rumpf oder Test gehören.
 Zudam lassen sich Subjekte nicht mischen;
 verwendet ein Satz ein anderes Subjekt als der vorherige, wird der vorherige Aufruf geschlossen.
+Hat ein \code{call}-Satz ein anderes Subjekt als \code{we}, können geschachtelte Methodenaufrufe stattfinden.
+Dadurch lässt sich u.A.\ Rekursion realisieren.
+Der geschachtelte Aufruf kann zwar wieder einen neuen Rumpf beginnen, davon ist jedoch aus Gründen der Verständlichkeit abzuraten.
 
 \todo{
 Empfänger,
