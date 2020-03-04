@@ -17,12 +17,7 @@ Die Architektur und Implementierung des Scenario-Compilers sind Inhalt dieses Ab
 Dabei wird des öfteren auf das Beispiel in Listing~\ref{lst:CompilationExample.md} Bezug genommen,
 dessen Übersetzung bis zum Java-Quellcode in den einzelnen Teilabschnitten stückweise erarbeitet wird.
 
-% TODO markdown
-\codelisting{text}{chapter/fulib-scenarios/scenarios}{CompilationExample.md}{Beispiel-Szenario für diesen Abschnitt}
-
-\todo{
-Dateiname "src/main/scenarios/org/example/CompilationExample.md".
-}
+\codelisting{md}{chapter/fulib-scenarios/scenarios}{CompilationExample.md}{Beispiel-Szenario für diesen Abschnitt, gespeichert als \code{src/main/scenarios/org/example/CompilationExample.md}}
 
 \subsection{Architektur}\label{subsec:compiler-architecture}
 
@@ -73,9 +68,7 @@ z.B.\ \code{AND(and)} und \code{INTEGER(12)}.
 Die rechte Seite jeder Regel ähnelt einem regulären Ausdruck.
 Bei Schlüsselwörtern wie \code{a}, \code{is} und \code{with} muss der Text exakt entsprechen;
 \code{There} darf beispielsweise auch kleingeschrieben werden.
-Ein \code{HEADLINE}-Token entsteht, wenn auf ein \code{#}-Zeichen beliebig viele Zeichen und ein Zeilenumbruch folgen\footnote{
-    Dabei bedeutet \code{~[\n]*?} \todo{Inline-Code merkwürdig durch Backslash} \outquote{beliebig viele Zeichen ausgenommen Zeilenumbruch}.
-}.
+Ein \code{HEADLINE}-Token entsteht, wenn auf ein \code{#}-Zeichen beliebig viele Zeichen und ein Zeilenumbruch folgen.
 Ganze Zahlen können mit einem Minus-Zeichen beginnen und bestehen aus mindestens einer Ziffer.
 Wörter beginnen mit einem Buchstaben, gefolgt von beliebig vielen Buchstaben, Ziffern, Apostrophen, Unterstrichen und Bindestrichen.
 Die Regel \code{WS} sorgt durch die Angabe \code{-> skip} dafür, dass keine Whitespace-Zeichen zu Token werden.
@@ -124,11 +117,6 @@ Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
     \caption{Syntaxbaum von Listing~\ref{lst:CompilationExample.md}}
     \label{fig:parsetree}
 \end{figure}
-
-\todo{
-    Warum gerade ANTLR4 so gut für die Sprachstruktur geeignet ist (Erweiterbarkeit im Vergleich zu handgeschriebenem Parser,
-    adaptives Parsing)~\cite{adaptive-ll-star,antlr4-reference}.
-}
 
 Der CST ist eng an die Struktur der Grammatik gebunden.
 Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsamen Hilfsregeln beim Refactoring,
