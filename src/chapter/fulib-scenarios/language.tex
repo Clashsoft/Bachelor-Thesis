@@ -353,8 +353,27 @@ aus der Referenz zu \code{Alice} das Schlüsselwort \code{this} wird.
 Dies ist eine Konsequenz dessen, dass innerhalb des Rumpfes die Variablen des Tests nicht mehr zugänglich sind.
 Ausnahme ist dabei der Empfänger des Aufrufs, der mit \code{this} zugänglich ist.
 
+Ein ähnliches Verhalten ist beim Verwenden von Parameter zu beachten.
+Dieses Beispiel zeigt einen Aufruf mit einem solchen:
+
+\code{We call give-assignment on Alice with assignment a1.}
+\code{Give-assignment adds a1 to todo of alice.}
+
+Im Java-Code ist erkennbar, dass aus \code{a1} im Rumpf eine Referenz auf den \code{assignment}-Parameter wird:
+
+\jcode{alice.giveAssignment(a1);}
+
+\jcode|class Student {|\\
+\jcode|    // ...|\\
+\jcode|    void giveAssignment(Assignment assignment) {|\\
+\jcode|        this.withTodo(assignment);|\\
+\jcode|    }|\\
+\jcode|}|
+
+Mehrere Parameter werden wie üblich durch \code{and} und Kommata getrennt.
+Diese sind zwar benannt, müssen aber dennoch bei jedem Aufruf in der gleich Reihenfolge stehen.
+
 \todo{
-Parameter,
 Answer,
 Stückweise Definition,
 }
