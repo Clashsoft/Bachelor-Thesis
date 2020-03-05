@@ -44,14 +44,18 @@ Die einfachste Art von Satz ist der \code{Is}-Satz.
 Dieser ermöglicht es, ein Objekt zu definieren und diesem Name und Typ zuzuweisen.
 Ein Beispiel dafür ist
 
-\code{Kassel is a City.}
+\begin{codeblock}
+    Kassel is a City.
+\end{codeblock}
 
 Dabei ist \code{Kassel} der Name des Objekts,
 und \code{City} dessen Typ.
 \code{is} und \code{a} sind Schlüsselwörter.
 Die äquivalente Java-Anweisung ist
 
-\jcode{City kassel = new City();}
+\begin{jcodeblock}
+    City kassel = new City();
+\end{jcodeblock}
 
 Zu beachten ist hier, dass die Klasse \code{City} nicht vorher deklariert werden muss.
 Durch Verwenden des Namens wird diese automatisch angelegt.
@@ -61,13 +65,17 @@ Ein weiterer einfacher Satz ist der \code{Has}-Satz.
 Damit können Attribute von bereits bestehenden Objekten einen Wert zugewiesen bekommen.
 Ein Beispiel dafür ist folgendes:
 
-\code{Kassel has postcode 34117.}
+\begin{codeblock}
+    Kassel has postcode 34117.
+\end{codeblock}
 
 Dabei ist \code{Kassel} der Name des Zielobjekts, in diesem Fall jenes, welches zuvor mit dem \code{Is}-Satz angelegt wurde.
 \code{postcode} ist der Name des Attributs; \code{34117} der zuzuweisende Wert.
 Aus diesem Satz wird der folgende Java-Code:
 
-\jcode{kassel.setPostcode(34117)}
+\begin{jcodeblock}
+    kassel.setPostcode(34117)
+\end{jcodeblock}
 
 Wieder ist zu beachten, dass das Attribute \code{postcode} bzw.\ der Setter \code{setPostcode} nicht im Vorhinein deklariert wurde;
 dieses wurde durch die Verwendung automatisch angelegt.
@@ -79,7 +87,9 @@ Da das Definieren von Objekten und die Zuweisung von Attributen sehr häufig in 
 Diese Sätze heißen \code{There}-Sätze.
 Die obigen Beispiele lassen sich mit einem There-Satz verkürzen:
 
-\code{There is the City Kassel with postcode 34117.}
+\begin{codeblock}
+    There is the City Kassel with postcode 34117.
+\end{codeblock}
 
 Hierbei sind die Schlüsselwörter \code{There is the} der Ersatz für \code{is},
 während \code{has} durch \code{with} ersetzt wurde.
@@ -90,7 +100,9 @@ Somit ist der Name der Stadt zur Laufzeit nicht zu ermitteln;
 dies ist bei der Modellierung von Objektstrukturen i.d.R.\ unpraktisch.
 Aus diesem Grund bieten \code{There}-Sätze eine Möglichkeit, eine Zeichenkette sowohl als Attributwert als auch als Variablennamen zu verwenden:
 
-\code{There is a City with name Kassel and with postcode 34117.}
+\begin{codeblock}
+    There is a City with name Kassel and with postcode 34117.
+\end{codeblock}
 
 Hier ist zu sehen, dass in einem \code{There}-Satz mehrere Attributzuweisungen mit \code{with} möglich sind, indem sie durch \code{and} getrennt werden\footnote{
 Alternativ können diese auch durch \code{,} (Komma) und \code{, and} (And mit Oxford-Komma) getrennt werden, da dies bei mehr als zwei \code{with} die Lesbarkeit erhöht.
@@ -99,27 +111,35 @@ Das ansonsten unbenannte Objekt bezieht seinen Namen aus der ersten Attributzuwe
 heißt also wieder \code{kassel}.
 Der entsprechende Java-Code ist wie folgt:
 
-\jcode{City kassel = new City();}\\
-\jcode{kassel.setName("Kassel");}\\
-\jcode{kassel.setPostcode(34117);}
+\begin{jcodeblock}
+    City kassel = new City();
+    kassel.setName("Kassel");
+    kassel.setPostcode(34117);
+\end{jcodeblock}
 
 Als nächstes soll die \code{City}-Klasse eine Assoziation erhalten.
 Dafür wird zunächst ein anderes Objekt, hier \code{germany}, und eine andere Klasse, hier \code{Country}, benötigt.
 Eine Assoziation von \code{kassel} zu \code{germany} kann nun wie ein Attribut angelegt werden.
 
-\code{There is a country with name Germany.}\\
-\code{Kassel has country Germany.}
+\begin{codeblock}
+    There is a country with name Germany.
+    Kassel has country Germany.
+\end{codeblock}
 
 Der entsprechende Java-Code ist:
 
-\jcode{Country germany = new Country();}\\
-\jcode{germany.setName("Germany");}\\
-\jcode{kassel.setCountry(germany);}
+\begin{jcodeblock}
+    Country germany = new Country();
+    germany.setName("Germany");
+    kassel.setCountry(germany);
+\end{jcodeblock}
 
 Nun ist \code{country} eine \emph{unidirektionale} Zu-1-Assoziation von \code{City} zu \code{Country}.
 Um diese bidirektional zu machen, muss der Name sowie die Kardinalität der Rückrichtung angegeben werden:
 
-\code{Kassel has country and is one of the cities of Germany.}
+\begin{codeblock}
+    Kassel has country and is one of the cities of Germany.
+\end{codeblock}
 
 Dabei ist \code{cities} der Name der Rückrichtung.
 Die zugehörige Java-Zeile ist wie zuvor \jcode{kassel.setCountry(germany);}.
@@ -131,7 +151,9 @@ Dies ist aber in diesem Beispiel unerwünscht, da ein Land mehr als eine Stadt h
 
 Alternativ kann die Assoziation auch ausgehend vom \code{Germany}-Objekt definiert werden:
 
-\code{Germany has cities and is the country of Kassel and Berlin.}
+\begin{codeblock}
+    Germany has cities and is the country of Kassel and Berlin.
+\end{codeblock}
 
 Wichtig ist dabei, dass mehrere Zielobjekte angegeben werden (\code{Kassel} und \code{Berlin}, davon ausgehend dass \code{Berlin} analog zu \code{Kassel} definiert wurde).
 Andernfalls würde aus \code{cities} trotz der Pluralform eine Zu-1-Assoziation werden.
@@ -155,17 +177,23 @@ Kapitel~\ref{ch:pattern-matching} führt eine erweiterte Form ein, die dynamisch
 
 Ein Beispiel für einen \code{Expect}-Satz auf dem im vorherigen Unterabschnitt erstellten Objekt \code{kassel} ist:
 
-\code{We expect that Kassel has postcode 34117.}
+\begin{codeblock}
+    We expect that Kassel has postcode 34117.
+\end{codeblock}
 
 Dieser Satz fragt den Wert des \code{postcode}-Attributs des \code{kassel}-Objekts ab, und prüft ob dieser gleich 34117 ist.
 Zu beachten ist hierbei die Analogie zu dem \code{has}-Satz, der in vorherigen Unterabschnitt das Attribut des \code{kassel}-Objekts gesetzt hat.
 Der Satz erzeugt die folgende Java-Anweisung:
 
-\jcode{assertEquals(34117, kassel.getPostcode())}
+\begin{jcodeblock}
+    assertEquals(34117, kassel.getPostcode())
+\end{jcodeblock}
 
 Der gleiche Java-Code wird generiert, wenn man den Satz umstellt:
 
-\code{We expect that postcode of Kassel is 34117.}
+\begin{codeblock}
+    We expect that postcode of Kassel is 34117.
+\end{codeblock}
 
 Dabei ist \code{of} ein Schlüsselwort, mit dem der Wert eines Attributs erhalten werden kann.
 Das Schlüsselwort \code{is} dient hier als binärer Operator der Gleichheit.
@@ -182,11 +210,15 @@ Dafür wird die FulibTools\cite{fulibTools}-Bibliothek verwendet.
 Diese kann gegeben einige Startobjekte einen Objektgraphen bilden, diesen übersichtlich anordnen und als PNG-Bild oder Vektorgrafik zeichnen.
 Um die zuvor definierten und verknüpften Objekte darzustellen, kann der folgende Diagramm-Satz verwendet werden:
 
-\mdcode{![Germany](germany.png)}
+\begin{mdcodeblock}
+    ![Germany](germany.png)
+\end{mdcodeblock}
 
 Dies entspricht dem Aufruf zur Verwendung von FulibTools:
 
-\jcode{FulibTools.objectDiagrams().dumpPng("germany.png", germany);}
+\begin{jcodeblock}
+    FulibTools.objectDiagrams().dumpPng("germany.png", germany);
+\end{jcodeblock}
 
 Führt man das Scenario aus, wird die Datei \code{germany.png} erstellt.
 Abbildung~\ref{fig:germany.png} zeigt das Objektdiagramm, das von dieser darstellt wird.
@@ -216,7 +248,9 @@ Dies lässt sich durch Verwenden von zwei \code{As}-Sätzen mit gegensätzlichen
 
 Das folgende Beispiel soll zur Illustration dieser Sätze dienen:
 
-\code{As semester of Alice is less than 3, we add Maths to courses of Alice.}
+\begin{codeblock}
+    As semester of Alice is less than 3, we add Maths to courses of Alice.
+\end{codeblock}
 
 Der \code{As}-Satz nimmt hier die Form \code{As <condition>, <sentence>.} an.
 In der Bedingung wird der Wert des Attributs \code{semester} des Objekts \code{Alice} mit \code{3} verglichen, wobei \code{is less than} gleichzusetzen ist mit \code{<}.
@@ -229,30 +263,41 @@ In diesem Fall sind \code{Maths} und \code{Alice} im Vorhinein deklarierte Objek
 
 Der zum obigen Beispiel gehörende Java-Code ist:
 
-\jcode|if (alice.getSemester() < 3) {|\\
-\jcode|    alice.withCourses(maths);|\\
-\jcode|}|
+\begin{jcodeblock}
+    if (alice.getSemester() < 3) {
+        alice.withCourses(maths);
+    }
+\end{jcodeblock}
 
 Um mehrere Sätze im Rumpf der If-Anweisung zu erhalten, können mehrere Sätze hinter dem \code{As}-Satz durch \code{and} getrennt werden:
 
-\code{As Alice has done Maths, we add 6 to credits of Alice and we remove 3 from motivation of Alice.}
+\begin{codeblock}
+    As Alice has done Maths, we add 6 to credits of Alice
+    and we remove 3 from motivation of Alice.
+\end{codeblock}
 
-\jcode|if (alice.getDone().contains(maths)) {|\\
-\jcode|   alice.setCredits(alice.getCredits() + 6);|\\
-\jcode|   alice.setMotivation(alice.getMotivation() - 3);|\\
-\jcode|}|
+\begin{jcodeblock}
+    if (alice.getDone().contains(maths)) {
+        alice.setCredits(alice.getCredits() + 6);
+        alice.setMotivation(alice.getMotivation() - 3);
+    }
+\end{jcodeblock}
 
 Die zweite Art von Kontrollstruktur in der Scenario-Sprache ist der \code{Take}-Satz, der auf \code{for}-Schleifen in Java abgebildet wird.
 Dieser nimmt die Form \code{We take a <name> from <expr> and <sentence...>} an, wobei \code{<name>} den Namen der Schleifenvariable, \code{<expr>} die zu durchlaufende Liste und \code{<sentence...>} den Schleifenrumpf bilden.
 Im folgenden Beispiel ist diese Form ersichtlich:
 
-\code{We take a student from students of uni and we add 1 to semester of student.}
+\begin{codeblock}
+    We take a student from students of uni and we add 1 to semester of student.
+\end{codeblock}
 
 Übersetzt in Java-Code ergibt sich die \code{for}-Schleife:
 
-\jcode|for (Student student : uni.getStudents()) {|\\
-\jcode|    student.setSemester(student.getSemester() + 1);|\\
-\jcode|}|
+\begin{jcodeblock}
+    for (Student student : uni.getStudents()) {
+        student.setSemester(student.getSemester() + 1);
+    }
+\end{jcodeblock}
 
 Wichtig bei der Verwendung von \code{take} ist, dass der Ausdruck nach \code{from} einen \emph{Listentyp} hat.
 Diese entsprechen in Java dem Typ \jcode{java.util.List<T>}, wobei \code{T} der Elementtyp ist.
@@ -265,21 +310,29 @@ In Java werden daraus Ausdrücke wie \code{Arrays.asList(1, 2, 3)} vom Typ \code
 
 Diese Listen lassen sich beispielsweise mit \code{write}-Sätzen in einer Variable speichern:
 
-\code{We write Alice, Bob and Charlie into students.}
+\begin{codeblock}
+    We write Alice, Bob and Charlie into students.
+\end{codeblock}
 
 Daraus entsteht der folgende Java-Code:
 
-\jcode{List<Student> students = new ArrayList<>(Arrays.asList(alice, bob, charlie));}
+\begin{jcodeblock}
+    List<Student> students = new ArrayList<>(Arrays.asList(alice, bob, charlie));
+\end{jcodeblock}
 
 Zu beachten ist hier die Verwendung von \code{ArrayList};
 durch diese können der Liste Elemente hinzugefügt oder entfernt werden.
 Dies ist mit den \code{add}- und \code{remove}-Schlüsselwörtern möglich:
 
-\code{We add David to students.}\\
-\code{We remove Bob and Charlie from students.}
+\begin{codeblock}
+    We add David to students.
+    We remove Bob and Charlie from students.
+\end{codeblock}
 
-\jcode{students.add(david);}\\
-\jcode{students.removeAll(bob, charlie);}
+\begin{jcodeblock}
+    students.add(david);
+    students.removeAll(bob, charlie);
+\end{jcodeblock}
 
 \subsection{Methoden}\label{subsec:methods}
 
@@ -291,15 +344,19 @@ Ein Methodenaufruf in der Scenario-Sprache beginnt stets mit einem \code{call}-S
 Dieser nimmt die Form \code{We call <name> on <receiver> with <parameters...>} an, wobei sowohl Empfänger als auch Parameter optional sind.
 Ein einfaches Beispiel ist folglich:
 
-\code{We call init.}
+\begin{codeblock}
+    We call init.
+\end{codeblock}
 
 Da sich \code{we} auf den Test bezieht und es keinen Empfänger gibt, ist das Testobjekt der Empfänger.
 In der Testklasse wird eine Methode \code{init} angelegt, die an der Stelle des Satzes aufgerufen wird:
 
-\jcode{init();}\\
-\jcode{// ...}\\
-\jcode|void init() {|\\
-\jcode|}|
+\begin{jcodeblock}
+    init();
+    // ...
+    void init() {
+    }
+\end{jcodeblock}
 
 Nach dem \code{call}-Satz folgt der Rumpf.
 Da es in der Scenario-Sprache keine geschweiften Klammern o.ä.\ gibt,
@@ -311,9 +368,11 @@ Viele Sätze erlauben jedoch alternativ die Angabe eines Methodennamens wie \cod
 So kann festgelegt werden, dass sie zum Rumpf eines vorherigen Aufrufs gehören.
 Die \code{init}-Methode kann also wie folgt gefüllt werden:
 
-\code{We call init.}\\
-\code{Init writes ... into students.}\\
-\code{Init takes a student from students and init adds ... .}
+\begin{codeblock}
+    We call init.
+    Init writes ... into students.
+    Init takes a student from students and init adds ... .
+\end{codeblock}
 
 Zu beachten ist, dass einige Sätze wie \code{expect} oder Diagramme nur in Tests erlaubt sind.
 Bei anderen Sätzen wie \code{is} und \code{has} hat das Subjekt eine andere Bedeutung,
@@ -329,17 +388,21 @@ sollten Methoden mit Business Logic üblicherweise nicht in Tests implementiert 
 Dabei kommt der Empfänger bei \code{call}-Sätzen zum Einsatz.
 Dieser wird zum Empfänger des Aufrufs in Java, und die Methode wird Teil dessen Klasse, wie das folgende Beispiel zeigt.
 
-\code{We call do-work on Alice.}\\
-\code{Do-work removes 1 from motivation of Alice.}
+\begin{codeblock}
+    We call do-work on Alice.
+    Do-work removes 1 from motivation of Alice.
+\end{codeblock}
 
-\jcode{alice.doWork();}
+\begin{jcodeblock}
+    alice.doWork();
 
-\jcode|class Student {|\\
-\jcode|    // ...|\\
-\jcode|    void doWork() {|\\
-\jcode|        this.setMotivation(this.getMotivation() - 1);|\\
-\jcode|    }|\\
-\jcode|}|
+    class Student {
+        // ...
+        void doWork() {
+            this.setMotivation(this.getMotivation() - 1);
+        }
+    }
+\end{jcodeblock}
 
 Hier ist auffällig, dass im zweiten Satz, der den Rumpf der Methode bildet,
 aus der Referenz zu \code{Alice} das Schlüsselwort \code{this} wird.
@@ -349,19 +412,23 @@ Ausnahme ist dabei der Empfänger des Aufrufs, der mit \code{this} zugänglich i
 Ein ähnliches Verhalten ist beim Verwenden von Parameter zu beachten.
 Dieses Beispiel zeigt einen Aufruf mit einem solchen:
 
-\code{We call give-assignment on Alice with assignment a1.}
-\code{Give-assignment adds a1 to todo of alice.}
+\begin{codeblock}
+    We call give-assignment on Alice with assignment a1.
+    Give-assignment adds a1 to todo of alice.
+\end{codeblock}
 
 Im Java-Code ist erkennbar, dass aus \code{a1} im Rumpf eine Referenz auf den \code{assignment}-Parameter wird:
 
-\jcode{alice.giveAssignment(a1);}
+\begin{jcodeblock}
+    alice.giveAssignment(a1);
 
-\jcode|class Student {|\\
-\jcode|    // ...|\\
-\jcode|    void giveAssignment(Assignment assignment) {|\\
-\jcode|        this.withTodo(assignment);|\\
-\jcode|    }|\\
-\jcode|}|
+    class Student {
+        // ...
+        void giveAssignment(Assignment assignment) {
+            this.withTodo(assignment);
+        }
+    }
+\end{jcodeblock}
 
 Mehrere Parameter werden wie üblich durch \code{and} und Kommata getrennt.
 Diese sind zwar benannt, müssen aber dennoch bei jedem Aufruf in der gleich Reihenfolge stehen.
@@ -370,22 +437,26 @@ Die bisher gezeigten Beispiele für Methoden zeichneten sich durch ihren Gebrauc
 Dies ist nicht immer gewünscht und u.U.\ hinderlich, weshalb die Scenario-Sprache auch Syntax für Rückgabewerte bereitstellt.
 Dies erfolgt durch \code{answer}-Sätze, welche \code{return}-Anweisungen in Java entsprechen.
 
-\code{We call produce on factory.}\\
-\code{Produce creates a product.}\\
-\code{Produce answers with the product.}
+\begin{codeblock}
+    We call produce on factory.
+    Produce creates a product.
+    Produce answers with the product.
+\end{codeblock}
 
 Diese Beispiel verwendet den \code{create}-Satz, der einem \code{There}-Satz entspricht, aber durch die Präsenz eines Subjekts in Methoden Anwendung findet.
 Am Java-Code ist zu erkennen, dass durch die Verwendung eines benannten Objekts als Rückgabewert auch beim Aufruf eine Variable erzeugt wird:
 
-\jcode{Product product = factory.produce();}
+\begin{jcodeblock}
+    Product product = factory.produce();
 
-\jcode|class Factory {|\\
-\jcode|    // ...|\\
-\jcode|    Product produce() {|\\
-\jcode|        Product product = new Product();|\\
-\jcode|        return product;|\\
-\jcode|    }|\\
-\jcode|}|
+    class Factory {
+        // ...
+        Product produce() {
+            Product product = new Product();
+            return product;
+        }
+    }
+\end{jcodeblock}
 
 Wird diese Methode erneut aufgerufen, darf der Rumpf nicht erneut wiederholt werden.
 Somit ist auch kein Variablenname angegeben für das Ergebnis angegeben.
@@ -393,11 +464,15 @@ Ohne diesen kann jedoch nicht nach dem Aufruf darauf zugegriffen werden.
 Aus diesem Grund existiert der \code{answer}-Ausdruck, mit dem auf das letzte Ergebnis eines Methodenaufrufs zugegriffen werden kann.
 Das folgende Beispiel illustriert dessen Verwendung:
 
-\code{We call produce on factory.}\\
-\code{We add the answer to payload of transporter.}
+\begin{codeblock}
+    We call produce on factory.
+    We add the answer to payload of transporter.
+\end{codeblock}
 
-\jcode{Product result1 = factory.produce();}\\
-\jcode{transporter.withPayload(result1);}
+\begin{jcodeblock}
+    Product result1 = factory.produce();
+    transporter.withPayload(result1);
+\end{jcodeblock}
 
 Zuletzt soll das Konzept der \emph{Stückweisen Definition}, welches bei Methoden Anwendung findet, betrachtet werden.
 Dieses erlaubt es, bei jedem Aufruf einer Methode einen Teil ihres Rumpfes zu definieren.
