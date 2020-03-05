@@ -60,6 +60,10 @@ Die äquivalente Java-Anweisung ist
 Zu beachten ist hier, dass die Klasse \code{City} nicht vorher deklariert werden muss.
 Durch Verwenden des Namens wird diese automatisch angelegt.
 Es gibt in der Scenario-Sprache keine Syntax für das manuelle Definieren von Klassen.
+Außerdem ist auffällig, dass \code{kassel} im Java-Code kleingeschrieben ist.
+Bei der Umwandlung wird automatisch die passende Namenskonvention angewandt (Variablen- und Methodennamen \code{lowerCamelCase}, Klassennamen \code{UpperCamelCase}).
+Dies ist insbesondere bei Bezeichnern mit Leerzeichen oder Bindestrichen der Fall:
+\code{Uni Kassel} wird zu \code{uniKassel}, \code{Student-ID} zu \code{studentID}.
 
 Ein weiterer einfacher Satz ist der \code{Has}-Satz.
 Damit können Attribute von bereits bestehenden Objekten einen Wert zugewiesen bekommen.
