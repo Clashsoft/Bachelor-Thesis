@@ -150,7 +150,7 @@ Die vollständige Definitionsdatei ist in Anhang~\ref{sec:gts-definitions} zu fi
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios.gts}{Ausschnitt der FulibScenarios.gts-Datei}
 
 Diese Datei verwendet die Syntax von GenTreeSrc, welche wie folgt zu lesen ist:
-Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, z.B. \code{org.fulib.scenarios.ast.Node}.
+Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, z.B. \code{org.fulib.scenarios. ast.Node}. % space added before ast to allow line break
 Das Schlüsselwort \code{abstract} bedeutet hier, dass diese ein Interface ist und nicht instanziiert werden kann.
 In den geschweiften Klammern nach einer Klassendefinition werden weitere Klasse definiert, die von dieser erben.
 Diese werden entweder im selben Package (\code{org.fulib.scenarios.ast.ScenarioFile}) oder in einem Unterpackage
@@ -202,15 +202,38 @@ als auch die Auflösung von Attributen und Assoziationen, das Erzeugen von Klass
 und die Umstrukturierung des AST\@.
 Grund dafür ist, dass diese Aufgaben eng verzahnt und meist in einem Schritt ausführbar sind.
 Beim Auflösen von Assoziation beispielsweise kann diese angelegt werden, falls es sie noch nicht gibt,
-andernfalls kann die bestehene Assoziation auf Konflikte überprüft werden und ggf.\ eine Fehlermeldung erzeugt werden.
-\todom{Beispiel?}
+andernfalls muss die bestehene Assoziation mit der neuen Definition auf Konsistenz überprüft und ggf.\ eine Fehlermeldung erzeugt werden.
+Dies kann z.B.\ auftreten, wenn bei der zweiten Verwendung versehentlich die Rückrichtung falsch benannt wird:
 
-Des Weiteren ist es meist vorteilhaft, den AST vor der Auflösung zu vereinfachen.
+\begin{codeblock}[breaklines]
+    Kassel has country and is one of the cities of Germany.
+    Berlin has country and is the capital of Germany.
+\end{codeblock}
+
+Dies erzeugt die folgende Fehlermeldung in der Konsolenausgabe des Compilers:
+
+\begin{codeblock}[breaklines]
+    src/org/example/ErrorExample.md:4:30: error: conflicting redeclaration of reverse association of 'City.country' [association.reverse.conflict]
+    was: Country.cities, association to many 'City'
+    now: Country.capital, association to one 'City'
+\end{codeblock}
+
+Die Fehlermeldungen sind so strukturiert, dass sie alle nötigen Informationen zur Lösung des Problems enthalten:
+Zu Beginn stehen Dateiname, Zeile und Spalte, die mit einer IDE direkt an der richtigen Stelle geöffnet werden können.
+Nach der Angabe, um was für eine Art Meldung es sich handelt (hier \code{error}, auch möglich \code{syntax}, \code{warning} und \code{note}),
+folgt eine kurze Beschreibung.
+In den eckigen Klammern steht eine feste ID der Fehlerart, nach der leicht bei Google oder StackOverflow gesucht werden kann.
+Dadurch kann auch die Formulierung der Beschriebung geändert oder in eine andere Sprache übersetzt werden,
+wonach Online-Suchergebnisse weiterhin auffindbar sind.
+Viele (Fehler-)Meldungen enthalten außerdem einige Zeilen mit Extra-Informationen,
+wie hier die Informationen zur vorherigen und jetzigen Deklaration der Assoziation.
+Diese sollen den Entwickler ebenfalls bei der Problembehebung unterstützen.
+
+Eine weitere zur Transformationsphase gehörende Aufgabe ist es, den AST vor der Auflösung zu vereinfachen.
 Bildet man beispielsweise eine Art von AST-Knoten immer auf eine andere ab,
 müssen folgende Schritte nicht mehr für die erste Knotenart implementiert werden,
 da man sichergehen kann, dass sie nicht mehr vorkommt.
 Dadurch kann Code-Duplizierung vermieden und die Code-Generierung vereinfacht werden.
-\todom{"Siehe Beispiel im nächsten Abschnitt"?}
 
 Es soll nun der im vorherigen Abschnitt angelegte AST, der in Listing~\ref{lst:CompilationExampleAST.txt} gezeigt wurde, weiter verarbeitet werden.
 Da die Gruppierung in diesem Beispiel keine Veränderungen durchführt, können wir als nächstes die Namensauflösung betrachten.
