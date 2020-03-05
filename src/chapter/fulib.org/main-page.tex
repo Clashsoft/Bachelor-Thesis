@@ -22,10 +22,23 @@ und die Schaltfläche zum Wechseln in den Nachtmodus.
 
 \subsection{Interaktiver Spielplatz}\label{subsec:interactive-playground}
 
-\todo{
-Sofortiges Feedback.
-Komplettübersicht -> Klassen, Objekte, Code
-}
+Die wichtigste Funktion der Hauptseite ist der Scenario-Editor.
+Gibt man darin ein Scenario ein und klickt auf ``Compile and Run'' oder wartet einen Moment,
+wird daraus Java-Code generiert und dessen Tests mit JUnit ausgeführt.
+Das dabei entstehende Klassendiagramm sowie Objektdiagramme werden dann in den entsprechenden Bereichen angezeigt.
+Um das sofortige Feedback zu erleichtern, wird das Scenario immer automatisch ausgeführt, wenn es länger als eine Sekunde unverändert blieb.
+Somit muss man nicht manuell das ``Compile and Run'' anklicken.
+Alternativ kann die automatische Ausführung im Dropdown neben dem ``Compile and Run''-Button deaktiviert werden.
+Manuell lässt es sich dann immernoch durch Klick oder Verwenden der Testenkürzel auslösen.
+
+Im Fenster für den Java-Code werden die Rümpfe sämtlicher Methoden angezeigt, die im Scenario verwendet wurden.
+Davon ausgenommen sind aufgrund ihrer Trivialität Getter und Setter.
+Die Ausgabe des Scenario- und Java-Compilers sowie der JUnit-Testausführung werden ebenfalls in diesem Fenster angezeigt.
+Dabei sind die Meldungen des Scenario-Compilers besonders relevant, da diese auf Fehler im Scenario hinweisen.
+
+Objektdiagramme werden unter Tabs angeordnet.
+Dies vermeidet Unübersichtlichkeit bei der Verwendung von vielen Diagram-Sätzen im Scenario.
+Die einzelnen Darstellungen lassen sich dann getrennt voneinander betrachten.
 
 \subsection{Tutorials}\label{subsec:tutorials}
 
