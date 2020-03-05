@@ -272,23 +272,21 @@ das die Klasse \code{Student} repräsentiert und deren Zugehörigkeit zum gleich
 Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese neue Klasse verweist.
 Nun ist der Typ der \code{CreationExpr} aufgelöst und kann als Typ der Variable \code{alice} inferiert werden.
 
-Als nächstes müssen die beiden \code{UnresolvedName}s im \code{HasSentence} einer Deklaration zugeordnet werden.
-\todom{"Alice" wird Objekt ID und Var.}
+Als nächstes muss der \code{UnresolvedName(value: "alice")} im \code{HasSentence} ersetzt werden.
 Der \code{HasSentence} fügt der Scope-Hierarchie eine weitere Ebene hinzu, die den Namen \code{alice} \emph{versteckt}.
 Deshalb wird die gleichnamige Variable \emph{nicht} dem \code{UnresolvedName} zugeordnet.
 Wäre dies der Fall, würde der \code{has}-Satz eine Assoziation von \code{Student} zu sich selbst erzeugen,
 was offensichtlich nicht gewollt ist.
-Da \code{alice} nicht aufgelöst werden kann, wird aus dem \code{NameAccess} hier ein \code{StringLiteral}.
+Da \code{alice} nicht aufgelöst werden kann, werden sowohl der \code{UnresolvedName} als auch der umgebende \code{NameAccess} durch ein \code{StringLiteral} ersetzt.
 
 Die Auflösung von \code{UnresolvedName(value: "name")} als Teil der \code{NamedExpr} wird besonders gehandhabt.
-\todom{"name" wird Attribut von Student}
 Hier erfolgt nicht wie üblich eine Suche im aktuellen Scope,
 sondern im Typ des Empfängers, also des \code{object}s des \code{HasSentence}.
 Dies ist der Typ der Variable \code{var1}, der beim Auflösen des \code{IsSentence} als der Klassentyp \code{Student} inferiert wurde.
 Nun wird in diesem nach einem Attribute oder einer Assoziation namens \code{name} gesucht.
 Wäre eines davon bereits vorhanden, würde der Compiler diverse Überprüfungen durchführen,
 ob diese mit dem Typ des Attributwerts kompatibel sind.
-Da die Klasse \code{Student} jedoch \todom{in unserem Beispiel} noch keine Attribute oder Assoziationen hat,
+Da die Klasse \code{Student} jedoch bisher noch keine Attribute oder Assoziationen hat,
 wird ein neues Attribute mit dem Namen \code{name} und dem Typ \code{String} angelegt
 und im Datenmodell der Klasse \code{Student} gespeichert.
 Daraufhin wird der \code{UnresolvedName} durch einen \code{ResolvedName} ausgetauscht,
