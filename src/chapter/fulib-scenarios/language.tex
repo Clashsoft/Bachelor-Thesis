@@ -406,9 +406,41 @@ Das folgende Beispiel illustriert dessen Verwendung:
 \jcode{Product result1 = factory.produce();}\\
 \jcode{transporter.withPayload(result1);}
 
-\todo{
-Stückweise Definition,
-}
+Zuletzt soll das Konzept der \emph{Stückweisen Definition}, welches bei Methoden Anwendung findet, betrachtet werden.
+Dieses erlaubt es, bei jedem Aufruf einer Methode einen Teil ihres Rumpfes zu definieren.
+Der Compiler fügt diese Teile hintereinander, um den ganzen Rumpf der Methode zu bilden.
+Dazu soll nun ein vollständiges Beispiel betrachtet werden.
+Ziel ist es, eine Benutzerdatenbank zu modellieren, in der Benutzer mit IDs abgelegt sind.
+Diese definiert eine Operation \code{getOrCreate}, die entweder gegeben eine ID entweder einen existierenden Benutzer mit dieser ID findet,
+or einen neuen anlegt und speichert.
+Listing~\ref{lst:UserRegistry.md} zeigt das entsprechende Scenario zeigt.
+
+\codelisting{md}{chapter/fulib-scenarios/scenarios}{UserRegistry.md}{Beispielscenario für Benutzerdatenbank mit stückweiser Definition}
+
+Dabei wird zunächst unter \code{Setup} das Datenmodell definiert.
+Dazu gehören die Klassen \code{User} und \code{UserRegistry},
+die über eine Assoziation miteinander verknüpft sind.
+\code{User} hat ein Attribut \code{id} vom Typ \code{int}.
+Von beiden Klassen wir jeweils ein Objekt angelegt.
+
+Unter \code{Get Existing} folgt der erste Aufruf der Methode \code{getOrCreate} in \code{UserRegistry},
+die eine ID als Parameter erhält.
+Dabei wird mit einer Schleife nach einem bereits existierenden, mit der Registry verknüpftem \code{User} mit dieser ID gesucht.
+Da unter \code{Setup} bereits ein solcher angelegt wurde, ist die Suche erfolgreich und endet mit der Rückgabe dessen.
+Daraufhin wird mit einem \code{expect}-Satz geprüft, ob auch wirklich das richtige Objekt zurückgegeben wurde.
+
+Unter \code{Create New} folgt der zweite Aufruf der Methode.
+Hier soll ein neues \code{User}-Objekt angelegt werden.
+Deshalb beschreibt das Scenario an dieser Stelle, wie die \code{getOrCreate}-Methode dies durchführen soll (durch Erzeugen eines Objekts und Erstellen einer Verknüpfung mit der Registry).
+Das neue Objekt wird daraufhin zurückgegeben und erneut durch den Test geprüft.
+
+Betrachtet man nun den generierten Java-Code für die \code{UserRegistry}-Klasse,
+wird deutlich, wie die beiden Teildefinitionen des Methodenrumpfes zusammengefügt wurden.
+In Listing~\ref{lst:UserRegistry_getOrCreate.java} ist dies an \code{(1)} und \code{(2)} deutlich.
+
+\codelisting{java}{chapter/fulib-scenarios/java}{UserRegistry_getOrCreate.java}{\code{UserRegistry.getOrCreate}-Methode}
+
+Der aus dem Scenario generierte Test sowie die vollständigen \code{User}- und \code{UserRegistry}-Klassen sind in Anhang~\ref{sec:user-registry-full} zu finden.
 
 \todo{
 The paper~\cite{explain}.
