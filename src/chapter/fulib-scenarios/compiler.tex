@@ -205,14 +205,14 @@ Beim Auflösen von Assoziation beispielsweise kann diese angelegt werden, falls 
 andernfalls muss die bestehene Assoziation mit der neuen Definition auf Konsistenz überprüft und ggf.\ eine Fehlermeldung erzeugt werden.
 Dies kann z.B.\ auftreten, wenn bei der zweiten Verwendung versehentlich die Rückrichtung falsch benannt wird:
 
-\begin{codeblock}[breaklines]
+\begin{codeblock}
     Kassel has country and is one of the cities of Germany.
     Berlin has country and is the capital of Germany.
 \end{codeblock}
 
 Dies erzeugt die folgende Fehlermeldung in der Konsolenausgabe des Compilers:
 
-\begin{codeblock}[breaklines]
+\begin{codeblock}
     src/org/example/ErrorExample.md:4:30: error: conflicting redeclaration of reverse association of 'City.country' [association.reverse.conflict]
     was: Country.cities, association to many 'City'
     now: Country.capital, association to one 'City'
