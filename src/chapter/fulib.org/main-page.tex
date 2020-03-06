@@ -106,9 +106,77 @@ Wünsche.
 
 \subsection{Datensammlung}\label{subsec:data-collection}
 
-\todo{
-Request-Logging.
-Fehleranalyse.
-Lernverlauf.
-Privacy-Einstellungen.
-}
+Öffnet man fulib.org das erste Mal, erscheint das Fenster mit den Datenschutz-Einstellungen, das in Abbildung~\ref{fig:privacy} gezeigt ist.
+Darin kann ausgewählt werden, ob man lokale (d.h. im Browser) oder serverseitige Datenspeicherung erlauben möchte.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{chapter/fulib.org/img/privacy.png}
+    \caption{Projektkonfiguration}
+    \label{fig:privacy}
+\end{figure}
+
+Zu lokale Daten zählen auf der Hauptseite der Scenario-Text sowie die Projekteinstellungen.
+Erlaubt man die lokale Speicherung nicht, werden diese nach erneutem Laden des Seite auf Standardwerte zurückgesetzt.
+Außerdem wird die Auswahl der Datenschutzeinstellung selbst lokal gespeichert.
+Ist dies nicht erlaubt, öffnet sich das Einstellungsfenster bei jedem Öffnen von fulib.org automatisch.
+Für datenschutzbewusste Benutzer, die dies als Störung empfinden, gibt es daher die vierte Option,
+welche die lokale Datenspeicherung lediglich zum Verstecken des Fensters nutzt.
+
+Die serverseitige Datenspeicherung umfasst sämtliche ``Compile and Run''-Anfragen, die an den Server gestellt werden, inklusive automatische.
+Der Server speichert dann die vollständige Anfrage (d.h. Scenario-Text und Projektkonfiguration) und die vollständige API-Antwort.
+Letztere enthält Compiler-Ausgabe, Methodenrümpfe und Diagramme.
+Weiterhin werden IP-Adresse und User-Agent der Anfrage protokolliert, was die progressive Anordnung der Anfragen erlaubt.
+Dies erlaubt beispielsweise die Analyse von dem Zeitaufwand, der für das Lesen und Verstehen der Beispielscenarios benötigt wird.
+
+Während der Vorlesung Programmieren und Modellieren im Wintersemester 2019/20 konnte serverseitig eine Vielzahl von Daten gesammelt werden.
+Zum Zeitpunkt dem Messung am 16.\ Februar 2020, 18:00, wurden seit 1.\ Oktober 2019 etwa 5100 Anfragen gespeichert.
+Aufgrund der änderbaren Natur von IP-Adressen und User-Agent-Zeichenketten kann nicht auf die Anzahl der unterschiedlichen Benutzer geschlossen werden.
+Außerdem ist nicht bekannt, wie viele Nutzer die serverseitigen Datenspeicherung abgelehnt haben.
+Dennoch haben die gesammelten Daten bereits hohen Wert gezeigt.
+Da die Fehlermeldung des Scenario-Compilers IDs wie \code{[variable.redeclaration]} enthalten, kann leicht danach in dem Datensatz gesucht werden.
+
+Von den oben genannten Anfragen enthielten 847 mindestens eine Fehler- oder Warnmeldung.
+Insgesamt belief sich die Zahl der gefundenen Meldungen auf 1949.
+Tabelle~\ref{tab:error-counts} stellt diese dar.
+
+\begin{table}
+    \caption{Zusammengefasste Anzahl der Fehlermeldungen nach ID}
+    \label{tab:error-counts}
+    \centering
+    \begin{tabular}{rl}
+        \toprule
+        21	& \code{[remove.source.type]} \\
+        29	& \code{[property.unresolved]} \\
+        33	& \code{[write.target.list]} \\
+        34	& \code{[association.reverse.conflict]} \\
+        39	& \code{[descriptor.multi.indefinite.deprecated]} (Warnung) \\
+        65	& \code{[add.target.type]} \\
+        86	& \code{[attribute.reverse.name]} \\
+        177	& \code{[descriptor.indefinite.deprecated]} (Warnung) \\
+        254	& \code{[property.redeclaration.conflict]} \\
+        283	& \code{[has.subject.primitive]} \\
+        288	& \code{[property.declaration.first]} (Hinweis) \\
+        298	& \code{[variable.redeclaration]} \\
+        298	& \code{[variable.declaration.first]} (Hinweis) \\
+        44  & sonstige Fehler \\
+        \midrule
+        1949 & Gesamt (inkl.\ Hinweise) \\
+        1363 & Fehler- und Warnmeldungen \\
+        1147 & Fehlermeldungen \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Zu den häufigsten Meldungen zählen hier \code{[property.declaration.first]} und \code{[variable.declaration.first]}.
+Dabei handelt es sich weder um Fehler noch um Warnung;
+diese Meldungen sind Hinweise und treten in Kombination mit den Fehlern \code{[association.reverse.conflict]} und \code{[property.redeclaration.conflict]} bzw. \code{[variable.redeclaration]} auf.
+Die Hinweise dienen dazu, diese leichter zu lösen, da sie auf vorherige Stellen im Scenario verweisen.
+Warnmeldungen sind hier ausschließlich Deprecations, welche bei Verwendungen von Syntax auftreten, die in Zukunft nicht mehr unterstützt werden soll.
+
+Die Statistik, welche Fehler am meisten auftreten, hatte besonderen Wert bei der Verbesserung der Fehlermeldungen.
+So konnte priorisiert werden, welche Änderungen die größte Wirkung erzielen.
+Im Verlauf dieser Arbeit ist eine Hinweismeldung hinzugekommen, welche auf eventuelle Tippfehler bei Werten und Attribut- und Assoziationsnamen verweist.
+Diese findet bei zehn in der Tabelle gezeigten Fehlern Anwendung (vier davon unter ``sonstige''),
+welche insgesamt 775 Mal aufgetreten sind.
+Dies entspricht einer Verbesserung von etwa zwei dritteln aller Fehlermeldungen.
