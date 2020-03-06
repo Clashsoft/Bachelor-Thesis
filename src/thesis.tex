@@ -1,20 +1,20 @@
 \documentclass[
-draft,
-pdftex,
-a4paper,
-oneside,
-parskip,
-numbers=noenddot,
-listof=totoc,
-bibliography=totoc,
-hyperfootnotes=false
+    draft,
+    pdftex,
+    a4paper,
+    oneside,
+    parskip,
+    numbers=noenddot,
+    listof=totoc,
+    bibliography=totoc,
+    hyperfootnotes=false
 ]{scrreprt}
 \setuptoc{toc}{totoc}
 
 \newcommand{\thesistitle}{Natürlichsprachliche Mustererkennung für natürlichsprachliche Objektszenarien}
 \newcommand{\thesistype}{B A C H E L O R A R B E I T}
 \newcommand{\thesistypedesc}{im Fachbereich Elektrotechnik/Informatik \\
-der Universität Kassel}
+    der Universität Kassel}
 \newcommand{\thesisauthorname}{Adrian Kunz}
 \newcommand{\thesisauthorhomestreet}{***REMOVED***}
 \newcommand{\thesisauthorhometown}{***REMOVED***}
@@ -31,37 +31,37 @@ der Universität Kassel}
 
 \begin{document}
 
-	\pagenumbering{roman}
+    \pagenumbering{roman}
 
-	\input{titlepage}
-	\input{abstract}
+    \input{titlepage}
+    \input{abstract}
 
-	\tableofcontents
+    \tableofcontents
 
-	\pagebreak
-	\pagenumbering{arabic}
-	\addtocontents{toc}{\protect\vspace{1.0cm}}
+    \pagebreak
+    \pagenumbering{arabic}
+    \addtocontents{toc}{\protect\vspace{1.0cm}}
 
-	\input{chapter/introduction}
-	\input{chapter/motivation}
-	\input{chapter/fulib-scenarios}
-	\input{chapter/fulib.org}
-	\input{chapter/development}
-	\input{chapter/pattern-matching}
-	\input{chapter/results}
+    \input{chapter/introduction}
+    \input{chapter/motivation}
+    \input{chapter/fulib-scenarios}
+    \input{chapter/fulib.org}
+    \input{chapter/development}
+    \input{chapter/pattern-matching}
+    \input{chapter/results}
 
-	\addtocontents{toc}{\protect\vspace{1.0cm}}
+    \addtocontents{toc}{\protect\vspace{1.0cm}}
 
-	\bibliographystyle{alphadin}
-	\bibliography{thesis}
+    \bibliographystyle{alphadin}
+    \bibliography{thesis}
 
-	\listoffigures
-	\listoftables
-	\renewcommand{\listoflistingscaption}{Listing-Verzeichnis}
-	\listoflistings
+    \listoffigures
+    \listoftables
+    \renewcommand{\listoflistingscaption}{Listing-Verzeichnis}
+    \listoflistings
 
-	\appendix
-	\input{appendix}
+    \appendix
+    \input{appendix}
 
-	\input{declaration}
+    \input{declaration}
 \end{document}
