@@ -41,24 +41,27 @@ Der rote ``x''-Button löscht den Task aus der Liste.
 
 Unter der Task-Liste befinden sich die Eingabefenster für die sogenannte ``Template Solution'' und die Musterlösung (Sample Solution).
 Beide lassen sich mit den entsprechenden Buttons ein- und ausklappen, um das Formular übersichtlicher zu machen.
-Entscheidet der Kursleiter sich dafür, eine Template Solution anzugeben, so wird diese den Studierenden als Lösung vorgegeben, wenn sie das Assignment öffnet.
-Die Aufgabenstellung kann dann beispielsweise sein, dass das vorgegebene Scenario angepasst oder vervollständigt wird.
-Dafür könnten in der Template Solution z.B.\ Lücken mit \code{...} gelassen werden, die der Studierende ausfüllen soll.
+Gibt man eine Template Solution an, so wird diese den Studierenden als Lösung vorgegeben, wenn sie das Assignment öffnen.
+Die Aufgabenstellung könnte dann beispielsweise sein, dass das vorgegebene Scenario angepasst oder vervollständigt wird.
+Dafür könnten in der Template Solution z.B.\ Lücken mit ``\code{...}'' gelassen werden, die der Studierende ausfüllen soll.
 Die Musterlösung ist zwar optional, sie erlaubt jedoch dem Ersteller, seine Aufgabenstellung auf Lösbarkeit zu prüfen.
 Dadurch können Fehler in der Aufgabenstellung oder der Verifizierung frühzeutig erkannt werden.
+Bei Änderung der Musterlösung wird diese automatisch geprüft.
+In der Task-Liste werden dann diejenigen Tasks rot, deren Verifizierungscode fehlgeschlagen ist.
+Dies deutet an, dass es ein Problem in der Musterlösung oder des Tasks gibt.
 
 Sämtliche Änderungen am Formular werden sofort im Browser gespeichert.
 Dadurch ist Datenverlust beim Verlassen der Seite oder bei Ausfall der Internetverbindung ausgeschlossen.
 Dennoch gibt es die Möglichkeit, den Entwurf des Assignments als Datei auf der Festplatte zu speichern.
 Dies ist mit dem ``Export''-Button möglich.
 Später kann diese Datei dann wieder in das Formular übernommen werden.
-Dies ist durch deren Auswahl im Feld neben dem ``Import''-Button und anschließendes Klicken dessen möglich.
+Dafür muss diese im Feld neben dem ``Import''-Button ausgewählt werden und anschließend auf diesen geklickt werden.
 Die Import/Export-Funktion erlaubt ferner, ein Assignment für die spätere Bearbeitung zu speichern und ein Neues zu erstellen.
 Heruntergeladene Datein können weiterhin über E-Mail oder Filesharing an andere weitergegeben werden,
 die das Assignment dann importieren und prüfen oder verändern können.
 
-Um ein fertiges Assignment zu veröffentlich, genügt ein Klick auf dem ``Submit''-Button.
-Dieser bewirkt, dass das ausgefüllte Formular an den Server gesendet wird, der das erstellte Assignment speichert wird und einen Link generiert.
+Um ein fertiges Assignment zu veröffentlich, genügt ein Klick auf den ``Submit''-Button.
+Dieser bewirkt, dass das ausgefüllte Formular an den Server gesendet wird, der das erstellte Assignment speichert und einen Link generiert.
 Abbildung~\ref{fig:create-assignment-success} zeigt das Fenster, das sich daraufhin öffnet und diesen Link zeigt.
 
 \begin{figure}
@@ -69,10 +72,10 @@ Abbildung~\ref{fig:create-assignment-success} zeigt das Fenster, das sich darauf
 \end{figure}
 
 Der erste Link ist dafür vorgesehen, ihn an die Studierenden weiterzuleiten.
-Öffnet sie diesen, zeigt sich die Seite, in der sie ihre Lösung des Assignments erstellen und abgeben können.
+Öffnen sie diesen, zeigt sich die Seite, in der sie ihre Lösung des Assignments erstellen und abgeben können.
 Dieser Vorgang ist Thema des nächsten Unterabschnitts.
 Der zweite Link ist für den Kursleiter und die Korrekteure, da darunter eine Liste aller abgegeben Lösungen zu finden ist.
-Um darauf zugreigen zu können, wird das gezeigte Token benötigt.
+Um darauf zugreifen zu können, wird das gezeigte Token benötigt.
 Dieses muss vom Kursleiter an die Korrekteure weitergeleitet werden.
 Ohne dieses Token-System könnten Studierende die Lösungen von Anderen einsehen und übernehmen.
 
