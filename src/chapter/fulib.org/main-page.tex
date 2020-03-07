@@ -74,7 +74,7 @@ Damit lässt sich das Fenster zur Projektkonfiguration öffnen, welches in Abbil
 In diesem werden Einstellungen zum Projekt durchgeführt, zu dem das Scenario später gehören soll.
 Genauer lassen sich dessen Name und Version sowie Paket und Dateiname des Scenarios einstellen.
 Diese werden wie der Scenario-Text im Browser gespeichert, damit sie beim erneuten Aufrufen der Seite bestehen bleiben.
-Eingestellte Werte haben nur geringen Einfluss auf die Funktionalität der Webseite selbst;
+Eingestellte Werte haben nur geringen Einfluss auf die Funktionalität der Webseite selbst,
 jedoch sind sie beim Herunterladen eines Projekts von Relevanz.
 Dies ist mit einem Button im unteren Teil des Fensters möglich.
 Klickt man auf diesen, wird das Scenario zusammen mit einigen Konfigurations-Dateien in einem Zip-Archiv verpackt und auf die Festplatte heruntergeladen.
@@ -86,20 +86,20 @@ Entpackt man das heruntergeladene Archiv, erhält man einen fertigen Projektordn
 Dieser kann in einer IDE mit Gradle-Unterstützung wie z.B.\ IntelliJ geöffnet werden.
 Führt man daraufhin den \code{check}-Task mit Gradle aus (Kommandozeile: \code{./gradlew check} im Projektordner),
 wird das zuvor auf fulib.org geschriebene Scenario kompiliert und generierte Java-Dateien in den entsprechenden Ordnern unter \code{src/} abgelegt.
-Außerdem werden generierte Tests sofort ausgeführt.
+Außerdem bewirkt \code{check} die Ausführung von generierten Tests.
 Ändert man die Scenario-Datei und führt den Task erneut aus, wird auch der Java-Code angepasst.
 
-Der Projektexport ist vor allem dann relevant, wenn das Scenario zu groß wird, um im Editor auf fulib.org übersichtlich zu sein.
+Der Projektexport ist vor allem dann relevant, wenn das Scenario zu groß wird, um im Editor übersichtlich zu sein.
 Dies ist meist ein Anzeichen dafür, dass man ein richtiges Projekt beginnen sollte.
 Zudem können dann mehrere Scenario-Dateien angelegt werden.
 Ein weitere Vorteil ist, dass der generierte Java-Code vollständig einsehbar und anpassbar ist.
 Dabei bietet es sich an, das Projekt unter Versionskontrolle wie Git zu stellen.
-Im Projektarchiv enthalten ist eine voreingestellte \code{.gitignore}-Datei, um das Einrichten zu erleichtern.
+Im Projektarchiv enthalten ist eine voreingestellte \code{.gitignore}-Datei, um dessen Einrichten zu erleichtern.
 
 \subsection{Sicht der Studenten}\label{subsec:students-view}
 
 Im Wintersemester 2019/20 haben Studierende der Uni Kassel die Scenario-Sprache, die fulib.org-Seite und die davon erstellten Projekte verwendet.
-Dies geschah im Modul Programmieren und Modellieren.
+Dies geschah im Modul Programmieren und Modellieren, das im Bachelor zum dritten Fachsemester gehört.
 Dabei wurde zunächst die Webseite und die Verwendung der Scenarios in der Vorlesung erklärt.
 In zwei Hausaufgaben wurde dann der Einsatz beider Tools bewertet.
 Die erste davon befasste sich mit der Modellierung eines einfachen Datenmodells und dem anschließenden Projektexport.
@@ -111,8 +111,8 @@ Beide Hausaufgaben sind in ihrer Bewertung im Vergleich zu anderen Aufgabenblät
 
 Am Ende des Semesters konnten die Studierenden bei einer Vorlesungsumfrage ihr Feedback hinterlassen.
 Diese enthielt auch einige Fragen zu fulib.org, FulibScenarios und FulibMockups.
-Diese waren in fünf Teilbereiche gegliedert, die alle mit einer Note von 1 bis 6 bewertet werden konnten.
-Tabelle~\ref{tab:survey-results} zeigt die Durchschnittsnoten der Teilbereiche.
+Dabei konnten fünf Aspekte mit einer Note von 1 bis 6 bewertet werden.
+Tabelle~\ref{tab:survey-results} zeigt die Durchschnittsnoten der Aspekte.
 Insgesamt wurden 28 Antworten eingereicht.
 Die genaue Verteilung der Noten sowie sonstige Umfrageergebnisse sind in Anhang~\ref{sec:survey-results} zu finden.
 
@@ -134,15 +134,15 @@ Die genaue Verteilung der Noten sowie sonstige Umfrageergebnisse sind in Anhang~
 Eine weitere Frage befasste sich mit potentiellen zukünftigen Features.
 Dabei waren insbesondere jene genannt, die den Online-Editor betreffen.
 Die meisten Studierenden (24) haben sich dabei Syntaxhighlighting gewünscht,
-gefolgt von der Hervorhebung von Fehlern und Warnungen im Code (20).
+gefolgt von der Hervorhebung von Fehlern und Warnungen im Code (20 Antworten).
 Autovervollständigung und die Möglichkeit, mehrere Scenarios gleichzeitig in Tabs zu öffnen,
-wurden von 18 bzw.\ zehn Studenten gewünscht.
+wurden von 18 bzw.\ zehn Studierende gewünscht.
 
 Durch ein Freitext-Feld gab es die Möglichkeit, allgemeines Feedback zu hinterlassen.
 Darin wurde mehrfach die fehlenden Dokumentation kritisiert.
 Diese war zum Zeitpunkt der Verwendung durch die Studierenden unvollständig,
 weshalb sie nicht direkt zu finden war.
-Inzwischen wurde diese wurde wesentlich erweitert und ist nun auf fulib.org verlinkt.
+Inzwischen wurde diese wesentlich erweitert und ist nun auf fulib.org verlinkt.
 
 Auch kritisiert wurde die Verständlichkeit der Fehlermeldungen.
 Wie im folgenden Abschnitt erläutert wird,
@@ -153,7 +153,7 @@ Gleichzeitig kann auch die Dokumentation auf Beispiele verlinken,
 um die darin enthaltene Beschreibung von Sprachkonzepten interaktiv zu ergänzen.
 
 Das FulibMockups-Projekt befindet sich derzeit im einem frühem Stadium der Entwicklung.
-In Zukunft soll dies insbesondere in der Typsicherheit und Ausdrucksstärke verbessert werden.
+In Zukunft soll es insbesondere in der Typsicherheit und Ausdrucksstärke verbessert werden.
 Das Hinzufügen von Autovervollständigung kann dessen Gebrauch auch vereinfachen.
 
 \subsection{Datensammlung}\label{subsec:data-collection}
@@ -169,25 +169,25 @@ Darin kann ausgewählt werden, ob man lokale (d.h. im Browser) oder serverseitig
 \end{figure}
 
 Zu lokale Daten zählen auf der Hauptseite der Scenario-Text sowie die Projekteinstellungen.
-Erlaubt man die lokale Speicherung nicht, werden diese nach erneutem Laden des Seite auf Standardwerte zurückgesetzt.
+Erlaubt man die lokale Speicherung nicht, werden diese nach erneutem Laden der Seite auf Standardwerte zurückgesetzt.
 Außerdem wird die Auswahl der Datenschutzeinstellung selbst lokal gespeichert.
-Ist dies nicht erlaubt, öffnet sich das Einstellungsfenster bei jedem Öffnen von fulib.org automatisch.
+Ist dies nicht erlaubt, öffnet sich das Einstellungsfenster bei jedem Besuch von fulib.org automatisch.
 Für datenschutzbewusste Benutzer, die dies als Störung empfinden, gibt es daher die vierte Option,
 welche die lokale Datenspeicherung lediglich zum Verstecken des Fensters nutzt.
 
 Die serverseitige Datenspeicherung umfasst sämtliche ``Compile and Run''-Anfragen, die an den Server gestellt werden, inklusive automatische.
-Der Server speichert dann die vollständige Anfrage (d.h. Scenario-Text und Projektkonfiguration) und die vollständige API-Antwort.
+Der Server speichert dann die vollständige Anfrage (d.h. Scenario-Text und Projektkonfiguration) und die vollständige Antwort.
 Letztere enthält Compiler-Ausgabe, Methodenrümpfe und Diagramme.
-Weiterhin werden IP-Adresse und User-Agent der Anfrage protokolliert, was die progressive Anordnung der Anfragen erlaubt.
-Dies erlaubt beispielsweise die Analyse von dem Zeitaufwand, der für das Lesen und Verstehen der Beispielscenarios benötigt wird.
+Weiterhin werden IP-Adresse und User-Agent der Anfragen protokolliert, was deren progressive Anordnung erlaubt.
+Dies ermöglicht beispielsweise die Analyse von dem Zeitaufwand, der für das Lesen und Verstehen der Beispielscenarios benötigt wird.
 
 Während der Vorlesung Programmieren und Modellieren im Wintersemester 2019/20 konnte serverseitig eine Vielzahl von Daten gesammelt werden.
-Zum Zeitpunkt dem Messung am 16.\ Februar 2020, 18:00, wurden seit 1.\ Oktober 2019 etwa 5100 Anfragen gespeichert.
-Aufgrund der änderbaren Natur von IP-Adressen und User-Agent-Zeichenketten kann nicht auf die Anzahl der unterschiedlichen Benutzer geschlossen werden.
+Zum Zeitpunkt der Messung am 16.\ Februar 2020, 18:00, wurden seit 1.\ Oktober 2019 etwa 5100 Anfragen gespeichert.
+Aufgrund der veränderlichen Natur von IP-Adressen und User-Agent-Zeichenketten kann nicht auf die Anzahl der unterschiedlichen Benutzer geschlossen werden.
 Außerdem ist nicht bekannt, wie viele Nutzer die serverseitigen Datenspeicherung abgelehnt haben.
 Dennoch haben die gesammelten Daten bereits hohen Wert gezeigt.
-Da die Fehlermeldung des Scenario-Compilers IDs wie \code{[variable.redeclaration]} enthalten, kann leicht danach in dem Datensatz gesucht werden.
 
+Da die Fehlermeldung des Scenario-Compilers IDs wie \code{[variable.redeclaration]} enthalten, kann leicht danach in dem Datensatz gesucht werden.
 Von den oben genannten Anfragen enthielten 847 mindestens eine Fehler- oder Warnmeldung.
 Insgesamt belief sich die Zahl der gefundenen Meldungen auf 1949.
 Tabelle~\ref{tab:error-counts} stellt diese dar.
@@ -229,6 +229,6 @@ Warnmeldungen sind hier ausschließlich Deprecations, welche bei Verwendungen vo
 Die Statistik, welche Fehler am meisten auftreten, hatte besonderen Wert bei der Verbesserung der Fehlermeldungen.
 So konnte priorisiert werden, welche Änderungen die größte Wirkung erzielen.
 Im Verlauf dieser Arbeit ist eine Hinweismeldung hinzugekommen, welche auf eventuelle Tippfehler bei Werten und Attribut- und Assoziationsnamen verweist.
-Diese findet bei zehn in der Tabelle gezeigten Fehlern Anwendung (vier davon unter ``sonstige''),
+Diese findet bei zehn in der Tabelle gezeigten Fehlernarten Anwendung (vier davon unter ``sonstige''),
 welche insgesamt 775 Mal aufgetreten sind.
 Dies entspricht einer Verbesserung von etwa zwei dritteln aller Fehlermeldungen.
