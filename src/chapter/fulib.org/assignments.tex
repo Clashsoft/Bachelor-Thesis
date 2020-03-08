@@ -86,11 +86,58 @@ Dabei werden neue Links und Token generiert, die wieder entsprechend geteilt wer
 
 \subsection{Lösen}\label{subsec:solution}
 
-\todo{
-Shareable-Link-Ansatz.
-Automatische Überprüfung.
-Unveränderbar-Ansatz und Versionshistorie.
-}
+Studierende können ein Assignment lösen, indem sie dessen Link besuchen.
+Daraufhin wird die in Abbildung~\ref{fig:assignment-solve} gezeigte Seite angezeigt.
+Diese enthält alle beim Erstellen angegeben Eckdaten, sowie die Beschreibung und Task-Liste des Assignments.
+Darunter befindet sich der Editor für die Lösung.
+In Abbildung~\ref{fig:assignment-solve} enthält dieser bereits die vom Ersteller vorgegebene Template Solution als Hilfe zum Einstieg.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chapter/fulib.org/img/assignment-solve.png}
+    \caption{Lösungsseite für ein Assignment}
+    \label{fig:assignment-solve}
+\end{figure}
+
+Sobald man das Scenario im Editor bearbeitet, beginnt die automatische Prüfung anhand der Tasks.
+Dabei werden erfüllte Tasks grün und nicht erfüllte Tasks rot.
+Auch die erreichte Punktzahl wird ermittelt und angezeigt.
+Bei nicht erfüllten Tasks lässt sich mit ``View Output'' die Ausgabe des Scenario-Compilers anzeigen, welche auf die Fehlerursache hinweist.
+Abbildung~\ref{fig:solve-tasks} zeigt, wie dies bei einer Teillösung aussehen kann.
+Der Studierende kann dann seine Lösung anpassen, um alle Tasks zu erfüllen.
+Es ist jedoch auch möglich, eine (teilweise) fehlerhafte Lösung abzugeben.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chapter/fulib.org/img/solve-tasks.png}
+    \caption{Erfüllte und unerfüllte Tasks}
+    \label{fig:solve-tasks}
+\end{figure}
+
+Um die Lösung abzugeben, muss der Studierende zunächst Namen, Matrikelnummer und E-Mail-Adresse angeben.
+Besonders die Matrikelnummer dient später zur Identifizierung.
+Daraufhin kann mit ``Submit'' die Lösung eingereicht werden.
+Dies öffnet das in Abbildung~\ref{fig:solution-submitted} dargestellte Fenster.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chapter/fulib.org/img/solution-submitted.png}
+    \caption{Fenster nach Einreichen einer Lösung}
+    \label{fig:solution-submitted}
+\end{figure}
+
+Auch für Lösungen wird ein Link und ein Token generiert.
+Der Link dient dazu, die Lösung sowie deren Bewertung später einsehen zu können.
+Dies ist aus Sicherheitsgründen nur mit dem Token möglich.
+Zwar wird dieses im Browser gespeichert, beim Öffnen der Lösungsseite mit einem anderen Gerät muss es jedoch eingegeben werden.
+
+Nach der Abgabe kann die Lösung weiter bearbeitet werden.
+Dazu muss lediglich das Bestätigungsfenster geschlossen werden.
+Durch erneutes Betätigen von ``Submit'' wird die neue Lösung eingereicht;
+die alte Abgabe bleibt jedoch unverändert und weiterhin einsehbar.
+Auch bei einem späteren Besuch der Seite bleiben sämtliche Eingaben bestehen, da sie lokal im Browser gespeichert werden.
+Dadurch kann an einer angefangen Lösung bedenkenlos später weitergearbeitet werden,
+ohne sie zwischenzeitlich einreichen zu müssen.
 
 \subsection{Korrigieren}\label{subsec:correcting}
 
