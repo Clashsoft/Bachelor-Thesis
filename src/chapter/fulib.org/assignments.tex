@@ -224,8 +224,41 @@ damit Studierende sich nicht durch Angabe deren Namens als diese ausgeben könne
 
 \subsection{Kurse}\label{subsec:courses}
 
-\todo{
-Anlegen,
-Seitenleiste,
-FulibScenarios-Kurs
-}
+Kurse sind Sammlungen von Assignments, die eine feste Reihenfolge vorgeben.
+Sie ermöglichen die Vergabe von mehreren Aufgabenstellungen, die inhaltlich zusammen gehören und aufeinander aufbauen können.
+So ist es beispielsweise möglich, einen unbeaufsichtigten, von einer Vorlesung unabhängigen Kurs zu erstellen, mit dem die Scenario-Sprache erlernt werden kann.
+Interessierte können diesen aufrufen und selbstständig Assignments bearbeiten, die nicht bewertet werden.
+
+Kurse werden erstellt, indem im Footer Assignments \textrightarrow Create Course ausgewählt wird.
+Dies öffnet die in Abbildung~\ref{fig:create-course} gezeigte Seite.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chapter/fulib.org/img/create-course.png}
+    \caption{Formular zum Erstellen eines Kurses}
+    \label{fig:create-course}
+\end{figure}
+
+Ein Kurs benötigt neben den zugehörigen Assignments einen Titel und eine Beschreibung.
+Assignments müssen im Vorhinein mit dem bekannten Formular erstellt werden.
+Gibt man dann den Namen oder den Link eines selbst erstellten Assignments in das dafür vorgesehene Feld ein, kann man es dem Kurs hinzufügen.
+Die dabei entstehenden Liste erlaubt ferner das Umordnen sowie entfernen der hinzugefügten Assignments.
+Zum Erstellen genügt nach Ausfüllen des Formulars ein Klick auf den Button ``Submit''.
+Dabei wird für den Kurs ein Link generiert, unter dem er abrufbar ist.
+Abbildung~\ref{fig:course-view} zeigt die Seite, die damit aufgerufen wird.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chapter/fulib.org/img/course-view.png}
+    \caption{Kurs-Ansicht}
+    \label{fig:course-view}
+\end{figure}
+
+Die Bearbeitung eines Assignments in einem Kurs unterscheidet sich nur geringfügig von der eines alleinstehenden.
+Hinzu kommt die Seitenleiste am linken Bildschirmrand, die Titel, Beschreibung und Verlauf des Kurses anzeigt.
+Darin wird das aktuell angezeigte sowie bereits bearbeitete Assignments hervorgehoben.
+Die Assignments eines Kurses können in beliebiger Reihenfolge bearbeitet werden.
+Grund dafür ist, dass sie auch ohne den Kurs beliebig abruf- und bearbeitbar sind.
+Meist ist es jedoch sinnvoll, sich an den vorgegebene Ablauf zu halten.
+Bearbeitet man ein Assignment als Teil eines Kurses und reicht eine Lösung ein, verändert sich das Bestätigungsfenster der Abgabe.
+In diesem kommt ein Button hinzu, der das Fortschreiten zum nächsten Assignment im Kurs erlaubt.
