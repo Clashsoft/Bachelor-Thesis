@@ -168,12 +168,59 @@ Der Button ``Edit'' erlaubt die Bearbeitung und erneute Abgabe einer Lösung.
 
 \subsection{Korrigieren}\label{subsec:correcting}
 
-\todo{
-Berechtigungssystem.
-Workflow.
-Kommentare.
-Anpassbare Bepunktung.
-}
+Einstiegspunkt für die Korrektur ist die Seite der abgegenen Lösungen für ein Assignment.
+Diese ist unter dem zweiten Link erreichbar, der nach Anlegen eines Assignments erzeugt wurde.
+Der Kursleiter kann diesen an die Korrekteure zusammen mit dem Token weiterleiten.
+Beim ersten Besuch des Links muss dieses angebeben werden, um die Lösungen anzuzeigen.
+Daraufhin zeigt sich die Tabelle mit Lösungen, die in Abbildung~\ref{fig:solution-table} zu sehen ist.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chapter/fulib.org/img/solution-table.png}
+    \caption{Tabelle der eingereichten Lösungen für ein Assignment}
+    \label{fig:solution-table}
+\end{figure}
+
+Über der Tabelle befindet sich eine Übersicht der Aufgabenstellung, inklusive Eckdaten, Beschreibung, Tasks und evtl.\ Musterlösung.
+Dies vereinfacht die Korrektur, da keine separate Seite geöffnet werden muss, um diese einzusehen.
+Das Suchfeld erlaubt es, die angezeigten Lösungen einzuschränken.
+Dies ist sowohl als Freitextsuche über alle Spalten als auch für bestimmte Spalten möglich.
+So lässt sich beispielsweise mit \code{assignee:Peter} nach allen Lösungen suchen, die dem Korrekteur \code{Peter} zugewiesen sind.
+Die Zuweisung erfolg durch Ändern des Eingabefelds unter ``Assignee'' und wird sofort übernommen.
+I.d.R.\ kann der Kursleiter diese Zuordnung durchführen, woraufhin die Korrekteure nach den ihnen zugewiesenen Lösungen suchen können.
+
+Die Tabelle gibt zunächst eine Übersicht über die Eckdaten der Lösung.
+Dazu gehören neben den Angaben zum Studierenden auch das Abgabedatum sowie die erreichte Punktzahl.
+Nach der Deadline abgegebene Lösungen werden rot hervorgehoben.
+Durch Klick auf ``View'' gelangt man zur Detailseite der Lösung, die in Abbildung~\ref{fig:solution} dargestellt ist.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chapter/fulib.org/img/solution.png}
+    \caption{Ansicht einer abgegebenen Lösung}
+    \label{fig:solution}
+\end{figure}
+
+Hier wird erneut die Aufgabenstellung angezeigt;
+die Task-Liste zeigt hier wie bei der Bearbeitung die erreichte Punktzahl.
+Mit ``Grade'' kann der Korrekteur darin die Bewertung anpassen.
+Dabei muss die zu vergebene Punktzahl, ein kurzer Kommentar und dessen Name angegeben werden.
+In der Historie werden alle Änderungen der Bewertung aufgelistet.
+Auch Studierende können diese einsehen, jedoch nicht verändern.
+Abbildung~\ref{fig:grade-popover} zeigt das Fenster der Bewertung eines Tasks.
+Aufgrund der Vergabe von Teilpunkten wurde der entsprechende Task gelb.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chapter/fulib.org/img/grade-popover.png}
+    \caption{Fenster zur Bewertung eines Tasks}
+    \label{fig:grade-popover}
+\end{figure}
+
+Am unteren Ende der Seite befindet sich der Kommentarbereich.
+Hier können Studierende und Korrekteure Fragen, Antworten und Anmerkungen zur Bewertung hinterlassen.
+Korrekteure und der Kursleiter werden dabei mit einem Häkchen hervorgehoben,
+damit Studierende sich nicht durch Angabe deren Namens als diese ausgeben können.
 
 \subsection{Kurse}\label{subsec:courses}
 
