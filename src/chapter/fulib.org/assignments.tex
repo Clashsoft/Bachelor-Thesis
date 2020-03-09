@@ -172,10 +172,10 @@ wenn Änderungen vorgenommen aber nicht eingereicht wurden.
 
 \subsection{Korrigieren}\label{subsec:correcting}
 
-Einstiegspunkt für die Korrektur ist die Seite der abgegenen Lösungen für ein Assignment.
+Einstiegspunkt für die Korrektur ist die Seite, auf der abgegen Lösungen für ein Assignment einsehbar sind.
 Diese ist unter dem zweiten Link erreichbar, der nach Anlegen eines Assignments erzeugt wurde.
 Der Kursleiter kann diesen an die Korrekteure zusammen mit dem Token weiterleiten.
-Beim ersten Besuch des Links muss dieses angebeben werden, um die Lösungen anzuzeigen.
+Beim ersten Besuch des Links muss letzteres angebeben werden, um die Lösungen anzuzeigen.
 Daraufhin zeigt sich die Tabelle mit Lösungen, die in Abbildung~\ref{fig:solution-table} zu sehen ist.
 
 \begin{figure}
@@ -185,7 +185,7 @@ Daraufhin zeigt sich die Tabelle mit Lösungen, die in Abbildung~\ref{fig:soluti
     \label{fig:solution-table}
 \end{figure}
 
-Über der Tabelle befindet sich eine Übersicht der Aufgabenstellung, inklusive Eckdaten, Beschreibung, Tasks und evtl.\ Musterlösung.
+Über der Tabelle befindet sich eine Übersicht der Aufgabenstellung, inklusive Eckdaten, Beschreibung, Tasks und eventueller Musterlösung.
 Dies vereinfacht die Korrektur, da keine separate Seite geöffnet werden muss, um diese einzusehen.
 Das Suchfeld erlaubt es, die angezeigten Lösungen einzuschränken.
 Dies ist sowohl als Freitextsuche über alle Spalten als auch für bestimmte Spalten möglich.
@@ -193,7 +193,7 @@ So lässt sich beispielsweise mit \code{assignee:Peter} nach allen Lösungen suc
 Die Zuweisung erfolg durch Ändern des Eingabefelds unter ``Assignee'' und wird sofort übernommen.
 I.d.R.\ kann der Kursleiter diese Zuordnung durchführen, woraufhin die Korrekteure nach den ihnen zugewiesenen Lösungen suchen können.
 
-Die Tabelle gibt zunächst eine Übersicht über die Eckdaten der Lösung.
+Die Tabelle gibt zunächst eine Übersicht über die Randangaben der Lösung.
 Dazu gehören neben den Angaben zum Studierenden auch das Abgabedatum sowie die erreichte Punktzahl.
 Nach der Deadline abgegebene Lösungen werden rot hervorgehoben.
 Durch Klick auf ``View'' gelangt man zur Detailseite der Lösung, die in Abbildung~\ref{fig:solution} dargestellt ist.
@@ -208,11 +208,11 @@ Durch Klick auf ``View'' gelangt man zur Detailseite der Lösung, die in Abbildu
 Hier wird erneut die Aufgabenstellung angezeigt;
 die Task-Liste zeigt hier wie bei der Bearbeitung die erreichte Punktzahl.
 Mit ``Grade'' kann der Korrekteur darin die Bewertung anpassen.
-Dabei muss die zu vergebene Punktzahl, ein kurzer Kommentar und dessen Name angegeben werden.
+Dabei muss die zu vergebene Punktzahl, ein kurzer Kommentar und der eigene Name angegeben werden.
 In der Historie werden alle Änderungen der Bewertung aufgelistet.
-Auch Studierende können diese einsehen, jedoch nicht verändern.
+Auch Studierende können diese einsehen, jedoch nicht verändern, da dafür das Token des Assignments benötigt wird.
 Abbildung~\ref{fig:grade-popover} zeigt das Fenster der Bewertung eines Tasks.
-Aufgrund der Vergabe von Teilpunkten wurde der entsprechende Task gelb.
+Aufgrund der Vergabe von Teilpunkten wurde der entsprechende Task gelb, was bei der automatischen Bewertung nicht möglich ist.
 
 \begin{figure}
     \centering
@@ -223,8 +223,9 @@ Aufgrund der Vergabe von Teilpunkten wurde der entsprechende Task gelb.
 
 Am unteren Ende der Seite befindet sich der Kommentarbereich.
 Hier können Studierende und Korrekteure Fragen, Antworten und Anmerkungen zur Bewertung hinterlassen.
-Korrekteure und der Kursleiter werden dabei mit einem Häkchen hervorgehoben,
-damit Studierende sich nicht durch Angabe deren Namens als diese ausgeben können.
+Hat man das Token des Assignmenst und erstellt ein Kommentar,
+wird dieses mit einem Häkchen hinter dem Namen hervorgehoben.
+Dies verhindert, dass Studierende durch Angabe des Namens des Kursleiters oder eines Korrekteurs diese imitieren können.
 
 \subsection{Kurse}\label{subsec:courses}
 
