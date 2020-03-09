@@ -1,11 +1,39 @@
 \section{Architektur}\label{sec:architecture}
 
+fulib.org verwendet eine einfache Architektur bestehend aus Frontend, Backend und Datenbank.
+Da es sich um eine Webanwendung handelt, wird das Frontend im Browser ausgeführt.
+Öffnet man die Seite, werden die benötigten HTML-, JavaScript- und CSS-Dateien vom Backend heruntergeladen und im Browser angezeigt.
+Aus Sicht des Backends sind dies statische Ressourcen.
+Sämtlicher Datenaustausch in der Webanwendung geschieht dann über REST/HTTP-Anfragen an das Backend.
+Dabei wird JSON als Datenformat verwendet.
+Für die persistente Datenspeicherung von Anfragelogs, Aufgabenblättern, Lösungen, Kursen und Kommentaren kommt eine Mongo-Datenbank zum Einsatz.
+
 \subsection{Frontend}\label{subsec:frontend}
 
-\todo{
-HTML, JS, Bootstrap.
-No framework.
-}
+Das Frontend von fulib.org ist mit dem Angular~\cite{angular}-Framework implementiert.
+Dieses gibt insbesondere eine Architektur vor, die Business Logic (Services) von UI-Logik (Components) trennt.
+Services sind beispielsweise dafür zuständig, mit dem Backend Daten auszutauschen,
+während Komponenten sich mit deren Darstellung befassen.
+Letztere haben weiterhin als wiederverwendbare Elemente Bedeutung.
+Sie ermöglichen es, gemeinsame Funktionalität zu verkapseln und an mehreren Orten zu verwenden.
+Im Kontext der Assignments ist beispielsweise die Task-Liste eine Komponente, die auf mehreren Seiten zum Einsatz kommt.
+Da Komponenten nur einmal implementiert und beliebig wiederverwendet werden können,
+kann die Oberfläche konsistent und fehlerfrei gehalten werden.
+
+Das Aussehen der Oberfläche von fulib.org basiert auf Bootstrap~4~\cite{bootstrap}.
+Das CSS-Framework gibt vielen HTML-Elementen wie Buttons oder Eingabefeldern ein modernes Aussehen.
+Weiterhin gibt ermöglicht es die einfache Anordnung von Elementen, die sich an verschiedene Bildschirmgrößen anpassen kann.
+So ist fulib.org ohne großen Entwicklungsaufwand auch auf Smartphones o.ä.\ übersichtlich.
+Bei dem im Footer einstellbaren Nachtmodus (Darkmode) handelt es sich um die Bootstrap-Darkmode~\cite{bootstrap-darkmode}.
+Diese Eigenentwicklung passt die Farbgebung von Bootstrap so an, dass alle normalerweise weißen oder hellen Elemente in schwarz- bzw.\ grautönen erscheinen.
+Dies schont bei dunkleren Lichtbedingung wie etwa abends das Auge.
+
+Die Editorfenster für Scenarios und Java-Code sind mit der CodeMirror~\cite{codemirror}-Bibliothek implementiert.
+Diese bietet einen Editor, der Syntaxhighlighting für viele Programmiersprachen unterstützt.
+Mit Themes kann die Farbgebung angepasst werden, was auf fulib.org beim Wechsel in den Nachtmodus zu beobachten ist.
+Zudem unterstützt der Editor eine Reihe von Addons, die zusätzliche Funktionalität einbringen können.
+Beispielsweise können mit dem Lint-Addon Fehlermeldungen im Editor hervorgehoben werden.
+Es ist geplant, dies im Scenario-Editor einzusetzen.
 
 \subsection{Backend}\label{subsec:backend}
 
