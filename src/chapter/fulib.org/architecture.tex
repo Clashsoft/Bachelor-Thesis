@@ -37,10 +37,47 @@ Es ist geplant, dies im Scenario-Editor einzusetzen.
 
 \subsection{Backend}\label{subsec:backend}
 
-\todo{
-Java Spark.
-No Spring.
-}
+Bei dem Backend von fulib.org handelt es sich um einen einfachen HTTP-Server.
+Dieser ist zustandslos, arbeitet also nach dem REST-Prinzip.
+Dabei sind die Hauptaufgaben die Auslieferung des Frontends,
+die Ausführung von Scenarios,
+sowie die Kommunikation mit der Datenbank im Kontext von Assignments.
+
+Das Ergebnis des Buildprozesses des Frontends sind statische HTML-, JavaScript- und CSS-Dateien.
+Diese werden vom Backend auf Anfrage eines Browsers unverändert an diesen übermittelt.
+Anders als bei dynamisch bzw.\ serverseitig generierten Webseiten hat dies den Vorteil,
+dass der Ressourcenaufwand des Servers sehr gering ist.
+Auch lassen sich die statischen Ressourcen sehr gut cachen,
+beispielsweise in einem zwischenstehenden Cache oder im Browser.
+Dies kann mit Ausnahme vom ersten Besuch der Seite die Ladezeiten erheblich verkürzen.
+Jedoch steigt der Aufwand auf Client- bzw.\ Browserseite,
+der nach Herunterladen der statischen Dateien das JavaScript ausführen muss, um den Webseiteninhalt aufzubauen.
+Dies kann bei weniger leistungsfähigen Geräten wie älteren Smartphones für längere Verzögerungen sorgen.
+
+Die Ausführung der Scenarios delegiert an die drei zuständigen Tools,
+den Scenario- und Java-Compiler und JUnit.
+Der Server schreibt zunächst den über die API empfangenen Text in eine Datei in einem temporären Ordner.
+Daraufhin wird der Scenario-Compiler in diesem Ordner ausgeführt,
+der die Java-Dateien sowie das Klassendiagramm generiert.
+Mit dem Java Compiler wird der Java-Code dann kompiliert und die entstehenden Klassen dynamisch geladen.
+Das JUnit-Framework bietet eine Schnittstelle zum Ausführen der Test-Klassen,
+wodurch das Testergebnis sowie die Objektdiagramme entstehen.
+Die Ausgaben der drei Tools werden dabei protokolliert, um einen Teil der Antwort zu bilden.
+Der temporäre Ordner wird daraufhin nach Diagramm- und Java-Dateien durchsucht.
+Erstere werden unter Anwendung einer geeigneten Kodierung in die API-Antwort übernommen.
+Aus letzteren werden relevante Methodenrümpfe durch einen einfachen Parser extrahiert.
+
+Die Kommunikation mit der Datenbank ist besonders bei Assignments und verwandter Funktionalität relevant.
+Alle dafür zuständigen Endpunkte lesen entweder Daten aus der Datenbank oder erzeugen neue Datensätze in dieser.
+Beim Anlegen ist das Anfrageformat stets JSON;
+der Server konvertiert dies zunächst in sein eigenes Datenmodell.
+Dieses wird beim Speichern in der Datenbank in deren natives Format konvertiert.
+Umgekehrt ist es bei Leseanfragen, bei denen der Server Anfragen an die Datenbank stellt,
+deren Ergebnis in sein Datenmodell konvertiert und dies als JSON in der Antwort zurückgibt.
+Das Backend ist bei sämtlichen Anfragen für die Prüfung von Tokens zur Autorisierung zuständig,
+wobei sichergestellt wird, dass keine Daten bei nicht befugten Anfragen preisgegeben werden.
+Insbesondere wird diese Prüfung nicht im Frontend durchgeführt,
+da sonst ein Angreifer manuell die Server-API ansprechen und ausnutzen könnte.
 
 \subsection{Datenbank}\label{subsec:database}
 
