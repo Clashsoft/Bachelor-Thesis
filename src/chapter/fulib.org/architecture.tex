@@ -6,7 +6,18 @@ Da es sich um eine Webanwendung handelt, wird das Frontend im Browser ausgeführ
 Aus Sicht des Backends sind dies statische Ressourcen.
 Sämtlicher Datenaustausch in der Webanwendung geschieht dann über REST/HTTP-Anfragen an das Backend.
 Dabei wird JSON als Datenformat verwendet.
-Für die persistente Datenspeicherung von Anfragelogs, Aufgabenblättern, Lösungen, Kursen und Kommentaren kommt eine Mongo-Datenbank zum Einsatz.
+Für die persistente Datenspeicherung von Anfragelogs, Aufgabenblättern, Lösungen, Kursen und Kommentaren kommt eine Mongo\cite{mongodb}-Datenbank zum Einsatz.
+Die Kompilierung und Ausführung von Scenarios wird durch Anbinden des Scenario- und Java-Compilers sowie eines JUnit Runners bewerkstelligt.
+Abbildung~\ref{fig:website-architecture} gibt einen Überblick über die verschiedenen Komponenten,
+die es der Webseite ermöglichen, ihre Funktionalität bereitzustellen.
+Im folgenden Abschnitt wird näher erläutert, wie diese zusammenwirken.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{chapter/fulib.org/img/architecture.pdf}
+    \caption{Architektur von fulib.org}
+    \label{fig:website-architecture}
+\end{figure}
 
 \subsection{Frontend}\label{subsec:frontend}
 
@@ -78,9 +89,3 @@ Das Backend ist bei sämtlichen Anfragen für die Prüfung von Tokens zur Autori
 wobei sichergestellt wird, dass keine Daten bei nicht befugten Anfragen preisgegeben werden.
 Insbesondere wird diese Prüfung nicht im Frontend durchgeführt,
 da sonst ein Angreifer manuell die Server-API ansprechen und ausnutzen könnte.
-
-\subsection{Datenbank}\label{subsec:database}
-
-\todo{
-MongoDB\@.
-}
