@@ -21,6 +21,7 @@ Im folgenden Abschnitt wird näher erläutert, wie diese zusammenwirken.
 
 \subsection{Frontend}\label{subsec:frontend}
 
+% Angular
 Das Frontend von fulib.org ist mit dem Angular~\cite{angular}-Framework implementiert.
 Dieses gibt insbesondere eine Architektur vor, die Business Logic (Services) von UI-Logik (Components) trennt.
 Services sind beispielsweise dafür zuständig, mit dem Backend Daten auszutauschen,
@@ -31,16 +32,19 @@ Im Kontext der Assignments ist beispielsweise die Task-Liste eine Komponente, di
 Da Komponenten nur einmal implementiert und beliebig wiederverwendet werden können,
 kann die Oberfläche konsistent und fehlerfrei gehalten werden.
 
+% Bootstrap + Darkmode
 Das Aussehen der Oberfläche von fulib.org basiert auf Bootstrap~4~\cite{bootstrap}.
 Das CSS-Framework gibt vielen HTML-Elementen wie Buttons oder Eingabefeldern ein modernes Aussehen.
-Weiterhin gibt ermöglicht es die einfache Anordnung von Elementen, die sich an verschiedene Bildschirmgrößen anpassen kann.
+Weiterhin ermöglicht es die einfache Anordnung von Elementen, die sich an verschiedene Bildschirmgrößen anpassen kann.
 So ist fulib.org ohne großen Entwicklungsaufwand auch auf Smartphones o.ä.\ übersichtlich.
-Bei dem im Footer einstellbaren Nachtmodus (Darkmode) handelt es sich um die Bootstrap-Darkmode~\cite{bootstrap-darkmode}.
+Bei dem im Footer einstellbaren Nachtmodus (Darkmode) handelt es sich Funktionalität,
+die von der Bootstrap-Darkmode~\cite{bootstrap-darkmode}-Bibliothek bereitgestellt wird.
 Diese Eigenentwicklung passt die Farbgebung von Bootstrap so an, dass alle normalerweise weißen oder hellen Elemente in schwarz- bzw.\ grautönen erscheinen.
 Dies schont bei dunkleren Lichtbedingung wie etwa abends das Auge.
 
+% CodeMirror
 Die Editorfenster für Scenarios und Java-Code sind mit der CodeMirror~\cite{codemirror}-Bibliothek implementiert.
-Diese bietet einen Editor, der Syntaxhighlighting für viele Programmiersprachen unterstützt.
+Diese bietet einen Editor, der Syntaxhighlighting für viele Programmier- und Markupsprachen unterstützt.
 Mit Themes kann die Farbgebung angepasst werden, was auf fulib.org beim Wechsel in den Nachtmodus zu beobachten ist.
 Zudem unterstützt der Editor eine Reihe von Addons, die zusätzliche Funktionalität einbringen können.
 Beispielsweise können mit dem Lint-Addon Fehlermeldungen im Editor hervorgehoben werden.
@@ -54,18 +58,22 @@ Dabei sind die Hauptaufgaben die Auslieferung des Frontends,
 die Ausführung von Scenarios,
 sowie die Kommunikation mit der Datenbank im Kontext von Assignments.
 
+% Frontend
 Das Ergebnis des Buildprozesses des Frontends sind statische HTML-, JavaScript- und CSS-Dateien.
 Diese werden vom Backend auf Anfrage eines Browsers unverändert an diesen übermittelt.
 Anders als bei dynamisch bzw.\ serverseitig generierten Webseiten hat dies den Vorteil,
 dass der Ressourcenaufwand des Servers sehr gering ist.
 Auch lassen sich die statischen Ressourcen sehr gut cachen,
-beispielsweise in einem zwischenstehenden Cache oder im Browser.
+beispielsweise in einem zwischenstehenden Cache Proxy oder im Browser.
 Dies kann mit Ausnahme vom ersten Besuch der Seite die Ladezeiten erheblich verkürzen.
 Jedoch steigt der Aufwand auf Client- bzw.\ Browserseite,
 der nach Herunterladen der statischen Dateien das JavaScript ausführen muss, um den Webseiteninhalt aufzubauen.
 Dies kann bei weniger leistungsfähigen Geräten wie älteren Smartphones für längere Verzögerungen sorgen.
+Zu beachten ist zudem, dass fulib.org bei deaktiviertem oder nicht unterstützem JavaScript nicht verwendbar ist.
+In diesem Fall wird eine Warnung angezeigt, die den Benutzer zur Aktivierung auffordert und dafür Hilfe anbietet.
 
-Die Ausführung der Scenarios delegiert an die drei zuständigen Tools,
+% Scenario Compile and Run
+Die Ausführung der Scenarios delegiert das Backend an die drei zuständigen Tools,
 den Scenario- und Java-Compiler und JUnit.
 Der Server schreibt zunächst den über die API empfangenen Text in eine Datei in einem temporären Ordner.
 Daraufhin wird der Scenario-Compiler in diesem Ordner ausgeführt,
@@ -73,11 +81,12 @@ der die Java-Dateien sowie das Klassendiagramm generiert.
 Mit dem Java Compiler wird der Java-Code dann kompiliert und die entstehenden Klassen dynamisch geladen.
 Das JUnit-Framework bietet eine Schnittstelle zum Ausführen der Test-Klassen,
 wodurch das Testergebnis sowie die Objektdiagramme entstehen.
-Die Ausgaben der drei Tools werden dabei protokolliert, um einen Teil der Antwort zu bilden.
+Die Ausgaben der drei Tools werden dabei protokolliert, da diese Teil der Antwort werden.
 Der temporäre Ordner wird daraufhin nach Diagramm- und Java-Dateien durchsucht.
 Erstere werden unter Anwendung einer geeigneten Kodierung in die API-Antwort übernommen.
 Aus letzteren werden relevante Methodenrümpfe durch einen einfachen Parser extrahiert.
 
+% Database
 Die Kommunikation mit der Datenbank ist besonders bei Assignments und verwandter Funktionalität relevant.
 Alle dafür zuständigen Endpunkte lesen entweder Daten aus der Datenbank oder erzeugen neue Datensätze in dieser.
 Beim Anlegen ist das Anfrageformat stets JSON;
