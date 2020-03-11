@@ -351,15 +351,15 @@ Hier ist zu erkennen, dass aus jeder Art von Deklaration (Klasse, Variable, Meth
 Auch aus anderen Deklarationen wie Imports oder Package-Angaben, die hier nicht gezeigt sind,
 werden Fragmente.
 I.d.R.\ bildet der Name der Deklaration die Signatur,
-bei Methoden nehmen jedoch auch die Parametertypen einfluss darauf.
+bei Methoden nehmen jedoch auch die Parametertypen Einfluss darauf.
 Diese müssen bei der korrekten Handhabung von überladenen Methoden beachtet werden.
 Auffällig ist auch, dass die Leerzeilen zwischen den Deklarationen zu Fragmenten wurden, die mit \code{gap:} bezeichnet wurden.
 Dies ermöglicht die spätere Reproduktion dieser Formattierung.
-In diesem Beispiel wurde die Variable \code{name} sowie deren Getter bereits von Hand geschrieben.
 
 % Templates
 Die Vorlagen für Attribute, Assoziationen und Methoden lassen sich ebenfalls als Fragmente verwenden.
 Ein Attribut hat beispielsweise vier Vorlagen, je eine für die Konstante, die Variable, und die Getter- und Setter- Methoden.
+In diesem Beispiel wurde die Variable \code{name} sowie deren Getter bereits von Hand geschrieben.
 Es fehlen also in der bestehenden Datei der Setter von \code{name} sowie die zugehörige Konstante.
 
 % Merging Fragments
@@ -376,3 +376,5 @@ In Listing~\ref{lst:StudentFinal.java} ist das Ergebnis der Zusammenführung zu 
 Das Beispiel zeigt, dass die Variable sowie die manuell definierte Methode unverändert blieben.
 Der Getter jedoch wurde überschrieben, wodurch die enthaltene Kommentarzeile gelöscht wurde.
 Am Ende der Klasse wurden die Konstante sowie der Setter eingefügt.
+Fügt man die Fragmente nun zusammen, erhält man die fertige Java-Datei.
+Damit ist die Codegenerierung beendet.
