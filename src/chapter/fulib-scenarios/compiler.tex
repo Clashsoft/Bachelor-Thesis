@@ -302,6 +302,7 @@ Die darin verwendeten neuen AST-Definitionen sind in Listing~\ref{lst:FulibScena
 
 \subsection{Codegenerierung - Fulib}\label{subsec:codegen-fulib}
 
+% Intro
 Die letzte Aufgabe des Scenario-Compilers ist die Codegenerierung.
 Dabei werden mit den in vorherigen Phasen gesammelten Informationen neue Java-Dateien erzeugt bzw.\ bestehende verändert.
 Der Scenario-Compiler verwendet für diesen Zweck die Fulib\cite{fulib}-Bibliothek.
@@ -310,21 +311,68 @@ bietet aber auch deren Umwandlung in Java-Code an.
 Der Codegenerator von Fulib unterstützt dabei das Zusammenführen von bestehenden Java-Dateien mit neu generiertem Code,
 wodurch er mit handgeschriebenem Code kompatibel ist.
 
-Die Aufgabe des Codegenerators des Scenario-Compilers ist es also \emph{nicht},
-Java-Dateien anzulegen und zeilenweise auszufüllen;
-dies wird an Fulib delegiert.
-Dazu konvertiert der Scenario-Compiler sein internes, an die Scenario-Sprache angepasstes Datenmodell in das Datenmodell von Fulib.
+% Model vs Test Classes
+Der Scenario-Codegenerator sieht eine logische Trennung von Modell und Tests vor.
+Fulib selbst kennt diese Trennung nicht, daher erzeugt der Scenario-Compiler zwei getrennte Fulib-Datenmodelle, welche später auch in getrennte Verzeichnisse Java-Dateien ablegen.
+Test-Klassen und -Methoden werden ansonsten vom Scenario-Compiler bei der Codegenerierung wie Modelklassen behandelt,
+sind daher hier nicht näher erläutert.
+
+% Model Conversion
+Zu Beginn der Codegenerierung konvertiert der Scenario-Compiler sein internes, an die Scenario-Sprache angepasstes Datenmodell in das Datenmodell von Fulib.
 Für Klassen, Attribute und Assoziationen ist diese Umwandlung annähernd 1-zu-1;
 lediglich Methoden werden gesondert gehandhabt.
 Grund dafür ist, dass das Datenmodell von Fulib zwar Methodendeklarationen versteht,
 deren Rumpf jedoch als Zeichenkette modelliert,
 da es kein Modell für Anweisungen und Ausdrücke bereitstellt.
 Der Scenario-Compiler ist also dafür zuständig, Methodenrümpfe zeilenweise zusammenzusetzen.
+Dafür ist für jede Satzart eine Regel definiert, die anhand der in der Analyse- und Transformationsphase gesammelten Informationen eine oder mehrere Java-Anweisungen erzeugt.
+Ähnlich werden Ausdrücke der Scenario-Sprache in Java-Ausdrücke übersetzt.
+Dabei wird in einer Zeichenkette der Methodenrumpf zusammengebaut.
+Zuletzt wird im Datenmodell von Fulib ein Objekt angelegt, das diese Zeichenkette sowie Name, Rückgabetyp und Parameter der Methode speichert.
 
-Ferner sieht der Scenario-Codegenerator eine logische Trennung von Modell und Tests vor.
-Fulib selbst kennt diese Trennung nicht, daher erzeugt der Scenario-Compiler zwei getrennte Fulib-Datenmodelle, welche später auch in getrennte Verzeichnisse Java-Dateien ablegen.
+% New Files
+Mit dem fertig bestückten Datenmodell kann Fulib dann die Java-Dateien erzeugen bzw.\ verändern.
+Beim Anlegen neuer Dateien ist dieser Prozess relativ einfach.
+Es genügt, für Attribute, Assoziationen und Methoden einige Vorlagen zu definieren,
+die diese in Zeichenketten umwandeln.
+Diese werden dann aneinandergehängt und in die entsprechende Datei geschrieben.
 
-\todo{
-    Modellgenerierung mit Fulib.
-    Testgenerierung selbst.
-}
+% Existing Files - Parsing and Fragments
+Existiert die Zieldatei jedoch schon, ist der Prozess deutlich aufwändiger.
+Zunächst wird der Java-Code mit einem Parser eingelesen, um die Position und Signatur der Deklarationen in der Datei zu ermitteln.
+Daraus werden die sogenannten \emph{Fragmente} gebildet, welche die Datei in Abschnitte aufteilen.
+Listing~\ref{lst:StudentFragments.java} zeigt, wie eine bestehende Java-Datei in Fragmente aufgeteilt wird.
+Darin deutet ein Kommentar der Form \jcode{// <kind>:<signature>} den Beginn eines Fragments an.
+
+\codelisting{java}{chapter/fulib-scenarios/java}{StudentFragments.java}{Fragmente einer Java-Datei}
+
+% Listing Explanation
+Hier ist zu erkennen, dass aus jeder Art von Deklaration (Klasse, Variable, Methode) ein Fragment wurde.
+Auch aus anderen Deklarationen wie Imports oder Package-Angaben, die hier nicht gezeigt sind,
+werden Fragmente.
+I.d.R.\ bildet der Name der Deklaration die Signatur,
+bei Methoden nehmen jedoch auch die Parametertypen einfluss darauf.
+Diese müssen bei der korrekten Handhabung von überladenen Methoden beachtet werden.
+Auffällig ist auch, dass die Leerzeilen zwischen den Deklarationen zu Fragmenten wurden, die mit \code{gap:} bezeichnet wurden.
+Dies ermöglicht die spätere Reproduktion dieser Formattierung.
+In diesem Beispiel wurde die Variable \code{name} sowie deren Getter bereits von Hand geschrieben.
+
+% Templates
+Die Vorlagen für Attribute, Assoziationen und Methoden lassen sich ebenfalls als Fragmente verwenden.
+Ein Attribut hat beispielsweise vier Vorlagen, je eine für die Konstante, die Variable, und die Getter- und Setter- Methoden.
+Es fehlen also in der bestehenden Datei der Setter von \code{name} sowie die zugehörige Konstante.
+
+% Merging Fragments
+Nun gilt es, die Fragmente für die neuen Deklarationen in die bestehenden zu integrieren.
+Falls ein neues Fragment die gleiche Signature wie ein altes hat, wird das alte ausgetauscht.
+Andernfalls wird das neue Fragment an der richtigen Stelle eingefügt.
+Bei Deklarationen auf Klassenebene ist dies vor dem Klassenende;
+Fragmente für Imports werden beispielsweise vor dem Klassenbeginn eingeordnet.
+In Listing~\ref{lst:StudentFinal.java} ist das Ergebnis der Zusammenführung zu sehen.
+
+\codelisting{java}{chapter/fulib-scenarios/java}{StudentFinal.java}{Fragmente der Java-Datei nach Einfügen von generiertem Code}
+
+% Listing Explanation
+Das Beispiel zeigt, dass die Variable sowie die manuell definierte Methode unverändert blieben.
+Der Getter jedoch wurde überschrieben, wodurch die enthaltene Kommentarzeile gelöscht wurde.
+Am Ende der Klasse wurden die Konstante sowie der Setter eingefügt.
