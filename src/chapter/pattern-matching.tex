@@ -137,7 +137,7 @@ der angibt, welche Zeilen entfernt und welche behalten werden sollen.
 In diesem Beispiel wird unter allen Attributen nach ganzen, maximal dreistelligen Zahlen gesucht.
 
 \begin{jcodeblock}
-    studentAttributes.filter(it -> it instanceof Integer && (int) it <= 999);
+    studentAttributes.filter(it -> it instanceof Integer && (Integer) it <= 999);
 \end{jcodeblock}
 
 Dies ergibt die Anzahl der Credits, ohne dass der Name des Attributs angegeben werden musste:
@@ -175,8 +175,8 @@ Dessen Ergebnis bestimmt, ob die Zeile behalten oder entfernt wird.
 
 \begin{jcodeblock}
     students.filterRows(row -> {
-        int credits = row.get("Student Attributes");
-        int threshold = row.get("Threshold");
+        int credits = (int) row.get("Student Attributes");
+        int threshold = (int) row.get("Threshold");
         return credits >= threshold;
     });
 \end{jcodeblock}
@@ -199,10 +199,109 @@ Aus dieser Tabelle lässt sich nun ein Ergebnis erzeugen, indem die Tabellenspal
     // Output: [Alice, Charlie] are ready to complete their Bachelor's
 \end{jcodeblock}
 
+\subsection{Patterns}\label{subsec:patterns}
+
+Patterns sind ein Mechanismus von FulibTables, der die Suche nach Objekten mit bestimmten Eigenschaften in einer Objektstruktur erlaubt.
+Die Bibliothek gibt dafür eine einfache API zum Konstruieren von Patterns vor.
+Intern wird das Pattern Matching mit Tables realisiert,
+die in ihren Operationen gleichmächtig mit Patterns sind.
+Jedoch ist die Verwendung von Patterns übersichtlicher und leichter verständlich.
+Des Weiteren lassen sich Pattern als Objekte modellieren,
+während Tables nur mit einer Folge von Anweisungen bearbeitet werden.
+Dadurch lassen sich Patterns deklarative gebrauchen, während Tables imperativ verwendet werden.
+
+Ein Pattern besteht aus einer Menge von \emph{Pattern-Objekten} und Constraints auf diesen.
+Pattern-Objekte dienen als Platzhalter für Objekte, nach denen gesucht wird,
+während Constraints deren Beziehungen modellieren.
+
+Es soll nun die oben mit Tables realisiert Suche nach Studierenden dmit Patterns realisert werden.
+Dafür werden zunächst einige Pattern-Objekte benötigt.
+Diese lassen sich mit einem \code{PatternBuilder} anlegen.
+
+\begin{jcodeblock*}{breaklines}
+    PatternBuilder builder = FulibTables.patternBuilder();
+
+    PatternObject uniPO = builder.buildPatternObject("Uni");
+    PatternObject thresholdPO = builder.buildPatternObject("Threshold");
+    PatternObject studentsPO = builder.buildPatternObject("Students");
+    PatternObject studentAttributesPO = builder.buildPatternObject("StudentAttributes");
+\end{jcodeblock*}
+
+Pattern-Objekte werden nicht nur für Objekte im Datenmodell (z.B.\ \code{uniPO} und \code{studentsPO}),
+sondern auch für deren Attribute benötigt (\code{thresholdPO} und \code{studentAttributesPO}).
+I.A.\ entspricht jedes Pattern-Objekt einer Spalte der Tabelle, die am Ende des Match-Vorgangs alle Ergebnisse enthält.
+
+Nun müssen die Pattern-Objekte verbunden werden.
+Dies geschieht unter Angabe der Attribut- bzw.\ Assoziationsnamen mit der \code{buildPatternLink}-Methode.
+
+\begin{jcodeblock}
+    builder.buildPatternLink(uniPO, "bachelorThreshold", thresholdPO);
+    builder.buildPatternLink(uniPO, "uni", "students", studentsPO);
+    builder.buildPatternLink(studentsPO, "*", studentAttributesPO);
+\end{jcodeblock}
+
+Zu beachten ist in der letzten Zeile der Name ``\code{*}''.
+Dieser dient als Platzhalter für den unbekannten Attributsnamen.
+Er bewirkt, dass \code{studentAttributesPO} alle Attribute von \code{studentsPO} matcht.
+Diese Operation ist in Vorbereitung dieser Arbeit aufbauend auf dem zuvor genutzten \code{expandAll} entstanden.
+Wie im vorherigen Beispiel soll dies eingeschränkt werden auf ganze Zahlen unter 1000.
+Dafür kommt ein \emph{Attributs-Constraint} zum Einsatz, das wie folgt angelegt wird:
+
+\begin{jcodeblock*}{breaklines}
+    builder.buildAttributeConstraint(studentAttributesPO, it -> it instanceof Integer && (Integer) it <= 999);
+\end{jcodeblock*}
+
+Kern der Suche ist nun die Bedingung, dass die Credit-Anzahl größer als das von der Uni vorgegebene Minimum für die Bacheloranmeldung ist.
+Analog zu \code{filterRows} bei Tables kommt dafür bei Patterns ein \emph{Match-Constraint} zum Einsatz,
+das wie folgt deklariert wird:
+
+\begin{jcodeblock}
+    builder.buildMatchConstraint(row -> {
+        int credits = (int) row.get("StudentAttributes");
+        int threshold = (int) row.get("Threshold");
+        return credits >= threshold;
+    }, studentAttributesPO, thresholdPO);
+\end{jcodeblock}
+
+Der Lambda-Ausdruck entspricht hier exakt jenem, der mit \code{filterRows} gebraucht wurde.
+Zu beachten ist jedoch hier die Angabe, dass die zu verwendenden Pattern-Objekte dahinter angegeben wurden.
+Ohne diese Angabe könnten Match-Constraints immer erst als letzte aufgelöst werden,
+was u.U.\ zu sehr großen Zwischenergebnissen führen kann.
+
+Nun sind alle Pattern-Objekte und Constraints angelegt.
+Mit \code{builder.getPattern()} lässt sich eine Objekt erhalten, dass all diese kapselt.
+Das davon ausgehende Objektdiagramm ist in Abbildung~\ref{fig:pattern-diagram} dargestellt.
+
+\begin{figure}
+    % TODO \includegraphics[width=\textwidth]{chapter/pattern-matching/img/pattern-diagram.pdf}
+    \caption{Objektdiagramm für das erstellte Pattern}
+    \label{fig:pattern-diagram}
+\end{figure}
+
+Mit dem Pattern kann nun ein Matching durchgeführt werden.
+Dafür wird zunächst ein \code{PatternMatcher} benötigt, der auch direkt aus dem \code{builder} angelegt werden kann.
+Dem Matcher werden dann ein oder mehr \emph{Root-Objekte} und \emph{Root-Pattern-Objekte} zugewiesen.
+Diese entsprechen den Objekten und Pattern-Objekten, bei denen die Suche begonnen wird.
+Ferner werden daraus die Zeilen und Spalten der Tabelle, die intern als Datenstruktur dient.
+
+\begin{jcodeblock}
+    PatternMatcher matcher = builder.matcher();
+    matcher.withRootPatternObjects(uniPO);
+    matcher.withRootObjects(uniKassel);
+\end{jcodeblock}
+
+Die Methode \code{match()} führt nach Einrichten des Matchers den eigentlichen Match-Vorgang durch.
+Daraufhin lassen sich die Ergebnisse anhand der Pattern-Objekte extrahieren:
+
+\begin{jcodeblock}
+    matcher.match();
+
+    List<Student> bachelorReady = matcher.findAll(studentsPO);
+    // = [Alice, Charlie]
+\end{jcodeblock}
+
 \todo{
-Funktionsweise,
-Tabellen,
-Patterns,
+Interne Tabellen beim Pattern Matching,
 }
 
 \section{Pattern Matching in der Scenario-Sprache}\label{sec:scenario-pattern-matching}
