@@ -4,8 +4,6 @@
 
 _minted-*/
 
-!img/*.pdf
-
 *.aux
 *.bbl
 *.blg
@@ -19,3 +17,5 @@ _minted-*/
 *.pyg
 *.synctex.gz
 *.toc
+
+!**/img/*.pdf
