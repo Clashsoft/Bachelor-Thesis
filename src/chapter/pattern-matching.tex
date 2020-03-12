@@ -7,6 +7,198 @@ QVT (Query View Transform),
 
 \section{Fulib-Tables}\label{sec:fulib-tables}
 
+FulibTables\cite{fulibTables} ist eine Java-Bibliothek, mit der Objektstrukturen als Tabellen behandelt werden können.
+Diese Tabellen dienen als Grundlage für einen Pattern Matcher, den die Bibliothek ebenfalls anbietet.
+Im folgenden Abschnitt werden zunächst die Tabellen und deren Operationen anhang eines einfachen Beispiels vorgestellt.
+Daraufhin werden die Möglichkeiten zum Pattern Matching betrachtet.
+
+\subsection{Tabellen}\label{subsec:tables}
+
+Um Tabellen nutzen zu können, wird zunächst ein Datenmodell benötigt.
+Dazu soll beispielhaft das Modell von Universitäten und Studierenden verwendet werden.
+Das entsprechende Klassendiagramm ist in Abbildung~\ref{fig:table-example-class-diagram} zu sehen.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{chapter/pattern-matching/img/class-diagram.pdf}
+    \caption{Beispiel-Klassendiagramm zur Verwendung von FulibTables}
+    \label{fig:table-example-class-diagram}
+\end{figure}
+
+Zunächst werden einige Objekte erstellt:
+
+\begin{jcodeblock}[breaklines]
+    Student alice = new Student().setName("Alice").setCredits(200).setStudentID(1234);
+    Student bob = new Student().setName("Bob").setCredits(100).setStudentID(5678);
+    Student charlie = new Student().setName("Charlie").setCredits(300).setStudentID(1010);
+    University uniKassel = new University().setName("Uni Kassel").setBachelorThreshold(180);
+    uniKassel.withStudents(alice, bob, charlie);
+\end{jcodeblock}
+
+Nun kann eine Tabelle angelegt werden.
+Dabei wird der Name der Spalte sowie eine Liste von Objekten, die die Zeilen dieser Spalte bilden, angegeben.
+Hier wird zunächst nur eine Zeile gebraucht.
+
+\begin{jcodeblock}
+    ObjectTable<University> uniTable = new ObjectTable<>("Uni", uniKassel);
+\end{jcodeblock}
+
+Diese lässt sich wie folgt darstellen:
+
+\begin{tabular}{|c|}
+    \hline
+    \textbf{Uni} \\
+    \hline
+    Uni Kassel \\
+    \hline
+\end{tabular}
+
+Auf dieser Tabelle lässt sich nun eine \emph{Erweiterung} durchführen, was mit der Methode \code{expandAll} erreicht wird.
+Diese erwartet einen Spaltennamen sowie einen Lambda-Ausdruck,
+der für jede Zeile eine Liste von Objekten zurückgibt, die die Zeilen der neuen Spalte bilden.
+Dies wird anhand des Beispiels deutlich:
+
+\begin{jcodeblock}[breaklines]
+    ObjectTable<Student> students = uniTable.expandAll("Students", University::getStudents);
+\end{jcodeblock}
+
+Die neue Tabelle lässt sich wie folgt darstellen:
+
+\begin{tabular}{|c|c|}
+    \hline
+    \textbf{Uni} & \textbf{Students} \\
+    \hline
+    Uni Kassel & Alice   \\
+    Uni Kassel & Bob     \\
+    Uni Kassel & Charlie \\
+    \hline
+\end{tabular}
+
+Die \code{expandAll}-Methode ist geeignet für Zu-N-Assoziationen.
+Für Attribute kommt die einfachere \code{expand}-Methode zum Einsatz.
+Diese erhält die Anzahl der Zeilen.
+
+\begin{jcodeblock}[breaklines]
+    Table<Integer> studentID = students.expand("Student ID", Student::getStudentID);
+\end{jcodeblock}
+
+\begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Uni} & \textbf{Students} & \textbf{Student ID} \\
+    \hline
+    Uni Kassel & Alice   & 1234 \\
+    Uni Kassel & Bob     & 5678 \\
+    Uni Kassel & Charlie & 1010 \\
+    \hline
+\end{tabular}
+
+Um eine Spalte zu entfernen, bieten Tabellen die Operationen \code{selectColumns} und \code{dropColumns} an.
+Der folgende Code zeigt, wie diese verwendet werden können, um die Spalte \code{Student ID} zu löschen.
+Ergebnis ist die zuvor gezeigte Tabelle.
+
+\begin{jcodeblock}
+    students.dropColumns("Student ID");
+    // oder:
+    students.selectColumns("Uni", "Students");
+\end{jcodeblock}
+
+U.U.\ ist der Name des zu erweiternden Attributs nicht bekannt.
+Dafür wurde als Teil dieser Arbeit eine alternative \code{expandAll}-Operation entwickelt.
+Diese bekommt keinen Lambda-Ausdruck übergeben, sondern ermittelt die existierenden Attribute und Assoziationen der Objekte zur Laufzeit mittels Reflection.
+
+\begin{jcodeblock}
+    Table<?> studentAttributes = students.expandAll("Student Attributes");
+\end{jcodeblock}
+
+Dabei wird aus jedem Attributswert jedes Student-Objekts eine neue Zeile.
+Zu-N-Assoziationen und mehrwertige Attribute (Listen) werden dabei abgeflacht.
+
+\begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Uni} & \textbf{Students} & \textbf{Student Attributes} \\
+    \hline
+    Uni Kassel & Alice & Alice\footnote{Anders als bei dem linksstehenden Objekt handelt es sich hierbei um die Zeichenkette, die den Namen bildet\label{fn:string}} \\
+    Uni Kassel & Alice   & 200  \\
+    Uni Kassel & Alice   & 1234  \\
+    Uni Kassel & Alice   & Uni Kassel  \\
+    Uni Kassel & Bob     & Bob\footnotemark{\ref{fn:string}} \\
+    Uni Kassel & Bob     & 100  \\
+    Uni Kassel & Bob     & 5678  \\
+    Uni Kassel & Bob     & Uni Kassel  \\
+    Uni Kassel & Charlie & Charlie\footnotemark{\ref{fn:string}} \\
+    Uni Kassel & Charlie & 300  \\
+    Uni Kassel & Charlie & 1010  \\
+    Uni Kassel & Charlie & Uni Kassel  \\
+    \hline
+\end{tabular}
+
+Die Zeilen einer Spalte können nun nach bestimmten Eigenschaften durchsucht werden.
+Diese Operation nennt sich \code{filter} und verwendet ebenfalls einen Lambda-Ausdruck,
+der angibt, welche Zeilen entfernt und welche behalten werden sollen.
+In diesem Beispiel wird unter allen Attributen nach ganzen, maximal dreistelligen Zahlen gesucht.
+
+\begin{jcodeblock}
+    studentAttributes.filter(it -> it instanceof Integer && (int) it <= 999);
+\end{jcodeblock}
+
+Dies ergibt die Anzahl der Credits, ohne dass der Name des Attributs angegeben werden musste:
+
+\begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Uni} & \textbf{Students} & \textbf{Student Attributes} \\
+    \hline
+    Uni Kassel & Alice   & 200 \\
+    Uni Kassel & Bob     & 100 \\
+    Uni Kassel & Charlie & 300 \\
+    \hline
+\end{tabular}
+
+Alternativ lassen sich \code{filter}-Operationen auch auf allen Spalten anwenden.
+Dafür wird zunächst eine Spalte für das \code{bachelorThreshold}-Attribut von \code{University} benötigt:
+
+\begin{jcodeblock}
+    uniTable.expand("Threshold", University::getBachelorThreshold);
+\end{jcodeblock}
+
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Uni} & \textbf{Students} & \textbf{Student Attributes} & \textbf{Threshold} \\
+    \hline
+    Uni Kassel & Alice   & 200 & 180 \\
+    Uni Kassel & Bob     & 100 & 180 \\
+    Uni Kassel & Charlie & 300 & 180 \\
+    \hline
+\end{tabular}
+
+Nun können mit der \code{filterRows}-Operation Zeilen ausgewählt werden, die eine Bedingung über alle Spalten erfüllen.
+Dafür dient ein Lambda-Ausdruck, der für jede Zeile eine Zuordnung von Spaltenname zu Wert in dieser Zeile enthält.
+Dessen Ergebnis bestimmt, ob die Zeile behalten oder entfernt wird.
+
+\begin{jcodeblock}
+    students.filterRows(row -> {
+        int credits = row.get("Student Attributes");
+        int threshold = row.get("Threshold");
+        return credits >= threshold;
+    });
+\end{jcodeblock}
+
+In diesem Beispiel sorgt das dafür, dass die Zeile mit dem Studenten Bob entfernt wird.
+
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Uni} & \textbf{Students} & \textbf{Student Attributes} & \textbf{Threshold} \\
+    \hline
+    Uni Kassel & Alice   & 200 & 180 \\
+    Uni Kassel & Charlie & 300 & 180 \\
+    \hline
+\end{tabular}
+
+Aus dieser Tabelle lässt sich nun ein Ergebnis erzeugen, indem die Tabellenspalte \code{Students} in eine Liste konvertiert wird.
+
+\begin{jcodeblock}
+    System.out.println(students.toList() + " are ready to complete their Bachelor's");
+    // Output: [Alice, Charlie] are ready to complete their Bachelor's
+\end{jcodeblock}
+
 \todo{
 Funktionsweise,
 Tabellen,
