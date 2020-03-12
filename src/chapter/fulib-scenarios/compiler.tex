@@ -21,10 +21,33 @@ dessen Übersetzung bis zum Java-Quellcode in den einzelnen Teilabschnitten stü
 
 \subsection{Architektur}\label{subsec:compiler-architecture}
 
-\todo{
-    Visitor Pattern~\cite{gof-design-patterns}.
-    Dragon Book~\cite{dragonbook}.
-}
+Die Kompilierung von Programmiersprachen ist eine komplexe Aufgabe,
+bei der viele Schritte zum Ergebnis beitragen und zusammenwirken müssen.
+Deshalb ist es wichtig, dass ein Compiler diese Schritte in einer übersichtlichen Architektur aufbaut.
+Im Groben kann der Scenario-Compiler in drei Schritte unterteilt werden,
+deren Aufgaben sich stark unterscheiden.
+Diese Schritte werden auch als \emph{Phasen}\cite[4]{dragonbook} bezeichnet\footnote{Aufgrund des großen Umfangs wird hier die Analysephase nicht als Teil des Frontends aufgefasst.}.
+
+Die erste Phase ist das Frontend, was für das Einlesen und Strukturieren von Quelltext zuständig ist.
+Es kann einen zusammenhängenden Text als Folge von Wörtern, Ausdrücken und Sätzen verstehen,
+und daraus anhand der Regeln der Sprache einen Baum bilden,
+der die Struktur des Texts abbildet.
+
+Die Verarbeitung dieses Baumes ist dann Aufgabe der Analysephase.
+Dabei wird der Baum Anhand von Regeln, die aus der Semantik der Sprache hervorgehen, umgeformt und geprüft.
+Dazu gehört die Diagnose von Fehlern, die über einfache Syntax hinausgehen.
+Ergebnis der Analysephase ist eine Baumstruktur,
+der auf dem vom Frontend stammenden aufbaut, ihn aber um zusätzliche Informationen erweitert oder teilweise vereinfacht.
+
+Die letzte Phase wird als Backend bezeichnet.
+Dessen Aufgabe ist es, mit dem Ergebnis der Analyse Code in einer Zielsprache zu generieren.
+Im Fall des Scenario-Compilers ist dies Java, andere Programmier- oder auch Maschinensprachen wären auch möglich.
+Das Backend kennt dabei die Details zum Aufbau der Zielsprache,
+und definiert Regeln zur Übersetzung der Baumstruktur.
+
+Die drei Phasen sowie deren Unterphasen sind in Abbildung~\ref{fig:compiler-architecture} dargestellt.
+Diese dient als Referenz für die folgenden Unterabschnitte,
+in denen die Phasen und ihre Unterteilung im Detail erläutert werden.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{chapter/fulib-scenarios/img/architecture.pdf}
