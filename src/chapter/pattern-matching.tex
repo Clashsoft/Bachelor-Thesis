@@ -19,20 +19,20 @@ Dazu soll beispielhaft das Modell von Universitäten und Studierenden verwendet 
 Das entsprechende Klassendiagramm ist in Abbildung~\ref{fig:table-example-class-diagram} zu sehen.
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{chapter/pattern-matching/img/class-diagram.pdf}
+    % TODO \includegraphics[width=\textwidth]{chapter/pattern-matching/img/class-diagram.pdf}
     \caption{Beispiel-Klassendiagramm zur Verwendung von FulibTables}
     \label{fig:table-example-class-diagram}
 \end{figure}
 
 Zunächst werden einige Objekte erstellt:
 
-\begin{jcodeblock}[breaklines]
+\begin{jcodeblock*}{breaklines}
     Student alice = new Student().setName("Alice").setCredits(200).setStudentID(1234);
     Student bob = new Student().setName("Bob").setCredits(100).setStudentID(5678);
     Student charlie = new Student().setName("Charlie").setCredits(300).setStudentID(1010);
     University uniKassel = new University().setName("Uni Kassel").setBachelorThreshold(180);
     uniKassel.withStudents(alice, bob, charlie);
-\end{jcodeblock}
+\end{jcodeblock*}
 
 Nun kann eine Tabelle angelegt werden.
 Dabei wird der Name der Spalte sowie eine Liste von Objekten, die die Zeilen dieser Spalte bilden, angegeben.
@@ -57,9 +57,9 @@ Diese erwartet einen Spaltennamen sowie einen Lambda-Ausdruck,
 der für jede Zeile eine Liste von Objekten zurückgibt, die die Zeilen der neuen Spalte bilden.
 Dies wird anhand des Beispiels deutlich:
 
-\begin{jcodeblock}[breaklines]
+\begin{jcodeblock*}{breaklines}
     ObjectTable<Student> students = uniTable.expandAll("Students", University::getStudents);
-\end{jcodeblock}
+\end{jcodeblock*}
 
 Die neue Tabelle lässt sich wie folgt darstellen:
 
@@ -77,9 +77,9 @@ Die \code{expandAll}-Methode ist geeignet für Zu-N-Assoziationen.
 Für Attribute kommt die einfachere \code{expand}-Methode zum Einsatz.
 Diese erhält die Anzahl der Zeilen.
 
-\begin{jcodeblock}[breaklines]
+\begin{jcodeblock*}{breaklines}
     Table<Integer> studentID = students.expand("Student ID", Student::getStudentID);
-\end{jcodeblock}
+\end{jcodeblock*}
 
 \begin{tabular}{|c|c|c|}
     \hline
@@ -116,15 +116,15 @@ Zu-N-Assoziationen und mehrwertige Attribute (Listen) werden dabei abgeflacht.
     \hline
     \textbf{Uni} & \textbf{Students} & \textbf{Student Attributes} \\
     \hline
-    Uni Kassel & Alice & Alice\footnote{Anders als bei dem linksstehenden Objekt handelt es sich hierbei um die Zeichenkette, die den Namen bildet\label{fn:string}} \\
+    Uni Kassel & Alice   & ``Alice'' \\
     Uni Kassel & Alice   & 200  \\
     Uni Kassel & Alice   & 1234  \\
     Uni Kassel & Alice   & Uni Kassel  \\
-    Uni Kassel & Bob     & Bob\footnotemark{\ref{fn:string}} \\
+    Uni Kassel & Bob     & ``Bob'' \\
     Uni Kassel & Bob     & 100  \\
     Uni Kassel & Bob     & 5678  \\
     Uni Kassel & Bob     & Uni Kassel  \\
-    Uni Kassel & Charlie & Charlie\footnotemark{\ref{fn:string}} \\
+    Uni Kassel & Charlie & ``Charlie'' \\
     Uni Kassel & Charlie & 300  \\
     Uni Kassel & Charlie & 1010  \\
     Uni Kassel & Charlie & Uni Kassel  \\
