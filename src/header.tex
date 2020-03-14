@@ -27,7 +27,7 @@
 \usetikzlibrary{arrows,automata}
 
 % math
-\usepackage{amsmath} 
+\usepackage{amsmath}
 
 % lists
 \usepackage{paralist}
@@ -55,12 +55,14 @@
 
 \newcommand{\outquote}[1]{``{#1}''}
 
-\newcommand{\codelisting}[4]{\begin{listing}[htp]
-	\inputminted{#1}{#2/#3}
-	\vspace{-3ex}
-	\caption{#4}
-	\label{lst:#3}
-\end{listing}}
+\newcommand{\codelisting}[4]{%
+    \begin{listing}[htp]
+        \inputminted{#1}{#2/#3}
+        \vspace{-3ex}
+        \caption{#4}
+        \label{lst:#3}
+    \end{listing}%
+}
 
 % list of abbreviations
 % TODO problematic (missing package suffix)
@@ -80,9 +82,9 @@
 %\usepackage{fancybox}
 
 % Layout corrections (Schusterjungen)
-\clubpenalty = 10000 
+\clubpenalty = 10000
 % Layout corrections (Hurenkinder) 
-\widowpenalty = 10000 
+\widowpenalty = 10000
 \displaywidowpenalty = 10000
 
 % Figures
@@ -91,7 +93,7 @@
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
 
 % Tables
-\usepackage{booktabs} 
+\usepackage{booktabs}
 
 % Frequently used column types
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % centering column type with fixed width
