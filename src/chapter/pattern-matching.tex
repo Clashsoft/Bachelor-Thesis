@@ -24,7 +24,7 @@ Das entsprechende Klassendiagramm ist in Abbildung~\ref{fig:table-example-class-
     \label{fig:table-example-class-diagram}
 \end{figure}
 
-Zunächst werden einige Objekte erstellt:
+Zunächst werden einige Objekte mit mehreren Attributen und einer Assoziation zwischen diesen erstellt:
 
 \begin{jcodeblock*}{breaklines}
     Student alice = new Student().setName("Alice").setCredits(200).setStudentID(1234);
@@ -35,7 +35,15 @@ Zunächst werden einige Objekte erstellt:
 \end{jcodeblock*}
 
 Nun kann eine Tabelle angelegt werden.
-Dabei wird der Name der Spalte sowie eine Liste von Objekten, die die Zeilen dieser Spalte bilden, angegeben.
+In FulibTables besteht jede Tabelle aus mindestens einer Spalte und null oder mehr Zeilen\footnote{Der Spaltenname zählt dabei nicht als Zeile.}.
+Tabellen können \emph{erweitert} oder \emph{eingeschränkt} werden, wobei Spalten entstehen oder entfernt werden.
+Beim Erweitern entstehen neue Tabellen-Instanzen,
+die sich die Daten der ursprünglichen Tabelle teilen.
+Jede Tabellen-Instanz hat eine Spalte, auf die sie \emph{zeigt}.
+Operationen auf der Tabelle beziehen sich i.d.R.\ auf diese Spalte,
+wirken sich aber durch das geteilte Datenmodell auf alle anderen Instanzen aus.
+Zunächst wird nur eine einfache Tabelle mit einer Spalte und einer Zeile benötigt.
+Dafür müssen der Name der ersten Spalte sowie eine Liste von Objekten, die die Zeilen dieser Spalte bilden, angegeben werden.
 Hier wird zunächst nur eine Zeile gebraucht.
 
 \begin{jcodeblock}
@@ -52,14 +60,17 @@ Diese lässt sich wie folgt darstellen:
     \hline
 \end{tabular}
 
-Auf dieser Tabelle lässt sich nun eine \emph{Erweiterung} durchführen, was mit der Methode \code{expandAll} erreicht wird.
-Diese erwartet einen Spaltennamen sowie einen Lambda-Ausdruck,
-der für jede Zeile eine Liste von Objekten zurückgibt, die die Zeilen der neuen Spalte bilden.
+Auf dieser Tabelle lässt sich nun eine Erweiterung durchführen, was mit der Methode \code{expandAll} erreicht wird.
+Diese erwartet zuerst einen Namen für die neue Spalte, die sowohl der alten Tabelle hinzugefügt wird als auch Ziel der neuen Tabellen-Instanz ist.
+Weiterhin wird eine Funktion in Form eines Lambda-Ausdrucks übergeben,
+der gegeben ein Objekte der Spalte der alten Tabelle, eine Liste von Objekten zurückgibt.
+Diese Objekte bilden die Zeilen der neuen Spalte.
 Dies wird anhand des Beispiels deutlich:
 
-\begin{jcodeblock*}{breaklines}
-    ObjectTable<Student> students = uniTable.expandAll("Students", University::getStudents);
+\begin{jcodeblock*}{breaklines,escapeinside=||}
+    ObjectTable<Student> students = uniTable.expandAll("Students", University::getStudents|\footnotemark|);
 \end{jcodeblock*}
+\footnotetext{Bei diesem Ausdruck handelt es sich um eine Methodenreferenz, die zu dem Lambda-Ausdruck \jcode{uni -> uni.getStudents()} äquivalent ist.}
 
 Die neue Tabelle lässt sich wie folgt darstellen:
 
@@ -75,7 +86,8 @@ Die neue Tabelle lässt sich wie folgt darstellen:
 
 Die \code{expandAll}-Methode ist geeignet für Zu-N-Assoziationen.
 Für Attribute kommt die einfachere \code{expand}-Methode zum Einsatz.
-Diese erhält die Anzahl der Zeilen.
+Bei deren Verwendung bleibt die Anzahl der Zeilen gleich,
+da für jede Zeile der alten Spalte genau eine Zeile in der neuen Spalte entsteht.
 
 \begin{jcodeblock*}{breaklines}
     Table<Integer> studentID = students.expand("Student ID", Student::getStudentID);
@@ -93,7 +105,7 @@ Diese erhält die Anzahl der Zeilen.
 
 Um eine Spalte zu entfernen, bieten Tabellen die Operationen \code{selectColumns} und \code{dropColumns} an.
 Der folgende Code zeigt, wie diese verwendet werden können, um die Spalte \code{Student ID} zu löschen.
-Ergebnis ist die zuvor gezeigte Tabelle.
+Ergebnis ist die nach der ersten Erweiterung gezeigte Tabelle.
 
 \begin{jcodeblock}
     students.dropColumns("Student ID");
@@ -102,14 +114,15 @@ Ergebnis ist die zuvor gezeigte Tabelle.
 \end{jcodeblock}
 
 U.U.\ ist der Name des zu erweiternden Attributs nicht bekannt.
-Dafür wurde als Teil dieser Arbeit eine alternative \code{expandAll}-Operation entwickelt.
+Dafür wurde als Teil dieser Arbeit eine alternative \code{expandAll}-Operation entwickelt,
+bei der dieser nicht angegeben werden muss.
 Diese bekommt keinen Lambda-Ausdruck übergeben, sondern ermittelt die existierenden Attribute und Assoziationen der Objekte zur Laufzeit mittels Reflection.
 
 \begin{jcodeblock}
     Table<?> studentAttributes = students.expandAll("Student Attributes");
 \end{jcodeblock}
 
-Dabei wird aus jedem Attributswert jedes Student-Objekts eine neue Zeile.
+Dabei wird aus jedem Attributwert und jedem Assoziationsziel jedes Student-Objekts eine neue Zeile.
 Zu-N-Assoziationen und mehrwertige Attribute (Listen) werden dabei abgeflacht.
 
 \begin{tabular}{|c|c|c|}
@@ -170,11 +183,12 @@ Dafür wird zunächst eine Spalte für das \code{bachelorThreshold}-Attribut von
 \end{tabular}
 
 Nun können mit der \code{filterRows}-Operation Zeilen ausgewählt werden, die eine Bedingung über alle Spalten erfüllen.
-Dafür dient ein Lambda-Ausdruck, der für jede Zeile eine Zuordnung von Spaltenname zu Wert in dieser Zeile enthält.
-Dessen Ergebnis bestimmt, ob die Zeile behalten oder entfernt wird.
+Dafür dient ein Lambda-Ausdruck, der für jede Zeile alle Werte erhält.
+Die Werte befinden sich in einer Zuordnung (\code{Map}), die einen Spaltennamen zu dem Wert in der Zeile dieser Spalte zuordnet.
+Dessen Ergebnis bestimmt wie beim einfachen Filter, ob die Zeile behalten oder entfernt wird.
 
 \begin{jcodeblock}
-    students.filterRows(row -> {
+    students.filterRows((Map<String, Object> row) -> {
         int credits = (int) row.get("Student Attributes");
         int threshold = (int) row.get("Threshold");
         return credits >= threshold;
