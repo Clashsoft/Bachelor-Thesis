@@ -23,17 +23,20 @@ dessen Übersetzung bis zum Java-Quellcode in den einzelnen Teilabschnitten stü
 
 Die Kompilierung von Programmiersprachen ist eine komplexe Aufgabe,
 bei der viele Schritte zum Ergebnis beitragen und zusammenwirken müssen.
-Deshalb ist es wichtig, dass ein Compiler diese Schritte in einer übersichtlichen Architektur aufbaut.
+Deshalb ist es wichtig, dass ein Compiler diese in einer übersichtlichen Architektur aufbaut.
+Diese Schritte werden auch als \emph{Phasen}\cite[4]{dragonbook} bezeichnet.
 Im Groben kann der Scenario-Compiler in drei Schritte unterteilt werden,
 deren Aufgaben sich stark unterscheiden.
-Diese Schritte werden auch als \emph{Phasen}\cite[4]{dragonbook} bezeichnet\footnote{Aufgrund des großen Umfangs wird hier die Analysephase nicht als Teil des Frontends aufgefasst.}.
 
 Die erste Phase ist das Frontend, was für das Einlesen und Strukturieren von Quelltext zuständig ist.
 Es kann einen zusammenhängenden Text als Folge von Wörtern, Ausdrücken und Sätzen verstehen,
 und daraus anhand der Regeln der Sprache einen Baum bilden,
 der die Struktur des Texts abbildet.
+Dafür muss der Quelltext der Grammatik der Sprache folgen,
+andernfalls ist das Frontend für die Ausgabe von Fehlermeldung zuständig,
+die auf Unstimmigkeiten im Text hindeuten.
 
-Die Verarbeitung dieses Baumes ist dann Aufgabe der Analysephase.
+Die Verarbeitung dieses Baumes ist dann Aufgabe der Analysephase\footnote{Aufgrund des großen Umfangs wird hier die Analysephase nicht als Teil des Frontends aufgefasst.}.
 Dabei wird der Baum Anhand von Regeln, die aus der Semantik der Sprache hervorgehen, umgeformt und geprüft.
 Dazu gehört die Diagnose von Fehlern, die über einfache Syntax hinausgehen.
 Ergebnis der Analysephase ist eine Baumstruktur,
