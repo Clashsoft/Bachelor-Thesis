@@ -15,24 +15,38 @@ Daraufhin werden die Möglichkeiten zum Pattern Matching betrachtet.
 \subsection{Tabellen}\label{subsec:tables}
 
 Um Tabellen nutzen zu können, wird zunächst ein Datenmodell benötigt.
-Dazu soll beispielhaft das Modell von Universitäten und Studierenden verwendet werden.
-Das entsprechende Klassendiagramm ist in Abbildung~\ref{fig:table-example-class-diagram} zu sehen.
+Dazu soll beispielhaft ein Modell von einem fiktiven Spiel für mehrere Spieler verwendet werden.
+Jeder Spieler hat ein oder mehrere Häuser, die eine Zahl von Einheiten haben.
+Ziel des Spiel ist es, in mindestens einem Haus eine bestimmte Anzahl von Einheiten zu erreichen.
+Das entsprechende Klassendiagramm ist in Abbildung~\ref{fig:game-class-diagram} zu sehen.
 
 \begin{figure}
-    % TODO \includegraphics[width=\textwidth]{chapter/pattern-matching/img/class-diagram.pdf}
+    \centering
+    \includegraphics[width=0.4\textwidth]{chapter/pattern-matching/img/game-class-diagram.png}
     \caption{Beispiel-Klassendiagramm zur Verwendung von FulibTables}
-    \label{fig:table-example-class-diagram}
+    \label{fig:game-class-diagram}
 \end{figure}
 
-Zunächst werden einige Objekte mit mehreren Attributen und einer Assoziation zwischen diesen erstellt:
+Es werden nun einige Beispielobjekte zu diesem Modell erstellt, die den Endzustand des Spiels beschreiben.
 
 \begin{jcodeblock*}{breaklines}
-    Student alice = new Student().setName("Alice").setCredits(200).setStudentID(1234);
-    Student bob = new Student().setName("Bob").setCredits(100).setStudentID(5678);
-    Student charlie = new Student().setName("Charlie").setCredits(300).setStudentID(1010);
-    University uniKassel = new University().setName("Uni Kassel").setBachelorThreshold(180);
-    uniKassel.withStudents(alice, bob, charlie);
+    Game game = new Game().setWinScore(60);
+    Player alice = new Player().setName("Alice").setGame(game);
+    Player bob = new Player().setName("Bob").setGame(game);
+    Player charlie = new Player().setName("Charlie").setGame(game);
+    House a1 = new House().setId("a1").setUnits(30).setPlayer(alice);
+    House a2 = new House().setId("a2").setUnits(20).setPlayer(alice);
+    House b1 = new House().setId("b1").setUnits(40).setPlayer(bob);
+    House c1 = new House().setId("c1").setUnits(60).setPlayer(charlie);
 \end{jcodeblock*}
+
+Das zugehörige Objektdiagramm ist in Abbildung~\ref{fig:game-object-diagram} zu sehen.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{chapter/pattern-matching/img/game-object-diagram.png}
+    \caption{Beispiel-Objektdiagramm zur Verwendung von FulibTables}
+    \label{fig:game-object-diagram}
+\end{figure}
 
 Nun kann eine Tabelle angelegt werden.
 In FulibTables besteht jede Tabelle aus mindestens einer Spalte und null oder mehr Zeilen\footnote{Der Spaltenname zählt dabei nicht als Zeile.}.
@@ -47,71 +61,79 @@ Dafür müssen der Name der ersten Spalte sowie eine Liste von Objekten, die die
 Hier wird zunächst nur eine Zeile gebraucht.
 
 \begin{jcodeblock}
-    ObjectTable<University> uniTable = new ObjectTable<>("Uni", uniKassel);
+    ObjectTable<Game> games = new ObjectTable<>("Games", game);
 \end{jcodeblock}
 
 Diese lässt sich wie folgt darstellen:
 
 \begin{tabular}{|c|}
     \hline
-    \textbf{Uni} \\
+    \textbf{Games} \\
     \hline
-    Uni Kassel \\
+    g \\
     \hline
 \end{tabular}
 
-Auf dieser Tabelle lässt sich nun eine Erweiterung durchführen, was mit der Methode \code{expandAll} erreicht wird.
+Auf dieser Tabelle lässt sich nun eine Erweiterung durchführen, was mit der Methode \code{expand} erreicht wird.
 Diese erwartet zuerst einen Namen für die neue Spalte, die sowohl der alten Tabelle hinzugefügt wird als auch Ziel der neuen Tabellen-Instanz ist.
-Weiterhin wird eine Funktion in Form eines Lambda-Ausdrucks übergeben,
-der gegeben ein Objekte der Spalte der alten Tabelle, eine Liste von Objekten zurückgibt.
-Diese Objekte bilden die Zeilen der neuen Spalte.
+Weiterhin wird eine Funktion in Form eines Lambda-Ausdrucks übergeben.
+Dieser wird für jede Zeile der Tabelle aufgerufen.
+Die Ergebnisse bilden dann die Zeilen der neuen Spalte.
 Dies wird anhand des Beispiels deutlich:
 
 \begin{jcodeblock*}{breaklines,escapeinside=||}
-    ObjectTable<Student> students = uniTable.expandAll("Students", University::getStudents|\footnotemark|);
+    Table<Integer> winScores = games.expand("Win Scores", Game::getWinScore|\footnotemark|);
 \end{jcodeblock*}
-\footnotetext{Bei diesem Ausdruck handelt es sich um eine Methodenreferenz, die zu dem Lambda-Ausdruck \jcode{uni -> uni.getStudents()} äquivalent ist.}
+\footnotetext{Bei diesem Ausdruck handelt es sich um eine Methodenreferenz, die zu dem Lambda-Ausdruck \jcode{game -> game.getWinScore()} äquivalent ist.}
 
 Die neue Tabelle lässt sich wie folgt darstellen:
 
 \begin{tabular}{|c|c|}
     \hline
-    \textbf{Uni} & \textbf{Students} \\
+    \textbf{Games} & \textbf{Win Scores} \\
     \hline
-    Uni Kassel & Alice   \\
-    Uni Kassel & Bob     \\
-    Uni Kassel & Charlie \\
+    g & 60 \\
     \hline
 \end{tabular}
 
-Die \code{expandAll}-Methode ist geeignet für Zu-N-Assoziationen.
-Für Attribute kommt die einfachere \code{expand}-Methode zum Einsatz.
-Bei deren Verwendung bleibt die Anzahl der Zeilen gleich,
-da für jede Zeile der alten Spalte genau eine Zeile in der neuen Spalte entsteht.
+Die \code{expand}-Methode ist geeignet für Attribute und Zu-1-Assoziationen.
+Für Zu-N-Assoziationen kommt die \code{expandAll}-Methode zum Einsatz.
+Diese erwartet ebenfalls einen Spaltennamen und einen Lambda-Ausdruck,
+allerdings muss letzterer eine Liste von Werten zurückgegeben.
+Für jedes Element dieser Listen wird eine neue Zeile angelegt.
 
 \begin{jcodeblock*}{breaklines}
-    Table<Integer> studentID = students.expand("Student ID", Student::getStudentID);
+    ObjectTable<Player> players = games.expandAll("Players", Game::getPlayers);
 \end{jcodeblock*}
 
 \begin{tabular}{|c|c|c|}
     \hline
-    \textbf{Uni} & \textbf{Students} & \textbf{Student ID} \\
+    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} \\
     \hline
-    Uni Kassel & Alice   & 1234 \\
-    Uni Kassel & Bob     & 5678 \\
-    Uni Kassel & Charlie & 1010 \\
+    g & 60 & Alice   \\
+    g & 60 & Bob     \\
+    g & 60 & Charlie \\
     \hline
 \end{tabular}
 
-Um eine Spalte zu entfernen, bieten Tabellen die Operationen \code{selectColumns} und \code{dropColumns} an.
-Der folgende Code zeigt, wie diese verwendet werden können, um die Spalte \code{Student ID} zu löschen.
-Ergebnis ist die nach der ersten Erweiterung gezeigte Tabelle.
+Um das Verhalten zu verdeutlichen, wird eine weitere \code{expandAll}-Operation auf der entstandenen Tabelle durchgeführt.
+Da Alice zwei Häuser hat, wird ihre Zeile dupliziert.
+Bei Bob und Charlie ist dies nicht der Fall.
 
-\begin{jcodeblock}
-    students.dropColumns("Student ID");
-    // oder:
-    students.selectColumns("Uni", "Students");
-\end{jcodeblock}
+\begin{jcodeblock*}{breaklines}
+    ObjectTable<House> houses = players.expandAll("Houses", Player::getHouses);
+\end{jcodeblock*}
+
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} & \textbf{Houses} \\
+    \hline
+    g & 60 & Alice   & a1 \\
+    g & 60 & Alice   & a2 \\
+    g & 60 & Bob     & b1 \\
+    g & 60 & Charlie & c1 \\
+    \hline
+\end{tabular}
 
 U.U.\ ist der Name des zu erweiternden Attributs nicht bekannt.
 Dafür wurde als Teil dieser Arbeit eine alternative \code{expandAll}-Operation entwickelt,
@@ -119,98 +141,82 @@ bei der dieser nicht angegeben werden muss.
 Diese bekommt keinen Lambda-Ausdruck übergeben, sondern ermittelt die existierenden Attribute und Assoziationen der Objekte zur Laufzeit mittels Reflection.
 
 \begin{jcodeblock}
-    Table<?> studentAttributes = students.expandAll("Student Attributes");
+    Table<?> houseAttributes = houses.expandAll("House Attributes");
 \end{jcodeblock}
 
-Dabei wird aus jedem Attributwert und jedem Assoziationsziel jedes Student-Objekts eine neue Zeile.
+Dabei wird aus jedem Attributwert und jedem Assoziationsziel jedes Objekts der Spalte \code{Houses} eine neue Zeile.
 Zu-N-Assoziationen und mehrwertige Attribute (Listen) werden dabei abgeflacht.
 
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
     \hline
-    \textbf{Uni} & \textbf{Students} & \textbf{Student Attributes} \\
+    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} & \textbf{Houses} & \textbf{House Attributes} \\
     \hline
-    Uni Kassel & Alice   & ``Alice'' \\
-    Uni Kassel & Alice   & 200  \\
-    Uni Kassel & Alice   & 1234  \\
-    Uni Kassel & Alice   & Uni Kassel  \\
-    Uni Kassel & Bob     & ``Bob'' \\
-    Uni Kassel & Bob     & 100  \\
-    Uni Kassel & Bob     & 5678  \\
-    Uni Kassel & Bob     & Uni Kassel  \\
-    Uni Kassel & Charlie & ``Charlie'' \\
-    Uni Kassel & Charlie & 300  \\
-    Uni Kassel & Charlie & 1010  \\
-    Uni Kassel & Charlie & Uni Kassel  \\
+    g & 60 & Alice   & a1 & a1      \\
+    g & 60 & Alice   & a1 & Alice   \\
+    g & 60 & Alice   & a1 & 30      \\
+    g & 60 & Alice   & a2 & a2      \\
+    g & 60 & Alice   & a2 & Alice   \\
+    g & 60 & Alice   & a2 & 20      \\
+    g & 60 & Bob     & b1 & b1      \\
+    g & 60 & Bob     & b1 & Bob     \\
+    g & 60 & Bob     & b1 & 40      \\
+    g & 60 & Charlie & c1 & c1      \\
+    g & 60 & Charlie & c1 & Charlie \\
+    g & 60 & Charlie & c1 & 60      \\
     \hline
 \end{tabular}
 
 Die Zeilen einer Spalte können nun nach bestimmten Eigenschaften durchsucht werden.
 Diese Operation nennt sich \code{filter} und verwendet ebenfalls einen Lambda-Ausdruck,
 der angibt, welche Zeilen entfernt und welche behalten werden sollen.
-In diesem Beispiel wird unter allen Attributen nach ganzen, maximal dreistelligen Zahlen gesucht.
+In diesem Beispiel wird unter allen Attributen von Häusern nach ganzen Zahlen gesucht.
 
 \begin{jcodeblock}
-    studentAttributes.filter(it -> it instanceof Integer && (Integer) it <= 999);
+    houseAttributes.filter(it -> it instanceof Integer);
 \end{jcodeblock}
 
 Dies ergibt die Anzahl der Credits, ohne dass der Name des Attributs angegeben werden musste:
 
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
     \hline
-    \textbf{Uni} & \textbf{Students} & \textbf{Student Attributes} \\
+    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} & \textbf{Houses} & \textbf{House Attributes} \\
     \hline
-    Uni Kassel & Alice   & 200 \\
-    Uni Kassel & Bob     & 100 \\
-    Uni Kassel & Charlie & 300 \\
-    \hline
-\end{tabular}
-
-Alternativ lassen sich \code{filter}-Operationen auch auf allen Spalten anwenden.
-Dafür wird zunächst eine Spalte für das \code{bachelorThreshold}-Attribut von \code{University} benötigt:
-
-\begin{jcodeblock}
-    uniTable.expand("Threshold", University::getBachelorThreshold);
-\end{jcodeblock}
-
-\begin{tabular}{|c|c|c|c|}
-    \hline
-    \textbf{Uni} & \textbf{Students} & \textbf{Student Attributes} & \textbf{Threshold} \\
-    \hline
-    Uni Kassel & Alice   & 200 & 180 \\
-    Uni Kassel & Bob     & 100 & 180 \\
-    Uni Kassel & Charlie & 300 & 180 \\
+    g & 60 & Alice   & a1 & 30      \\
+    g & 60 & Alice   & a2 & 20      \\
+    g & 60 & Bob     & b1 & 40      \\
+    g & 60 & Charlie & c1 & 60      \\
     \hline
 \end{tabular}
 
-Nun können mit der \code{filterRows}-Operation Zeilen ausgewählt werden, die eine Bedingung über alle Spalten erfüllen.
-Dafür dient ein Lambda-Ausdruck, der für jede Zeile alle Werte erhält.
+Alternativ kann auch eine Filterung über alle Spalten durchgeführt werden, wofür die \code{filterRows}-Operation eingesetzt wird.
+Diese erhält einen Lambda-Ausdruck, der für jede Zeile alle Werte erhält.
 Die Werte befinden sich in einer Zuordnung (\code{Map}), die einen Spaltennamen zu dem Wert in der Zeile dieser Spalte zuordnet.
 Dessen Ergebnis bestimmt wie beim einfachen Filter, ob die Zeile behalten oder entfernt wird.
 
 \begin{jcodeblock}
-    students.filterRows((Map<String, Object> row) -> {
-        int credits = (int) row.get("Student Attributes");
-        int threshold = (int) row.get("Threshold");
-        return credits >= threshold;
+    houseAttributes.filterRows((Map<String, Object> row) -> {
+        int winScore = (int) row.get("Win Scores");
+        int units = (int) row.get("House Attributes");
+        return units >= winScore;
     });
 \end{jcodeblock}
 
-In diesem Beispiel sorgt das dafür, dass die Zeile mit dem Studenten Bob entfernt wird.
+In diesem Beispiel sorgt das dafür, dass alle Zeilen außer die mit dem Spieler Charlie entfernt werden.
 
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
     \hline
-    \textbf{Uni} & \textbf{Students} & \textbf{Student Attributes} & \textbf{Threshold} \\
+    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} & \textbf{Houses} & \textbf{House Attributes} \\
     \hline
-    Uni Kassel & Alice   & 200 & 180 \\
-    Uni Kassel & Charlie & 300 & 180 \\
+    g & 60 & Charlie & c1 & 60 \\
     \hline
 \end{tabular}
 
-Aus dieser Tabelle lässt sich nun ein Ergebnis erzeugen, indem die Tabellenspalte \code{Students} in eine Liste konvertiert wird.
+Die Suche nach einem Gewinner ist nun abgeschlossen.
+Aus der Tabelle lässt sich nun ein Ergebnis erzeugen, indem die Tabellenspalte \code{Players} in eine Liste konvertiert wird.
 
 \begin{jcodeblock}
-    System.out.println(students.toList() + " are ready to complete their Bachelor's");
-    // Output: [Alice, Charlie] are ready to complete their Bachelor's
+    System.out.println("the winner is: " + players.toList());
+    // Output: the winner is: [Charlie]
 \end{jcodeblock}
 
 \subsection{Patterns}\label{subsec:patterns}
