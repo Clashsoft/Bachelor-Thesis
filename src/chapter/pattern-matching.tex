@@ -332,10 +332,137 @@ Interne Tabellen beim Pattern Matching,
 
 \section{Pattern Matching in der Scenario-Sprache}\label{sec:scenario-pattern-matching}
 
+Die Scenario-Sprache bietet syntaktische Unterstützung für Pattern Matching mit FulibTables in Form des \code{Match}-Satzes.
+Er erlaubt es, in einer kompakten und ausdrucksstarken Weise Patterns zu bauen und auf Objektstrukturen anzuwenden.
+Ergebnis des Satzes sind die gefundenen Objekte, welche im weiteren Verlauf des Scenarios verwendet werden können.
+Seine umfangreiche Syntax ist Thema dieses Abschnitts.
+
+Ein Match-Satz ist zu erkennen an dem Schlüsselwort \code{match} bzw.\ \code{matches}, dem ein Subjekt voransteht.
+Es folgt eine Liste von Pattern-Objekten, die an den Schlüsselwörten \code{some} und \code{all} zu erkennen sind.
+Das folgende Beispiel zeigt den einfachsten möglichen Match-Satz, der nach genau einem beliebigen Objekt sucht und es an den Namen \code{o} bindet.
+
+\begin{mdcodeblock}
+    There is a Game.
+
+    We match some object g.
+\end{mdcodeblock}
+
+Dieser einfache Satz generiert vergleichsweise langen Java-Code, wie unten zu sehen ist.
+Es handelt sich dabei um genau jenen Code, der zur Einrichtung von Patterns und eines Matchers sowie zur Extraktion von Ergebnissen aus letzterem benötigt wird.
+
+\begin{jcodeblock*}{breaklines}
+    Object g;
+    {
+        // Pattern:
+        PatternBuilder builder = FulibTables.patternBuilder();
+        PatternObject gPO = builder.buildPatternObject("g");
+        // Matcher
+        PatternMatcher matcher = FulibTables.matcher(builder.getPattern());
+        matcher.withRootPatternObjects(gPO);
+        matcher.withRootObjects(new ReflectorMap("org.example").discoverObjects(game));
+        matcher.match();
+        // Results
+        g = matcher.findOne(gPO);
+    }
+\end{jcodeblock*}
+
+Auffällig ist hier die Zeile mit \code{withRootObjects}.
+Der Aufruf \code{new ReflectorMap("org.example").discoverObjects(game)} bewirkt hier, dass alle von \code{game} ausgehenden Objekte, deren Typ zum Package \code{org.example} gehört, als Root-Objekte behandelt werden.
+I.A.\ werden an \code{discoverObjects} alle sich im Scope befindenden Variablen übergeben.
+Dabei können auch Objekte, die nicht direkt zugänglich sind, gefunden werden.
+Wichtig ist jedoch, dass nicht direkt nach Objekten gesucht werden kann, die nicht zum Package des Scenarios gehören.
+Dies betrifft insbesondere einfache Werte wie Zahlen oder Strings.
+
+% type constraint
+Statt \code{object} lässt sich im Match-Satz auch ein Typ angeben, auf den das Pattern-Objekt beschränkt sein soll.
+
+\begin{mdcodeblock}
+    We match some Game g.
+\end{mdcodeblock}
+
+Dies wirkt sich auf das Pattern-Objekts im Java-Code aus.
+
+\begin{jcodeblock}
+    PatternObject gPO = builder.buildPatternObject("g", Game.class);
+    // äquivalent zu:
+    PatternObject gPO = builder.buildPatternObject("g");
+    builder.buildAttributeConstraint(gPO, g -> g instanceof Game);
+\end{jcodeblock}
+
+% attribute equality constraint
+Auf Pattern-Objekte in Match-Sätzen folgt eine Liste von Constraints.
+Eine einfache Art davon ist ein Attributwert-Constraint.
+Wie das folgende Beispiel zeigt, verwendet dieser eine ähnliche Syntax wie die Zuweisung von Attributen bei der Deklaration von Objekten mit \code{There}.
+
+\begin{mdcodeblock}
+    There is a Game with min-score 50.
+
+    We match some object g with min-score 50.
+\end{mdcodeblock}
+
+Durch Hinzunahme des Constraints kommt im Java-Code ein weiteres Pattern-Objekt hinzu, was von außen jedoch nicht sichtbar ist.
+Es ist mit dem Pattern-Objekt von \code{g} über einen Pattern-Link verbunden und wird durch einen Gleichheits-Constraint eingeschränkt.
+
+\begin{jcodeblock*}{breaklines}
+    Object g;
+    {
+        PatternBuilder builder = FulibTables.patternBuilder();
+        PatternObject gPO = builder.buildPatternObject("g");
+        PatternObject gMinScorePO = builder.buildPatternObject("gMinScore");
+        builder.buildPatternLink(gPO, "minScore", gMinScore);
+        builder.buildEqualityConstraint(gMinScorePO, 60);
+        // Matcher, Results...
+    }
+\end{jcodeblock*}
+
+Attributwert-Constraint müssen nicht nach exakten Werten prüfen.
+Sie können stattdessen auch bestimmten Bedingungen wie etwa Zahlenvergleiche oder regulären Ausdrücken eingeschränkt werden.
+Die Syntax ändert sich dabei leicht durch Verwendung des Schlüsselworts \code{whose}.
+
+\begin{jcodeblock}
+    There is a Player with name Alice.
+
+    We match some object g whose min-score is greater than 0.
+    We match some object p1 whose name matches '[Aa]lice'.
+\end{jcodeblock}
+
+Im Java-Code wird aus dem Gleichheits-Constraint ein allgemeiner Attribut-Constraint mit Lambda-Ausdruck.
+Außerdem wird der Typ der Attributs-Pattern-Objekte durch die Verwendung mit den Operatoren eingeschränkt.
+
+\begin{jcodeblock*}{breaklines}
+    PatternObject gMinScorePO = builder.buildPatternObject("gMinScore", Number.class);
+    PatternObject p1NamePO = builder.buildPatternObject("p1Name", String.class);
+    // Links...
+    builder.buildAttributeConstraint(gMinScorePO, (Number n) -> n.doubleValue() > 0);
+    builder.buildAttributeConstraint(p1NamePO, (String s) -> s.matches("[Aa]lice"));
+\end{jcodeblock*}
+
+Die vorherigen Beispiele setzen voraus, dass der Name des Attributs bekannt ist.
+Match-Sätze erlauben jedoch, eine Bedingung an ein beliebig benanntes Attribut zu stellen.
+Als Platzhalter dient dafür \code{some attribute};
+das Schlüsselwort \code{whose} wird zu \code{where}.
+
+\begin{mdcodeblock}
+    There is a Player with username Alice.
+
+    We match some object p1 where some attribute matches '[Aa]lice'.
+\end{mdcodeblock}
+
+Im Java-Code verändert sich primär der Link zwischen den beiden Pattern-Objekten,
+indem der im vorherigen Abschnitt erklärte Verknüpfungsname \code{*} verwendet wird.
+
+\begin{jcodeblock}
+    PatternObject p1Attr1PO = builder.buildPatternObject("p1Attr1", String.class);
+    builder.buildPatternLink(p1PO, "*", gMinScore);
+    // AttributeConstraint... (s.o.)
+\end{jcodeblock}
+
 \todo{
-We match,
-Expectations,
-Parallelen OCL/QVT,
+all,
+multiple,
+link,
+'where' constraints,
+match failure,
 }
 
 \section{Pattern Matching in Assignments}\label{sec:assignment-pattern-matching}
