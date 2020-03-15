@@ -24,9 +24,12 @@ Im folgenden Abschnitt wird näher erläutert, wie diese zusammenwirken.
 % Angular
 Das Frontend von fulib.org ist mit dem Angular~\cite{angular}-Framework implementiert.
 Dieses gibt insbesondere eine Architektur vor, die Business Logic (Services) von UI-Logik (Components) trennt.
-Services sind beispielsweise dafür zuständig, mit dem Backend Daten auszutauschen,
-während Komponenten sich mit deren Darstellung befassen.
-Letztere haben weiterhin als wiederverwendbare Elemente Bedeutung.
+Services sind beispielsweise dafür zuständig, mit dem Backend Daten auszutauschen.
+Mittels Dependency Injection lassen sich diese entweder von anderen Services oder von Komponenten beziehen.
+Komponenten befassen sich mit deren Darstellung der Anwendung.
+Sie bestehen aus einem HTML-Template, eigenem CSS und einer Klasse,
+die Daten mit Services kommuniziert und die Logik der Benutzeroberfläche implementiert.
+Komponenten haben besonders als wiederverwendbare Elemente Bedeutung.
 Sie ermöglichen es, gemeinsame Funktionalität zu verkapseln und an mehreren Orten zu verwenden.
 Im Kontext der Assignments ist beispielsweise die Task-Liste eine Komponente, die auf mehreren Seiten zum Einsatz kommt.
 Da Komponenten nur einmal implementiert und beliebig wiederverwendet werden können,
