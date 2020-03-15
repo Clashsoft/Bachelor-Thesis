@@ -1,6 +1,6 @@
 \section{Sprache}\label{sec:language}
 
-Kern dieser Arbeit ist eine neue Programmiersprache für textuelle Beispielszenarien.
+Kern dieser Arbeit ist eine neue Beschreibungssprache für textuelle Beispielszenarien.
 Diese trägt den Namen Scenario-Sprache.
 Ziel der Scenario-Sprache ist es, verständlich für jeden zu sein, der Englisch spricht.
 Um als Programmiersprache funktionsfähig zu sein, hat sie im Gegensatz zu Englisch eine feste und eingeschränkte grammatikalische Struktur.
@@ -13,14 +13,34 @@ Im Folgenden werden einige Grundlagen der Scenario-Sprache dargestellt und erkl�
 
 \subsection{Grundlagen}\label{subsec:basics}
 
+\begin{listing}[htp]
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \inputminted{md}{chapter/fulib-scenarios/scenarios/Basic.md}
+        \captionof{listing}{Basic.md}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \inputminted{java}{chapter/fulib-scenarios/java/BasicTest.java}
+        \captionof{listing}{BasicTest.java}
+    \end{minipage}
+    \caption{Beispiel für Grundlagen der Scenario-Sprache}
+    \label{lst:basic-example}
+\end{listing}
+
 In der Scenario-Sprache verfasster Quellcode wird in \code{.md}-Dateien abgelegt.
-Diese beginnen stets mit einer Überschrift, welche in Markdown mit dem \mdcode{#}-Symbol beginnen.
+Listing~\ref{lst:basic-example} zeigt links ein Beispiel für eine solche.
+Rechts davon ist der Java-Code zu sehen, der zu dieser Datei äquivalent ist.
+
+Eine Scenario-Datei beginnt stets mit einer Überschrift, welche in Markdown mit dem \mdcode{#}-Symbol angedeutet werden.
 Mit der Überschrift beginnt ein \emph{Scenario}, das nach dieser Überschrift benannt ist.
-Eine Scenario-Datei kann mehrere Überschriften und damit mehrere Scenarios enthalten.
+Während aus der Scenario-Datei die Testklasse wird, werden die Scenarios zu den Testmethoden.
+Da eine Testklasse mehrere Testmethoden enthalten kann, liegt es nahe, dass eine Scenario-Datei auch aus mehreren Überschriften und damit mehreren Scenarios bestehen kann.
 
 Nach einer Überschrift können ein oder mehrere Sätze und Unterüberschriften folgen;
 diese Bilden den Rumpf des Scenarios.
 Unterüberschriften sind an \mdcode{##} am Anfang einer Zeile zu erkennen und ermöglichen die Strukturierung von langen Scenarios.
+Im Java-Code wird daraus ein Kommentar, damit auch dieser leichter lesbar ist (vgl.\ Listing~\ref{lst:basic-example}, Zeile 4).
 
 Im Rumpf von Scenarios gibt es einige Möglichkeiten, Kommentare zu hinterlassen.
 Mit \jcode{//} wird wie in anderen Programmiersprachen ein Zeilenkommentar begonnen,
@@ -31,11 +51,12 @@ Text, der in runden Klammern \code{(...)} steht, ist ebenfalls im HTML sichtbar,
 jedoch nicht im Java-Quellcode.
 Zuletzt können mit \mdcode{<!-- ... -->} Kommentare eingebettet werden,
 die weder im HTML sichtbar noch im Java-Code vorhanden sind.
+Listing~\ref{lst:basic-example} zeigt, dass lediglich der Zeilenkommentar aus dem Scenario in den Test übernommen wurde (Zeile 5).
 
 \subsection{Einfache Sätze und Ausdrücke}\label{subsec:simple-sentences-and-expressions}
 
 Sätze bilden den Inhalt eines Scenarios und definieren dessen Ablauf.
-Die Scenario-Sprache definiert eine Vielzahl von Sätzen,
+Die Scenario-Sprache definiert eine Vielzahl von Satzarten,
 die sich sowohl in ihrer Funktionalität ergänzen,
 als auch syntaktische Alternativen mit gleicher Semantik füreinander darstellen.
 
@@ -58,7 +79,7 @@ Die äquivalente Java-Anweisung ist:
 
 Zu beachten ist hier, dass die Klasse \code{City} nicht vorher deklariert werden muss.
 Durch Verwenden des Namens im Scenario wird diese automatisch angelegt.
-Es gibt in der Scenario-Sprache keine Syntax für das manuelle Definieren von Klassen.
+Es gibt in der Scenario-Sprache bisher keine Syntax für das manuelle Definieren von Klassen.
 Außerdem ist auffällig, dass \code{kassel} im Java-Code kleingeschrieben ist.
 Bei der Umwandlung wird automatisch die passende Namenskonvention angewandt (Variablen- und Methodennamen \code{lowerCamelCase}, Klassennamen \code{UpperCamelCase}).
 Dies ist insbesondere bei Bezeichnern mit Leerzeichen oder Bindestrichen der Fall:
@@ -171,7 +192,7 @@ Mit Ausnahme von Sätzen, die zu Aufrufen gehören (siehe Unterabschnitt~\ref{su
 werden aus jedem Satz eine oder mehrere Anweisungen im Rumpf dieser Testmethode.
 
 Damit Tests aussagekräftig sind, müssen sie die Ergebnisse der durchgeführten Aktionen überprüfen.
-Dazu dienen in Java Assertions, welche sowohl von der Sprache als Schlüsselwort als auch von verschiedenen Test-Frameworks bereitgestellt werden.
+Dazu dienen in Java Assertions, welche sowohl als Schlüsselwort als auch von verschiedenen Test-Frameworks bereitgestellt werden.
 Die Scenario-Sprache generiert Test-Code, der das Test-Framework JUnit~4~\cite{junit4} verwendet.
 Sie bietet einige Sätze an, die auf Assertions abgebildet werden;
 diese werden zusammengefasst als \code{Expect}-Sätze bezeichnet.
@@ -289,7 +310,7 @@ Dieser nimmt die Form \code{We take a <name> from <expr> and <sentence...>} an, 
 Im folgenden Beispiel ist diese Form ersichtlich:
 
 \begin{codeblock}
-    We take a student from students of uni and we add 1 to semester of student.
+    We take a student from students of uni and we add 1 to the semester of student.
 \end{codeblock}
 
 Übersetzt in Java-Code ergibt sich die \code{for}-Schleife:
@@ -394,7 +415,7 @@ Dieser wird zum Empfänger des Aufrufs in Java, und die Methode wird Teil dessen
 
 \begin{codeblock}
     We call do-work on Alice.
-    Do-work removes 1 from motivation of Alice.
+    Do-work removes 1 from the motivation of Alice.
 \end{codeblock}
 
 \begin{jcodeblock}
@@ -487,8 +508,8 @@ Der Compiler fügt diese Teile hintereinander, um den ganzen Rumpf der Methode z
 Dazu soll nun ein vollständiges Beispiel betrachtet werden.
 Ziel ist es, eine Benutzerdatenbank zu modellieren, in der Benutzer mit IDs abgelegt sind.
 Diese definiert eine Operation \code{getOrCreate}, die gegeben eine ID entweder einen existierenden Benutzer mit dieser ID findet,
-or einen neuen anlegt und speichert.
-Listing~\ref{lst:UserRegistry.md} zeigt das entsprechende Scenario zeigt.
+oder einen neuen anlegt und speichert.
+Listing~\ref{lst:UserRegistry.md} zeigt das entsprechende Scenario.
 
 \codelisting{md}{chapter/fulib-scenarios/scenarios}{UserRegistry.md}{Beispielscenario für Benutzerdatenbank mit stückweiser Definition}
 
