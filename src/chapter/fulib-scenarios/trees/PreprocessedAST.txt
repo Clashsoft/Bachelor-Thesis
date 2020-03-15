@@ -17,7 +17,7 @@ Scenario(
 			clauses: [
 				NamedExpr(
 					name: UnresolvedName(value: "name")
-					expr: NameAccess(name: UnresolvedName(value: "alice"))
+					expr: NameAccess(name: UnresolvedName(value: "Alice"))
 				)
 			]
 		)

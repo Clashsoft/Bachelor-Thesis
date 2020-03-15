@@ -23,7 +23,7 @@ ScenarioGroup(sourceDir: "src/main/java", packageDir: "org/example"
 						clauses: [
 							NamedExpr(
 								name: ResolvedName(decl: studentName)
-								expr: StringLiteral("alice")
+								expr: StringLiteral("Alice")
 							)
 						]
 					)

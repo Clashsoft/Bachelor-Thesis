@@ -166,7 +166,7 @@ Das Datenmodell des AST wird ebenfalls automatisch generiert.
 Grund dafür ist, dass jede AST-Klasse lediglich aus Klassenvariablen, Gettern und Settern sowie einer Factory-Methode besteht.
 Diese können mit einer Liste von Attributen ausreichend definiert werden.
 
-Die Generierung des AST erfolgt durch das GenTreeSrc-Tool~\cite{gentreesrc}.
+Die Generierung des AST erfolgt durch das von mir entwickelte GenTreeSrc-Tool~\cite{gentreesrc}.
 Dieses erlaubt die Definition von Klassen und Attributen in einer \code{gts}-Datei,
 aus der dann Java-Dateien generiert werden.
 Listing~\ref{lst:FulibScenarios.gts} zeigt einen Ausschnitt der \code{gts}-Datei von FulibScenarios,
@@ -217,7 +217,7 @@ Die Analyse- und Transformationphase besteht im Scenario-Compiler aus zwei logis
 der Gruppierung und der Namensauflösung.
 Die Gruppierung ist zuständig dafür, aus der linearen Abfolge von Sätzen in einem Scenario eine Baumstruktur zur erzeugen,
 wenn Sätze anderen untergeordnet werden können.
-Dies ist beispielsweise bei jenen der Fall, die unter einem \code{call}-Satz stehen, welche im vorherigen Abschnitt unter~\ref{subsec:methods} näher erläutert wurden.
+Dies ist beispielsweise bei jenen Sätzen der Fall, die unter einem \code{call}-Satz stehen, welche im vorherigen Abschnitt unter~\ref{subsec:methods} näher erläutert wurden.
 Jeder Satz, dessen Subjekt dem des \code{call}-Satz entspricht, wird diesem untergeordnet und ist nicht länger direkt Teil der Satzliste des Scenarios.
 Grund dafür ist, dass der Code für diese Sätze später nicht im Test, sondern in der entsprechenden Methode auftaucht.
 Da für die Bestimmung von Subjekten keine komplexe Namensauflösung notwendig ist,
@@ -298,7 +298,7 @@ das die Klasse \code{Student} repräsentiert und deren Zugehörigkeit zum gleich
 Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese neue Klasse verweist.
 Nun ist der Typ der \code{CreationExpr} aufgelöst und kann als Typ der Variable \code{alice} inferiert werden.
 
-Als nächstes muss der \code{UnresolvedName(value: "alice")} im \code{HasSentence} ersetzt werden.
+Als nächstes muss der \code{UnresolvedName(value: "Alice")} im \code{HasSentence} ersetzt werden.
 Der \code{HasSentence} fügt der Scope-Hierarchie eine weitere Ebene hinzu, die den Namen \code{alice} \emph{versteckt}.
 Deshalb wird die gleichnamige Variable \emph{nicht} dem \code{UnresolvedName} zugeordnet.
 Wäre dies der Fall, würde der \code{has}-Satz eine Assoziation von \code{Student} zu sich selbst erzeugen,
