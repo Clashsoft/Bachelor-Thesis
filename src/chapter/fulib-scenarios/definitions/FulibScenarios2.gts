@@ -18,6 +18,10 @@ abstract org.fulib.scenarios.ast.Node { Positioned {
 
 	abstract expr.Expr {
 		// ...
+		abstract primary.PrimaryExpr {
+			StringLiteral(value: String)
+			// ...
+		}
 		NameAccess(name: Name)
 		CreationExpr(type: Type, attributes: [NamedExpr])
 	}

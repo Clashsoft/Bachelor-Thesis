@@ -14,9 +14,6 @@ ScenarioFile(
 						// with name Alice
 						NamedExpr(name: UnresolvedName(value: "name")
 						          expr: UnresolvedName(value: "Alice"))
-						// with 30 credits
-						NamedExpr(name: UnresolvedName(value: "credits")
-						          expr: IntLiteral(value: 30))
 					]
 				))
 			])

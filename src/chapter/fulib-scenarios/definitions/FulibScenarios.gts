@@ -21,14 +21,6 @@ abstract org.fulib.scenarios.ast.Node {
 			ThereSentence(descriptor: MultiDescriptor)
 			// ...
 		}
-
-		abstract expr.Expr {
-			// ...
-			abstract primary.PrimaryExpr {
-				IntLiteral(value: int)
-				// ...
-			}
-		}
 	}
 
 	// Helpers
