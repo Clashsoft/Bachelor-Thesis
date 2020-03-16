@@ -457,12 +457,97 @@ indem der im vorherigen Abschnitt erklärte Verknüpfungsname \code{*} verwendet
     // AttributeConstraint... (s.o.)
 \end{jcodeblock}
 
-\todo{
-all,
-multiple,
-link,
-'where' constraints,
-match failure,
-}
+% Multiple Objects
+Pattern-Links kommen auch zum Einsatz, wenn nach Assoziationen zwischen Objekten gesucht wird.
+Dafür werden zunächst zwei Pattern-Objekte benötigt.
+In einem Match-Satz müssen diese lediglich durch \code{and} oder \code{,} getrennt werden:
+
+\begin{mdcodeblock}
+    We match some object g and some object p1.
+\end{mdcodeblock}
+
+% Unordered List syntax
+Eine alternative Schreibweise verwendet jedoch eine Auflisting der Pattern-Objekte mit der Markdown-eigenen Syntax für ungeordnete Listen.
+Diese ist aufgrund der Leserlichkeit der einzeiligen Schreibweise vorzuziehen.
+
+\begin{mdcodeblock}
+    We match:
+    - some object g
+    - some object p1.
+\end{mdcodeblock}
+
+% Mehrere Root-POs
+Beide Schreibweise bewirken, dass sowohl nach \code{g} als auch nach \code{p1} unter allen Root-Objekten gesucht werden kann.
+
+\begin{jcodeblock}
+    matcher.withRootPatternObjects(gPO, p1PO);
+\end{jcodeblock}
+
+% Ungleichheits-Bedingung
+Ferner impliziert die Existenz mehrere Pattern-Objekten im gleichen Match-Satz,
+dass diese ungleich sein müssen.
+Genau diese Ungleichheits-Bedingung bewirkt,
+dass die reine Deklaration mehrerer Pattern-Objekte \emph{nicht} gleichbedeutend mit der Verwendung mehrerer Match-Sätze ist.
+
+\begin{jcodeblock}
+    builder.buildDistinctConstraint(gPO, p1PO);
+\end{jcodeblock}
+
+% Exceptions
+Konkret hat dies die Konsequenz, dass \code{g} und \code{p1} in keinem Fall das selbe Objekt matchen können.
+Ohne weitere Einschränkung ist dieses Beispiel also unerfüllbar:
+Wird vor dem Match-Satz nur genau ein Objekt deklariert, kann dieses zwar \code{g} zugewiesen werden, jedoch bleibt dann \code{p1} unzugewiesen.
+Dies bewirkt ein Fehlschlagen des Match-Vorgangs mit einer \code{NoMatchException}.
+Wenn mehr als ein Objekt wie z.B.\ \code{game} und \code{player1} deklariert wurden,
+sind sowohl \code{g=game, p1=player1} als auch \code{g=player1, p1=game} mögliche Zuweisungen des Patterns.
+Diese Uneindeutigkeit bewirkt, dass der Match-Vorgang mit einer \code{AmbiguousMatchException} abbricht.
+Durch Wiedereinführen des Attribut-Constraints des Namens des Spielers kann das Problem behoben werden.
+Damit wird die eindeutige Zuweisung \code{g=game, p1=player1} erzwungen.
+
+% Some Link To
+Es soll nun nach einer Verknüpfung zwischen den andernfalls unabhängigen Objekten gesucht werden.
+Ist der Name der Assoziation unwichtig, kommt das Constraint \code{with some link to} zum Einsatz:
+
+\begin{mdcodeblock}
+    We match:
+    - some object g with some link to p1
+    - some object p1 where some attribute matches '[Aa]lice'.
+\end{mdcodeblock}
+
+% Beliebige Reihenfolge
+Hier ist besonders zu beachten, dass ein Pattern-Objekt vor dessen Deklaration referenziert werden kann.
+Dies ist mitunter durch die deklarative Natur des generierten Java-Codes möglich,
+in dem zuerst alle Pattern-Objekte und dann deren Constraints erstellt werden.
+Der untenstehende Ausschnitt zeigt weiterhin die Zeilen, die die zuvor erwähnte Ungleichheit definiert.
+
+\begin{jcodeblock}
+    final PatternObject gPO = builder.buildPatternObject("g");
+    final PatternObject p1PO = builder.buildPatternObject("p1");
+    builder.buildPatternLink(gPO, "*", p1PO); // some link to
+    // AttributeConstraint...
+    builder.buildDistinctConstraint(gPO, p1PO); // Ungleichheit: g != p1
+\end{jcodeblock}
+
+% Reversing the link
+Würde man stattdessen \code{object p1 ... with some link to g} schreiben,
+würde sich dies auf die Semantik auswirken.
+Unter \code{some link} ist nämlich eine unidirektionale Assoziation zu verstehen.
+Wäre beispielsweise eine solche für die Spieler-Liste des Spiels verwendet wurden,
+könnte nur \code{g with some link to p1} diese Verbindung erkennen,
+während \code{p1 with some link to g} keine Ergebnisse liefern würde.
+
+\todo{benannter Link-Constraint mittels "Attribut"-Constraint}
+
+% Accessing unknown attributs
+Evtl.\ ist es wünschenswert, nach dem Match-Satz auf den Wert des unbekannten Attributs zuzugreifen.
+Da jedoch \code{p1} den Typ \code{Object} hat, ist dies in der statisch typisierten Scenario-Sprache nicht möglich, zumal dessen Name nicht bekannt ist.
+Um dies dennoch zu realisieren, können zwei weitere Features von Match-Sätzen genutzt werden.
+Das erste davon ist die Möglichkeit, mehrere Pattern-Objekte zu deklarieren.
+Dies ist mit den üblichen Trennsymbolen \code{and} bzw. \code{,} möglich.
+Diese können mit einem Link-Constraint mit beliebigen Namen verknüpft werden.
+
+\todo{'where' (Match) Constraints}
+
+\todo{find all}
 
 \section{Pattern Matching in Assignments}\label{sec:assignment-pattern-matching}
