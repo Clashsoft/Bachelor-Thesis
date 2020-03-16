@@ -3,16 +3,17 @@
 Assignments bezeichnen ein Feature von fulib.org, das sich mit dem Anlegen, Lösen und Bewerten von Hausaufgabenblättern sowie Online-Kursen beschäftigt.
 Es handelt sich dabei um Modellierungsaufgaben in der Scenario-Sprache.
 Diese können automatisch geprüft und manuell bewertet werden.
-Dieser Abschnitt befasst sich zunächst mit dem Anlegen der Assignments aus Sicht des Kursleiters.
+Der Unterabschnitt~\ref{subsec-creation} befasst sich zunächst mit dem Anlegen der Assignments aus Sicht des Kursleiters.
 Daraufhin wird unter~\ref{subsec:solution} die Sicht der Studierenden bei der Lösung erläutert.
-Auch des Vorgehen der Korrekteure zum Bewerten der Lösungen wird hier eläutert.
+Auch des Vorgehen der Korrekteure zum Bewerten der Lösungen wird hier erläutert.
 Zuletzt wird die Kurs-Funktion unter~\ref{subsec:courses} vorgestellt.
 
 \subsection{Anlegen}\label{subsec:creation}
 
-Das Anlegen von Assignments ist leicht im Footer unter Assignments \textrightarrow{} Create Assignment möglich.
-Damit gelangt man auf das in Abbildung~\ref{fig:create-assignment} gezeigte Formular.
+Das Anlegen von Assignments ist mit dem in Abbildung~\ref{fig:create-assignment} gezeigten Formular möglich.
+Dafür muss lediglich im stets sichtbaren Seitenfooter unter ``Assignments'' der Menüeintrag ``Create Assignment'' ausgefählt werden.
 
+% TODO größer, evtl. geteilt; mit Beispieleingaben
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{chapter/fulib.org/img/create-assignment.png}
@@ -20,10 +21,10 @@ Damit gelangt man auf das in Abbildung~\ref{fig:create-assignment} gezeigte Form
     \label{fig:create-assignment}
 \end{figure}
 
-Hier werden zunächst der Titel des Assignments sowie Name und E-Mail-Adresses zu Kursleiters eingetragen.
+Hier werden zunächst der Titel des Assignments sowie Name und E-Mail-Adresse des Kursleiters eingetragen.
 Ebenso muss eine Deadline angegeben werden.
 Das mit ``Description'' bezeichnete Feld ist für die Aufgabenstellung vorgesehen.
-Dabei wird Markdown-Syntax unterstützt, es können also Überschriften, Tabellen, Listen, Bilder etc.\ in jener verwendet werden.
+Dabei wird Markdown-Syntax unterstützt, es können also Überschriften, Tabellen, Listen, Bilder etc.\ eingebracht werden.
 
 Als nächstes werden die Teilaufgaben (Tasks) eingetragen.
 Mit dem Button ``Add Task'' kann der Liste ein neuer Task hinzugefügt werden.
@@ -34,7 +35,42 @@ Zunächst wird das hier eingetragene Teilscenario an die Lösung des Studierende
 Das entstehende Scenario wird dann kompiliert und die entstandenen Tests werden ausgeführt.
 Erzeugt dies einen Compilerfehler und schlägt der Test fehl, gilt die Teilaufgabe als nicht bestanden und wird mit null Punkten bewertet.
 Andernfalls wird die maximal erreichbare Punktzahl vergeben.
-In Abschnitt~\ref{sec:assignment-pattern-matching} des nächsten Kapitels wird dies an einem vollständigen Beispiel demonstriert.
+
+Dies lässt sich an einem einfachen Beispiel demonstrieren.
+Angenommen, die Beschreibung eines Tasks lautet, dass ein Objekt \code{alice} mit dem Wert \code{Alice} in einem Attribut \code{name} erstellt werden soll.
+Der zugehörige Verifikationscode könnte dies wie folgt prüfen:
+
+\begin{mdcodeblock}
+    We expect that alice has name 'Alice'.
+\end{mdcodeblock}
+
+Eine mögliche Lösung wäre dann folgender Satz:
+
+\begin{mdcodeblock}
+    There is a Student with name Alice.
+\end{mdcodeblock}
+
+Bei deren Prüfung wird diese automatisch mit dem Verifizierungscode in ein vollständiges Scenario verpackt:
+
+\begin{mdcodeblock}
+    # Scenario
+    There is a Student with name Alice.
+    ## Verification
+    We expect that alice has name 'Alice'.
+\end{mdcodeblock}
+
+Wird dieses kompiliert und der entstehende JUnit-Test ausgeführt, ist dieser erfolgreich.
+Folglich wird auf den Task die volle Punktzahl vergeben.
+Andererseits entspricht die folgende Lösung nicht der Aufgabenstellung:
+
+\begin{mdcodeblock}
+    There is a Student with name Bob.
+\end{mdcodeblock}
+
+Fügt man diese wie oben mit dem Verifizierungscode zusammen und kompiliert das Result,
+wird der Scenario-Compiler aufgrund der fehlenden Variable \code{alice} eine Fehlermeldung bei \code{alice has name ...} erzeugen.
+Die Fehlermeldung wird als Nichterfüllen des Tasks aufgefasst,
+wodurch er mit null Punkten bewertet wird.
 
 Zur Übersichtlichkeit lassen sich die einzelnen Tasks mit dem ``+''- bzw.\ ``-''-Button ein- und ausklappen.
 Mit der Schaltfläche rechts davon lassen sich Tasks durch Ziehen mit Maus bzw.\ Finger anordnen.
@@ -45,20 +81,22 @@ Beide lassen sich mit den entsprechenden Buttons ein- und ausklappen, um das For
 Gibt man eine Vorlage an, so wird diese den Studierenden als Lösung vorgegeben, wenn sie das Assignment öffnen.
 Die Aufgabenstellung könnte dann beispielsweise sein, dass das vorgegebene Scenario angepasst oder vervollständigt wird.
 Dafür könnten in der Vorlage z.B.\ Lücken mit ``\code{...}'' gelassen werden, die der Studierende ausfüllen soll.
+Für das zuvor genannte Beispiel wäre etwa eine Vorlage wie \code{There is a ...} vorstellbar.
+
 Die Musterlösung ist zwar optional, sie erlaubt jedoch dem Ersteller, seine Aufgabenstellung auf Lösbarkeit zu prüfen.
-Dadurch können Fehler in der Aufgabenstellung oder der Verifizierung frühzeutig erkannt werden.
-Bei Änderung der Musterlösung wird diese automatisch geprüft.
-In der Task-Liste werden dann diejenigen Tasks rot, deren Verifizierungscode fehlgeschlagen ist.
-Dies deutet an, dass es ein Problem in der Musterlösung oder des Tasks gibt.
+Dadurch können Fehler in der Aufgabenstellung oder der Verifizierung frühzeitig erkannt werden.
+Bei Änderung der Musterlösung wird sie automatisch geprüft.
+In der Task-Liste werden dann diejenigen Tasks rot, deren Verifizierung fehlgeschlagen ist.
+Dies deutet an, dass es ein Problem entweder in der Musterlösung oder im Verifizierungscode eines Tasks gibt.
 
 Sämtliche Änderungen am Formular werden sofort im Browser gespeichert.
-Dadurch ist Datenverlust beim Verlassen der Seite oder bei Ausfall der Internetverbindung ausgeschlossen.
+Dadurch wird Datenverlust beim Verlassen der Seite oder bei Ausfall der Internetverbindung vermieden.
 Dennoch gibt es die Möglichkeit, den Entwurf des Assignments als Datei auf der Festplatte zu speichern.
 Dies ist mit dem ``Export''-Button möglich.
 Später kann diese Datei dann wieder in das Formular übernommen werden.
 Dafür muss diese im Feld neben dem ``Import''-Button ausgewählt werden und anschließend auf diesen geklickt werden.
 Die Import/Export-Funktion erlaubt ferner, ein Assignment für die spätere Bearbeitung zu speichern und ein Neues zu erstellen.
-Heruntergeladene Datein können weiterhin über E-Mail oder Filesharing an andere weitergegeben werden,
+Heruntergeladene Dateien können weiterhin über E-Mail oder Filesharing an andere weitergegeben werden,
 die das Assignment dann importieren und prüfen oder verändern können.
 
 Um ein fertiges Assignment zu veröffentlich, genügt ein Klick auf den ``Submit''-Button.
@@ -86,7 +124,7 @@ Wird im Nachhinein ein Fehler in der Aufgabenstellung erkannt, kann das gleiche 
 Dabei werden neue Links und Token generiert, die wieder entsprechend geteilt werden müssen.
 
 Wählt man im Footer Assignments \textrightarrow{} My Assignments aus, gelangt man zur Übersicht der eigenen Assignments.
-Abbildung~\ref{fig:my-assignments} zeigt, wie diese aussehen kann.
+Abbildung~\ref{fig:my-assignments} zeigt, wie diese aussehen kann. % TODO können? geht um Liste
 
 \begin{figure}
     \centering
