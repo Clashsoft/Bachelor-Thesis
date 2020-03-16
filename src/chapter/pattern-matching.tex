@@ -419,12 +419,12 @@ Attributwert-Constraint müssen nicht nach exakten Werten prüfen.
 Sie können stattdessen auch bestimmten Bedingungen wie etwa Zahlenvergleiche oder regulären Ausdrücken eingeschränkt werden.
 Die Syntax ändert sich dabei leicht durch Verwendung des Schlüsselworts \code{whose}.
 
-\begin{jcodeblock}
+\begin{mdcodeblock}
     There is a Player with name Alice.
 
     We match some object g whose min-score is greater than 0.
     We match some object p1 whose name matches '[Aa]lice'.
-\end{jcodeblock}
+\end{mdcodeblock}
 
 Im Java-Code wird aus dem Gleichheits-Constraint ein allgemeiner Attribut-Constraint mit Lambda-Ausdruck.
 Außerdem wird der Typ der Attributs-Pattern-Objekte durch die Verwendung mit den Operatoren eingeschränkt.
@@ -451,11 +451,11 @@ das Schlüsselwort \code{whose} wird zu \code{where}.
 Im Java-Code verändert sich primär der Link zwischen den beiden Pattern-Objekten,
 indem der im vorherigen Abschnitt erklärte Verknüpfungsname \code{*} verwendet wird.
 
-\begin{jcodeblock}
+\begin{jcodeblock*}{breaklines}
     PatternObject p1Attr1PO = builder.buildPatternObject("p1Attr1", String.class);
     builder.buildPatternLink(p1PO, "*", gMinScore);
     // AttributeConstraint... (s.o.)
-\end{jcodeblock}
+\end{jcodeblock*}
 
 % Multiple Objects
 Pattern-Links kommen auch zum Einsatz, wenn nach Assoziationen zwischen Objekten gesucht wird.
@@ -521,8 +521,8 @@ in dem zuerst alle Pattern-Objekte und dann deren Constraints erstellt werden.
 Der untenstehende Ausschnitt zeigt weiterhin die Zeilen, die die zuvor erwähnte Ungleichheit definiert.
 
 \begin{jcodeblock}
-    final PatternObject gPO = builder.buildPatternObject("g");
-    final PatternObject p1PO = builder.buildPatternObject("p1");
+    PatternObject gPO = builder.buildPatternObject("g");
+    PatternObject p1PO = builder.buildPatternObject("p1");
     builder.buildPatternLink(gPO, "*", p1PO); // some link to
     // AttributeConstraint...
     builder.buildDistinctConstraint(gPO, p1PO); // Ungleichheit: g != p1
