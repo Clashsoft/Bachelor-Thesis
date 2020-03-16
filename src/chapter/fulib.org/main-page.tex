@@ -1,9 +1,10 @@
 \section{Hauptseite}\label{sec:main-page}
 
 Die Hauptseite erreicht man, wenn man fulib.org das erste mal öffnet.
-Dabei präsentiert sich der sogenannte Vier-Panel-Editor, welcher in Abbildung~\ref{fig:four-pane-editor}.
+Dabei präsentiert sich der sogenannte Vier-Panel-Editor, welcher in Abbildung~\ref{fig:four-pane-editor} gezeigt wird.
 
 \begin{figure}
+    % TODO größere diagramme
     \includegraphics[width=\textwidth]{chapter/fulib.org/img/four-pane-editor.png}
     \caption{Der Vier-Panel-Editor auf der Hauptseite von fulib.org}
     \label{fig:four-pane-editor}
@@ -29,7 +30,7 @@ Das dabei entstehende Klassendiagramm sowie Objektdiagramme werden dann in den e
 Um das sofortige Feedback zu erleichtern, wird das Scenario immer automatisch ausgeführt, wenn es länger als eine Sekunde unverändert blieb.
 Somit muss man nicht manuell auf ``Compile and Run'' klicken.
 Alternativ kann die automatische Ausführung im Dropdown neben dem ``Compile and Run''-Button deaktiviert werden.
-Händisch lässt es sich dann immernoch durch Klick oder Verwenden der Testenkürzel auslösen.
+Händisch lässt es sich dann immernoch durch Klick oder Verwenden der Tastenkürzel auslösen.
 
 Im Fenster für den Java-Code werden die Rümpfe sämtlicher Methoden angezeigt, die im Scenario verwendet wurden.
 Davon ausgenommen sind aufgrund ihrer Trivialität Getter und Setter sowie diverse standardmäßig generierte Methoden.
@@ -44,11 +45,11 @@ Die einzelnen Darstellungen lassen sich dann getrennt voneinander betrachten.
 
 Über dem Scenario-Editor befindet sich ein Auswahlfeld für vordefinierte Tutorials.
 Wählt man eines davon aus, wird dessen Scenario-Text in den Editor übernommen und sofort ausgeführt.
-Die Tutorials sind in Kategorien angeordnet und haben bauen in ihrer Reihenfolge aufeinander auf.
+Die Tutorials sind in Kategorien angeordnet und bauen in ihrer Reihenfolge aufeinander auf.
 Somit werden die behandelten Sprachkonzepte zunehmend komplexer.
 
 In den Tutorial-Scenarios ist beschreibender Text mit \code{//}-Kommentaren realisiert.
-Diese bewirt, dass der Text auch im Java-Code auftaucht, was die Zuordnung vereinfacht.
+Diese bewirken, dass der Text auch im Java-Code auftaucht, was die Zuordnung vereinfacht.
 Durch Abschnitte erfolgt eine visuelle Trennung von unabhängigen Teil-Scenarios.
 
 Am Ende jedes Tutorials gibt es Links zu entsprechenden Abschnitten in der Dokumentation,
@@ -57,7 +58,7 @@ Dazu gehören auch Grammatiken und häufige Problemfälle.
 
 Die von Tutorials stammenden Scenarios können frei verändert werden.
 Dadurch können die Sprachkonzepte direkt ausprobiert werden.
-Lädt man das entsprechende Tutorial erneut, wird das vordefinierte Scenario verwendet und die Änderungen verworfen.
+Lädt man das entsprechende Tutorial erneut, wird wieder der vordefinierte Scenario-Text verwendet und die Änderungen verworfen.
 
 \subsection{Projektstarter}\label{subsec:project-starter}
 
@@ -88,6 +89,8 @@ Führt man daraufhin den \code{check}-Task mit Gradle aus (Kommandozeile: \code{
 wird das zuvor auf fulib.org geschriebene Scenario kompiliert und generierte Java-Dateien in den entsprechenden Ordnern unter \code{src/} abgelegt.
 Außerdem bewirkt \code{check} die Ausführung von generierten Tests.
 Ändert man die Scenario-Datei und führt den Task erneut aus, wird auch der Java-Code angepasst.
+
+% TODO screendump project tree
 
 Der Projektexport ist vor allem dann relevant, wenn das Scenario zu groß wird, um im Editor übersichtlich zu sein.
 Dies ist meist ein Anzeichen dafür, dass man ein richtiges Projekt beginnen sollte.
@@ -146,7 +149,7 @@ Inzwischen wurde diese wesentlich erweitert und ist nun auf fulib.org verlinkt.
 
 Auch kritisiert wurde die Verständlichkeit der Fehlermeldungen.
 Wie im folgenden Abschnitt erläutert wird,
-wurden auch diese erweitert, um leichter zu einer Lösung zu deuten.
+wurden auch diese erweitert, um die Lösungssuche zu erleichtern.
 Die Beispielscenarios wurden angepasst, um verständlicher zu sein,
 und wurden zusätzlich mit Links zur Dokumentation ausgestattet.
 Gleichzeitig kann auch die Dokumentation auf Beispiele verlinken,
