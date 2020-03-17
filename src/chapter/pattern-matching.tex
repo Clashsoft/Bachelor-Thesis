@@ -348,7 +348,7 @@ Dies gibt eine (potenziell leere) Menge aller gematchten Objekte zurück.
 
 \section{Pattern Matching in der Scenario-Sprache}\label{sec:scenario-pattern-matching}
 
-Die Scenario-Sprache bietet syntaktische Unterstützung für Pattern Matching mit FulibTables in Form des \code{Match}-Satzes.
+Die Scenario-Sprache bietet syntaktische Unterstützung für Pattern Matching mit FulibTables in Form des \emph{Match-Satzes}.
 Er erlaubt es, in einer kompakten und ausdrucksstarken Weise Patterns zu bauen und auf Objektstrukturen anzuwenden.
 Ergebnis des Satzes sind die gefundenen Objekte, welche im weiteren Verlauf des Scenarios verwendet werden können.
 Seine umfangreiche Syntax ist Thema dieses Abschnitts.
@@ -369,7 +369,7 @@ Es handelt sich dabei um genau jenen Code, der zur Einrichtung von Patterns und 
 \begin{jcodeblock*}{breaklines}
     Object g;
     {
-        // Pattern:
+        // Pattern
         PatternBuilder builder = FulibTables.patternBuilder();
         PatternObject gPO = builder.buildPatternObject("g");
         // Matcher
@@ -399,7 +399,7 @@ Statt \code{object} lässt sich im Match-Satz auch ein Typ angeben, auf den das 
     We match some Game g.
 \end{mdcodeblock}
 
-Dies wirkt sich auf das Pattern-Objekts im Java-Code aus.
+Dies wirkt sich auf das Pattern-Objekt im Java-Code aus.
 
 \begin{jcodeblock}
     PatternObject gPO = builder.buildPatternObject("g", Game.class);
@@ -429,7 +429,7 @@ Dadurch wird \code{ps} zu einer Liste, die mittels \code{findAll} vom Matcher er
 
 Auf Pattern-Objekte in Match-Sätzen folgt eine Liste von Constraints.
 Eine einfache Art davon ist ein Attributwert-Constraint.
-Wie das folgende Beispiel zeigt, verwendet dieser eine ähnliche Syntax wie die Zuweisung von Attributen bei der Deklaration von Objekten mit \code{There}.
+Wie das folgende Beispiel zeigt, verwendet dieser eine ähnliche Syntax wie die Zuweisung von Attributen mit There-Sätzen.
 
 \begin{mdcodeblock}
     There is a Game with min-score 50.
@@ -438,7 +438,7 @@ Wie das folgende Beispiel zeigt, verwendet dieser eine ähnliche Syntax wie die 
 \end{mdcodeblock}
 
 Durch Hinzunahme des Constraints kommt im Java-Code ein weiteres Pattern-Objekt hinzu, was von außen jedoch nicht sichtbar ist.
-Es ist mit dem Pattern-Objekt von \code{g} über einen Pattern-Link verbunden und wird durch einen Gleichheits-Constraint eingeschränkt.
+Es ist mit dem Pattern-Objekt von \code{g} über einen Link-Constraint verbunden und wird durch einen Gleichheits-Constraint eingeschränkt.
 
 \begin{jcodeblock*}{breaklines}
     Object g;
@@ -455,7 +455,7 @@ Es ist mit dem Pattern-Objekt von \code{g} über einen Pattern-Link verbunden un
 \subsection{Attribut-Constraints mit Vergleichsoperatoren}
 
 Attributwert-Constraint müssen nicht nach exakten Werten prüfen.
-Sie können stattdessen auch nach bestimmten Bedingungen wie etwa Zahlenvergleiche oder regulären Ausdrücken eingeschränkt werden.
+Sie können stattdessen auch nach bestimmten Bedingungen wie etwa Zahlenvergleichen oder regulären Ausdrücken eingeschränkt werden.
 Die Syntax ändert sich dabei leicht durch Verwendung des Schlüsselworts \code{whose}.
 
 \begin{mdcodeblock}
@@ -470,9 +470,9 @@ Außerdem wird der Typ der Attributs-Pattern-Objekte durch die Verwendung mit de
 
 \begin{jcodeblock*}{breaklines}
     PatternObject gMinScorePO = builder.buildPatternObject("gMinScore", Number.class);
-    PatternObject p1NamePO = builder.buildPatternObject("p1Name", String.class);
-    // Links...
     builder.buildAttributeConstraint(gMinScorePO, (Number n) -> n.doubleValue() > 0);
+
+    PatternObject p1NamePO = builder.buildPatternObject("p1Name", String.class);
     builder.buildAttributeConstraint(p1NamePO, (String s) -> s.matches("[Aa]lice"));
 \end{jcodeblock*}
 
@@ -489,7 +489,7 @@ das Schlüsselwort \code{whose} wird zu \code{where}.
     We match some object p1 where some attribute matches '[Aa]lice'.
 \end{mdcodeblock}
 
-Im Java-Code verändert sich primär der Link zwischen den beiden Pattern-Objekten,
+Im Java-Code verändert sich primär das Link-Constraint zwischen den beiden Pattern-Objekten,
 indem der im vorherigen Abschnitt erklärte Verknüpfungsname \code{*} verwendet wird.
 
 \begin{jcodeblock*}{breaklines}
@@ -500,7 +500,7 @@ indem der im vorherigen Abschnitt erklärte Verknüpfungsname \code{*} verwendet
 
 \subsection{Mehrere Root-Objekte und Fehlerfälle}
 
-Pattern-Links kommen auch zum Einsatz, wenn nach Assoziationen zwischen Objekten gesucht wird.
+Link-Constraints kommen auch zum Einsatz, wenn nach Assoziationen zwischen Objekten gesucht wird.
 Dafür werden zunächst zwei Pattern-Objekte benötigt.
 In einem Match-Satz müssen diese lediglich durch \code{and} oder \code{,} getrennt werden:
 
@@ -526,10 +526,8 @@ Beide Schreibweise bewirken, dass sowohl nach \code{g} als auch nach \code{p1} u
 \end{jcodeblock}
 
 % Ungleichheits-Bedingung
-Ferner impliziert die Existenz mehrere Pattern-Objekten im gleichen Match-Satz,
-dass diese ungleich sein müssen.
-Genau diese Ungleichheits-Bedingung bewirkt,
-dass die reine Deklaration mehrerer Pattern-Objekte \emph{nicht} gleichbedeutend mit der Verwendung mehrerer Match-Sätze ist.
+Ferner impliziert die Existenz mehrere Pattern-Objekten im gleichen Match-Satz, dass diese ungleich sein müssen.
+Genau diese Ungleichheits-Bedingung bewirkt, dass die reine Deklaration mehrerer Pattern-Objekte \emph{nicht} gleichbedeutend mit der Verwendung mehrerer Match-Sätze ist.
 
 \begin{jcodeblock}
     builder.buildDistinctConstraint(gPO, p1PO);
@@ -540,8 +538,7 @@ Konkret hat dies die Konsequenz, dass \code{g} und \code{p1} in keinem Fall das 
 Ohne weitere Einschränkung ist dieses Beispiel also unerfüllbar:
 Wird vor dem Match-Satz nur genau ein Objekt deklariert, kann dieses zwar \code{g} zugewiesen werden, jedoch bleibt dann \code{p1} unzugewiesen.
 Dies bewirkt ein Fehlschlagen des Match-Vorgangs mit einer \code{NoMatchException}.
-Wenn mehr als ein Objekt wie z.B.\ \code{game} und \code{player1} deklariert wurden,
-sind sowohl \code{g=game, p1=player1} als auch \code{g=player1, p1=game} mögliche Zuweisungen des Patterns.
+Wenn mehr als ein Objekt wie z.B.\ \code{game} und \code{player1} deklariert wurden, sind sowohl \code{g=game, p1=player1} als auch \code{g=player1, p1=game} mögliche Zuweisungen des Patterns.
 Diese Uneindeutigkeit bewirkt, dass der Match-Vorgang mit einer \code{AmbiguousMatchException} abbricht.
 Durch Wiedereinführen des Attribut-Constraints des Namens des Spielers kann das Problem behoben werden.
 Damit wird die eindeutige Zuweisung \code{g=game, p1=player1} erzwungen.
@@ -574,7 +571,7 @@ Der untenstehende Ausschnitt zeigt weiterhin die Zeilen, die die zuvor erwähnte
 
 % Reversing the link
 Würde man stattdessen \code{object p1 ... with some link to g} schreiben,
-würde sich dies auf die Semantik auswirken.
+wirkt sich dies auf die Semantik aus.
 Unter \code{some link} ist nämlich eine unidirektionale Assoziation zu verstehen.
 Wäre beispielsweise eine solche für die Spieler-Liste des Spiels verwendet wurden,
 könnte nur \code{g with some link to p1} diese Verbindung erkennen,
@@ -585,7 +582,7 @@ während \code{p1 with some link to g} keine Ergebnisse liefern würde.
 % Named Links with Attribute Constraints
 Bei Link-Constraints kann auch der Name der Assoziation angegeben werden.
 Dies ist möglich, indem man die gleiche Syntax wie für Attribute verwendet,
-aber als Attributwert den Namen eines Pattern-Objekts angibt:
+aber statt eines Werts den Namen eines Pattern-Objekts angibt:
 
 \begin{mdcodeblock}
     We match:
@@ -643,5 +640,14 @@ Des Weiteren wurden deren Namen im Bedingungsausdruck durch Hilfsvariablen erset
         return _g.getMinScore() == 0 || _p1.getScore() > _g.getMinScore();
     }, gPO, p1PO);
 \end{jcodeblock*}
+
+Mit einem Match-Constraint lässt sich auch das Beispiel aus dem vorherigen Unterabschnitt ausstatten, um das Attribut \code{minScore} einzuschränken.
+Dies war zuvor syntaktisch nicht mehr möglich.
+
+\begin{mdcodeblock}
+    We match:
+    - some object g with min-score ms
+    - some integer ms where ms is greater than 0
+\end{mdcodeblock}
 
 \section{Pattern Matching in Assignments}\label{sec:assignment-pattern-matching}
