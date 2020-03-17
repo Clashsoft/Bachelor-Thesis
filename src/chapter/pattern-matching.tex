@@ -9,7 +9,7 @@ QVT (Query View Transform),
 
 FulibTables\cite{fulibTables} ist eine Java-Bibliothek, mit der Objektstrukturen als Tabellen behandelt werden können.
 Diese Tabellen dienen als Grundlage für einen Pattern Matcher, den die Bibliothek ebenfalls anbietet.
-Im folgenden Abschnitt werden zunächst die Tabellen und deren Operationen anhang eines einfachen Beispiels vorgestellt.
+Im folgenden Abschnitt werden zunächst die Tabellen und deren Operationen anhand eines einfachen Beispiels vorgestellt.
 Daraufhin werden die Möglichkeiten zum Pattern Matching betrachtet.
 
 \subsection{Tabellen}\label{subsec:tables}
@@ -17,7 +17,7 @@ Daraufhin werden die Möglichkeiten zum Pattern Matching betrachtet.
 Um Tabellen nutzen zu können, wird zunächst ein Datenmodell benötigt.
 Dazu soll beispielhaft ein Modell von einem fiktiven Spiel für mehrere Spieler verwendet werden.
 Jeder Spieler hat ein oder mehrere Häuser, die eine Zahl von Einheiten haben.
-Ziel des Spiel ist es, in mindestens einem Haus eine bestimmte Anzahl von Einheiten zu erreichen.
+Ziel des Spiels ist es, in mindestens einem Haus eine bestimmte Anzahl von Einheiten zu erreichen.
 Das entsprechende Klassendiagramm ist in Abbildung~\ref{fig:game-class-diagram} zu sehen.
 
 \begin{figure}
@@ -55,7 +55,7 @@ Beim Erweitern entstehen neue Tabellen-Instanzen,
 die sich die Daten der ursprünglichen Tabelle teilen.
 Jede Tabellen-Instanz hat eine Spalte, auf die sie \emph{zeigt}.
 Operationen auf der Tabelle beziehen sich i.d.R.\ auf diese Spalte,
-wirken sich aber durch das geteilte Datenmodell auf alle anderen Instanzen aus.
+wirken sich aber durch das geteilte Datenmodell auf alle verwandten Instanzen aus.
 Zunächst wird nur eine einfache Tabelle mit einer Spalte und einer Zeile benötigt.
 Dafür müssen der Name der ersten Spalte sowie eine Liste von Objekten, die die Zeilen dieser Spalte bilden, angegeben werden.
 Hier wird zunächst nur eine Zeile gebraucht.
@@ -64,7 +64,7 @@ Hier wird zunächst nur eine Zeile gebraucht.
     ObjectTable<Game> games = new ObjectTable<>("Games", game);
 \end{jcodeblock}
 
-Diese lässt sich wie folgt darstellen:
+Dies lässt sich wie folgt darstellen:
 
 \begin{tabular}{|c|}
     \hline
@@ -75,7 +75,7 @@ Diese lässt sich wie folgt darstellen:
 \end{tabular}
 
 Auf dieser Tabelle lässt sich nun eine Erweiterung durchführen, was mit der Methode \code{expand} erreicht wird.
-Diese erwartet zuerst einen Namen für die neue Spalte, die sowohl der alten Tabelle hinzugefügt wird als auch Ziel der neuen Tabellen-Instanz ist.
+Diese erwartet zuerst einen Namen für die neue Spalte, die der alten Tabelle hinzugefügt wird und auf die die neue Tabellen-Instanz zeigt.
 Weiterhin wird eine Funktion in Form eines Lambda-Ausdrucks übergeben.
 Dieser wird für jede Zeile der Tabelle aufgerufen.
 Die Ergebnisse bilden dann die Zeilen der neuen Spalte.
@@ -137,8 +137,8 @@ Bei Bob und Charlie ist dies nicht der Fall.
 
 U.U.\ ist der Name des zu erweiternden Attributs nicht bekannt.
 Dafür wurde als Teil dieser Arbeit eine alternative \code{expandAll}-Operation entwickelt,
-bei der dieser nicht angegeben werden muss.
-Diese bekommt keinen Lambda-Ausdruck übergeben, sondern ermittelt die existierenden Attribute und Assoziationen der Objekte zur Laufzeit mittels Reflection.
+bei der kein Lambda-Ausdruck übergeben wird und somit auch kein Name bekannt sein muss.
+Stattdessen werden die existierenden Attribute und Assoziationen der Objekte zur Laufzeit mittels Reflection ermittelt.
 
 \begin{jcodeblock}
     Table<?> houseAttributes = houses.expandAll("House Attributes");
@@ -169,13 +169,14 @@ Zu-N-Assoziationen und mehrwertige Attribute (Listen) werden dabei abgeflacht.
 Die Zeilen einer Spalte können nun nach bestimmten Eigenschaften durchsucht werden.
 Diese Operation nennt sich \code{filter} und verwendet ebenfalls einen Lambda-Ausdruck,
 der angibt, welche Zeilen entfernt und welche behalten werden sollen.
-In diesem Beispiel wird unter allen Attributen von Häusern nach ganzen Zahlen gesucht.
+In diesem Beispiel wird unter allen Attributen der Häuser nach ganzen Zahlen gesucht.
 
 \begin{jcodeblock}
     houseAttributes.filter(it -> it instanceof Integer);
 \end{jcodeblock}
 
-Dies ergibt die Anzahl der Credits, ohne dass der Name des Attributs angegeben werden musste:
+Dies ergibt die Anzahl der Credits, ohne dass der Name des Attributs angegeben werden musste.
+Stattdessen wurde mit \code{filter} eine strukturelle Bedingung verwendet.
 
 \begin{tabular}{|c|c|c|c|c|}
     \hline
@@ -221,16 +222,16 @@ Aus der Tabelle lässt sich nun ein Ergebnis erzeugen, indem die Tabellenspalte 
 
 \subsection{Patterns}\label{subsec:patterns}
 
-Patterns sind ein Mechanismus von FulibTables, der die Suche nach Objekten mit bestimmten Eigenschaften in einer Objektstruktur erlaubt.
+Patterns sind ein Mechanismus von FulibTables, der ähnlich wie Tabellen die Suche nach Objekten mit bestimmten Eigenschaften in einer Objektstruktur erlaubt.
 Die Bibliothek gibt dafür eine einfache API zum Konstruieren von Patterns vor.
-Intern wird das Pattern Matching mit Tables realisiert,
+Intern wird das Pattern Matching mit Tabellen realisiert,
 die in ihren Operationen gleichmächtig mit Patterns sind.
 Jedoch ist die Verwendung von Patterns übersichtlicher und leichter verständlich.
 Des Weiteren lassen sich Pattern als Objekte modellieren,
 während Tables nur mit einer Folge von Anweisungen bearbeitet werden.
 Dadurch lassen sich Patterns deklarativ gebrauchen, während Tables imperativ verwendet werden.
 
-Ein Pattern besteht aus einer Menge von \emph{Pattern-Objekten} und Constraints auf diesen.
+Ein Pattern besteht aus einer Menge von \emph{Pattern-Objekten} und \emph{Constraints} auf diesen.
 Pattern-Objekte dienen als Platzhalter für Objekte und Werte, nach denen gesucht wird,
 während Constraints deren Beziehungen modellieren.
 
@@ -268,9 +269,9 @@ Dies geschieht unter Angabe der Attribut- bzw.\ Assoziationsnamen mit der \code{
 
 Zu beachten ist in der letzten Zeile der Name ``\code{*}''.
 Dieser dient als Platzhalter für den unbekannten Attributsnamen.
-Er bewirkt, dass \code{unitsPO} alle Attribute von \code{housePO} matcht.
+Er bewirkt, dass nur Objekte \code{housePO} zugewiesen werden können, bei denen mindestens ein Attributswert auch \code{unitsPO} zugewiesen werden kann.
 Diese Operation ist in Vorbereitung dieser Arbeit aufbauend auf dem zuvor genutzten \code{expandAll} entstanden.
-Wie im vorherigen Beispiel sollen sind nicht alle Attribute von Häusern interessant,
+Wie im vorherigen Beispiel sind nicht alle Attribute von Häusern interessant,
 weshalb auch hier auf ganze Zahlen eingeschränkt werden soll.
 Dafür kommt ein \emph{Attributs-Constraint} zum Einsatz, das wie folgt angelegt wird:
 
@@ -291,12 +292,14 @@ das wie folgt deklariert wird:
 \end{jcodeblock}
 
 Der Lambda-Ausdruck entspricht hier jenem, der mit \code{filterRows} gebraucht wurde.
-Zu beachten ist jedoch hier die Angabe der verwendenden Pattern-Objekte dahinter.
+Zu beachten ist jedoch die Angabe der verwendenden Pattern-Objekte dahinter.
 Ohne diese könnten Match-Constraints bei der Suche immer erst als letzte bearbeitet werden,
 was u.U.\ zu sehr großen Zwischenergebnissen führen kann.
+I.A.\ können Match-Constraints erst dann verarbeitet werden, wenn alle Pattern-Objekte gefunden wurden,
+von denen diese abhängen.
 
 Nun sind alle Pattern-Objekte und Constraints angelegt.
-Mit \code{builder.getPattern()} lässt sich eine Objekt erhalten, dass all diese kapselt.
+Mit \code{builder.getPattern()} lässt sich ein Objekt erhalten, dass all diese kapselt.
 Das davon ausgehende Objektdiagramm ist in Abbildung~\ref{fig:pattern-diagram} dargestellt.
 
 \begin{figure}
@@ -318,7 +321,14 @@ Ferner werden daraus die Zeilen und Spalten der Tabelle, die intern als Datenstr
 \end{jcodeblock}
 
 Die Methode \code{match()} führt nach Einrichten des Matchers den eigentlichen Match-Vorgang durch.
-Daraufhin lassen sich die Ergebnisse anhand der Pattern-Objekte extrahieren:
+Dabei werden ausgehend von der Root-Tabelle nacheinander die Attribut-, Link- und Match-Constraints abgearbeitet.
+Dies erfolgt durch Anwenden der \code{filter}-, \code{expand}/\code{expandAll} und \code{filterRows}-Operationen auf der Tabelle.
+Die Reihenfolge ist so gewählt, dass zu jedem Zeitpunkt möglichst wenige Tabellenzeilen entstehen, um den Aufwand gering zu halten.
+Dazu werden Attribut-\ und Match-Constraints, welche die Zeilenanzahl nur verringern können, den Link-Constraints, die neue Spalten und Zeilen erzeugen, vorgezogen.
+Letztere werden immer erst dann abgearbeitet, wenn erstere nicht anwendbar sind.
+Insgesamt haben Patterns also den Vorteil, dass der Nutzer sich anders als mit Tabellen nicht die Reihenfolge der Operationen überlegen muss, sondern sich auf die Suchkriterien konzentrieren kann.
+
+Nach dem Match-Vorgang lassen sich die Ergebnisse anhand der Pattern-Objekte extrahieren:
 
 \begin{jcodeblock}
     matcher.match();
@@ -335,10 +345,6 @@ Dies gibt eine (potenziell leere) Menge aller gematchten Objekte zurück.
 \begin{jcodeblock}
     Set<Player> winners = matcher.findAll(playerPO);
 \end{jcodeblock}
-
-\todo{
-Interne Tabellen beim Pattern Matching,
-}
 
 \section{Pattern Matching in der Scenario-Sprache}\label{sec:scenario-pattern-matching}
 
@@ -377,7 +383,9 @@ Es handelt sich dabei um genau jenen Code, der zur Einrichtung von Patterns und 
 \end{jcodeblock*}
 
 Auffällig ist hier die Zeile mit \code{withRootObjects}.
-Der Aufruf \code{new ReflectorMap("org.example").discoverObjects(game)} bewirkt hier, dass alle von \code{game} ausgehenden Objekte, deren Typ zum Package \code{org.example} gehört, als Root-Objekte behandelt werden.
+Der Aufruf von \code{discoverObjects} bewirkt hier, dass alle von \code{game} ausgehenden Objekte, deren Typ zum Package \code{org.example} gehört, als Root-Objekte behandelt werden.
+Dies umfasst \code{game} selber sowie alle über (transitive) Assoziationen verknüpfen Objekte,
+somit die gesamte Objektstruktur.
 I.A.\ werden an \code{discoverObjects} alle sich im Scope befindenden Variablen übergeben.
 Dabei können auch Objekte, die nicht direkt zugänglich sind, gefunden werden.
 Wichtig ist jedoch, dass nicht direkt nach Objekten gesucht werden kann, die nicht zum Package des Scenarios gehören.
