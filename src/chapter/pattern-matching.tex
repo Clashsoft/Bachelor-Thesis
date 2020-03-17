@@ -416,7 +416,7 @@ Es ist mit dem Pattern-Objekt von \code{g} über einen Pattern-Link verbunden un
 \end{jcodeblock*}
 
 Attributwert-Constraint müssen nicht nach exakten Werten prüfen.
-Sie können stattdessen auch bestimmten Bedingungen wie etwa Zahlenvergleiche oder regulären Ausdrücken eingeschränkt werden.
+Sie können stattdessen auch nach bestimmten Bedingungen wie etwa Zahlenvergleiche oder regulären Ausdrücken eingeschränkt werden.
 Die Syntax ändert sich dabei leicht durch Verwendung des Schlüsselworts \code{whose}.
 
 \begin{mdcodeblock}
@@ -536,15 +536,41 @@ Wäre beispielsweise eine solche für die Spieler-Liste des Spiels verwendet wur
 könnte nur \code{g with some link to p1} diese Verbindung erkennen,
 während \code{p1 with some link to g} keine Ergebnisse liefern würde.
 
-\todo{benannter Link-Constraint mittels "Attribut"-Constraint}
+% Named Links with Attribute Constraints
+Bei Link-Constraints kann auch der Name der Assoziation angegeben werden.
+Dies ist möglich, indem man die gleiche Syntax wie für Attribute verwendet,
+aber als Attributwert den Namen eines Pattern-Objekts angibt:
 
-% Accessing unknown attributs
-Evtl.\ ist es wünschenswert, nach dem Match-Satz auf den Wert des unbekannten Attributs zuzugreifen.
-Da jedoch \code{p1} den Typ \code{Object} hat, ist dies in der statisch typisierten Scenario-Sprache nicht möglich, zumal dessen Name nicht bekannt ist.
-Um dies dennoch zu realisieren, können zwei weitere Features von Match-Sätzen genutzt werden.
-Das erste davon ist die Möglichkeit, mehrere Pattern-Objekte zu deklarieren.
-Dies ist mit den üblichen Trennsymbolen \code{and} bzw. \code{,} möglich.
-Diese können mit einem Link-Constraint mit beliebigen Namen verknüpft werden.
+\begin{mdcodeblock}
+    We match:
+    - some object g with players p1
+    - some object p1 where some attribute matches '[Aa]lice'.
+\end{mdcodeblock}
+
+Der Java-Code errinnert stark an jenen, der zuvor für das reguläre Attribut-Constraint generiert wurde:
+
+\begin{jcodeblock}
+    final PatternObject gPO = builder.buildPatternObject("g");
+    final PatternObject p1PO = builder.buildPatternObject("p1");
+    builder.buildPatternLink(gPO, "players", p1PO);
+\end{jcodeblock}
+
+% Attributes as POs
+Der wesentliche Unterschied ist, dass zuvor das Attribut-Pattern-Objekt \code{gMinScore} nur der Einschränkung diente und nach dem Match-Vorgang verworfen wurde,
+\code{p1PO} jedoch auch an die Variable \code{p1} gebunden wird und somit später verfügbar ist.
+Diese Eigenschaft lässt sich auch für Attribute nutzen, deren Wert später zugänglich gemacht werden soll.
+So kann durch Hinzufügen eines explizit benannten Root-Pattern-Objekts der Wert von \code{minScore} ermittelt werden:
+
+\begin{mdcodeblock}
+    We match:
+    - some object g with min-score ms
+    - some integer ms
+    We expect that ms is 50.
+\end{mdcodeblock}
+
+Statt \code{with min-score} kann auch \code{where some attribute is} eingesetzt werden, wenn der Name des Attributs nicht bekannt ist.
+Sogar \code{with some link to} wäre hier einsetzbar und semantisch äquivalent,
+davon ist jedoch abzuraten, da es sich bei \code{ws} um einen Wert und kein Objekt im Sinne der Modellierung handelt.
 
 \todo{'where' (Match) Constraints}
 
