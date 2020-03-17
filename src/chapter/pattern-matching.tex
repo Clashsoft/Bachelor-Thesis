@@ -390,6 +390,23 @@ Dies wirkt sich auf das Pattern-Objekts im Java-Code aus.
     builder.buildAttributeConstraint(gPO, g -> g instanceof Game);
 \end{jcodeblock}
 
+Typ-Constraints können nützlich sein, wann man statt einem bestimmten Objekt nach \emph{allen} Objekten von einem Typ sucht.
+Dafür kann statt \code{some} das Schlüsselwort \code{all} verwendet werden:
+
+\begin{mdcodeblock}
+    We match all players ps.
+\end{mdcodeblock}
+
+Dadurch wird \code{ps} zu einer Liste, die mittels \code{findAll} vom Matcher erhalten wird:
+
+\begin{jcodeblock}
+    List<Player> ps;
+    {
+        // ...
+        ps = matcher.findAll(psPO);
+    }
+\end{jcodeblock}
+
 \subsection{Attribut-Constraints mit Gleichheit}
 
 Auf Pattern-Objekte in Match-Sätzen folgt eine Liste von Constraints.
@@ -608,7 +625,5 @@ Des Weiteren wurden deren Namen im Bedingungsausdruck durch Hilfsvariablen erset
         return _g.getMinScore() == 0 || _p1.getScore() > _g.getMinScore();
     }, gPO, p1PO);
 \end{jcodeblock*}
-
-\todo{find all}
 
 \section{Pattern Matching in Assignments}\label{sec:assignment-pattern-matching}
