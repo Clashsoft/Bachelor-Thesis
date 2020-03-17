@@ -373,7 +373,8 @@ Dabei können auch Objekte, die nicht direkt zugänglich sind, gefunden werden.
 Wichtig ist jedoch, dass nicht direkt nach Objekten gesucht werden kann, die nicht zum Package des Scenarios gehören.
 Dies betrifft insbesondere einfache Werte wie Zahlen oder Strings.
 
-% type constraint
+\subsection{Typ-Constraints}
+
 Statt \code{object} lässt sich im Match-Satz auch ein Typ angeben, auf den das Pattern-Objekt beschränkt sein soll.
 
 \begin{mdcodeblock}
@@ -389,7 +390,8 @@ Dies wirkt sich auf das Pattern-Objekts im Java-Code aus.
     builder.buildAttributeConstraint(gPO, g -> g instanceof Game);
 \end{jcodeblock}
 
-% attribute equality constraint
+\subsection{Attribut-Constraints mit Gleichheit}
+
 Auf Pattern-Objekte in Match-Sätzen folgt eine Liste von Constraints.
 Eine einfache Art davon ist ein Attributwert-Constraint.
 Wie das folgende Beispiel zeigt, verwendet dieser eine ähnliche Syntax wie die Zuweisung von Attributen bei der Deklaration von Objekten mit \code{There}.
@@ -415,6 +417,8 @@ Es ist mit dem Pattern-Objekt von \code{g} über einen Pattern-Link verbunden un
     }
 \end{jcodeblock*}
 
+\subsection{Attribut-Constraints mit Vergleichsoperatoren}
+
 Attributwert-Constraint müssen nicht nach exakten Werten prüfen.
 Sie können stattdessen auch nach bestimmten Bedingungen wie etwa Zahlenvergleiche oder regulären Ausdrücken eingeschränkt werden.
 Die Syntax ändert sich dabei leicht durch Verwendung des Schlüsselworts \code{whose}.
@@ -437,6 +441,8 @@ Außerdem wird der Typ der Attributs-Pattern-Objekte durch die Verwendung mit de
     builder.buildAttributeConstraint(p1NamePO, (String s) -> s.matches("[Aa]lice"));
 \end{jcodeblock*}
 
+\subsection{Attribut-Constraints mit unbekannten Attribut-Namen}
+
 Die vorherigen Beispiele setzen voraus, dass der Name des Attributs bekannt ist.
 Match-Sätze erlauben jedoch, eine Bedingung an ein beliebig benanntes Attribut zu stellen.
 Als Platzhalter dient dafür \code{some attribute};
@@ -457,7 +463,8 @@ indem der im vorherigen Abschnitt erklärte Verknüpfungsname \code{*} verwendet
     // AttributeConstraint... (s.o.)
 \end{jcodeblock*}
 
-% Multiple Objects
+\subsection{Mehrere Root-Objekte und Fehlerfälle}
+
 Pattern-Links kommen auch zum Einsatz, wenn nach Assoziationen zwischen Objekten gesucht wird.
 Dafür werden zunächst zwei Pattern-Objekte benötigt.
 In einem Match-Satz müssen diese lediglich durch \code{and} oder \code{,} getrennt werden:
@@ -504,6 +511,8 @@ Diese Uneindeutigkeit bewirkt, dass der Match-Vorgang mit einer \code{AmbiguousM
 Durch Wiedereinführen des Attribut-Constraints des Namens des Spielers kann das Problem behoben werden.
 Damit wird die eindeutige Zuweisung \code{g=game, p1=player1} erzwungen.
 
+\subsection{Link-Constraints}
+
 % Some Link To
 Es soll nun nach einer Verknüpfung zwischen den andernfalls unabhängigen Objekten gesucht werden.
 Ist der Name der Assoziation unwichtig, kommt das Constraint \code{with some link to} zum Einsatz:
@@ -535,6 +544,8 @@ Unter \code{some link} ist nämlich eine unidirektionale Assoziation zu verstehe
 Wäre beispielsweise eine solche für die Spieler-Liste des Spiels verwendet wurden,
 könnte nur \code{g with some link to p1} diese Verbindung erkennen,
 während \code{p1 with some link to g} keine Ergebnisse liefern würde.
+
+\subsection{Benannte Link-Constraints mit Attribut-Constraints}
 
 % Named Links with Attribute Constraints
 Bei Link-Constraints kann auch der Name der Assoziation angegeben werden.
