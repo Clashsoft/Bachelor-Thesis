@@ -583,7 +583,31 @@ Statt \code{with min-score} kann auch \code{where some attribute is} eingesetzt 
 Sogar \code{with some link to} wäre hier einsetzbar und semantisch äquivalent,
 davon ist jedoch abzuraten, da es sich bei \code{ws} um einen Wert und kein Objekt im Sinne der Modellierung handelt.
 
-\todo{'where' (Match) Constraints}
+\subsection{Match-Constraints}
+
+Auch Match-Constraints werden von der Scenario-Sprache in Match-Sätzen unterstützt.
+Dafür kommt erneut das Schlüsselwort \code{where} zum Einsatz.
+Auf dieses folgt eine beliebiger Bedingungsausdruck, die beliebig viele andere Pattern-Objekte des gleichen Match-Satzes enthalten kann.
+
+\begin{mdcodeblock*}{breaklines}
+    We match:
+    - some game g
+    - some player p1
+    where min-score of g is 0 or score of p1 is greater than min-score of g.
+\end{mdcodeblock*}
+
+Obwohl das Match-Constraint zum vorstehenden Pattern-Objekt gehört, bietet es sich zur Übersichtlichkeit an,
+diesen hinter unter Liste von Pattern-Objekten zu platzieren.
+Im Java-Code ist ersichtlich, dass automatisch die Abhängigkeit des Constraints auf die Pattern-Objekte \code{g} und \code{p1} erkannt wurde.
+Des Weiteren wurden deren Namen im Bedingungsausdruck durch Hilfsvariablen ersetzt, da die eigentlichen Variablen noch nicht verfügbar sind.
+
+\begin{jcodeblock*}{breaklines}
+    builder.buildMatchConstraint(row -> {
+        Game _g = (Game) row.get("g");
+        Player _p1 = (Player) row.get("p1");
+        return _g.getMinScore() == 0 || _p1.getScore() > _g.getMinScore();
+    }, gPO, p1PO);
+\end{jcodeblock*}
 
 \todo{find all}
 
