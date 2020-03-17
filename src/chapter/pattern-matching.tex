@@ -300,16 +300,9 @@ von denen diese abhängen.
 
 Nun sind alle Pattern-Objekte und Constraints angelegt.
 Mit \code{builder.getPattern()} lässt sich ein Objekt erhalten, dass all diese kapselt.
-Das davon ausgehende Objektdiagramm ist in Abbildung~\ref{fig:pattern-diagram} dargestellt.
-
-\begin{figure}
-    % TODO \includegraphics[width=\textwidth]{chapter/pattern-matching/img/pattern-diagram.pdf}
-    \caption{Objektdiagramm für das erstellte Pattern}
-    \label{fig:pattern-diagram}
-\end{figure}
-
-Mit dem Pattern kann nun ein Matching durchgeführt werden.
-Dafür wird zunächst ein \code{PatternMatcher} benötigt, der auch direkt aus dem \code{builder} angelegt werden kann.
+Damit kann nun der Match-Vorgang durchgeführt werden.
+Dafür wird zunächst ein \code{PatternMatcher} benötigt, der mit \code{new PatternMatcher(builder.getPattern())} erstellt werden kann.
+Alternativ kann er auch direkt mit dem \code{builder} angelegt werden kann.
 Dem Matcher werden dann ein oder mehr \emph{Root-Objekte} und \emph{Root-Pattern-Objekte} zugewiesen.
 Diese entsprechen den Objekten und Pattern-Objekten, bei denen die Suche begonnen wird.
 Ferner werden daraus die Zeilen und Spalten der Tabelle, die intern als Datenstruktur dient.
@@ -322,7 +315,7 @@ Ferner werden daraus die Zeilen und Spalten der Tabelle, die intern als Datenstr
 
 Die Methode \code{match()} führt nach Einrichten des Matchers den eigentlichen Match-Vorgang durch.
 Dabei werden ausgehend von der Root-Tabelle nacheinander die Attribut-, Link- und Match-Constraints abgearbeitet.
-Dies erfolgt durch Anwenden der \code{filter}-, \code{expand}/\code{expandAll} und \code{filterRows}-Operationen auf der Tabelle.
+Dies erfolgt durch Anwenden der \code{filter}-, \code{expand} / \code{expandAll} und \code{filterRows}-Operationen auf der Tabelle.
 Die Reihenfolge ist so gewählt, dass zu jedem Zeitpunkt möglichst wenige Tabellenzeilen entstehen, um den Aufwand gering zu halten.
 Dazu werden Attribut-\ und Match-Constraints, welche die Zeilenanzahl nur verringern können, den Link-Constraints, die neue Spalten und Zeilen erzeugen, vorgezogen.
 Letztere werden immer erst dann abgearbeitet, wenn erstere nicht anwendbar sind.
