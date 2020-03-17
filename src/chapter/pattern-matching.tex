@@ -326,6 +326,16 @@ Daraufhin lassen sich die Ergebnisse anhand der Pattern-Objekte extrahieren:
     System.out.println("the winner is: " + matcher.findOne(playerPO));
 \end{jcodeblock}
 
+Die \code{findOne}-Methode stellt sicher, dass es auch wirklich genau ein Objekt gibt, das \code{playerPO} zugewiesen ist.
+Gäbe es keinen Spieler, der die Mindestpunktzahl erreicht hat, würde sie eine \code{NoMatchException} werfen.
+Anderers würde die Existenz mehrerer solche Spieler eine \code{AmbiguousMatchException} verursachen.
+Möchten man dies erlauben, kann stattdessen \code{findAll} verwendet werden.
+Dies gibt eine (potenziell leere) Menge aller gematchten Objekte zurück.
+
+\begin{jcodeblock}
+    Set<Player> winners = matcher.findAll(playerPO);
+\end{jcodeblock}
+
 \todo{
 Interne Tabellen beim Pattern Matching,
 }
