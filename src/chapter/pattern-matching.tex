@@ -645,6 +645,125 @@ Dies war zuvor syntaktisch nicht mehr möglich.
 
 \section{Pattern Matching in Assignments}\label{sec:assignment-pattern-matching}
 
-\todo{
-Vollständiges Beispiel, inkl.\ Aufgabenstellung, Tasks mit Verification, Beispiellösungen.
-}
+Mit Match-Sätzen sind nun alle Werkzeuge vorhanden, um ein vollständiges Beispiel-Assignment zu erstellen.
+Dessen Aufgabe soll die Modellierung des zuvor erklärten Spiels sein.
+Die Aufgabenstellung soll bewusst Freiheiten bei der Benennung von Klassen und Attributen erlauben;
+lediglich die Struktur des zu erstellenden Modells wird vorgegeben.
+Vorgaben werden durch die Tasks des Assignments gestellt, die nach Möglichkeit unabhängig voneinander sein sollen.
+Dadurch soll es möglich sein, Teilpunkte zu erhalten.
+
+Zu einem vollständigen Assignment gehören zunächst die Eckdaten.
+Der Titel kann \textbf{Game Model} lauten;
+Name und E-Mail sind nicht relevant, ebenso die Deadline.
+Als Beschreibung wäre etwa folgender Text vorstellbar:
+
+\begin{quote}
+    This assignment is about modelling a simple game with multiple players.
+    Each player has one or more houses, each of which has a number of units.
+    The game has a score that must be beaten by at least one house.
+    The player who owns that house is then declared the winner.
+
+    Model the objects described by the tasks below.
+    The following object diagram can help you visualize them.
+    You don't have to copy it exactly;
+    feel free to choose your own name for classes, attributes and associations.
+
+    \mdcode{![Game Model Object Diagram](https://i.imgur.com/ZzJRVW8.png)}
+\end{quote}
+
+Aufgrund der umfassenderen Task-Beschreibungen ist dieser relativ kurz gehalten.
+Als Hilfestellung dient jedoch das Objektdiagramm aus Abbildung~\ref{fig:game-object-diagram}, das mittels Markdown-Bildeinbettung hinzugefügt wird.
+Nun werden die Tasks definiert.
+
+\begin{itemize}
+    \item \textbf{Create a game object and give it a minimum score of 50.} (5 Punkte)
+
+    \begin{mdcodeblock}
+        We match some object g where some attribute is 50.
+    \end{mdcodeblock}
+
+    \item \textbf{Create three players: Alice, Bob and Charlie.
+    Set their name in an attribute.} (15 Punkte)
+
+    \begin{mdcodeblock}
+        We match:
+        - some object alice1 where some attribute matches '(?i)alice'
+        - some object bob1 where some attribute matches '(?i)bob'
+        - some object charlie1 where some attribute matches '(?i)charlie'.
+    \end{mdcodeblock}
+
+    \item \textbf{Link the players with the game.} (5 Punkte)
+
+    \begin{mdcodeblock}
+        We match:
+        - some object alice1 where some attribute matches '(?i)alice' and with some link to g
+        - some object bob1 where some attribute matches '(?i)bob' and with some link to g
+        - some object charlie1 where some attribute matches '(?i)charlie' and with some link to g
+        - some object g where some attribute is 50.
+    \end{mdcodeblock}
+
+    \item \textbf{Create four houses, with 30, 20, 40 and 60 units.} (10 Punkte)
+
+    \begin{mdcodeblock}
+        We match:
+        - some object h1 where some attribute is 30
+        - some object h2 where some attribute is 20
+        - some object h3 where some attribute is 40
+        - some object h4 where some attribute is 60.
+    \end{mdcodeblock}
+
+    \item \textbf{Link the first two houses with Alice, and the other two with Bob and Charlie.} (5 Punkte)
+
+    \begin{mdcodeblock}
+        We match:
+        - some object h1 where some attribute is 30 and with some link to alice1
+        - some object h2 where some attribute is 20 and with some link to alice1
+        - some object h3 where some attribute is 40 and with some link to bob1
+        - some object h4 where some attribute is 60 and with some link to charlie1
+        - some object alice1 where some attribute matches '(?i)alice'
+        - some object bob1 where some attribute matches '(?i)bob'
+        - some object charlie1 where some attribute matches '(?i)charlie'.
+    \end{mdcodeblock}
+\end{itemize}
+
+Eine Musterlösung könnte das folgende Scenario sein:
+
+\begin{mdcodeblock}
+    There is a Game with min-score 50.
+
+    There is a Player with name Alice.
+    There is a Player with name Bob.
+    There is a Player with name Charlie.
+
+    The game has players and is game of Alice, Bob and Charlie.
+
+    There is a House with id a1 and with 30 units.
+    There is a House with id a2 and with 20 units.
+    There is a House with id b1 and with 40 units.
+    There is a House with id c1 and with 60 units.
+
+    Alice has houses and is player of a1 and a2.
+    Bob has houses b1.
+    Charlie has houses c1.
+\end{mdcodeblock}
+
+Dabei können die Klassennamen \code{Game}, \code{Player} und \code{House} sowie die Attribut-\ und Assoziationsnamen \code{min-score}, \code{name}, \code{players/game}, \code{units} und \code{houses/player} beliebig verändert werden,
+ohne dass die Lösung ihre Gültigkeit verliert.
+Beim Schreiben der Lösung fällt auf, dass mit jedem Absatz ein weiterer Task grün/erfüllt wird.
+Lässt man den dritten oder letztes Absatz aus, sind Tasks 1, 2 und 4 noch immer erfüllt.
+Dies wird durch die unabhängige Verifizierung der Tasks erreicht.
+So kann ein Studierender, der beispielsweise nicht weiß, wie Assoziationen definiert werden, noch Teilpunkte auf das Aufgabenblatt erhalten.
+Eine (Teil-)Lösung, die diese beiden Aspekte einbezieht, könnte folgende sein:
+
+\begin{mdcodeblock}
+    There is the SimpleGame sg with score 50.
+
+    There is the SimplePlayer p1 with name Alice.
+    There is the SimplePlayer p2 with name Bob.
+    There is the SimplePlayer p3 with name Charlie.
+
+    There is the PlayerHouse p1h1 with 30 fighters.
+    There is the PlayerHouse p1h2 with 20 fighters.
+    There is the PlayerHouse p2h1 with 40 fighters.
+    There is the PlayerHouse p3h1 with 60 fighters.
+\end{mdcodeblock}
