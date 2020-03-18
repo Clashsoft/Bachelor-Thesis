@@ -1,16 +1,25 @@
 \chapter{Fulib Scenarios}\label{ch:fulib-scenarios}
 
-\todo{
-    Intro,
-    The paper~\cite{explain},
-    Objektszenarien,
-    Dokumentation,
-    Laien lesbar - Entwickler schreiben,
-    Erarbeitung der User stories/requirements engineering,
-    Strukturiert nach User stories,
-    Tests,
-    Stand der Technik: EMF (Eclipse Modeling Framework), SDMLib (Story-Driven Modeling Library)~\cite{networkparser},
-}
+Dieses Kapitel befasst sich mit dem natürlichsprachlichen Aspekt dieser Arbeit.
+Es betrachtet das Fulib Scenarios Projekt, das in Vorbereitung auf die weiteren Inhalte entstanden ist.
+Dessen Ziel war es, eine Beschreibungssprache für Objektstrukturen und Abläufe zu entwickeln.
+Diese Abläufe werden Scenarios genannt und sind mit User Stories gleichzusetzen.
+Sie ermöglichen dabei eine einfache Form der Dokumentation.
+Die Verständlichkeit soll sowohl für Entwickler als auch für Personen mit nicht-technischem Hintergrund gewährleistet werden.
+Dabei sollen Entwickler unter Beaufsichtigung und Beratung mit Domänenexperten Scenarios erstellen können, um die Anforderungen von Software zu erarbeiten.
+Dieser Vorgang wurde bereits in~\cite{explain} erforscht.
+
+Scenarios haben als Werkzeug sowohl in der Modellierung als auch beim Testen eine Bedeutung.
+Einerseits lassen sich aus diesen mit vergleichsweise geringem Aufwand umfangreiche Datenmodelle erzeugen, aus dem automatisch Code generiert werden kann.
+Sie erfüllen damit eine ähnliche Funktion wie das Eclipse Modeling Framework~\cite{emf} (EMF) oder das als Vorgänger entstandene SDMLib~\cite{networkparser}-Framework.
+Der zugrundeliegende Ansatz beim Erstellen von Datenmodellen mit Fulib Scenarios unterscheidet sich jedoch stark von diesen.
+Während das EMF auf graphische Werkzeuge setzt, wird in SDMLib das Datenmodell mit imperativem Java-Code definiert.
+Fulib Scenarios hingegen setzt auf eine textuelle Beschreibung konkreter Objekte, aus der das Datenmodell abgeleitet wird.
+Vorteil davon ist, dass aufgrund des konkreten Ablaufs automatisch ein Test abgeleitet werden kann.
+Dieser kann auch nach Änderungen an der Software sicherstellen, dass die ursprüngliche, vom Scenario beschriebene User Story noch gültig und durchführbar ist.
+
+Der folgende Abschnitt befasst sich zunächst mit den Grundlagen von Scenarios.
+Daraufhin wird anhand eines Beispiels erklärt, wie ein Scenario verarbeitet wird, um daraus ein Datenmodell und Tests zu generieren.
 
 \input{chapter/fulib-scenarios/language}
 \input{chapter/fulib-scenarios/compiler}
