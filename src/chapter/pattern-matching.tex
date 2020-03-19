@@ -33,7 +33,7 @@ Das entsprechende Klassendiagramm ist in Abbildung~\ref{fig:game-class-diagram} 
 Es werden nun einige Beispielobjekte zu diesem Modell erstellt, die den Endzustand des Spiels beschreiben.
 
 \begin{jcodeblock*}{breaklines}
-    Game game = new Game().setWinScore(60);
+    Game game = new Game().setWinScore(50);
     Player alice = new Player().setName("Alice").setGame(game);
     Player bob = new Player().setName("Bob").setGame(game);
     Player charlie = new Player().setName("Charlie").setGame(game);
@@ -64,14 +64,14 @@ Dafür müssen der Name der ersten Spalte sowie eine Liste von Objekten, die die
 Hier wird zunächst nur eine Zeile gebraucht.
 
 \begin{jcodeblock}
-    ObjectTable<Game> games = new ObjectTable<>("Games", game);
+    ObjectTable<Game> games = new ObjectTable<>("Game", game);
 \end{jcodeblock}
 
 Dies lässt sich wie folgt darstellen:
 
 \begin{tabular}{|c|}
     \hline
-    \textbf{Games} \\
+    \textbf{Game} \\
     \hline
     g \\
     \hline
@@ -85,7 +85,7 @@ Die Ergebnisse bilden dann die Zeilen der neuen Spalte.
 Dies wird anhand des Beispiels deutlich:
 
 \begin{jcodeblock*}{breaklines,escapeinside=||}
-    Table<Integer> winScores = games.expand("Win Scores", Game::getWinScore|\footnotemark|);
+    Table<Integer> winScores = games.expand("Win Score", Game::getWinScore|\footnotemark|);
 \end{jcodeblock*}
 \footnotetext{Bei diesem Ausdruck handelt es sich um eine Methodenreferenz, die zu dem Lambda-Ausdruck \jcode{game -> game.getWinScore()} äquivalent ist.}
 
@@ -93,9 +93,9 @@ Die neue Tabelle lässt sich wie folgt darstellen:
 
 \begin{tabular}{|c|c|}
     \hline
-    \textbf{Games} & \textbf{Win Scores} \\
+    \textbf{Game} & \textbf{Win Score} \\
     \hline
-    g & 60 \\
+    g & 50 \\
     \hline
 \end{tabular}
 
@@ -111,11 +111,11 @@ Für jedes Element dieser Listen wird eine neue Zeile angelegt.
 
 \begin{tabular}{|c|c|c|}
     \hline
-    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} \\
+    \textbf{Game} & \textbf{Win Score} & \textbf{Players} \\
     \hline
-    g & 60 & Alice   \\
-    g & 60 & Bob     \\
-    g & 60 & Charlie \\
+    g & 50 & Alice   \\
+    g & 50 & Bob     \\
+    g & 50 & Charlie \\
     \hline
 \end{tabular}
 
@@ -129,12 +129,12 @@ Bei Bob und Charlie ist dies nicht der Fall.
 
 \begin{tabular}{|c|c|c|c|}
     \hline
-    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} & \textbf{Houses} \\
+    \textbf{Game} & \textbf{Win Score} & \textbf{Players} & \textbf{Houses} \\
     \hline
-    g & 60 & Alice   & a1 \\
-    g & 60 & Alice   & a2 \\
-    g & 60 & Bob     & b1 \\
-    g & 60 & Charlie & c1 \\
+    g & 50 & Alice   & a1 \\
+    g & 50 & Alice   & a2 \\
+    g & 50 & Bob     & b1 \\
+    g & 50 & Charlie & c1 \\
     \hline
 \end{tabular}
 
@@ -152,20 +152,20 @@ Zu-N-Assoziationen und mehrwertige Attribute (Listen) werden dabei abgeflacht.
 
 \begin{tabular}{|c|c|c|c|c|}
     \hline
-    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} & \textbf{Houses} & \textbf{House Attributes} \\
+    \textbf{Game} & \textbf{Win Score} & \textbf{Players} & \textbf{Houses} & \textbf{House Attributes} \\
     \hline
-    g & 60 & Alice   & a1 & a1      \\
-    g & 60 & Alice   & a1 & Alice   \\
-    g & 60 & Alice   & a1 & 30      \\
-    g & 60 & Alice   & a2 & a2      \\
-    g & 60 & Alice   & a2 & Alice   \\
-    g & 60 & Alice   & a2 & 20      \\
-    g & 60 & Bob     & b1 & b1      \\
-    g & 60 & Bob     & b1 & Bob     \\
-    g & 60 & Bob     & b1 & 40      \\
-    g & 60 & Charlie & c1 & c1      \\
-    g & 60 & Charlie & c1 & Charlie \\
-    g & 60 & Charlie & c1 & 60      \\
+    g & 50 & Alice   & a1 & a1      \\
+    g & 50 & Alice   & a1 & Alice   \\
+    g & 50 & Alice   & a1 & 30      \\
+    g & 50 & Alice   & a2 & a2      \\
+    g & 50 & Alice   & a2 & Alice   \\
+    g & 50 & Alice   & a2 & 20      \\
+    g & 50 & Bob     & b1 & b1      \\
+    g & 50 & Bob     & b1 & Bob     \\
+    g & 50 & Bob     & b1 & 40      \\
+    g & 50 & Charlie & c1 & c1      \\
+    g & 50 & Charlie & c1 & Charlie \\
+    g & 50 & Charlie & c1 & 60      \\
     \hline
 \end{tabular}
 
@@ -183,12 +183,12 @@ Stattdessen wurde mit \code{filter} eine strukturelle Bedingung verwendet.
 
 \begin{tabular}{|c|c|c|c|c|}
     \hline
-    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} & \textbf{Houses} & \textbf{House Attributes} \\
+    \textbf{Game} & \textbf{Win Score} & \textbf{Players} & \textbf{Houses} & \textbf{House Attributes} \\
     \hline
-    g & 60 & Alice   & a1 & 30      \\
-    g & 60 & Alice   & a2 & 20      \\
-    g & 60 & Bob     & b1 & 40      \\
-    g & 60 & Charlie & c1 & 60      \\
+    g & 50 & Alice   & a1 & 30      \\
+    g & 50 & Alice   & a2 & 20      \\
+    g & 50 & Bob     & b1 & 40      \\
+    g & 50 & Charlie & c1 & 60      \\
     \hline
 \end{tabular}
 
@@ -199,7 +199,7 @@ Dessen Ergebnis bestimmt wie beim einfachen Filter, ob die Zeile behalten oder e
 
 \begin{jcodeblock}
     houseAttributes.filterRows((Map<String, Object> row) -> {
-        int winScore = (int) row.get("Win Scores");
+        int winScore = (int) row.get("Win Score");
         int units = (int) row.get("House Attributes");
         return units >= winScore;
     });
@@ -209,9 +209,9 @@ In diesem Beispiel sorgt das dafür, dass alle Zeilen außer die mit dem Spieler
 
 \begin{tabular}{|c|c|c|c|c|}
     \hline
-    \textbf{Games} & \textbf{Win Scores} & \textbf{Players} & \textbf{Houses} & \textbf{House Attributes} \\
+    \textbf{Game} & \textbf{Win Score} & \textbf{Players} & \textbf{Houses} & \textbf{House Attributes} \\
     \hline
-    g & 60 & Charlie & c1 & 60 \\
+    g & 50 & Charlie & c1 & 60 \\
     \hline
 \end{tabular}
 
