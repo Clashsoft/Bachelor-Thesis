@@ -52,7 +52,7 @@ Das zugehörige Objektdiagramm ist in Abbildung~\ref{fig:game-object-diagram} zu
 \end{figure}
 
 Nun kann eine Tabelle angelegt werden.
-In FulibTables besteht jede Tabelle aus mindestens einer Spalte und null oder mehr Zeilen\footnote{Der Spaltenname zählt dabei nicht als Zeile.}.
+In FulibTables besteht jede Tabelle aus mindestens einer Spalte und null oder mehr Zeilen\footnote{Die Spaltennamen zählen dabei nicht als Zeile.}.
 Tabellen können \emph{erweitert} oder \emph{eingeschränkt} werden, wobei Spalten entstehen oder entfernt werden.
 Beim Erweitern entstehen neue Tabellen-Instanzen,
 die sich die Daten der ursprünglichen Tabelle teilen.
@@ -67,7 +67,7 @@ Hier wird zunächst nur eine Zeile gebraucht.
     ObjectTable<Game> games = new ObjectTable<>("Game", game);
 \end{jcodeblock}
 
-Dies lässt sich wie folgt darstellen:
+Dies lässt sich wie folgt darstellen\footnote{FulibTables ermöglicht das Rendern von Tabellen als Markdown- und HTML-Tabellen, die visuell den hier gezeigten Beispielen entsprechen}:
 
 \begin{tabular}{|c|}
     \hline
@@ -178,7 +178,7 @@ In diesem Beispiel wird unter allen Attributen der Häuser nach ganzen Zahlen ge
     houseAttributes.filter(it -> it instanceof Integer);
 \end{jcodeblock}
 
-Dies ergibt die Anzahl der Credits, ohne dass der Name des Attributs angegeben werden musste.
+Dies ergibt die Anzahl der Units, ohne dass der Name des Attributs angegeben werden musste.
 Stattdessen wurde mit \code{filter} eine strukturelle Bedingung verwendet.
 
 \begin{tabular}{|c|c|c|c|c|}
@@ -194,7 +194,7 @@ Stattdessen wurde mit \code{filter} eine strukturelle Bedingung verwendet.
 
 Alternativ kann auch eine Filterung über alle Spalten durchgeführt werden, wofür die \code{filterRows}-Operation eingesetzt wird.
 Diese erhält einen Lambda-Ausdruck, der für jede Zeile alle Werte erhält.
-Die Werte befinden sich in einer Zuordnung (\code{Map}), die einen Spaltennamen zu dem Wert in der Zeile dieser Spalte zuordnet.
+Die Werte befinden sich in einer \code{Map}, die einen Spaltennamen zu dem Wert in der Zeile dieser Spalte zuordnet.
 Dessen Ergebnis bestimmt wie beim einfachen Filter, ob die Zeile behalten oder entfernt wird.
 
 \begin{jcodeblock}
@@ -351,7 +351,7 @@ Seine umfangreiche Syntax ist Thema dieses Abschnitts.
 
 Ein Match-Satz ist zu erkennen an dem Schlüsselwort \code{match} bzw.\ \code{matches}, dem ein Subjekt voransteht.
 Es folgt eine Liste von Pattern-Objekten, die an den Schlüsselwörten \code{some} und \code{all} zu erkennen sind.
-Das folgende Beispiel zeigt den einfachsten möglichen Match-Satz, der nach genau einem beliebigen Objekt sucht und es an den Namen \code{o} bindet.
+Das folgende Beispiel zeigt den einfachsten möglichen Match-Satz, der nach genau einem beliebigen Objekt sucht und es an den Namen \code{g} bindet.
 
 \begin{mdcodeblock}
     There is a Game.
@@ -408,6 +408,9 @@ Typ-Constraints können nützlich sein, wann man statt einem bestimmten Objekt n
 Dafür kann statt \code{some} das Schlüsselwort \code{all} verwendet werden:
 
 \begin{mdcodeblock}
+    There is a Player with name Alice.
+    There is a Player with name Bob.
+
     We match all players ps.
 \end{mdcodeblock}
 
@@ -531,13 +534,14 @@ Genau diese Ungleichheits-Bedingung bewirkt, dass die reine Deklaration mehrerer
 
 % Exceptions
 Konkret hat dies die Konsequenz, dass \code{g} und \code{p1} in keinem Fall das selbe Objekt matchen können.
-Ohne weitere Einschränkung ist dieses Beispiel also unerfüllbar:
+Ohne weitere Einschränkung kann mit diesem Beispiel kein erfolgreicher Match erzielt werden,
+unabhängig davon welche Objekte davor erstellt werden.
 Wird vor dem Match-Satz nur genau ein Objekt deklariert, kann dieses zwar \code{g} zugewiesen werden, jedoch bleibt dann \code{p1} unzugewiesen.
 Dies bewirkt ein Fehlschlagen des Match-Vorgangs mit einer \code{NoMatchException}.
-Wenn mehr als ein Objekt wie z.B.\ \code{game} und \code{player1} deklariert wurden, sind sowohl \code{g=game, p1=player1} als auch \code{g=player1, p1=game} mögliche Zuweisungen des Patterns.
+Wenn mehr als ein Objekt wie z.B.\ \code{game} und \code{Alice} deklariert wurden, sind sowohl \code{g=game, p1=Alice} als auch \code{g=Alice, p1=game} mögliche Zuweisungen des Patterns.
 Diese Uneindeutigkeit bewirkt, dass der Match-Vorgang mit einer \code{AmbiguousMatchException} abbricht.
 Durch Wiedereinführen des Attribut-Constraints des Namens des Spielers kann das Problem behoben werden.
-Damit wird die eindeutige Zuweisung \code{g=game, p1=player1} erzwungen.
+Damit wird die eindeutige Zuweisung \code{g=game, p1=Alice} erzwungen.
 
 \subsection{Link-Constraints}
 
@@ -564,14 +568,6 @@ Der untenstehende Ausschnitt zeigt weiterhin die Zeilen, die die zuvor erwähnte
     // AttributeConstraint...
     builder.buildDistinctConstraint(gPO, p1PO); // Ungleichheit: g != p1
 \end{jcodeblock}
-
-% Reversing the link
-Würde man stattdessen \code{object p1 ... with some link to g} schreiben,
-wirkt sich dies auf die Semantik aus.
-Unter \code{some link} ist nämlich eine unidirektionale Assoziation zu verstehen.
-Wäre beispielsweise eine solche für die Spieler-Liste des Spiels verwendet wurden,
-könnte nur \code{g with some link to p1} diese Verbindung erkennen,
-während \code{p1 with some link to g} keine Ergebnisse liefern würde.
 
 \subsection{Benannte Link-Constraints mit Attribut-Constraints}
 
@@ -625,7 +621,7 @@ Auf dieses folgt eine beliebiger Bedingungsausdruck, die beliebig viele andere P
 \end{mdcodeblock*}
 
 Obwohl das Match-Constraint zum vorstehenden Pattern-Objekt gehört, bietet es sich zur Übersichtlichkeit an,
-diesen hinter unter Liste von Pattern-Objekten zu platzieren.
+diesen unter der Liste von Pattern-Objekten zu platzieren.
 Im Java-Code ist ersichtlich, dass automatisch die Abhängigkeit des Constraints auf die Pattern-Objekte \code{g} und \code{p1} erkannt wurde.
 Des Weiteren wurden deren Namen im Bedingungsausdruck durch Hilfsvariablen ersetzt, da die eigentlichen Variablen noch nicht verfügbar sind.
 
