@@ -59,6 +59,14 @@ die sich die Daten der ursprünglichen Tabelle teilen.
 Jede Tabellen-Instanz hat eine Spalte, auf die sie \emph{zeigt}.
 Operationen auf der Tabelle beziehen sich i.d.R.\ auf diese Spalte,
 wirken sich aber durch das geteilte Datenmodell auf alle verwandten Instanzen aus.
+Das Objektdiagramm in Abbildung~\ref{fig:tables-object-diagram} zeigt, wie das Datenmodell von Tabellen aufgebaut ist und wie sich verschiedene Tabellen-Instanzen die Daten teilen.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{chapter/pattern-matching/img/tables-object-diagram.pdf}
+    \caption{Objektdiagramm mehrerer Tabellen-Instanzen mit geteilten Daten}
+    \label{fig:tables-object-diagram}
+\end{figure}
+
 Zunächst wird nur eine einfache Tabelle mit einer Spalte und einer Zeile benötigt.
 Dafür müssen der Name der ersten Spalte sowie eine Liste von Objekten, die die Zeilen dieser Spalte bilden, angegeben werden.
 Hier wird zunächst nur eine Zeile gebraucht.
