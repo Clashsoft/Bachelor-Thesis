@@ -84,12 +84,12 @@ Aus der Grammatik generiert das Tool dann Java-Code, der Dateien einlesen kann u
 
 Zunächst soll betrachtet werden, wie die FulibScenarios-Grammatik definiert ist.
 Dies beginnt mit der Definition des Lexers.
-In Listing~\ref{lst:ScenarioLexer1.g4} ist ein Ausschnitt der ANTLR4-Grammatik zu sehen, die diesen definiert.
+In Listing~\ref{lst:ScenarioLexer.g4} ist ein Ausschnitt der ANTLR4-Grammatik zu sehen, die diesen definiert.
 Der Ausschnitt ist ausreichend um das Scenario aus Listing~\ref{lst:CompilationExample.md} verarbeiten zu können;
 die eigentliche Grammatik von FulibScenarios besteht aus vielen weiteren Regeln, um alle Funktionen der Sprache zu implementieren.
 Sie befindet sich unter~\cite{lexer-grammar}.
 
-\codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioLexer1.g4}{Ausschnitt der Scenario-Lexer-Grammatik}
+\codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioLexer.g4}{Ausschnitt der Scenario-Lexer-Grammatik}
 
 Die Grammatik besteht aus mehreren Regeln, die einem Muster einen Namen zuordnen.
 Dieser Name wird später den Tokens zugeordnet.
@@ -109,28 +109,28 @@ Falls mehrere Regeln infrage kommen würden, wird zunächst die längstmögliche
 falls das nicht eindeutig bestimmbar ist, gewinnt die als erste definierte Regel.
 So wird aus dem Text \code{ampersand} nicht die Token-Folge \code{A(a), WORD(mpers), AND(and)}, sondern \code{WORD(ampersand)}.
 
-Wendet man die Regeln aus Listing~\ref{lst:ScenarioLexer1.g4} auf das Scenario aus Listing~\ref{lst:CompilationExample.md} an,
+Wendet man die Regeln aus Listing~\ref{lst:ScenarioLexer.g4} auf das Scenario aus Listing~\ref{lst:CompilationExample.md} an,
 so erhält man die in Listing~\ref{lst:CompilationExampleTokens.txt} gezeigte Liste von Tokens.
 
 \codelisting{text}{chapter/fulib-scenarios/trees}{CompilationExampleTokens.txt}{Aus Listing~\ref{lst:CompilationExample.md} abgeleitete Token-Liste}
 
 Als nächstes sollen diese Tokens in einen CST umgewandelt werden.
 Dies ist die Aufgabe des Parsers.
-Listing~\ref{lst:ScenarioParser1.g4} zeigt wieder einen Ausschnitt der Grammatik,
+Listing~\ref{lst:ScenarioParser.g4} zeigt wieder einen Ausschnitt der Grammatik,
 die diesen für das Beispiel-Scenario ausreichend definiert.
 Die vollständige Parser-Grammatik ist unter~\cite{parser-grammar} zu finden.
 
-\codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioParser1.g4}{Ausschnitt der Scenario-Parser-Grammatik}
+\codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioParser.g4}{Ausschnitt der Scenario-Parser-Grammatik}
 
 Die Struktur der Parser-Grammatik ist ähnlich zur Lexer-Grammatik.
 Wieder gibt es benannte Regeln, jedoch bestehen deren rechte Seite nicht aus regulären Ausdrücken,
 sondern aus \emph{Nicht-Terminal}-Symbolen, die weitere Parser-Regeln referenzieren\footnote{Diese sind in der ANTLR-Grammatik daran zu erkennen, dass sie mit einem Kleinbuchstaben beginnen.},
 sowie \emph{Terminal}-Symbolen, die analog Verweise auf Lexer-Regeln sind\footnote{In ANTLR beginnen diese immer mit einem Großbuchstaben.}.
-Die \code{thereSentence}-Regel aus Listing~\ref{lst:ScenarioParser1.g4} beginnt beispielsweise mit den Terminalen \code{THERE}, \code{IS}, \code{A} und \code{WORD}, gefolgt von dem Nicht-Terminal \code{withClause}.
+Die \code{thereSentence}-Regel aus Listing~\ref{lst:ScenarioParser.g4} beginnt beispielsweise mit den Terminalen \code{THERE}, \code{IS}, \code{A} und \code{WORD}, gefolgt von dem Nicht-Terminal \code{withClause}.
 Beim Ableiten eines konkreten Syntaxbaumes werden alle Terminale zu den Blättern;
 die Nicht-Terminale werden zu Elternknoten.
 
-In Listing~\ref{lst:ScenarioParser1.g4} dient \code{file} als Startregel.
+In Listing~\ref{lst:ScenarioParser.g4} dient \code{file} als Startregel.
 Nun wird diese Regel \emph{abgeleitet}, d.h.\ die Tokens, die derzeit am Anfang unserer Liste stehen, werden entweder einem Terminal zugeordnet oder ein Nicht-Terminal wird rekursiv abgeleitet.
 Da \code{file} mit dem Nicht-Terminal \code{heading} beginnt, wird zunächst dieses abgeleitet.
 Dabei wird dem Terminal \code{HEADLINE} das Token \code{HEADLINE(# My First Scenario)} zugeordnet.
