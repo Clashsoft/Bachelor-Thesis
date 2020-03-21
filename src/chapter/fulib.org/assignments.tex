@@ -312,7 +312,8 @@ In diesem kommt ein Button hinzu, der das Fortschreiten zum nächsten Assignment
 
 \subsection{Pattern Matching in Assignments}\label{subsec:assignment-pattern-matching}
 
-Mit Match-Sätzen sind nun alle Werkzeuge vorhanden, um ein vollständiges Beispiel-Assignment zu erstellen.
+Die vorherigen Beispiele für Assignments verwendeten nur einfache Funktionalität der Scenario-Sprache zum Prüfen von Bedingungen.
+Es wird nun anhand der in Kapitel~\ref{ch:pattern-matching} vorgestellten Konzepte ein vollständiges Beispiel vorgestellt.
 Dessen Aufgabe soll die Modellierung des zuvor erklärten Spiels sein.
 Die Aufgabenstellung soll bewusst Freiheiten bei der Benennung von Klassen und Attributen erlauben;
 lediglich die Struktur des zu erstellenden Modells wird vorgegeben.
@@ -330,17 +331,11 @@ Als Beschreibung wäre etwa folgender Text vorstellbar:
     The game has a score that must be beaten by at least one house.
     The player who owns that house is then declared the winner.
 
-    Model the objects described by the tasks below.
-    The following object diagram can help you visualize them.
-    You don't have to copy it exactly;
-    feel free to choose your own name for classes, attributes and associations.
-
-    \mdcode{![Game Model Object Diagram](https://i.imgur.com/ZzJRVW8.png)}
+    Model the objects and relationships described below.
 \end{quote}
 
-Aufgrund der umfassenderen Task-Beschreibungen ist dieser relativ kurz gehalten.
-Als Hilfestellung dient jedoch das Objektdiagramm aus Abbildung~\ref{fig:game-object-diagram}, das mittels Markdown-Bildeinbettung hinzugefügt wird.
-Nun werden die Tasks definiert.
+Dieser ist recht kurz gehalten, da die eigentlichen Aufgaben in den Task-Beschreibungen zu finden sind.
+Nachfolgend sind diese mit dem zugehörigen Verifizierungscode sowie einer möglichen Bepunktung aufgelistet.
 
 \begin{itemize}
     \item \textbf{Create a game object and give it a minimum score of 50.} (5 Punkte)
