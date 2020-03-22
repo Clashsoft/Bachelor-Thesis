@@ -6,16 +6,16 @@ Mit dem Ziel, diese steigende Komplexität für einzelne Entwickler und ganze Te
 Sie befasst sich jedoch nicht nur mit der Entwicklung von Software im Sinne der Implementierung;
 auch Erarbeiten von Anforderungen, Design, Dokumentation, und Qualitätssicherung gehören u.a.\ zu den Schwerpunkten der Fachrichtung.
 
-Speziell für die genannten Aspekte hat sich das Verfahren des \emph{Story Driven Modeling}~\cite{sdm} etabliert.
+Speziell für die genannten Aspekte ist das Verfahren des \emph{Story Driven Modeling}~\cite{sdm} entstanden.
 Dessen Grundidee ist die Ausarbeitung von Beispielszenarien, sogenannten Stories, die in Form von konkreten Abläufen Anforderungen spezifizieren.
 Die Stories beschreiben konkrete Personen oder Dinge sowie Aktionen, die von diesen durchgeführt werden.
 Dabei werden sowohl Startsituation als auch Ergebnis angegeben.
 Ziel der Stories ist es, von Domänenexperten ohne technischem Hintergrund verständlich zu sein.
 Dafür ist insbesondere der Einsatz von konkreten Beispielen von Relevanz;
-abstrakten, allgemeinen Definitionen sind nicht geeignet.
+abstrakte, allgemeine Definitionen sind nicht geeignet.
 Die leichte Verständlichkeit dient weiterhin der Dokumentation der Software.
 Die Stories ermöglichen ferner dem Entwickler die Festlegung eines Datenmodells, das als Grundlage der Software dient.
-Anhand der konkreten Beispiel lässt sich ein Objektdiagramm für jede Story erstellen.
+Anhand der konkreten Beispiele lässt sich ein Objektdiagramm für jede Story erstellen.
 Aus den Objektdiagrammen kann daraufhin ein Klassendiagramm abgeleitet werden.
 Erst mit dem Klassendiagramm kann mit der eigentlichen Programmierung begonnen werden, indem entsprechender Code geschrieben wird.
 Ist das Datenmodell im Code verfasst, kann die Logik der Software implementiert werden.
@@ -25,7 +25,7 @@ Dafür haben sich automatische Tests etabliert.
 Die Stories bieten sich dafür als Grundlage an, indem deren Abläufe in einem Test nachprogrammiert werden.
 Der Test stellt dann sicher, dass die Story gültig ist und auch bleibt, nachdem Änderungen der Software durchgeführt wurden.
 
-Das Folgen des Story-Driven-Modeling-Ansatz scheint zunächst etwas aufwendig.
+Das Befolgen des Story-Driven-Modeling-Ansatzes scheint zunächst etwas aufwendig.
 Für jedes Feature müssen neben der eigentlichen Implementierung Stories geschrieben, Objekt- und evtl.\ Klassendiagramme gezeichnet und Tests programmiert werden.
 Bei Änderung der Anforderung müssen all diese angepasst und aktualisiert werden.
 Diese Arbeit beschäftigt sich zunächst mit einer Lösung für dieses Aufwands-\ und Wartungsproblem.
@@ -36,9 +36,10 @@ Wie bei jeder Fachrichtung spielt bei der Softwareentwicklung auch die Lehre ein
 Die Modellierung zählt dabei zu den ersten Konzepten, die Studierende der Informatik unter diesem Fachgebiet vermittelt bekommen.
 Oft bestehen die Aufgaben der Lernenden daraus, selbstständig Beispielszenarien und Datenmodelle zu erarbeiten.
 Dabei ist es schwierig, konkrete Vorgaben an das Datenmodell zu stellen, da dies der Aufgabenstellung den kreativen Aspekt und einen wesentlichen Eigenanteil beraubt.
-Die fehlende Festlegung von Aufbau oder Klassen, Attribut- und Assoziationsnamen erschwert anderseits das Prüfen von Lösungen auf Korrektheit.
+Die fehlende Festlegung von Aufbau oder Klassen, Attribut- und Assoziationsnamen erschwert andererseits das Prüfen von Lösungen auf Korrektheit.
 Diese Arbeit beschäftigt sich mit diesem Dilemma, indem sie eine Form der Mustererkennung für Datenmodelle einführt, die über Benennung abstrahieren kann.
 Kapitel~\ref{ch:pattern-matching} ist dieser speziellen Mustererkennung gewidmet.
 Dabei wird auch erklärt, wie diese in das in Kapitel~\ref{ch:fulib-scenarios} geschaffene Werkzeug integriert wurde.
 Zuletzt gilt es, beides in der Lehre einsetzbar und zugänglich zu machen.
 Dazu wird in Kapitel~\ref{ch:fulib.org} eine Online-Platform vorgestellt, die einen Anwendungsfall dafür schafft.
+Welche Anforderungen diese erfüllen soll ist Inhalt des nächsten Kapitels.
