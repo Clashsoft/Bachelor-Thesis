@@ -87,9 +87,17 @@ Dieser kann in einer IDE mit Gradle-Unterstützung wie z.B.\ IntelliJ geöffnet 
 Führt man daraufhin den \code{check}-Task mit Gradle aus (Kommandozeile: \code{./gradlew check} im Projektordner),
 wird das zuvor auf fulib.org geschriebene Scenario kompiliert und generierte Java-Dateien in den entsprechenden Ordnern unter \code{src/} abgelegt.
 Außerdem bewirkt \code{check} die Ausführung von generierten Tests.
+Abbildung~\ref{fig:project-downloaded} zeigt, wie ein Projektordner in IntelliJ unmittelbar nach dem Download und nach Ausführen des \code{check}-Tasks aussehen kann.
 Ändert man die Scenario-Datei und führt den Task erneut aus, wird auch der Java-Code angepasst.
 
-% TODO screendump project tree
+\begin{figure}
+    \centering
+    \includegraphics[width=0.25\textwidth]{chapter/fulib.org/img/project-downloaded.png}
+    \hspace{0.05\textwidth}
+    \includegraphics[width=0.25\textwidth]{chapter/fulib.org/img/project-post-check.png}
+    \caption{Heruntergeladenes Projekt in IntelliJ vor und nach Ausführen des \code{check}-Tasks}
+    \label{fig:project-downloaded}
+\end{figure}
 
 Der Projektexport ist vor allem dann relevant, wenn das Scenario zu groß wird, um im Editor übersichtlich zu sein.
 Dies ist meist ein Anzeichen dafür, dass man ein richtiges Projekt beginnen sollte.
