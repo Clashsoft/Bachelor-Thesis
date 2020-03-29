@@ -14,7 +14,7 @@ Zunächst werden die Markdown-Scenario-Quelltexte in Java-Quelltexte übersetzt;
 dies ist Aufgabe des Scenario-Compilers.
 Der erzeugte Java-Quellcode wird dann vom Java-Compiler kompiliert.
 Die Architektur und Implementierung des Scenario-Compilers sind Inhalt dieses Abschnitts.
-Dabei wird des öfteren auf das Beispiel in Listing~\ref{lst:CompilationExample.md} Bezug genommen,
+Dabei wird des Öfteren auf das Beispiel in Listing~\ref{lst:CompilationExample.md} Bezug genommen,
 dessen Übersetzung bis zum Java-Quellcode in den einzelnen Teilabschnitten stückweise erarbeitet wird.
 
 \begin{listing}[htp]
@@ -286,7 +286,7 @@ Im nächsten Schritt werden die neu erzeugten \code{Sentence}-Knoten aufgelöst.
 Meist ist an dem Wort \code{Unresolved} zu erkennen, dass ein AST-Knoten aufgelöst werden muss.
 Im \code{IsSentence}-Knoten fällt dabei der \code{type} der \code{CreationExpr} auf.
 
-Der Compiler verwendet für die Auflösung einen Scope, der aus mehreren Ebenen besteht die jeweils Deklarationen bereitstellen können.
+Der Compiler verwendet für die Auflösung einen Scope, der aus mehreren Ebenen besteht, die jeweils Deklarationen bereitstellen können.
 Beim Auflösen eines Namens wird beginnend beim inneren Scope eine Deklaration mit diesem Namen gesucht;
 falls dies kein Ergebnis liefert wird im jeweils nächstäußeren Scope gesucht.
 Gelangt man im äußersten Scope an ohne eine Deklaration gefunden zu haben,
@@ -352,7 +352,7 @@ sind daher hier nicht näher erläutert.
 
 % Model Conversion
 Zu Beginn der Codegenerierung konvertiert der Scenario-Compiler sein internes, an die Scenario-Sprache angepasstes Datenmodell in das Datenmodell von Fulib.
-Für Klassen, Attribute und Assoziationen ist diese Umwandlung annähernd 1-zu-1;
+Für Klassen, Attribute und Assoziationen ist diese Umwandlung annähernd eins-zu-eins;
 lediglich Methoden werden gesondert gehandhabt.
 Grund dafür ist, dass das Datenmodell von Fulib zwar Methodendeklarationen versteht,
 deren Rumpf jedoch als Zeichenkette modelliert,
@@ -387,7 +387,7 @@ I.d.R.\ bildet der Name der Deklaration die Signatur,
 bei Methoden nehmen jedoch auch die Parametertypen Einfluss darauf.
 Diese müssen bei der korrekten Handhabung von überladenen Methoden beachtet werden.
 Auffällig ist auch, dass die Leerzeilen zwischen den Deklarationen zu Fragmenten wurden, die mit \code{gap:} bezeichnet wurden.
-Dies ermöglicht die spätere Reproduktion dieser Formattierung.
+Dies ermöglicht die spätere Reproduktion dieser Formatierung.
 
 % Templates
 Die Vorlagen für Attribute, Assoziationen und Methoden lassen sich ebenfalls als Fragmente verwenden.
