@@ -311,16 +311,15 @@ In diesem kommt ein Button hinzu, der das Fortschreiten zum nächsten Assignment
 \subsection{Pattern Matching in Assignments}\label{subsec:assignment-pattern-matching}
 
 Die vorherigen Beispiele für Assignments verwendeten nur einfache Funktionalität der Scenario-Sprache zum Prüfen von Bedingungen.
-Es wird nun anhand der in Kapitel~\ref{ch:pattern-matching} vorgestellten Konzepte ein vollständiges Beispiel vorgestellt.
-Dessen Aufgabe soll die Modellierung des zuvor erklärten Spiels sein.
+Es wird nun anhand der in Kapitel~\ref{ch:pattern-matching} vorgestellten Konzepte ein vollständiges Beispiel vorgestellt, dessen Aufgabe es sein soll, das im vorherigen Kapitel erklärte Spiel zu modellieren.
 Die Aufgabenstellung soll bewusst Freiheiten bei der Benennung von Klassen und Attributen erlauben;
 lediglich die Struktur des zu erstellenden Modells wird vorgegeben.
 Vorgaben werden durch die Tasks des Assignments gestellt, die nach Möglichkeit unabhängig voneinander sein sollen.
 Dadurch soll es möglich sein, Teilpunkte zu erhalten.
 
 Zu einem vollständigen Assignment gehören zunächst die Eckdaten.
-Der Titel kann \textbf{Game Model} lauten;
-Name und E-Mail sind nicht relevant, ebenso die Deadline.
+Der Titel des Assignments kann beispielsweise ``Game Model'' lauten.
+Name und E-Mail sind in diesem Fall nicht relevant, ebenso wenig die Deadline.
 Als Beschreibung wäre etwa folgender Text vorstellbar:
 
 \begin{quote}
@@ -332,8 +331,8 @@ Als Beschreibung wäre etwa folgender Text vorstellbar:
     Model the objects and relationships described below.
 \end{quote}
 
-Dieser ist recht kurz gehalten, da die eigentlichen Aufgaben in den Task-Beschreibungen zu finden sind.
-Nachfolgend sind diese mit dem zugehörigen Verifizierungscode sowie einer möglichen Bepunktung aufgelistet.
+Dieser Beispieltext ist recht kurz gehalten, da die eigentlichen Aufgaben in den Task-Beschreibungen zu finden sind.
+Nachfolgend sind alle Tasks mit dem zugehörigen Verifizierungscode sowie einer möglichen Punktzahl aufgelistet.
 
 \begin{itemize}
     \item \textbf{Create a game object and give it a minimum score of 50.} (5 Punkte)
@@ -409,11 +408,11 @@ Eine Musterlösung könnte das folgende Scenario sein:
 
 Dabei können die Klassennamen \code{Game}, \code{Player} und \code{House} sowie die Attribut-\ und Assoziationsnamen \code{min-score}, \code{name}, \code{players/game}, \code{units} und \code{houses/player} beliebig verändert werden,
 ohne dass die Lösung ihre Gültigkeit verliert.
-Beim Schreiben der Lösung fällt auf, dass mit jedem Absatz ein weiterer Task grün/erfüllt wird.
-Lässt man den dritten oder letztes Absatz aus, sind Tasks 1, 2 und 4 noch immer erfüllt.
+Beim Schreiben der Lösung fällt auf, dass mit jedem Absatz ein weiterer Task grün markiert und damit erfüllt wird.
+Lässt man den dritten oder den letzten Absatz aus, sind die Tasks 1, 2 und 4 noch immer erfüllt.
 Dies wird durch die unabhängige Verifizierung der Tasks erreicht.
 So kann ein Studierender, der beispielsweise nicht weiß, wie Assoziationen definiert werden, noch Teilpunkte auf das Aufgabenblatt erhalten.
-Eine (Teil-)Lösung, die diese beiden Aspekte einbezieht, könnte folgende sein:
+Eine Teillösung, die diese beiden Aspekte einbezieht, könnte folgende sein:
 
 \begin{mdcodeblock}
     There is the SimpleGame sg with score 50.
