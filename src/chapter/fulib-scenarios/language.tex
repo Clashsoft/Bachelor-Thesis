@@ -268,35 +268,38 @@ Dies lässt sich durch Verwenden von zwei \code{As}-Sätzen mit gegensätzlichen
 Das folgende Beispiel soll zur Illustration dieser Sätze dienen:
 
 \begin{codeblock}
-    As semester of Alice is less than 3, we add Maths to courses of Alice.
+    There is a Student with name Alice, with semester 4, with 10 credits, and with 20 motivation.
+    There is a Course with topic Intro.
+    There is a Course with topic Maths.
+    There is a Course with topic Modeling.
+    Alice has courses Intro and Maths.
+
+    As semester of Alice is greater than 3, we add Modeling to courses of Alice.
 \end{codeblock}
 
 Der \code{As}-Satz nimmt hier die Form \code{As <condition>, <sentence>.} an.
-In der Bedingung wird der Wert des Attributs \code{semester} des Objekts \code{Alice} mit \code{3} verglichen, wobei \code{is less than} gleichzusetzen ist mit \code{<}.
+In der Bedingung wird der Wert des Attributs \code{semester} des Objekts \code{Alice} mit \code{3} verglichen, wobei \code{is greater than} gleichzusetzen ist mit \code{>}.
 Die Scenario-Sprache definiert Operatoren für Gleichheit (\code{is}), Ungleichheit (\code{is not}), Größer/Kleiner Als (\code{is greater/less than}) und Größer/Kleiner Gleich (\code{is greater/less equal}).
-
+Außerdem kann mit \code{contains/does not contain} überprüft werden, ob Elemente in Listen enthalten sind.
 Ist die Bedingung wahr, wird der nachstehende Satz ausgeführt.
 In diesem Beispiel ist das ein \code{Add}-Satz, der Zahlen addieren, Elemente zu Listen hinzufügen und Zu-N-Assoziation knüpfen kann.
-In diesem Fall sind \code{Maths} und \code{Alice} im Vorhinein deklarierte Objekte;
-\code{courses} ist eine Zu-n-Assoziation von der Klasse von \code{Alice} zu der Klasse von \code{Maths}.
-
-Der zum obigen Beispiel gehörende Java-Code ist:
+Der zum \code{As}-Satz im obigen Beispiel gehörende Java-Code ist:
 
 \begin{jcodeblock}
-    if (alice.getSemester() < 3) {
-        alice.withCourses(maths);
+    if (alice.getSemester() > 3) {
+        alice.withCourses(modeling);
     }
 \end{jcodeblock}
 
 Um mehrere Sätze im Rumpf der If-Anweisung zu erhalten, können mehrere Sätze hinter dem \code{As}-Satz durch \code{and} getrennt werden:
 
 \begin{codeblock}
-    As Alice has done Maths, we add 6 to credits of Alice
+    As courses of Alice contain Maths, we add 6 to credits of Alice
     and we remove 3 from motivation of Alice.
 \end{codeblock}
 
 \begin{jcodeblock}
-    if (alice.getDone().contains(maths)) {
+    if (alice.getCourses().contains(maths)) {
         alice.setCredits(alice.getCredits() + 6);
         alice.setMotivation(alice.getMotivation() - 3);
     }
@@ -407,7 +410,7 @@ Dadurch lässt sich u.a.\ Rekursion realisieren.
 Der geschachtelte Aufruf kann zwar wieder einen neuen Rumpf beginnen, davon ist jedoch aus Gründen der Verständlichkeit abzuraten.
 
 Während eine \code{init}-Methode für gemeinsam genutzen Code in einem Test akzeptabel ist,
-sollten Methoden mit Business Logic üblicherweise nicht in Tests implementiert sein.
+sollten Methoden mit anwendungsspezifischer Logik üblicherweise nicht in Tests implementiert sein.
 Dabei kommt der Empfänger bei \code{Call}-Sätzen zum Einsatz, der zum Empfänger des Aufrufs in Java wird.
 Wie das folgende Beispiel zeigt, wird die Methode Teil der Klasse des Empfängers:
 
