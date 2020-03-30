@@ -1,6 +1,6 @@
 \section{Hauptseite}\label{sec:main-page}
 
-Die Hauptseite erreicht man, wenn man fulib.org das erste mal öffnet.
+Die Hauptseite erreicht man, wenn man fulib.org das erste Mal öffnet.
 Dabei präsentiert sich der sogenannte Vier-Panel-Editor, welcher in Abbildung~\ref{fig:four-pane-editor} gezeigt wird.
 
 \begin{figure}
@@ -9,27 +9,27 @@ Dabei präsentiert sich der sogenannte Vier-Panel-Editor, welcher in Abbildung~\
     \label{fig:four-pane-editor}
 \end{figure}
 
-Dieser zeigt oben links den Scenario-Editor sowie darüber dessen Toolbar.
-Oben rechts gibt es ein Fenster für den generierten Java-Code, das auch die Konsolenausgabe des Compilers enthält.
+Dieser zeigt oben links den Scenario-Editor die darüberliegende Toolbar.
+Oben rechts gibt es ein Fenster für den generierten Java-Code, welches auch die Konsolenausgabe des Compilers enthält.
 Darüber zeigt eine Statusleiste, ob das Kompilieren und Ausführen erfolgreich war und wenn nicht, welches Tool fehlgeschlagen ist.
-Im unteren Teil werden links das Klassendiagramm und rechts Objektdiagramme dargestellt.
+Im unteren Teil werden links das Klassendiagramm und rechts die Objektdiagramme dargestellt.
 
 Am unteren Rand der Seite befindet sich stets der Footer.
 Dieser enthält Links zur Navigation innerhalb der Seite und zu externen Referenzen.
 Außerdem finden sich darunter die Einstellungen für Datenschutz,
-Möglichkeiten zum Hinterlassen von Feedback und zum Einsehen von Änderungen,
+Möglichkeiten zum Hinterlassen von Feedback und zum Einsehen von Änderungen
 und die Schaltfläche zum Wechseln in den Nachtmodus.
 
 \subsection{Interaktiver Spielplatz}\label{subsec:interactive-playground}
 
 Die wichtigste Funktion der Hauptseite ist der Scenario-Editor.
-Gibt man darin ein Scenario ein und klickt auf ``Compile and Run'' oder wartet einen Moment,
+Gibt man darin ein Scenario ein und klickt auf ``Compile and Run'',
 wird daraus Java-Code generiert und dessen Tests mit JUnit ausgeführt.
 Das dabei entstehende Klassendiagramm sowie Objektdiagramme werden dann in den entsprechenden Bereichen angezeigt.
-Um das sofortige Feedback zu erleichtern, wird das Scenario immer automatisch ausgeführt, wenn es länger als eine Sekunde unverändert blieb.
-Somit muss man nicht manuell auf ``Compile and Run'' klicken.
-Alternativ kann die automatische Ausführung im Dropdown neben dem ``Compile and Run''-Button deaktiviert werden.
-Händisch lässt es sich dann immernoch durch Klick oder Verwenden der Tastenkürzel auslösen.
+Um das sofortige Feedback zu erleichtern, wird das Scenario immer automatisch ausgeführt, wenn es länger als eine Sekunde unverändert bleibt.
+Somit muss nicht manuell auf ``Compile and Run'' geklickt werden.
+Alternativ kann die automatische Ausführung im Dropdown-Menü neben dem ``Compile and Run''-Button deaktiviert werden.
+Manuell lässt es sich dann weiterhin durch Klick oder Verwenden der Tastenkürzel auslösen.
 
 Im Fenster für den Java-Code werden die Rümpfe sämtlicher Methoden angezeigt, die im Scenario verwendet wurden.
 Davon ausgenommen sind aufgrund ihrer Trivialität Getter und Setter sowie diverse standardmäßig generierte Methoden.
@@ -53,7 +53,7 @@ Durch Abschnitte erfolgt eine visuelle Trennung von unabhängigen Teil-Scenarios
 
 Am Ende jedes Tutorials gibt es Links zu entsprechenden Abschnitten in der Dokumentation,
 die detaillierte Informationen zu den verwendeten Sprachkonzepten enthalten.
-Dazu gehören auch Grammatiken und häufige Problemfälle.
+Darunter sind auch formale Definitionen in Form einer Grammatik sowie Erklärungen zu häufigen Problemfällen zu finden.
 
 Die von Tutorials stammenden Scenarios können frei verändert werden.
 Dadurch können die Sprachkonzepte direkt ausprobiert werden.
@@ -77,7 +77,7 @@ Diese werden wie der Scenario-Text im Browser gespeichert, damit sie beim erneut
 Eingestellte Werte haben nur geringen Einfluss auf die Funktionalität der Webseite selbst,
 jedoch sind sie beim Herunterladen eines Projekts von Relevanz.
 Dies ist mit einem Button im unteren Teil des Fensters möglich.
-Klickt man auf diesen, wird das Scenario zusammen mit einigen Konfigurations-Dateien in einem Zip-Archiv verpackt und auf die Festplatte heruntergeladen.
+Klickt man auf diesen, wird das Scenario zusammen mit einigen Konfigurationsdateien in einem Zip-Archiv verpackt und heruntergeladen.
 Bei den Konfigurationsdateien handelt es sich um jene, die das Build-Tool Gradle~\cite{gradle} benötigt.
 Dieses ist zuständig für Kompilierung, Dependency-Management, Test-Ausführung und andere Build-Aufgaben in Java-Projekten.
 Das Projekt ist voreingestellt, um den Scenario-Compiler in den Build-Prozess zu integrieren.
@@ -100,8 +100,7 @@ Abbildung~\ref{fig:project-downloaded} zeigt, wie ein Projektordner in IntelliJ 
 \end{figure}
 
 Der Projektexport ist vor allem dann relevant, wenn das Scenario zu groß wird, um im Editor übersichtlich zu sein.
-Dies ist meist ein Anzeichen dafür, dass man ein richtiges Projekt beginnen sollte.
-Zudem können dann mehrere Scenario-Dateien angelegt werden.
+In einem eigenen Projekt können dann mehrere Scenario-Dateien angelegt werden, auf die das ursprüngliche Scenario aufgeteilt werden kann.
 Ein weitere Vorteil ist, dass der generierte Java-Code vollständig einsehbar und anpassbar ist.
 Dabei bietet es sich an, das Projekt unter Versionskontrolle wie Git zu stellen.
 Im Projektarchiv enthalten ist eine voreingestellte \code{.gitignore}-Datei, um dessen Einrichten zu erleichtern.
@@ -113,13 +112,13 @@ Dies geschah im Modul Programmieren und Modellieren, das im Bachelor zum dritten
 Dabei wurde zunächst die Webseite und die Verwendung der Scenarios in der Vorlesung erklärt.
 In zwei Hausaufgaben wurde dann der Einsatz beider Tools bewertet.
 Die erste davon befasste sich mit der Modellierung eines einfachen Datenmodells und dem anschließenden Projektexport.
-Ziel der zweiten Hausaufgabe was es, mit Scenarios ein GUI-Mockup zu entwickeln.
-Dafür kam das FulibMockups-Tool zum Einsatz, was parallel zu und zur Verwendung mit FulibScenarios entwickelt wurde.
+Ziel der zweiten Hausaufgabe war es, mit Scenarios ein GUI-Mockup zu entwickeln.
+Dafür kam das FulibMockups-Tool zum Einsatz, welches parallel zu FulibScenarios entwickelt wurde und darauf aufbaut.
 Es erlaubt das Modellelieren von Benutzeroberflächen als Objektstrukturen,
 aus denen HTML-Seiten sowohl statisch als auch als Klickprototypen generiert werden.
 Beide Hausaufgaben sind in ihrer Bewertung im Vergleich zu anderen Aufgabenblättern im Modul überdurchschnittlich gut ausgefallen.
 
-Am Ende des Semesters konnten die Studierenden bei einer Vorlesungsumfrage ihr Feedback hinterlassen.
+Am Ende des Semesters konnten die Studierenden bei einer Umfrage ihr Feedback zur Vorlesung hinterlassen.
 Diese enthielt auch einige Fragen zu fulib.org, FulibScenarios und FulibMockups.
 Dabei konnten fünf Aspekte mit einer Note von 1 bis 6 bewertet werden.
 Tabelle~\ref{tab:survey-results} zeigt die Durchschnittsnoten der Aspekte.
@@ -141,25 +140,22 @@ Die genaue Verteilung der Noten sowie sonstige Umfrageergebnisse sind in Anhang~
     \end{tabular}
 \end{table}
 
-Eine weitere Frage befasste sich mit potentiellen zukünftigen Features.
+Eine weitere Frage befasste sich mit zukünftigen Features in Form einer Mehrfach-Auswahl.
 Dabei waren insbesondere jene genannt, die den Online-Editor betreffen.
-Die meisten Studierenden (24) haben sich dabei Syntaxhighlighting gewünscht,
-gefolgt von der Hervorhebung von Fehlern und Warnungen im Code (20 Antworten).
-Autovervollständigung und die Möglichkeit, mehrere Scenarios gleichzeitig in Tabs zu öffnen,
-wurden von 18 bzw.\ zehn Studierende gewünscht.
+Die meisten Studierenden (24 von 28) haben sich dabei Syntaxhighlighting gewünscht, gefolgt von der Hervorhebung von Fehlern und Warnungen im Code (20 von 28).
+Auch zur Auswahl standen Autovervollständigung (18 von 28) und die Möglichkeit, mehrere Scenarios gleichzeitig in Tabs zu öffnen (10 von 28).
 
 Durch ein Freitext-Feld gab es die Möglichkeit, allgemeines Feedback zu hinterlassen.
-Darin wurde mehrfach die fehlenden Dokumentation kritisiert.
-Diese war zum Zeitpunkt der Verwendung durch die Studierenden unvollständig,
-weshalb sie nicht direkt zu finden war.
+Darin wurde mehrfach die fehlende Dokumentation kritisiert.
+Diese war zum Zeitpunkt der Verwendung durch die Studierenden unvollständig, weshalb sie nicht öffentlich zugänglich war.
 Inzwischen wurde diese wesentlich erweitert und ist nun auf fulib.org verlinkt.
 
-Auch kritisiert wurde die Verständlichkeit der Fehlermeldungen.
+Auch wurde die Verständlichkeit der Fehlermeldungen kritisiert.
 Wie im folgenden Abschnitt erläutert wird,
 wurden auch diese erweitert, um die Lösungssuche zu erleichtern.
-Die Beispielscenarios wurden angepasst, um verständlicher zu sein,
-und wurden zusätzlich mit Links zur Dokumentation ausgestattet.
-Gleichzeitig kann auch die Dokumentation auf Beispiele verlinken,
+Die Beispielscenarios wurden angepasst, um verständlicher zu sein.
+Zusätzlich wurden sie mit Links zur Dokumentation ausgestattet.
+Gleichzeitig kann auch in der Dokumentation auf Beispiele verlinkt werden,
 um die darin enthaltene Beschreibung von Sprachkonzepten interaktiv zu ergänzen.
 
 Das FulibMockups-Projekt befindet sich derzeit im einem frühem Stadium der Entwicklung.
@@ -185,20 +181,19 @@ Ist dies nicht erlaubt, öffnet sich das Einstellungsfenster bei jedem Besuch vo
 Für datenschutzbewusste Benutzer, die dies als Störung empfinden, gibt es daher die vierte Option,
 welche die lokale Datenspeicherung lediglich zum Verstecken des Fensters nutzt.
 
-Die serverseitige Datenspeicherung umfasst sämtliche ``Compile and Run''-Anfragen, die an den Server gestellt werden, inklusive automatische.
+Die serverseitige Datenspeicherung umfasst sämtliche ``Compile and Run''-Anfragen, die an den Server gestellt werden.
 Der Server speichert dann die vollständige Anfrage (d.h. Scenario-Text und Projektkonfiguration) und die vollständige Antwort.
 Letztere enthält Compiler-Ausgabe, Methodenrümpfe und Diagramme.
 Weiterhin werden IP-Adresse und User-Agent der Anfragen protokolliert, was deren progressive Anordnung erlaubt.
 Dies ermöglicht beispielsweise die Analyse von dem Zeitaufwand, der für das Lesen und Verstehen der Beispielscenarios benötigt wird.
 
-Während der Vorlesung Programmieren und Modellieren im Wintersemester 2019/20 konnte serverseitig eine Vielzahl von Daten gesammelt werden.
+Während der Vorlesung ``Programmieren und Modellieren'' im Wintersemester 2019/20 konnte serverseitig eine Vielzahl von Daten gesammelt werden.
 Zum Zeitpunkt der Messung am 16.\ Februar 2020, 18:00, wurden seit 1.\ Oktober 2019 etwa 5100 Anfragen gespeichert.
 Aufgrund der veränderlichen Natur von IP-Adressen und User-Agent-Zeichenketten kann nicht auf die Anzahl der unterschiedlichen Benutzer geschlossen werden.
 Außerdem ist nicht bekannt, wie viele Nutzer die serverseitigen Datenspeicherung abgelehnt haben.
 Dennoch haben die gesammelten Daten bereits hohen Wert gezeigt.
-
-Da die Fehlermeldung des Scenario-Compilers IDs wie \code{[variable.redeclaration]} enthalten, kann leicht danach in dem Datensatz gesucht werden.
-Von den oben genannten Anfragen enthielten 847 mindestens eine Fehler- oder Warnmeldung.
+Da die Fehlermeldung des Scenario-Compilers IDs wie \code{[variable.redeclaration]} enthalten, kann in dem Datensatz leicht danach gesucht werden.
+Von den oben genannten 5100 Anfragen enthielten 847 mindestens eine Fehler- oder Warnmeldung.
 Insgesamt belief sich die Zahl der gefundenen Meldungen auf 1949.
 Tabelle~\ref{tab:error-counts} stellt diese dar.
 
@@ -230,15 +225,15 @@ Tabelle~\ref{tab:error-counts} stellt diese dar.
     \end{tabular}
 \end{table}
 
-Zu den häufigsten Meldungen zählen hier \code{[property.declaration.first]} und \code{[variable.declaration.first]}.
-Dabei handelt es sich weder um Fehler noch um Warnung;
-diese Meldungen sind Hinweise und treten in Kombination mit den Fehlern \code{[association.reverse.conflict]} und \code{[property.redeclaration.conflict]} bzw. \code{[variable.redeclaration]} auf.
+Zu den häufigsten Meldungen zählen hier \code{[property.declaration.first]} und \code{[variable. declaration.first]}. % manual line break
+Dabei handelt es sich weder um Fehler, noch um Warnungen.
+Diese Meldungen sind Hinweise und treten in Kombination mit den Fehlern \code{[association.reverse.conflict]} und \code{[property.redeclaration.conflict]} bzw. \code{[variable.redeclaration]} auf.
 Die Hinweise dienen dazu, diese leichter zu lösen, da sie auf vorherige Stellen im Scenario verweisen.
 Warnmeldungen sind hier ausschließlich Deprecations, welche bei Verwendungen von Syntax auftreten, die in Zukunft nicht mehr unterstützt werden soll.
 
-Die Statistik, welche Fehler am meisten auftreten, hatte besonderen Wert bei der Verbesserung der Fehlermeldungen.
-So konnte priorisiert werden, welche Änderungen die größte Wirkung erzielen.
+Die Statistik, welche Fehler am meisten auftraten, hatte besonderen Wert bei der Verbesserung der Fehlermeldungen.
+So konnte priorisiert werden, welche Änderungen die größte Wirkung erzielen können.
 Im Verlauf dieser Arbeit ist eine Hinweismeldung hinzugekommen, welche auf eventuelle Tippfehler bei Werten und Attribut- und Assoziationsnamen verweist.
-Diese findet bei zehn in der Tabelle gezeigten Fehlernarten Anwendung (vier davon unter ``sonstige''),
+Diese findet bei zehn in der Tabelle gezeigten Fehlerarten Anwendung (vier davon unter ``sonstige''),
 welche insgesamt 775 Mal aufgetreten sind.
 Dies entspricht einer Verbesserung von etwa zwei dritteln aller Fehlermeldungen.
