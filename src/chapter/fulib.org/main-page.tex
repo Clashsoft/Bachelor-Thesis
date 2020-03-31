@@ -2,6 +2,10 @@
 
 Die Hauptseite erreicht man, wenn man fulib.org das erste Mal öffnet.
 Dabei präsentiert sich der sogenannte Vier-Panel-Editor, welcher in Abbildung~\ref{fig:four-pane-editor} gezeigt wird.
+Diese zeigt oben links den Scenario-Editor sowie die darüberliegende Toolbar.
+Oben rechts gibt es ein Fenster für den generierten Java-Code, welches auch die Konsolenausgabe des Compilers enthält.
+Darüber zeigt eine Statusleiste, ob das Kompilieren und Ausführen erfolgreich war und wenn nicht, welches Tool fehlgeschlagen ist.
+Im unteren Teil werden links das Klassendiagramm und rechts die Objektdiagramme dargestellt.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{chapter/fulib.org/img/four-pane-editor.png}
@@ -9,16 +13,12 @@ Dabei präsentiert sich der sogenannte Vier-Panel-Editor, welcher in Abbildung~\
     \label{fig:four-pane-editor}
 \end{figure}
 
-Dieser zeigt oben links den Scenario-Editor die darüberliegende Toolbar.
-Oben rechts gibt es ein Fenster für den generierten Java-Code, welches auch die Konsolenausgabe des Compilers enthält.
-Darüber zeigt eine Statusleiste, ob das Kompilieren und Ausführen erfolgreich war und wenn nicht, welches Tool fehlgeschlagen ist.
-Im unteren Teil werden links das Klassendiagramm und rechts die Objektdiagramme dargestellt.
-
 Am unteren Rand der Seite befindet sich stets der Footer.
-Dieser enthält Links zur Navigation innerhalb der Seite und zu externen Referenzen.
-Außerdem finden sich darunter die Einstellungen für Datenschutz,
-Möglichkeiten zum Hinterlassen von Feedback und zum Einsehen von Änderungen
-und die Schaltfläche zum Wechseln in den Nachtmodus.
+Dieser enthält Links zur Navigation innerhalb der Webseite und zu externen Referenzen.
+Unter ``Legal'' befinden sich Links zu Impressum und Datenschutzrichtlinien sowie die Einstellungen zum Datenschutz.
+``What's New'' ermöglicht das Einsehen des Versionsverlaufs der Webseite und verwendeter Fulib-Bibliotheken und -Tools.
+Die Schaltfläche ``Feedback'' öffnet ein Fenster, in dem Probleme gemeldet, Änderungen vorgeschlagen und Hilfe angefordert werden können.
+Auch der Schalter zum Wechseln in den Nachtmodus ist stets im Footer sichtbar.
 
 \subsection{Interaktiver Spielplatz}\label{subsec:interactive-playground}
 
@@ -29,7 +29,7 @@ Das dabei entstehende Klassendiagramm sowie Objektdiagramme werden dann in den e
 Um das sofortige Feedback zu erleichtern, wird das Scenario immer automatisch ausgeführt, wenn es länger als eine Sekunde unverändert bleibt.
 Somit muss nicht manuell auf ``Compile and Run'' geklickt werden.
 Alternativ kann die automatische Ausführung im Dropdown-Menü neben dem ``Compile and Run''-Button deaktiviert werden.
-Manuell lässt es sich dann weiterhin durch Klick oder Verwenden der Tastenkürzel auslösen.
+Manuell lässt es sich dann weiterhin durch Klick oder Verwenden der Tastenkürzel (\code{Strg/Cmd-S}, \code{Strg/Cmd-Enter}) auslösen.
 
 Im Fenster für den Java-Code werden die Rümpfe sämtlicher Methoden angezeigt, die im Scenario verwendet wurden.
 Davon ausgenommen sind aufgrund ihrer Trivialität Getter und Setter sowie diverse standardmäßig generierte Methoden.
@@ -37,7 +37,7 @@ Die Ausgabe des Scenario- und Java-Compilers sowie der JUnit-Testausführung wer
 Dabei sind die Meldungen des Scenario-Compilers besonders relevant, da diese auf Fehler im Scenario hinweisen.
 
 Objektdiagramme werden unter Tabs angeordnet.
-Dies vermeidet Unübersichtlichkeit bei der Verwendung von vielen Diagram-Sätzen im Scenario.
+Dies vermeidet Unübersichtlichkeit bei der Verwendung von vielen Diagramm-Sätzen im Scenario.
 Die einzelnen Darstellungen lassen sich dann getrennt voneinander betrachten.
 
 \subsection{Tutorials}\label{subsec:tutorials}
@@ -48,12 +48,12 @@ Die Tutorials sind in Kategorien angeordnet und bauen in ihrer Reihenfolge aufei
 Somit werden die behandelten Sprachkonzepte zunehmend komplexer.
 
 In den Tutorial-Scenarios ist beschreibender Text mit \code{//}-Kommentaren realisiert.
-Diese bewirken, dass der Text auch im Java-Code auftaucht, was die Zuordnung vereinfacht.
+Diese bewirken, dass der Text auch im Java-Code auftaucht, was die Zuordnung von Sätzen zu Anweisungen vereinfacht.
 Durch Abschnitte erfolgt eine visuelle Trennung von unabhängigen Teil-Scenarios.
 
 Am Ende jedes Tutorials gibt es Links zu entsprechenden Abschnitten in der Dokumentation,
 die detaillierte Informationen zu den verwendeten Sprachkonzepten enthalten.
-Darunter sind auch formale Definitionen in Form einer Grammatik sowie Erklärungen zu häufigen Problemfällen zu finden.
+Darunter sind auch formale Definitionen der Syntax in Form einer Grammatik sowie Erklärungen zu häufigen Problemfällen zu finden.
 
 Die von Tutorials stammenden Scenarios können frei verändert werden.
 Dadurch können die Sprachkonzepte direkt ausprobiert werden.
@@ -63,14 +63,6 @@ Lädt man das entsprechende Tutorial erneut, wird wieder der vordefinierte Scena
 
 Neben dem ``Compile and Run''-Button befindet sich der Button ``Configure Project''.
 Damit lässt sich das Fenster zur Projektkonfiguration öffnen, welches in Abbildung~\ref{fig:project-config} zu sehen ist.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{chapter/fulib.org/img/project-config.png}
-    \caption{Projektkonfiguration}
-    \label{fig:project-config}
-\end{figure}
-
 In diesem werden Einstellungen zum Projekt durchgeführt, zu dem das Scenario später gehören soll.
 Genauer lassen sich dessen Name und Version sowie Paket und Dateiname des Scenarios einstellen.
 Diese werden wie der Scenario-Text im Browser gespeichert, damit sie beim erneuten Aufrufen der Seite bestehen bleiben.
@@ -81,6 +73,13 @@ Klickt man auf diesen, wird das Scenario zusammen mit einigen Konfigurationsdate
 Bei den Konfigurationsdateien handelt es sich um jene, die das Build-Tool Gradle~\cite{gradle} benötigt.
 Dieses ist zuständig für Kompilierung, Dependency-Management, Test-Ausführung und andere Build-Aufgaben in Java-Projekten.
 Das Projekt ist voreingestellt, um den Scenario-Compiler in den Build-Prozess zu integrieren.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{chapter/fulib.org/img/project-config.png}
+    \caption{Projektkonfiguration}
+    \label{fig:project-config}
+\end{figure}
 
 Entpackt man das heruntergeladene Archiv, erhält man einen fertigen Projektordner.
 Dieser kann in einer IDE mit Gradle-Unterstützung wie z.B.\ IntelliJ geöffnet werden.
@@ -103,19 +102,19 @@ Der Projektexport ist vor allem dann relevant, wenn das Scenario zu groß wird, 
 In einem eigenen Projekt können dann mehrere Scenario-Dateien angelegt werden, auf die das ursprüngliche Scenario aufgeteilt werden kann.
 Ein weitere Vorteil ist, dass der generierte Java-Code vollständig einsehbar und anpassbar ist.
 Dabei bietet es sich an, das Projekt unter Versionskontrolle wie Git zu stellen.
-Im Projektarchiv enthalten ist eine voreingestellte \code{.gitignore}-Datei, um dessen Einrichten zu erleichtern.
+Im Projektarchiv enthalten ist eine voreingestellte \code{.gitignore}-Datei, um dessen Einrichtung zu erleichtern.
 
 \subsection{Sicht der Studenten}\label{subsec:students-view}
 
 Im Wintersemester 2019/20 haben Studierende der Uni Kassel die Scenario-Sprache, die fulib.org-Seite und die davon erstellten Projekte verwendet.
-Dies geschah im Modul Programmieren und Modellieren, das im Bachelor zum dritten Fachsemester gehört.
-Dabei wurde zunächst die Webseite und die Verwendung der Scenarios in der Vorlesung erklärt.
+Dies geschah im Modul ``Programmieren und Modellieren'', das im Bachelor zum dritten Fachsemester gehört.
+Dabei wurden zunächst die Webseite und die Scenarios in der Vorlesung erklärt.
 In zwei Hausaufgaben wurde dann der Einsatz beider Tools bewertet.
 Die erste davon befasste sich mit der Modellierung eines einfachen Datenmodells und dem anschließenden Projektexport.
 Ziel der zweiten Hausaufgabe war es, mit Scenarios ein GUI-Mockup zu entwickeln.
 Dafür kam das FulibMockups-Tool zum Einsatz, welches parallel zu FulibScenarios entwickelt wurde und darauf aufbaut.
-Es erlaubt das Modellelieren von Benutzeroberflächen als Objektstrukturen,
-aus denen HTML-Seiten sowohl statisch als auch als Klickprototypen generiert werden.
+Es erlaubt das Modellieren von Benutzeroberflächen als Objektstrukturen,
+aus denen HTML-Seiten sowohl statisch als auch in Form von Klickprototypen generiert werden.
 Beide Hausaufgaben sind in ihrer Bewertung im Vergleich zu anderen Aufgabenblättern im Modul überdurchschnittlich gut ausgefallen.
 
 Am Ende des Semesters konnten die Studierenden bei einer Umfrage ihr Feedback zur Vorlesung hinterlassen.
@@ -228,7 +227,7 @@ Tabelle~\ref{tab:error-counts} stellt diese dar.
 Zu den häufigsten Meldungen zählen hier \code{[property.declaration.first]} und \code{[variable. declaration.first]}. % manual line break
 Dabei handelt es sich weder um Fehler, noch um Warnungen.
 Diese Meldungen sind Hinweise und treten in Kombination mit den Fehlern \code{[association.reverse.conflict]} und \code{[property.redeclaration.conflict]} bzw. \code{[variable.redeclaration]} auf.
-Die Hinweise dienen dazu, diese leichter zu lösen, da sie auf vorherige Stellen im Scenario verweisen.
+Die Hinweise deuten auf vorherige Stellen im Scenario und erleichtern dadurch das Verständnis und die Lösung der Probleme.
 Warnmeldungen sind hier ausschließlich Deprecations, welche bei Verwendungen von Syntax auftreten, die in Zukunft nicht mehr unterstützt werden soll.
 
 Die Statistik, welche Fehler am meisten auftraten, hatte besonderen Wert bei der Verbesserung der Fehlermeldungen.
