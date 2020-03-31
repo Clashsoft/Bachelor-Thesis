@@ -1,45 +1,43 @@
 \chapter{Ergebnisse}\label{ch:ergebnisse}
 
-Unter Berufung auf die in Kapitel~\ref{ch:goals} gesteckten Ziele soll nun eine Einschätzung erfolgen, inwiefern diese erreicht wurden.
+Unter Berufung auf die in Kapitel~\ref{ch:goals} festgelegten Ziele soll nun eine Einschätzung erfolgen, inwiefern diese erreicht wurden.
 Außerdem gilt es zu betrachten, welche Schwierigkeiten bei der Umsetzung überwunden und welche Erkenntnisse damit gewonnen wurden.
 
-Das FulibScenarios-Projekt stellte aufgrund des großen Umfangs eine Herausforderung dar.
-Dies begann mit dem Design der Sprache, das gezielte Anpassung an den vorgesehenen Einsatz im Story Driven Modeling erforderte.
-Der Einsatz natürlicher Sprache setzte neue Ideen hinsichtlich der Syntax voraus, da nicht auf in anderen Programmiersprachen übliche Konstrukte wie geschweifte Klammern oder Einrückung zurückgegriffen werden konnte.
-Dies ermöglichte jedoch die leichte Verständlichkeit beim Lesen auch für Personen mit nicht-technischem Hintergrund.
-Das Schreiben setzt durch die syntaktischen Anforderungen einen Entwickler voraus, ohne diese wäre jedoch die eindeutige Semantik und somit die Ableitung von Diagrammen und Tests nicht möglich.
-Auch die Integration in Markdown, die letztlich die Verwendung als Dokumentation erlaubt, musste in der Designphase beachtet werden.
-Da dieses Format vielen Entwicklern durch Plattformen wie GitHub bekannt ist, erlaubt es den schnellen Einstieg in die Grundlagen der Scenario-Sprache.
+Das FulibScenarios-Projekt stellte aufgrund seines großen Umfangs eine Herausforderung dar.
+Diese begann mit dem Design der Sprache, welche gezielte Anpassung an den vorgesehenen Einsatz im Story Driven Modeling erforderte.
+Der Einsatz natürlicher Sprache setzte neue Ideen hinsichtlich der Syntax voraus, da nicht auf Konstrukte wie geschweifte Klammern oder Einrückung zurückgegriffen werden konnte, welche in anderen Programmiersprachen üblich sind.
+Darüber hinaus ermöglicht die natürliche Sprache eine leichte Verständlichkeit für Leser ohne technischen Hintergrund.
+Das Schreiben der Scenarios setzt durch die syntaktischen Anforderungen spezifische Fachkenntnisse voraus.
+Ohne Einschränkungen wären jedoch die eindeutige Semantik und somit die Ableitung von Diagrammen und Tests nicht möglich.
+Auch die Integration in Markdown, die letztlich die Verwendung als Dokumentation erlaubt, musste in der Designphase beachtet werden
+Das Format ermöglicht den schnellen Einstieg in die Grundlagen der Scenario-Sprache, da Markdown vielen Entwicklern durch Plattformen wie beispielsweise GitHub bekannt ist.
 
-Die Entwicklung des Compilers setzte eine bedachte Architektur voraus, um die Vielzahl von Funktionalität übersichtlich und wartbar zu machen.
-Der Gebrauch von FulibScenarios wurde von Studierenden zwar nur mittelmäßig bewertet,
-dies lag aber zu großen Teilen an der mangelnden Dokumentation und anderen Problemen, die inzwischen behoben wurden.
-Das FulibScenarios-Projekt ist jedoch noch nicht vollendet;
-weitere Änderungen und neue Features sind bereits geplant.
+Die Entwicklung des Compilers setzte eine gut durchdachte Architektur voraus, um die Vielzahl von Funktionalität übersichtlich und wartbar zu machen.
+Der Gebrauch von FulibScenarios wurde von Studierenden zwar nur mittelmäßig (Durchschnittsnote 2,7) bewertet, was sich aber zu großen Teilen auf die mangelnde Dokumentation und andere, inzwischen behobene, Probleme mit Fehlermeldungen und Beispielscenarios zurückführen ließ.
+Das FulibScenarios-Projekt ist jedoch noch nicht vollendet, denn weitere Änderungen und neue Features sind bereits geplant.
 
-Die Implementierung der Mustererkennung wurde sehr durch die bestehende FulibTables-Bibliothek unterstützt.
+Die Implementierung der Mustererkennung wurde durch die bestehende FulibTables-Bibliothek stark unterstützt.
 Auch die Erweiterung, die das Abstrahieren über Namen erlaubte, konnte mit relativ geringem Aufwand durchgeführt werden.
 Einzig die Einbettung in die Scenario-Sprache stellte eine besondere Herausforderung dar.
-Die Konzepte von FulibTables mussten dafür in ein umgängliches, natürliches Sprachformat verpackt werden.
-Wie das Beispiel im vorherigen Kapitel gezeigt hat, ist es dennoch gelungen, eine verständliche Syntax zu definieren und zu implementieren.
+Die Konzepte von FulibTables mussten dafür in ein umgängliches, natürliches Sprachformat übersetzt werden.
+Wie das Beispiel im vorherigen Kapitel unter~\ref{subsec:assignment-pattern-matching} gezeigt hat, ist es dennoch gelungen, eine verständliche Syntax zu definieren und zu implementieren.
 Auch hier ist es angebracht, neue Einsatzmöglichkeiten zu erproben und die Funktionalität zu erweitern.
-Da es sich um neue Sprachkonzepte handelt, konnten diese insbesondere noch nicht in einem praktischen Kontext wie etwa mit Studierenden angewendet werden.
+Da es sich um neue Sprachkonzepte handelt, konnten diese noch nicht in einem praktischen Kontext angewendet werden.
 
 Die Hauptseite von fulib.org hat sich seit ihrer Erstellung als nützliches Werkzeug bewährt.
-Auch beim Verfassen dieser Arbeit wurde sie vermehrt eingesetzt, um Beispiele der Scenario-Sprache zu erstellen und zu prüfen.
-Ohne die Seite wäre das mühsame Einrichten eines Projekts von Nöten gewesen.
-Der einfache Einstieg war letztlich auch in der Vorlesung Programmieren und Modellieren von Vorteil.
-Durch die Beispielszenarien und das sofortige Feedback konnten die Studierenden schnell die notwendigen Aspekte der Scenario-Sprache erlernen.
-Besonders die Aufzeichnung von Anfragen ermöglichte es, Probleme in Sprache und Compiler zu erkennen und häufige Fehlerfälle mit besseren Hinweisen auszustatten.
-Die Umfrage zeigte, welche Features in Zukunft priorisiert hinzugefügt werden müssen.
+Auch beim Verfassen dieser Arbeit wurde sie vermehrt eingesetzt, um Beispiele der Scenario-Sprache zu erstellen und zu überprüfen.
+Ohne diese Seite wäre das mühsame Einrichten eines Projekts vonnöten gewesen.
+Der einfache Einstieg war letztlich auch in der Vorlesung ``Programmieren und Modellieren'' von Vorteil.
+Durch die Beispielszenarien und das sofortige Feedback konnten die Studierenden schnell die notwendigen Aspekte der Scenario-Sprache erlernen, was sich aus der sehr guten Bewertung der bearbeiteten Hausaufgaben ableiten lässt.
+Besonders die Aufzeichnung von Anfragen ermöglichte es, Probleme in Sprache und Compiler zu erkennen und häufig auftretende Fehlermeldungen mit besseren Hinweisen auszustatten.
+Die unter~\ref{subsec:students-view} analysierte Umfrage zeigte, welche Features in Zukunft priorisiert hinzugefügt werden sollten.
 
-Bei der Entwicklung der Assignment-Funktionalität auf fulib.org konnten viele Erkenntnisse in der Frontendentwicklung gewonnen werden.
-Ursprünglich nur mit JavaScript, HTML und CSS geschrieben, wurde schnell deutlich, dass diese nicht für die steigenden Anforderungen und damit verbundene Komplexität geeignet sind.
-Der Umstieg auf das Angular-Framework konnte diese Einschränkung umgehen und gleichzeitig viele weitere Probleme beheben, die zuvor bestanden.
-Die gesteckten Ziele bzgl.\ Aufgabenblättern konnten alle umgesetzt werden.
-Letztlich wurde sogar das ursprünglich nicht geplante Feature der Kurse hinzugefügt, die besonders bei unbaufsichtigen Lehrangeboten von Wert sind.
+Bei der Entwicklung der Assignment-Funktionalität auf fulib.org konnten folgende Erkenntnisse in der Frontendentwicklung gewonnen werden:
+Ursprünglich nur mit JavaScript, HTML und CSS geschrieben, wurde schnell deutlich, dass deren alleinige Verwendung nicht für die steigenden Anforderungen und die damit verbundene Komplexität geeignet sind.
+Der Umstieg auf das Angular-Framework konnte diese Einschränkung umgehen.
+Die in Kapitel~\ref{ch:goals} festgelegten Ziele bzgl.\ Aufgabenblättern konnten umgesetzt werden.
 Aber auch fulib.org ist als Projekt noch nicht abgeschlossen.
 Ein wichtiger Aspekt, der nicht im Rahmen dieser Arbeit lag, ist die Implementierung eines vollwertigen Benutzersystems.
-Der Einsatz der Tokens zur Zugriffskontrolle soll damit ersetzt werden.
-Mit einem Benutzersystem verbunden sind Bedenken zu Sicherheit und Datenschutz, die Aufgrund des Umfangs nicht näher betrachtet werden konnten.
-Auch der Einsatz in einer größeren Testgruppe von Studierenden ist in Zukunft angebracht, um weitere Verbesserungsmöglichkeiten zu finden und zu realisieren.
+Der Einsatz der Tokens zur Zugriffskontrolle soll dadurch ersetzt werden.
+Mit einem Benutzersystem verbunden sind Bedenken zu Sicherheit und Datenschutz, die Aufgrund ihres Umfangs nicht näher betrachtet wurden.
+Auch der Einsatz in einer größeren Testgruppe von Studierenden ist in Zukunft ratsam, um weitere Verbesserungsmöglichkeiten zu ermitteln und realisierbar zu machen.
