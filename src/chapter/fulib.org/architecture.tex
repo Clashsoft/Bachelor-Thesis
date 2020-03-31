@@ -1,6 +1,6 @@
 \section{Architektur}\label{sec:architecture}
 
-fulib.org verwendet eine einfache Architektur bestehend aus Frontend, Backend und Datenbank.
+Fulib.org verwendet eine einfache Architektur, bestehend aus Frontend, Backend und Datenbank.
 Da es sich um eine Webanwendung handelt, wird das Frontend im Browser ausgeführt.
 Öffnet man die Seite, werden die benötigten HTML-, JavaScript- und CSS-Dateien vom Backend heruntergeladen und im Browser angezeigt.
 Aus Sicht des Backends sind dies statische Ressourcen.
@@ -22,43 +22,42 @@ Im folgenden Abschnitt wird näher erläutert, wie diese zusammenwirken.
 \subsection{Frontend}\label{subsec:frontend}
 
 % Angular
-Das Frontend von fulib.org ist mit dem Angular~\cite{angular}-Framework implementiert.
-Dieses gibt insbesondere eine Architektur vor, die Business Logic (Services) von UI-Logik (Components) trennt.
+Das Frontend von fulib.org ist mit dem Angular-Framework~\cite{angular} implementiert.
+Dieses gibt insbesondere eine Architektur vor, die Anwendungslogik (Services) von UI-Logik (Komponenten) trennt.
 Services sind beispielsweise dafür zuständig, mit dem Backend Daten auszutauschen.
-Mittels Dependency Injection lassen sich diese entweder von anderen Services oder von Komponenten beziehen.
-Komponenten befassen sich mit deren Darstellung der Anwendung.
+Mittels Dependency Injection lassen sich diese von Komponenten oder von anderen Services beziehen.
+Die Komponenten befassen sich mit der Darstellung der Anwendung.
 Sie bestehen aus einem HTML-Template, eigenem CSS und einer Klasse,
 die Daten mit Services kommuniziert und die Logik der Benutzeroberfläche implementiert.
 Komponenten haben besonders als wiederverwendbare Elemente Bedeutung.
 Sie ermöglichen es, gemeinsame Funktionalität zu verkapseln und an mehreren Orten zu verwenden.
 Im Kontext der Assignments ist beispielsweise die Task-Liste eine Komponente, die auf mehreren Seiten zum Einsatz kommt.
-Da Komponenten nur einmal implementiert und beliebig wiederverwendet werden können,
-kann die Oberfläche konsistent und fehlerfrei gehalten werden.
+Da Komponenten nur einmal implementiert werden und beliebig oft wiederverwendbar sind, kann die Oberfläche konsistent gehalten und Fehler vermieden werden.
 
 % Bootstrap + Darkmode
 Das Aussehen der Oberfläche von fulib.org basiert auf Bootstrap~4~\cite{bootstrap}.
 Das CSS-Framework gibt vielen HTML-Elementen wie Buttons oder Eingabefeldern ein modernes Aussehen.
-Weiterhin ermöglicht es die einfache Anordnung von Elementen, die sich an verschiedene Bildschirmgrößen anpassen kann.
-So ist fulib.org ohne großen Entwicklungsaufwand auch auf Smartphones o.ä.\ übersichtlich.
-Bei dem im Footer einstellbaren Nachtmodus (Darkmode) handelt es sich Funktionalität,
-die von der Bootstrap-Darkmode~\cite{bootstrap-darkmode}-Bibliothek bereitgestellt wird.
-Diese Eigenentwicklung passt die Farbgebung von Bootstrap so an, dass alle normalerweise weißen oder hellen Elemente in schwarz- bzw.\ grautönen erscheinen.
-Dies schont bei dunkleren Lichtbedingung wie etwa abends das Auge.
+Ferner ermöglicht es die einfache Anordnung von Elementen, die sich an verschiedene Bildschirmgrößen anpassen kann.
+Somit ist fulib.org ohne großen Entwicklungsaufwand auch auf Smartphones o.ä.\ übersichtlich.
+Bei dem im Footer einstellbaren Nachtmodus (eng.: Darkmode) handelt es sich um Funktionalität,
+die von der Bootstrap-Darkmode-Bibliothek~\cite{bootstrap-darkmode} bereitgestellt wird.
+Diese Eigenentwicklung passt die Farbgebung von Bootstrap so an, dass alle normalerweise weißen oder hellen Elemente in schwarz bzw.\ Grautönen erscheinen.
+Dies schont bei dunkleren Lichtbedingungen das Auge.
 
 % CodeMirror
-Die Editorfenster für Scenarios und Java-Code sind mit der CodeMirror~\cite{codemirror}-Bibliothek implementiert.
+Die Editorfenster für Scenarios und Java-Code sind mit der CodeMirror-Bibliothek~\cite{codemirror} implementiert.
 Diese bietet einen Editor, der Syntaxhighlighting für viele Programmier- und Markupsprachen unterstützt.
-Mit Themes kann die Farbgebung angepasst werden, was auf fulib.org beim Wechsel in den Nachtmodus zu beobachten ist.
+Der Editor erlaubt die Anpassung der Farbgebung, was auf fulib.org beim Wechsel in den Nachtmodus zu beobachten ist.
 Zudem unterstützt der Editor eine Reihe von Addons, die zusätzliche Funktionalität einbringen können.
-Beispielsweise können mit dem Lint-Addon Fehlermeldungen im Editor hervorgehoben werden.
-Es ist geplant, dies im Scenario-Editor einzusetzen.
+Beispielsweise ermöglicht ein Lint-Addon die Hervorhebung von Fehlermeldungen im Editor.
+Es ist geplant, diese im Scenario-Editor umzusetzen.
 
 \subsection{Backend}\label{subsec:backend}
 
-Bei dem Backend von fulib.org handelt es sich um einen einfachen HTTP-Server.
+Beim Backend von fulib.org handelt es sich um einen einfachen HTTP-Server.
 Dieser ist zustandslos, arbeitet also nach dem REST-Prinzip.
 Dabei sind die Hauptaufgaben die Auslieferung des Frontends,
-die Ausführung von Scenarios,
+die Ausführung von Scenarios
 sowie die Kommunikation mit der Datenbank im Kontext von Assignments.
 
 % Frontend
@@ -66,14 +65,13 @@ Das Ergebnis des Buildprozesses des Frontends sind statische HTML-, JavaScript- 
 Diese werden vom Backend auf Anfrage eines Browsers unverändert an diesen übermittelt.
 Anders als bei dynamisch bzw.\ serverseitig generierten Webseiten hat dies den Vorteil,
 dass der Ressourcenaufwand des Servers sehr gering ist.
-Auch lassen sich die statischen Ressourcen sehr gut cachen,
-beispielsweise in einem zwischenstehenden Cache Proxy oder im Browser.
-Dies kann mit Ausnahme vom ersten Besuch der Seite die Ladezeiten erheblich verkürzen.
-Jedoch steigt der Aufwand auf Client- bzw.\ Browserseite,
+Auch lassen sich die statischen Ressourcen sehr gut zwischenspeichern, beispielsweise in einem Cache oder im Browser.
+Dadurch können, mit Ausnahme vom ersten Besuch der Seite, die Ladezeiten erheblich verkürzt werden.
+Der Aufwand steigt jedoch auf Client- bzw.\ Browserseite,
 der nach Herunterladen der statischen Dateien das JavaScript ausführen muss, um den Webseiteninhalt aufzubauen.
-Dies kann bei weniger leistungsfähigen Geräten wie älteren Smartphones für längere Verzögerungen sorgen.
-Zu beachten ist zudem, dass fulib.org bei deaktiviertem oder nicht unterstützem JavaScript nicht verwendbar ist.
-In diesem Fall wird eine Warnung angezeigt, die den Benutzer zur Aktivierung auffordert und dafür Hilfe anbietet.
+Dieser Vorgang kann bei weniger leistungsfähigen Geräten für längere Verzögerungen sorgen.
+Zu beachten ist zudem, dass fulib.org bei deaktiviertem oder nicht unterstützem JavaScript zwar aufrufbar, jedoch nicht verwendbar ist.
+In diesem Fall wird eine Meldung in Form eines Banners angezeigt, die den Benutzer zur Aktivierung auffordert und dafür Hilfe anbietet.
 
 % Scenario Compile and Run
 Die Ausführung der Scenarios delegiert das Backend an die drei zuständigen Tools,
@@ -85,19 +83,18 @@ Mit dem Java Compiler wird der Java-Code dann kompiliert und die entstehenden Kl
 Das JUnit-Framework bietet eine Schnittstelle zum Ausführen der Test-Klassen,
 wodurch das Testergebnis sowie die Objektdiagramme entstehen.
 Die Ausgaben der drei Tools werden dabei protokolliert, da diese Teil der Antwort werden.
-Der temporäre Ordner wird daraufhin nach Diagramm- und Java-Dateien durchsucht.
-Erstere werden unter Anwendung einer geeigneten Kodierung in die API-Antwort übernommen.
-Aus letzteren werden relevante Methodenrümpfe durch einen einfachen Parser extrahiert.
+Der temporäre Ordner wird anschließend nach Diagramm- und Java-Dateien durchsucht.
+Diagramme werden unter Anwendung einer geeigneten Codierung in die API-Antwort übernommen.
+Aus Java-Dateien werden relevante Methodenrümpfe durch einen einfachen Parser extrahiert.
 
 % Database
 Die Kommunikation mit der Datenbank ist besonders bei Assignments und verwandter Funktionalität relevant.
-Alle dafür zuständigen Endpunkte lesen entweder Daten aus der Datenbank oder erzeugen neue Datensätze in dieser.
-Beim Anlegen ist das Anfrageformat stets JSON;
-der Server konvertiert dies zunächst in sein eigenes Datenmodell.
+Alle dafür zuständigen Endpunkte lesen entweder aus der Datenbank oder erzeugen neue Datensätze in dieser.
+Beim Anlegen ist das Anfrageformat stets JSON, welches der Server zunächst in sein eigenes Datenmodell konvertiert.
 Dieses wird beim Speichern in der Datenbank in deren natives Format konvertiert.
 Umgekehrt ist es bei Leseanfragen, bei denen der Server Anfragen an die Datenbank stellt,
 deren Ergebnis in sein Datenmodell konvertiert und dies als JSON in der Antwort zurückgibt.
 Das Backend ist bei sämtlichen Anfragen für die Prüfung von Tokens zur Autorisierung zuständig,
-wobei sichergestellt wird, dass keine Daten bei nicht befugten Anfragen preisgegeben werden.
-Insbesondere wird diese Prüfung nicht im Frontend durchgeführt,
+wobei sichergestellt wird, dass keine Daten bei unbefugten Anfragen preisgegeben werden.
+Diese Prüfung wird insbesondere nicht im Frontend durchgeführt,
 da sonst ein Angreifer manuell die Server-API ansprechen und ausnutzen könnte.
