@@ -70,12 +70,12 @@ Dadurch können, mit Ausnahme vom ersten Besuch der Seite, die Ladezeiten erhebl
 Der Aufwand steigt jedoch auf Client- bzw.\ Browserseite,
 der nach Herunterladen der statischen Dateien das JavaScript ausführen muss, um den Webseiteninhalt aufzubauen.
 Dieser Vorgang kann bei weniger leistungsfähigen Geräten für längere Verzögerungen sorgen.
-Zu beachten ist zudem, dass fulib.org bei deaktiviertem oder nicht unterstützem JavaScript zwar aufrufbar, jedoch nicht verwendbar ist.
+Ebenso ist zu beachten, dass fulib.org bei deaktiviertem oder nicht unterstützem JavaScript zwar aufrufbar, jedoch nicht verwendbar ist.
 In diesem Fall wird eine Meldung in Form eines Banners angezeigt, die den Benutzer zur Aktivierung auffordert und dafür Hilfe anbietet.
 
 % Scenario Compile and Run
-Die Ausführung der Scenarios delegiert das Backend an die drei zuständigen Tools,
-den Scenario- und Java-Compiler und JUnit.
+Die Ausführung der Scenarios delegiert das Backend an die drei zuständigen Tools.
+Nacheinander werden Scenario- und Java-Compiler sowie der JUnit-Testprozess ausgeführt.
 Der Server schreibt zunächst den über die API empfangenen Text in eine Datei in einem temporären Ordner.
 Daraufhin wird der Scenario-Compiler in diesem Ordner ausgeführt,
 der die Java-Dateien sowie das Klassendiagramm generiert.

@@ -542,7 +542,7 @@ Genau diese Ungleichheits-Bedingung bewirkt, dass die reine Deklaration mehrerer
 Konkret hat dies die Konsequenz, dass \code{g} und \code{p1} in keinem Fall das selbe Objekt matchen können.
 Ohne weitere Einschränkung kann mit diesem Beispiel kein erfolgreiches Match erzielt werden,
 unabhängig davon welche Objekte davor erstellt werden.
-Wird vor dem Match-Satz nur genau ein Objekt deklariert, kann dieses zwar \code{g} zugewiesen werden, jedoch bleibt dann \code{p1} unzugewiesen.
+Wird vor dem Match-Satz nur genau ein Objekt deklariert, kann dieses entweder \code{g} oder \code{p1} zugewiesen werden, aber nicht beiden Pattern-Objekten gleichzeitig.
 Dies bewirkt ein Fehlschlagen des Match-Vorgangs mit einer \code{NoMatchException}.
 Wenn mehr als ein Objekt wie z.B.\ \code{game} und \code{Alice} deklariert wurden, sind sowohl \code{g=game, p1=Alice} als auch \code{g=Alice, p1=game} mögliche Zuweisungen des Patterns.
 Diese Uneindeutigkeit bewirkt, dass der Match-Vorgang mit einer \code{AmbiguousMatchException} abbricht.

@@ -218,11 +218,16 @@ Jeder Satz, dessen Subjekt dem des \code{Call}-Satzes entspricht, wird diesem un
 Grund dafür ist, dass der Code für diese Sätze später nicht im Test, sondern in der entsprechenden Methode auftaucht.
 Da für die Bestimmung von Subjekten keine komplexe Namensauflösung notwendig ist, die Unterordnung von Sätzen jedoch die Verfügbarkeit von Namen beeinflusst, geschieht die Gruppierung vor der Namensauflösung.
 
-Die Namensauflösung umfasst sowohl die direkte Auflösung von Namen zu Variablen, Klassen und Methoden,
-als auch die Auflösung von Attribut- Assoziations- und Methodennamen in Methoden.
-, das Erzeugen von Klassen, das Erzeugen von Diagnosenachrichten,
-und die Umstrukturierung des AST\@.
-Grund dafür ist, dass diese Aufgaben eng verzahnt und meist in einem Schritt ausführbar sind.
+Die Namensauflösung umfasst mehrere Teilaufgaben:
+
+\begin{itemize}
+    \item Die direkte Auflösung und Erzeugung sichtbarer Variablen, Klassen und Methoden
+    \item Die Auflösung und Erzeugung von Attributen, Assoziationen und Methoden in Klassen und dem dadurch definierten Namensraum
+    \item Das Erzeugen von Diagnosenachrichten
+    \item Die Umstrukturierung des AST
+\end{itemize}
+
+Der Grund für die Zusammenfassung der Teilaufgaben ist, dass diese eng verzahnt und meist in einem Schritt ausführbar sind.
 Beispielsweise beim Auflösen einer Assoziation kann diese angelegt werden, falls es sie noch nicht gibt, andernfalls muss die bestehene Assoziation mit der neuen Definition auf Konsistenz überprüft und ggf.\ eine Fehlermeldung erzeugt werden.
 Diese kann z.B.\ auftreten, wenn bei der zweiten Verwendung versehentlich die Rückrichtung falsch benannt wird:
 
@@ -241,9 +246,8 @@ Dies erzeugt die folgende Fehlermeldung in der Konsolenausgabe des Compilers:
 
 Die Fehlermeldungen sind so strukturiert, dass sie alle nötigen Informationen zur Lösung des Problems enthalten:
 Zu Beginn stehen Dateiname, Zeile und Spalte, die mit einer IDE direkt an der richtigen Stelle geöffnet werden können.
-Nach der Angabe, um was für eine Art Meldung es sich handelt (hier \code{error}, auch möglich sind \code{syntax}, \code{warning} und \code{note}),
-folgt eine kurze Beschreibung.
-In den eckigen Klammern steht eine feste ID der Fehlerart, nach der leicht bei Google oder StackOverflow gesucht werden kann.
+Nach der Angabe der Dringlichkeit der Meldung, die im Beispiel \code{error} ist, aber auch \code{syntax}, \code{warning} oder \code{note} sein könnte, folgt eine kurze Beschreibung der Problemursache.
+In den eckigen Klammern steht eine feste Meldungs-ID, nach der beispielsweise in der Dokumentation, bei Google oder StackOverflow gesucht werden kann.
 Dadurch kann auch die Formulierung der Beschriebung geändert oder in eine andere Sprache übersetzt werden,
 wonach Online-Suchergebnisse weiterhin auffindbar wären.
 Viele (Fehler-)Meldungen enthalten außerdem einige Zeilen mit zusätzlichen Informationen,
@@ -259,8 +263,7 @@ Dadurch kann Code-Duplizierung vermieden und die Code-Generierung vereinfacht we
 Weiterführendes Ziel ist es, den im vorherigen Abschnitt angelegten AST, der in Listing~\ref{lst:CompilationExampleAST.txt} gezeigt wurde, weiter zu verarbeiten.
 Da die Gruppierung in diesem Beispiel keine Veränderungen durchführt, kann als nächstes die Namensauflösung betrachtet werden.
 Dabei führt der Scenario-Compiler zunächst einen Umformungsschritt durch, der den \code{ThereSentence} durch einen \code{IsSentence} und einen \code{HasSentence} ersetzt.
-Diese Umformung erhält die Semantik, dass ein Objekt angelegt und einer Variable zugewiesen wird und daraufhin ein Attribut gesetzt wird,
-wie im vorherigen Abschnitt unter~\ref{subsec:simple-sentences-and-expressions} gezeigt wurde.
+Diese Umformung erhält die Semantik, wie im vorherigen Abschnitt unter~\ref{subsec:simple-sentences-and-expressions} gezeigt wurde.
 In Listing~\ref{lst:PreprocessedAST.txt} ist der AST nach dieser Umformung abgebildet.
 Zur Vereinfachung ist nur der \code{Scenario}-Knoten gezeigt, da der \code{ScenarioFile}- sowie darüberliegende Knoten unverändert geblieben sind.
 Listing~\ref{lst:FulibScenarios2.gts} zeigt die neuen AST-Klassendefinitionen, die dafür notwendig sind.
@@ -273,7 +276,7 @@ Im nächsten Schritt werden die neu erzeugten \code{Sentence}-Knoten aufgelöst.
 Meist ist an dem Wort \code{Unresolved} im Klassennamen zu erkennen, dass ein AST-Knoten aufgelöst werden muss.
 Im \code{IsSentence}-Knoten fällt mit dieser Eigenschaft der Typ der \code{CreationExpr} auf.
 
-Der Compiler verwendet für die Auflösung einen Scope, der aus mehreren Ebenen besteht, die jeweils Deklarationen bereitstellen können.
+Der Compiler verwendet für die Auflösung einen Scope, der aus mehreren Ebenen besteht, die jeweils Variablen und andere Deklarationen enthalten können.
 Beim Auflösen eines Namens wird, beginnend beim inneren Scope, eine Deklaration mit diesem Namen gesucht.
 Falls die Suche kein Ergebnis liefert, wird der jeweils nächstäußeren Scope betrachtet.
 Gelangt man im äußersten Scope an ohne eine Deklaration gefunden zu haben,
@@ -291,7 +294,7 @@ findet man zunächst keine entsprechende Deklaration.
 Deshalb wird ein neues Objekt im Datenmodell des Compilers angelegt,
 das die Klasse \code{Student} repräsentiert und deren Zugehörigkeit zum gleichen Paket wie die Scenario-Datei deklariert.
 Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese neue Klasse verweist.
-Nun ist der Typ der \code{CreationExpr} aufgelöst und kann als Typ der Variable \code{alice} inferiert werden.
+Nun ist der Typ der \code{CreationExpr} aufgelöst und kann als Typ der Variable \code{alice} inferiert\footnote{D.h.\ automatisch ermittelt und nicht explizit angegeben.} werden.
 
 Als nächstes muss \code{UnresolvedName(value: "Alice")} im \code{HasSentence} bearbeitet werden.
 Der \code{HasSentence} fügt der Scope-Hierarchie eine weitere Ebene hinzu, die den Namen \code{alice} \emph{versteckt}.
