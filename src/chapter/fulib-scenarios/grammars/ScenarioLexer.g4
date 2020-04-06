@@ -11,9 +11,6 @@ HEADLINE: '#' ~[\n]*? [\n];
 FULL_STOP: '.';
 // ...
 
-INTEGER: [-]? [0-9]+;
-// ...
-
 WORD: [a-zA-Z_][a-zA-Z0-9'_-]*;
 
 WS: [ \t\r\n\u000C]+ -> skip;

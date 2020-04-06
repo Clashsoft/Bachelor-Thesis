@@ -89,14 +89,12 @@ Sie ist unter~\cite{lexer-grammar} zu finden.
 
 Die Grammatik besteht aus mehreren Regeln, die einem Muster einen Namen zuordnen.
 Dieser Name wird später den Tokens zugeordnet.
-So haben Tokens mit dem Text \code{and} später den Namen \code{AND} und jene, die eine Zahl darstellen, den Namen \code{INTEGER}.
-Im Folgenden werden Tokens mit der Kurzschreibweise \code{<name>(<text>)} bezeichnet,
-z.B.\ \code{AND(and)} und \code{INTEGER(12)}.
+So haben Tokens mit dem Text \code{and} später den Namen \code{AND} und jene, die ein Wort darstellen, den Namen \code{WORD}.
+Im Folgenden werden Tokens mit der Kurzschreibweise \code{<name>(<text>)} bezeichnet, z.B.\ \code{AND(and)} und \code{WORD(Alice)}.
 
 Die rechte Seite jeder Regel ähnelt einem regulären Ausdruck.
 Bei Schlüsselwörtern wie \code{a}, \code{is} und \code{with} muss der Text exakt der vorgegebenen Schreibweise entsprechen, während \code{There} beispielsweise auch kleingeschrieben werden kann.
 Ein \code{HEADLINE}-Token entsteht, wenn auf ein \code{#}-Zeichen beliebig viele Zeichen und ein Zeilenumbruch folgen.
-Ganze Zahlen können mit einem Minus-Zeichen beginnen und bestehen aus mindestens einer Ziffer.
 Wörter beginnen mit einem Buchstaben, gefolgt von beliebig vielen Buchstaben, Ziffern, Apostrophen, Unterstrichen und Bindestrichen.
 Die Regel \code{WS} sorgt durch die Angabe \code{-> skip} dafür, dass Whitespace-Zeichen nicht zu Token werden.
 Falls mehrere Regeln infrage kommen würden, wird zunächst die längstmögliche Übereinstimmung angewandt;

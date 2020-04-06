@@ -8,6 +8,5 @@ sentence: thereSentence
         ;
 
 thereSentence: THERE IS A WORD withClause (AND withClause)* FULL_STOP;
-withClause: WITH WORD WORD
-          | WITH INTEGER WORD;
+withClause: WITH WORD WORD;
 // ...
