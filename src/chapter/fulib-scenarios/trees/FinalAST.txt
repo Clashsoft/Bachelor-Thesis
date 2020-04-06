@@ -9,7 +9,7 @@ ScenarioGroup(sourceDir: "src/main/java", packageDir: "org/example"
 	]
 	files: [
 		"CompilationExample.md": ScenarioFile(
-			name: "CompilationExample.md",
+			name: "CompilationExample.md"
 			scenario: Scenario(
 				name: "My Scenario"
 				body: SentenceList(items: [
