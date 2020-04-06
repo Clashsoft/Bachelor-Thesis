@@ -5,10 +5,8 @@ Diese trägt den Namen \emph{Scenario-Sprache}.
 Ziel der Scenario-Sprache ist es, verständlich für jeden zu sein, der die englische Sprache beherrscht.
 Um als Programmiersprache funktionsfähig zu sein, hat sie im Gegensatz zu Englisch eine feste und eingeschränkte grammatikalische Struktur.
 Somit handelt es sich um eine Untermenge der englischen Sprache.
-Des Weiteren basiert die Scenario-Sprache auf dem Markdown-Format,
-das es erlaubt, einfachen Text mit Überschriften, Fett- und Kursivschreibung, Bildern u.ä.\ zu versehen.
-Markdown-Dateien können leicht in HTML umgewandelt werden,
-wodurch in der Scenario-Sprache verfasste Texte auch als Dokumentation einsetzbar sind.
+Des Weiteren basiert die Scenario-Sprache auf dem Markdown-Format, das es erlaubt, einfachen Text mit Überschriften, Fett- und Kursivschreibung, Bildern u.ä.\ zu versehen.
+Markdown-Dateien können leicht in HTML umgewandelt werden, wodurch in der Scenario-Sprache verfasste Texte auch als Dokumentation einsetzbar sind.
 Im Folgenden werden einige Grundlagen der Scenario-Sprache dargestellt und erklärt.
 
 \subsection{Grundlagen}\label{subsec:basics}
@@ -43,22 +41,16 @@ Nach einer Überschrift können ein oder mehrere Sätze und Überschrift zweiten
 Im Java-Code wird daraus ein Kommentar, damit auch dieser leichter lesbar ist (vgl.\ Listing~\ref{lst:basic-example}, Zeile 4).
 
 Im Rumpf von Scenarios gibt es einige Möglichkeiten, Kommentare zu hinterlassen.
-Mit \jcode{//} wird wie in anderen Programmiersprachen ein Zeilenkommentar begonnen,
-der mit dem nächsten Zeilenumbruch endet.
-Dieser ist sowohl nach Umwandeln des Markdown in HTML sichtbar,
-als auch im erzeugten Java-Quellcode vorhanden.
-Text, der in runden Klammern \code{(...)} steht, ist ebenfalls im HTML sichtbar,
-jedoch nicht im Java-Quellcode.
-Zuletzt können mit \mdcode{<!-- ... -->} Kommentare eingebettet werden,
-die weder im HTML sichtbar noch im Java-Code vorhanden sind.
+Mit \jcode{//} wird wie in anderen Programmiersprachen ein Zeilenkommentar begonnen, der mit dem nächsten Zeilenumbruch endet.
+Dieser ist sowohl nach Umwandeln des Markdown in HTML sichtbar, als auch im erzeugten Java-Quellcode vorhanden.
+Text, der in runden Klammern \code{(...)} steht, ist ebenfalls im HTML sichtbar, jedoch nicht im Java-Quellcode.
+Zuletzt können mit \mdcode{<!-- ... -->} Kommentare eingebettet werden, die weder im HTML sichtbar noch im Java-Code vorhanden sind.
 Listing~\ref{lst:basic-example} zeigt, dass lediglich der Zeilenkommentar aus dem Scenario in den Test übernommen wurde (Zeile 5).
 
 \subsection{Einfache Sätze und Ausdrücke}\label{subsec:simple-sentences-and-expressions}
 
 Sätze bilden den Inhalt eines Scenarios und definieren dessen Ablauf.
-Die Scenario-Sprache definiert eine Vielzahl von Satzarten,
-die sich sowohl in ihrer Funktionalität ergänzen,
-als auch syntaktische Alternativen mit gleicher Semantik füreinander darstellen.
+Die Scenario-Sprache definiert eine Vielzahl von Satzarten, die sich sowohl in ihrer Funktionalität ergänzen, als auch syntaktische Alternativen mit gleicher Semantik füreinander darstellen.
 
 Die einfachste Art von Satz ist der \code{Is}-Satz.
 Dieser ermöglicht es, ein Objekt zu definieren und diesem einen Name und Typ zuzuweisen.
@@ -103,8 +95,7 @@ Aus diesem Satz wird der folgende Java-Code:
 Wieder ist zu beachten, dass das Attribut \code{postcode} bzw.\ der Setter \code{setPostcode} nicht im Vorhinein deklariert wurde;
 diese wurden durch die Verwendung automatisch angelegt.
 Durch den Ausdruck \code{34117} konnte ermittelt werden, dass der Typ dieses Attributes \code{int} sein muss.
-Wäre der Wert stattdessen \code{D-34117}, was von der Scenario-Sprache als Zeichenkette verstanden wird,
-hätte das Attribut den Typ \code{String} erhalten und der entsprechende Java-Code wäre \jcode{kassel.setPostcode("D-34117")}.
+Wäre der Wert stattdessen \code{D-34117}, was von der Scenario-Sprache als Zeichenkette verstanden wird, hätte das Attribut den Typ \code{String} erhalten und der entsprechende Java-Code wäre \jcode{kassel.setPostcode("D-34117")}.
 
 Da das Definieren von Objekten und die Zuweisung von Attributen sehr häufig in Kombination geschieht, bietet die Scenario-Sprache eine alternative Satzart an, die beides gleichzeitig durchführt.
 Diese Sätze heißen \code{There}-Sätze.
@@ -114,8 +105,7 @@ Die obigen Beispiele lassen sich mit einem \code{There}-Satz verkürzen:
     There is the City Kassel with postcode 34117.
 \end{codeblock}
 
-Hierbei sind die Schlüsselwörter \code{There is the} der Ersatz für \code{is},
-während \code{has} durch \code{with} ersetzt wurde.
+Hierbei sind die Schlüsselwörter \code{There is the} der Ersatz für \code{is}, während \code{has} durch \code{with} ersetzt wurde.
 Der Java-Code ist äquivalent zu den beiden zuvor gezeigten Zeilen.
 
 Bei erneuter Betrachtung des Java-Codes fällt auf, dass das Wort \code{Kassel} darin nur als Variablenname, jedoch nicht als Wert vorkommt.
@@ -130,8 +120,7 @@ Aus diesem Grund bieten \code{There}-Sätze eine Möglichkeit, eine Zeichenkette
 Hier ist zu sehen, dass in einem \code{There}-Satz mehrere Attributzuweisungen mit \code{with} möglich sind, indem sie durch \code{and} getrennt werden\footnote{
 Alternativ können diese auch durch \code{,} (Komma) und \code{, and} (And mit Oxford-Komma) getrennt werden, da dies bei mehr als zwei \code{with} die Lesbarkeit erhöht.
 }.
-Das ansonsten unbenannte Objekt bezieht seinen Namen aus der ersten Attributzuweisung,
-heißt also wieder \code{Kassel}.
+Das ansonsten unbenannte Objekt bezieht seinen Namen aus der ersten Attributzuweisung, heißt also wieder \code{Kassel}.
 Der entsprechende Java-Code ist wie folgt:
 
 \begin{jcodeblock}
@@ -183,12 +172,9 @@ Andernfalls würde aus \code{cities} trotz der Pluralform eine Zu-1-Assoziation 
 
 \subsection{Test-Sätze und Diagramme}\label{subsec:test-sentences-and-diagrams}
 
-Während die erzeugten Klassen zum Programmquellcode gehören,
-werden aus den Sätzen eines Scenarios Tests generiert.
-Genauer wird aus jeder Scenario-Datei eine Testklasse,
-und aus jedem Scenario wird eine Testmethode.
-Mit Ausnahme von Sätzen, die zu Aufrufen gehören (siehe Unterabschnitt~\ref{subsec:methods}),
-werden aus jedem Satz eine oder mehrere Anweisungen im Rumpf dieser Testmethode.
+Während die erzeugten Klassen zum Programmquellcode gehören, werden aus den Sätzen eines Scenarios Tests generiert.
+Genauer wird aus jeder Scenario-Datei eine Testklasse, und aus jedem Scenario wird eine Testmethode.
+Mit Ausnahme von Sätzen, die zu Aufrufen gehören (siehe Unterabschnitt~\ref{subsec:methods}), werden aus jedem Satz eine oder mehrere Anweisungen im Rumpf dieser Testmethode.
 
 Damit Tests aussagekräftig sind, müssen sie die Ergebnisse der durchgeführten Aktionen überprüfen.
 Dazu dienen in Java Assertions, welche sowohl als Schlüsselwort als auch von verschiedenen Test-Frameworks bereitgestellt werden.
@@ -260,8 +246,7 @@ Mit Scenarios lassen sich nicht nur statische Objektstrukturen erzeugen.
 Es ist auch möglich, zur Laufzeit Entscheidungen zu fällen und davon abhängig unterschiedliche Ergebnisse zu erzeugen.
 Dafür kommen \code{As}-Sätze zum Einsatz, welche If-Anweisungen in Java entsprechen.
 Der konzeptuelle Unterschied ist jedoch, dass im Scenario vom Eintreten der Bedingung ausgegangen wird.
-Daraus folgt sowohl die Verwendung des Schlüsselworts \code{As} statt \code{If},
-als auch die fehlende Syntax für \code{else}-Zweige\footnote{
+Daraus folgt sowohl die Verwendung des Schlüsselworts \code{As} statt \code{If}, als auch die fehlende Syntax für \code{else}-Zweige\footnote{
 Dies lässt sich durch Verwenden von zwei \code{As}-Sätzen mit gegensätzlichen Bedingungen umgehen.
 }.
 
@@ -356,8 +341,7 @@ Dies ist mit den \code{add}- und \code{remove}-Schlüsselwörtern möglich:
 \end{jcodeblock}
 
 Listen haben in der Scenario-Sprache eine große Bedeutung, weshalb weitere Sprachfeatures deren Gebrauch vereinfachen.
-Aus Platzgründen sind diese hier nicht weiter erläutert,
-sie sind jedoch in der FulibScenarios-Dokumentation~\cite{documentation} unter Language > Expressions > Collections zu finden.
+Aus Platzgründen sind diese hier nicht weiter erläutert, sie sind jedoch in der FulibScenarios-Dokumentation~\cite{documentation} unter Language > Expressions > Collections zu finden.
 
 \subsection{Methoden}\label{subsec:methods}
 
@@ -384,9 +368,7 @@ In der Testklasse wird eine Methode \code{init} angelegt, die an der Stelle des 
 \end{jcodeblock}
 
 Nach dem \code{Call}-Satz folgt der Rumpf.
-Da es in der Scenario-Sprache keine geschweiften Klammern o.ä.\ gibt,
-muss auf andere Weise unterschieden werden, welche Sätzen zum Rumpf gehören
-und welche in der Testmethode auf den Aufruf folgen sollen.
+Da es in der Scenario-Sprache keine geschweiften Klammern o.ä.\ gibt, muss auf andere Weise unterschieden werden, welche Sätzen zum Rumpf gehören und welche in der Testmethode auf den Aufruf folgen sollen.
 Dafür dienen die Subjekte jedes Satzes.
 Bei den meisten bisher kennengelernten Sätzen war dies \code{We}, welches sich stets auf die Testmethode bezieht.
 Viele Sätze erlauben jedoch alternativ die Angabe eines Methodennamens wie \code{init} aus dem obigen Beispiel.
@@ -401,16 +383,14 @@ Die \code{init}-Methode kann also wie folgt gefüllt werden:
 
 Zu beachten ist, dass einige Sätze nur in Tests erlaubt sind.
 Dazu gehören beispielsweise \code{Expect}- und Diagrammsätze.
-Bei anderen Sätzen wie \code{is} und \code{has} hat das Subjekt eine andere Bedeutung,
-wodurch sie automatisch zum aktuell beschriebenen Rumpf oder Test gehören.
+Bei anderen Sätzen wie \code{is} und \code{has} hat das Subjekt eine andere Bedeutung, wodurch sie automatisch zum aktuell beschriebenen Rumpf oder Test gehören.
 Zudem lassen sich Subjekte nicht mischen.
 Verwendet ein Satz ein anderes Subjekt als der vorherige, wird der vorherige Aufruf geschlossen.
 Hat ein \code{call}-Satz ein anderes Subjekt als \code{we}, können geschachtelte Methodenaufrufe stattfinden.
 Dadurch lässt sich u.a.\ Rekursion realisieren.
 Der geschachtelte Aufruf kann zwar wieder einen neuen Rumpf beginnen, davon ist jedoch aus Gründen der Verständlichkeit abzuraten.
 
-Während eine \code{init}-Methode für gemeinsam genutzen Code in einem Test akzeptabel ist,
-sollten Methoden mit anwendungsspezifischer Logik üblicherweise nicht in Tests implementiert sein.
+Während eine \code{init}-Methode für gemeinsam genutzen Code in einem Test akzeptabel ist, sollten Methoden mit anwendungsspezifischer Logik üblicherweise nicht in Tests implementiert sein.
 Dabei kommt der Empfänger bei \code{Call}-Sätzen zum Einsatz, der zum Empfänger des Aufrufs in Java wird.
 Wie das folgende Beispiel zeigt, wird die Methode Teil der Klasse des Empfängers:
 
@@ -430,8 +410,7 @@ Wie das folgende Beispiel zeigt, wird die Methode Teil der Klasse des Empfänger
     }
 \end{jcodeblock}
 
-Hier ist auffällig, dass im zweiten Satz, der den Rumpf der Methode bildet,
-aus der Referenz zu \code{Alice} das Schlüsselwort \code{this} wird.
+Hier ist auffällig, dass im zweiten Satz, der den Rumpf der Methode bildet, aus der Referenz zu \code{Alice} das Schlüsselwort \code{this} wird.
 Dies ist eine Konsequenz dessen, dass innerhalb des Rumpfes die Variablen des Tests nicht mehr zugänglich sind.
 Ausnahme ist dabei, dass der Empfänger des Aufrufs mit \code{this} zugänglich ist.
 
@@ -513,13 +492,11 @@ Listing~\ref{lst:UserRegistry.md} zeigt das entsprechende Scenario.
 \codelisting{md}{chapter/fulib-scenarios/scenarios}{UserRegistry.md}{Beispielscenario für Benutzerdatenbank mit stückweiser Definition}
 
 Dabei wird zunächst unter \code{Setup} das Datenmodell definiert.
-Dazu gehören die Klassen \code{User} und \code{UserRegistry},
-die über eine Assoziation miteinander verknüpft sind.
+Dazu gehören die Klassen \code{User} und \code{UserRegistry}, die über eine Assoziation miteinander verknüpft sind.
 \code{User} hat ein Attribut \code{id} vom Typ \code{int}.
 Von beiden Klassen wird jeweils ein Objekt angelegt.
 
-Unter \code{Get Existing} folgt der erste Aufruf der Methode \code{getOrCreate} in \code{UserRegistry},
-wobei eine ID als Parameter übergeben wird.
+Unter \code{Get Existing} folgt der erste Aufruf der Methode \code{getOrCreate} in \code{UserRegistry}, wobei eine ID als Parameter übergeben wird.
 Dabei wird mit einer Schleife nach einem bereits existierenden \code{User} mit dieser ID gesucht, welcher mit der Registry verknüpft ist.
 Da unter \code{Setup} bereits ein solcher angelegt wurde, ist die Suche erfolgreich und endet mit dessen Rückgabe.
 Daraufhin wird mit einem \code{Expect}-Satz geprüft, ob auch wirklich das richtige Objekt zurückgegeben wurde.
@@ -530,8 +507,7 @@ Deshalb beschreibt das Scenario an dieser Stelle, wie die \code{getOrCreate}-Met
 Dabei wird ein Objekt erzeugt und mit der Registry verknüpft.
 Das neue Objekt wird daraufhin zurückgegeben und erneut durch den Test geprüft.
 
-Betrachtet man nun den generierten Java-Code für die \code{UserRegistry}-Klasse,
-wird deutlich, wie die beiden Teildefinitionen des Methodenrumpfes zusammengefügt wurden.
+Betrachtet man nun den generierten Java-Code für die \code{UserRegistry}-Klasse, wird deutlich, wie die beiden Teildefinitionen des Methodenrumpfes zusammengefügt wurden.
 In Listing~\ref{lst:UserRegistry_getOrCreate.java} ist dies an \code{(1)} und \code{(2)} sichtbar.
 
 \codelisting{java}{chapter/fulib-scenarios/java}{UserRegistry_getOrCreate.java}{\code{UserRegistry.getOrCreate}-Methode}

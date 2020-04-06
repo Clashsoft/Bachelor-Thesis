@@ -8,8 +8,7 @@ Sämtlicher Datenaustausch in der Webanwendung geschieht dann über REST/HTTP-An
 Dabei wird JSON als Datenformat verwendet.
 Für die persistente Datenspeicherung von Anfragelogs, Aufgabenblättern, Lösungen, Kursen und Kommentaren kommt eine Mongo\cite{mongodb}-Datenbank zum Einsatz.
 Die Kompilierung und Ausführung von Scenarios wird durch Anbinden des Scenario- und Java-Compilers sowie eines JUnit Runners bewerkstelligt.
-Abbildung~\ref{fig:website-architecture} gibt einen Überblick über die verschiedenen Komponenten,
-die es der Webseite ermöglichen, ihre Funktionalität bereitzustellen.
+Abbildung~\ref{fig:website-architecture} gibt einen Überblick über die verschiedenen Komponenten, die es der Webseite ermöglichen, ihre Funktionalität bereitzustellen.
 Im folgenden Abschnitt wird näher erläutert, wie diese zusammenwirken.
 
 \begin{figure}
@@ -27,8 +26,7 @@ Dieses gibt insbesondere eine Architektur vor, die Anwendungslogik (Services) vo
 Services sind beispielsweise dafür zuständig, mit dem Backend Daten auszutauschen.
 Mittels Dependency Injection lassen sich diese von Komponenten oder von anderen Services beziehen.
 Die Komponenten befassen sich mit der Darstellung der Anwendung.
-Sie bestehen aus einem HTML-Template, eigenem CSS und einer Klasse,
-die Daten mit Services kommuniziert und die Logik der Benutzeroberfläche implementiert.
+Sie bestehen aus einem HTML-Template, eigenem CSS und einer Klasse, die Daten mit Services kommuniziert und die Logik der Benutzeroberfläche implementiert.
 Komponenten haben besonders als wiederverwendbare Elemente Bedeutung.
 Sie ermöglichen es, gemeinsame Funktionalität zu verkapseln und an mehreren Orten zu verwenden.
 Im Kontext der Assignments ist beispielsweise die Task-Liste eine Komponente, die auf mehreren Seiten zum Einsatz kommt.
@@ -39,8 +37,7 @@ Das Aussehen der Oberfläche von fulib.org basiert auf Bootstrap~4~\cite{bootstr
 Das CSS-Framework gibt vielen HTML-Elementen wie Buttons oder Eingabefeldern ein modernes Aussehen.
 Ferner ermöglicht es die einfache Anordnung von Elementen, die sich an verschiedene Bildschirmgrößen anpassen kann.
 Somit ist fulib.org ohne großen Entwicklungsaufwand auch auf Smartphones o.ä.\ übersichtlich.
-Bei dem im Footer einstellbaren Nachtmodus (eng.: Darkmode) handelt es sich um Funktionalität,
-die von der Bootstrap-Darkmode-Bibliothek~\cite{bootstrap-darkmode} bereitgestellt wird.
+Bei dem im Footer einstellbaren Nachtmodus (eng.: Darkmode) handelt es sich um Funktionalität, die von der Bootstrap-Darkmode-Bibliothek~\cite{bootstrap-darkmode} bereitgestellt wird.
 Diese Eigenentwicklung passt die Farbgebung von Bootstrap so an, dass alle normalerweise weißen oder hellen Elemente in schwarz bzw.\ Grautönen erscheinen.
 Dies schont bei dunkleren Lichtbedingungen das Auge.
 
@@ -56,19 +53,15 @@ Es ist geplant, diese im Scenario-Editor umzusetzen.
 
 Beim Backend von fulib.org handelt es sich um einen einfachen HTTP-Server.
 Dieser ist zustandslos, arbeitet also nach dem REST-Prinzip.
-Dabei sind die Hauptaufgaben die Auslieferung des Frontends,
-die Ausführung von Scenarios
-sowie die Kommunikation mit der Datenbank im Kontext von Assignments.
+Dabei sind die Hauptaufgaben die Auslieferung des Frontends, die Ausführung von Scenarios sowie die Kommunikation mit der Datenbank im Kontext von Assignments.
 
 % Frontend
 Das Ergebnis des Buildprozesses des Frontends sind statische HTML-, JavaScript- und CSS-Dateien.
 Diese werden vom Backend auf Anfrage eines Browsers unverändert an diesen übermittelt.
-Anders als bei dynamisch bzw.\ serverseitig generierten Webseiten hat dies den Vorteil,
-dass der Ressourcenaufwand des Servers sehr gering ist.
+Anders als bei dynamisch bzw.\ serverseitig generierten Webseiten hat dies den Vorteil, dass der Ressourcenaufwand des Servers sehr gering ist.
 Auch lassen sich die statischen Ressourcen sehr gut zwischenspeichern, beispielsweise in einem Cache oder im Browser.
 Dadurch können, mit Ausnahme vom ersten Besuch der Seite, die Ladezeiten erheblich verkürzt werden.
-Der Aufwand steigt jedoch auf Client- bzw.\ Browserseite,
-der nach Herunterladen der statischen Dateien das JavaScript ausführen muss, um den Webseiteninhalt aufzubauen.
+Der Aufwand steigt jedoch auf Client- bzw.\ Browserseite, der nach Herunterladen der statischen Dateien das JavaScript ausführen muss, um den Webseiteninhalt aufzubauen.
 Dieser Vorgang kann bei weniger leistungsfähigen Geräten für längere Verzögerungen sorgen.
 Ebenso ist zu beachten, dass fulib.org bei deaktiviertem oder nicht unterstützem JavaScript zwar aufrufbar, jedoch nicht verwendbar ist.
 In diesem Fall wird eine Meldung in Form eines Banners angezeigt, die den Benutzer zur Aktivierung auffordert und dafür Hilfe anbietet.
@@ -77,11 +70,9 @@ In diesem Fall wird eine Meldung in Form eines Banners angezeigt, die den Benutz
 Die Ausführung der Scenarios delegiert das Backend an die drei zuständigen Tools.
 Nacheinander werden Scenario- und Java-Compiler sowie der JUnit-Testprozess ausgeführt.
 Der Server schreibt zunächst den über die API empfangenen Text in eine Datei in einem temporären Ordner.
-Daraufhin wird der Scenario-Compiler in diesem Ordner ausgeführt,
-der die Java-Dateien sowie das Klassendiagramm generiert.
+Daraufhin wird der Scenario-Compiler in diesem Ordner ausgeführt, der die Java-Dateien sowie das Klassendiagramm generiert.
 Mit dem Java Compiler wird der Java-Code dann kompiliert und die entstehenden Klassen dynamisch geladen.
-Das JUnit-Framework bietet eine Schnittstelle zum Ausführen der Test-Klassen,
-wodurch das Testergebnis sowie die Objektdiagramme entstehen.
+Das JUnit-Framework bietet eine Schnittstelle zum Ausführen der Test-Klassen, wodurch das Testergebnis sowie die Objektdiagramme entstehen.
 Die Ausgaben der drei Tools werden dabei protokolliert, da diese Teil der Antwort werden.
 Der temporäre Ordner wird anschließend nach Diagramm- und Java-Dateien durchsucht.
 Diagramme werden unter Anwendung einer geeigneten Codierung in die API-Antwort übernommen.
@@ -92,9 +83,6 @@ Die Kommunikation mit der Datenbank ist besonders bei Assignments und verwandter
 Alle dafür zuständigen Endpunkte lesen entweder aus der Datenbank oder erzeugen neue Datensätze in dieser.
 Beim Anlegen ist das Anfrageformat stets JSON, welches der Server zunächst in sein eigenes Datenmodell konvertiert.
 Dieses wird beim Speichern in der Datenbank in deren natives Format konvertiert.
-Umgekehrt ist es bei Leseanfragen, bei denen der Server Anfragen an die Datenbank stellt,
-deren Ergebnis in sein Datenmodell konvertiert und dies als JSON in der Antwort zurückgibt.
-Das Backend ist bei sämtlichen Anfragen für die Prüfung von Tokens zur Autorisierung zuständig,
-wobei sichergestellt wird, dass keine Daten bei unbefugten Anfragen preisgegeben werden.
-Diese Prüfung wird insbesondere nicht im Frontend durchgeführt,
-da sonst ein Angreifer manuell die Server-API ansprechen und ausnutzen könnte.
+Umgekehrt ist es bei Leseanfragen, bei denen der Server Anfragen an die Datenbank stellt, deren Ergebnis in sein Datenmodell konvertiert und dies als JSON in der Antwort zurückgibt.
+Das Backend ist bei sämtlichen Anfragen für die Prüfung von Tokens zur Autorisierung zuständig, wobei sichergestellt wird, dass keine Daten bei unbefugten Anfragen preisgegeben werden.
+Diese Prüfung wird insbesondere nicht im Frontend durchgeführt, da sonst ein Angreifer manuell die Server-API ansprechen und ausnutzen könnte.

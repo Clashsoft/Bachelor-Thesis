@@ -67,10 +67,8 @@ Andererseits entspricht die folgende Lösung nicht der Aufgabenstellung:
     There is a Student with name Bob.
 \end{mdcodeblock}
 
-Fügt man die Lösung wie oben mit dem Verifizierungscode zusammen und kompiliert das Resultat,
-wird der Scenario-Compiler aufgrund der fehlenden Variable \code{alice} eine Fehlermeldung bei \code{alice has name ...} erzeugen.
-Die Fehlermeldung wird als Nichterfüllung des Tasks aufgefasst,
-wodurch er mit null Punkten bewertet wird.
+Fügt man die Lösung wie oben mit dem Verifizierungscode zusammen und kompiliert das Resultat, wird der Scenario-Compiler aufgrund der fehlenden Variable \code{alice} eine Fehlermeldung bei \code{alice has name ...} erzeugen.
+Die Fehlermeldung wird als Nichterfüllung des Tasks aufgefasst, wodurch er mit null Punkten bewertet wird.
 
 Zur Übersichtlichkeit lassen sich die einzelnen Tasks mit dem ``+''- bzw.\ ``-''-Button ein- und ausklappen.
 Mit der Schaltfläche rechts davon lassen sich Tasks durch Ziehen mit Maus bzw.\ Finger anordnen.
@@ -96,8 +94,7 @@ Dies ist mit dem ``Export''-Button möglich.
 Später kann diese Datei dann wieder in das Formular übernommen werden.
 Dafür muss diese im Feld neben dem ``Import''-Button ausgewählt werden und anschließend auf diesen geklickt werden.
 Die Import/Export-Funktion erlaubt ferner, ein Assignment für die spätere Bearbeitung zu speichern und ein Neues zu erstellen.
-Heruntergeladene Dateien können weiterhin über E-Mail oder Dateifreigabe an andere weitergegeben werden,
-die das Assignment dann importieren und prüfen oder verändern können.
+Heruntergeladene Dateien können weiterhin über E-Mail oder Dateifreigabe an andere weitergegeben werden, die das Assignment dann importieren und prüfen oder verändern können.
 
 Um ein fertiges Assignment zu veröffentlichen, genügt ein Klick auf den ``Submit''-Button.
 Dieser bewirkt, dass das ausgefüllte Formular an den Server gesendet wird, der das erstellte Assignment speichert und einen Link generiert.
@@ -189,17 +186,14 @@ Dazu muss lediglich das Bestätigungsfenster geschlossen werden.
 Durch erneutes Betätigen von ``Submit'' wird die neue Lösung eingereicht;
 die alte Abgabe bleibt jedoch unverändert und weiterhin einsehbar.
 Auch bei einem späteren Besuch der Seite bleiben sämtliche Eingaben bestehen, da sie lokal im Browser gespeichert werden.
-Dadurch kann an einer angefangen Lösung bedenkenlos später weitergearbeitet werden,
-ohne sie zwischenzeitlich einreichen zu müssen.
+Dadurch kann an einer angefangen Lösung bedenkenlos später weitergearbeitet werden, ohne sie zwischenzeitlich einreichen zu müssen.
 
 Studierende können ihre abgegebenen Lösungen einsehen, indem sie die Seite unter Assignments > My Solutions im Footer öffnen.
 Dort finden sie sämtliche eingereichte Versionen nach Assignment gruppiert.
 Abbildung~\ref{fig:my-solutions} zeigt, wie dies aussehen kann.
 Der Button ``Edit'' erlaubt die Bearbeitung und erneute Abgabe einer Lösung.
-Genauer öffnet er nur die Bearbeitungsseite des Assignments,
-wo die zuletzt im Browser gespeicherte Lösung angezeigt wird.
-Diese kann u.U.\ von der zuletzt abgegebenen Version abweichen,
-wenn Änderungen vorgenommen aber nicht eingereicht wurden.
+Genauer öffnet er nur die Bearbeitungsseite des Assignments, wo die zuletzt im Browser gespeicherte Lösung angezeigt wird.
+Diese kann u.U.\ von der zuletzt abgegebenen Version abweichen, wenn Änderungen vorgenommen aber nicht eingereicht wurden.
 
 \begin{figure}
     \centering
@@ -261,8 +255,7 @@ Aufgrund der Vergabe von Teilpunkten wurde der entsprechende Task gelb markiert,
 
 Am unteren Ende der Seite befindet sich der Kommentarbereich.
 Hier können Studierende und Korrekteure Fragen, Antworten und Anmerkungen zur Bewertung hinterlassen.
-Hat man das Token des Assignmenst und erstellt ein Kommentar,
-wird dieses mit einem Häkchen hinter dem Namen hervorgehoben.
+Hat man das Token des Assignmenst und erstellt ein Kommentar, wird dieses mit einem Häkchen hinter dem Namen hervorgehoben.
 Dies verhindert, dass Studierende durch Angabe des Namens des Kursleiters oder eines Korrekteurs diese imitieren können.
 
 \subsection{Kurse}\label{subsec:courses}
@@ -285,8 +278,7 @@ Dies öffnet die in Abbildung~\ref{fig:create-course} gezeigte Seite.
 Ein Kurs benötigt neben den zugehörigen Assignments einen Titel und eine Beschreibung.
 Assignments müssen im Vorhinein mit dem in Unterabschnitt~\ref{subsec:creation} erläuterten Formular erstellt werden.
 Diese lassen sich dann mit dem dafür vorgesehenen Feld dem Kurs hinzufügen.
-Alternativ können beliebige Assignments von anderen Autoren eingebunden werden,
-solange der zugehörige Link bekannt ist.
+Alternativ können beliebige Assignments von anderen Autoren eingebunden werden, solange der zugehörige Link bekannt ist.
 Die dabei entstehenden Liste erlaubt das Entfernen der hinzugefügten Assignments sowie das Ändern ihrer Reihenfolge.
 Dafür werden die gleichen Steuerelemente wie bei der Task-Liste beim Anlegen eines Assignments verwendet.
 Zum Erstellen genügt nach Ausfüllen des Formulars ein Klick auf den Button ``Submit''.
@@ -407,8 +399,7 @@ Eine Musterlösung könnte das folgende Scenario sein:
     Charlie has houses c1.
 \end{mdcodeblock}
 
-Dabei können die Klassennamen \code{Game}, \code{Player} und \code{House} sowie die Attribut-\ und Assoziationsnamen \code{min-score}, \code{name}, \code{players/game}, \code{units} und \code{houses/player} beliebig verändert werden,
-ohne dass die Lösung ihre Gültigkeit verliert.
+Dabei können die Klassennamen \code{Game}, \code{Player} und \code{House} sowie die Attribut-\ und Assoziationsnamen \code{min-score}, \code{name}, \code{players/game}, \code{units} und \code{houses/player} beliebig verändert werden, ohne dass die Lösung ihre Gültigkeit verliert.
 Beim Schreiben der Lösung fällt auf, dass mit jedem Absatz ein weiterer Task grün markiert und damit erfüllt wird.
 Lässt man den dritten oder den letzten Absatz aus, sind die Tasks 1, 2 und 4 noch immer erfüllt.
 Dies wird durch die unabhängige Verifizierung der Tasks erreicht.

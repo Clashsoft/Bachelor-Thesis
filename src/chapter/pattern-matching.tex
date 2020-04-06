@@ -53,11 +53,9 @@ Das zugehörige Objektdiagramm ist in Abbildung~\ref{fig:game-object-diagram} zu
 Nun kann eine Tabelle angelegt werden.
 In FulibTables besteht jede Tabelle aus mindestens einer Spalte und null oder mehr Zeilen\footnote{Die Spaltennamen zählen dabei nicht als Zeile.}.
 Tabellen können \emph{erweitert} oder \emph{eingeschränkt} werden, wobei Spalten entstehen oder entfernt werden\footnote{Die Einschränkung ist im Folgenden nicht näher erläutert, da sie für die hier verwendeten Beispiele keine Anwendung findet.}.
-Beim Erweitern entstehen neue Tabellen-Instanzen,
-die sich die Daten der ursprünglichen Tabelle teilen.
+Beim Erweitern entstehen neue Tabellen-Instanzen, die sich die Daten der ursprünglichen Tabelle teilen.
 Jede Tabellen-Instanz hat eine Spalte, auf die sie \emph{zeigt}.
-Operationen auf der Tabelle beziehen sich i.d.R.\ auf diese Spalte,
-wirken sich aber durch das geteilte Datenmodell auf alle verwandten Instanzen aus.
+Operationen auf der Tabelle beziehen sich i.d.R.\ auf diese Spalte, wirken sich aber durch das geteilte Datenmodell auf alle verwandten Instanzen aus.
 Das Objektdiagramm in Abbildung~\ref{fig:tables-object-diagram} zeigt, wie das Datenmodell von Tabellen aussehen kann und wie sich verschiedene Tabellen-Instanzen die Daten teilen.
 
 \begin{figure}
@@ -108,8 +106,7 @@ Die neue Tabelle lässt sich wie folgt darstellen:
 
 Die \code{expand}-Methode ist geeignet für Attribute und Zu-1-Assoziationen.
 Für Zu-N-Assoziationen kommt die \code{expandAll}-Methode zum Einsatz.
-Diese erwartet ebenfalls einen Spaltennamen und einen Lambda-Ausdruck,
-allerdings muss letzterer eine Liste von Werten zurückgeben.
+Diese erwartet ebenfalls einen Spaltennamen und einen Lambda-Ausdruck, allerdings muss letzterer eine Liste von Werten zurückgeben.
 Für jedes Element dieser Listen wird eine neue Zeile angelegt.
 
 \begin{jcodeblock*}{breaklines}
@@ -146,8 +143,7 @@ Bei Bob und Charlie ist dies nicht der Fall.
 \end{tabular}
 
 U.U.\ ist der Name des zu erweiternden Attributs nicht bekannt.
-Dafür wurde als Teil dieser Arbeit eine alternative \code{expandAll}-Operation entwickelt,
-bei der kein Lambda-Ausdruck übergeben wird und somit auch kein Name bekannt sein muss.
+Dafür wurde als Teil dieser Arbeit eine alternative \code{expandAll}-Operation entwickelt, bei der kein Lambda-Ausdruck übergeben wird und somit auch kein Name bekannt sein muss.
 Stattdessen werden die existierenden Attribute und Assoziationen der Objekte zur Laufzeit ermittelt.
 Dabei wird aus jedem Attributwert und jedem Assoziationsziel jedes Objekts der Spalte \code{Houses} eine neue Zeile.
 Zu-N-Assoziationen und mehrwertige Attribute (Listen) werden dabei abgeflacht.
@@ -176,8 +172,7 @@ Zu-N-Assoziationen und mehrwertige Attribute (Listen) werden dabei abgeflacht.
 \end{tabular}
 
 Die Zeilen einer Spalte können nun nach bestimmten Eigenschaften durchsucht werden.
-Diese Operation nennt sich \code{filter} und verwendet ebenfalls einen Lambda-Ausdruck,
-der angibt, welche Zeilen entfernt und welche behalten werden sollen.
+Diese Operation nennt sich \code{filter} und verwendet ebenfalls einen Lambda-Ausdruck, der angibt, welche Zeilen entfernt und welche behalten werden sollen.
 In diesem Beispiel wird unter allen Attributen der Häuser nach ganzen Zahlen gesucht.
 Durch Auflisten aller Attribute und anschließendem Filtern kann eine Spalte für die Anzahl der Einheiten erstellt werden, ohne dass der Name des Attributs angegeben werden muss.
 
@@ -234,8 +229,7 @@ Intern werden sie mit Tabellen realisiert, die Verwendung von Patterns ist jedoc
 Des Weiteren werden Tabellen imperativ mit einer Folge von Anweisungen bearbeitet, während sich Patterns als Objekte modellieren und damit deklarativ gebrauchen lassen.
 
 Ein Pattern besteht aus einer Menge von \emph{Pattern-Objekten} und \emph{Constraints} auf diesen.
-Pattern-Objekte dienen als Platzhalter für Objekte und Werte, nach denen gesucht wird,
-während Constraints deren Beziehungen und Einschränkungen modellieren.
+Pattern-Objekte dienen als Platzhalter für Objekte und Werte, nach denen gesucht wird, während Constraints deren Beziehungen und Einschränkungen modellieren.
 
 Es soll nun die zuvor mit Tabellen realisierte Suche nach einem Gewinner mit Patterns realisert werden.
 Das Datenmodell und die angelegten Objekte werden hier wiederverwendet.
@@ -252,8 +246,7 @@ Diese lassen sich mit einem \code{PatternBuilder} anlegen.
     PatternObject unitsPO = builder.buildPatternObject("Units");
 \end{jcodeblock*}
 
-Pattern-Objekte werden nicht nur für Objekte im Datenmodell (z.B.\ \code{gamePO}, \code{playerPO}, \code{housePO}),
-sondern auch für deren Attribute benötigt (\code{winScorePO} und \code{unitsPO}).
+Pattern-Objekte werden nicht nur für Objekte im Datenmodell (z.B.\ \code{gamePO}, \code{playerPO}, \code{housePO}), sondern auch für deren Attribute benötigt (\code{winScorePO} und \code{unitsPO}).
 Intern entspricht jedes Pattern-Objekt einer Spalte der Tabelle, die am Ende des Match-Vorgangs alle Ergebnisse enthält.
 
 Nun müssen die Pattern-Objekte verbunden werden.
@@ -273,8 +266,7 @@ Zu beachten ist in der letzten Zeile der Name ``\code{*}''.
 Dieser dient als Platzhalter für den unbekannten Attributnamen.
 Er bewirkt, dass dem Pattern-Objekt \code{housePO} nur Objekte zugewiesen werden können, bei denen mindestens ein Attributwert auch \code{unitsPO} zugewiesen werden kann.
 Die Unterstützung für den  ``\code{*}''-Platzhalter wurde als Teil dieser Arbeit entwickelt und baut auf der zuvor gezeigten \code{expandAll}-Operation auf.
-Wie im vorherigen Beispiel sind nicht alle Attribute von Häusern interessant,
-weshalb auch hier auf ganze Zahlen eingeschränkt werden soll.
+Wie im vorherigen Beispiel sind nicht alle Attribute von Häusern interessant, weshalb auch hier auf ganze Zahlen eingeschränkt werden soll.
 Dafür kommt ein \emph{Attribut-Constraint} zum Einsatz, das wie folgt angelegt wird:
 
 \begin{jcodeblock*}{breaklines}
@@ -282,8 +274,7 @@ Dafür kommt ein \emph{Attribut-Constraint} zum Einsatz, das wie folgt angelegt 
 \end{jcodeblock*}
 
 Maßgeblich für die Suche nach dem Gewinner ist die Bedingung, dass die Anzahl der Einheiten größer als das vom Spiel vorgegebene Minimum ist.
-Analog zu \code{filterRows} bei Tabellen kommt dafür bei Patterns ein \emph{Match-Constraint} zum Einsatz,
-das wie folgt deklariert wird:
+Analog zu \code{filterRows} bei Tabellen kommt dafür bei Patterns ein \emph{Match-Constraint} zum Einsatz, das wie folgt deklariert wird:
 
 \begin{jcodeblock}
     builder.buildMatchConstraint(row -> {
@@ -494,8 +485,7 @@ das Schlüsselwort \code{whose} wird zu \code{where}.
 
 Nun ist die Benennung des Attributes nicht mehr entscheidend, solange der Wert passend ist.
 Statt \code{username} könnte das Attribut auch \code{label} oder \code{nickname} heißen.
-Im Java-Code verändert sich primär das Link-Constraint zwischen den beiden Pattern-Objekten,
-indem der im vorherigen Abschnitt erklärte Verknüpfungsname \code{*} verwendet wird.
+Im Java-Code verändert sich primär das Link-Constraint zwischen den beiden Pattern-Objekten, indem der im vorherigen Abschnitt erklärte Verknüpfungsname \code{*} verwendet wird.
 
 \begin{jcodeblock*}{breaklines}
     PatternObject p1Attr1PO = builder.buildPatternObject("p1Attr1", String.class);
@@ -540,8 +530,7 @@ Genau diese Ungleichheits-Bedingung bewirkt, dass die reine Deklaration mehrerer
 
 % Exceptions
 Konkret hat dies die Konsequenz, dass \code{g} und \code{p1} in keinem Fall das selbe Objekt matchen können.
-Ohne weitere Einschränkung kann mit diesem Beispiel kein erfolgreiches Match erzielt werden,
-unabhängig davon welche Objekte davor erstellt werden.
+Ohne weitere Einschränkung kann mit diesem Beispiel kein erfolgreiches Match erzielt werden, unabhängig davon welche Objekte davor erstellt werden.
 Wird vor dem Match-Satz nur genau ein Objekt deklariert, kann dieses entweder \code{g} oder \code{p1} zugewiesen werden, aber nicht beiden Pattern-Objekten gleichzeitig.
 Dies bewirkt ein Fehlschlagen des Match-Vorgangs mit einer \code{NoMatchException}.
 Wenn mehr als ein Objekt wie z.B.\ \code{game} und \code{Alice} deklariert wurden, sind sowohl \code{g=game, p1=Alice} als auch \code{g=Alice, p1=game} mögliche Zuweisungen des Patterns.
@@ -563,8 +552,7 @@ Ist der Name der Assoziation unwichtig, kommt das Constraint \code{with some lin
 
 % Beliebige Reihenfolge
 Hier ist besonders zu beachten, dass ein Pattern-Objekt vor dessen Deklaration referenziert werden kann.
-Dies ist mitunter durch die deklarative Natur des generierten Java-Codes möglich,
-in dem zuerst alle Pattern-Objekte und dann deren Constraints erstellt werden.
+Dies ist mitunter durch die deklarative Natur des generierten Java-Codes möglich, in dem zuerst alle Pattern-Objekte und dann deren Constraints erstellt werden.
 
 \begin{jcodeblock}
     PatternObject gPO = builder.buildPatternObject("g");
@@ -577,8 +565,7 @@ in dem zuerst alle Pattern-Objekte und dann deren Constraints erstellt werden.
 
 % Named Links with Attribute Constraints
 Bei Link-Constraints kann auch der Name der Assoziation angegeben werden.
-Dies ist möglich, indem man die Syntax für Attribute verwendet,
-aber statt eines Werts den Namen eines Pattern-Objekts angibt:
+Dies ist möglich, indem man die Syntax für Attribute verwendet, aber statt eines Werts den Namen eines Pattern-Objekts angibt:
 
 \begin{mdcodeblock}
     We match:
@@ -595,8 +582,7 @@ Der Java-Code errinnert stark an jenen, der zuvor für das reguläre Attribut-Co
 \end{jcodeblock}
 
 % Attributes as POs
-Der wesentliche Unterschied ist, dass zuvor das Attribut-Pattern-Objekt \code{gMinScore} nur der Einschränkung diente und nach dem Match-Vorgang verworfen wurde,
-\code{p1PO} jedoch auch an die Variable \code{p1} gebunden wird und somit später verfügbar ist.
+Der wesentliche Unterschied ist, dass zuvor das Attribut-Pattern-Objekt \code{gMinScore} nur der Einschränkung diente und nach dem Match-Vorgang verworfen wurde, \code{p1PO} jedoch auch an die Variable \code{p1} gebunden wird und somit später verfügbar ist.
 Diese Eigenschaft lässt sich auch für Attribute nutzen, deren Wert später zugänglich gemacht werden soll.
 So kann durch Hinzufügen eines explizit benannten Root-Pattern-Objekts der Wert von \code{minScore} ermittelt werden:
 

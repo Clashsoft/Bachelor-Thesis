@@ -23,8 +23,7 @@ Auch der Schalter zum Wechseln in den Nachtmodus ist stets im Footer sichtbar.
 \subsection{Interaktiver Spielplatz}\label{subsec:interactive-playground}
 
 Die wichtigste Funktion der Hauptseite ist der Scenario-Editor.
-Gibt man darin ein Scenario ein und klickt auf ``Compile and Run'',
-wird daraus Java-Code generiert und dessen Tests mit JUnit ausgeführt.
+Gibt man darin ein Scenario ein und klickt auf ``Compile and Run'', wird daraus Java-Code generiert und dessen Tests mit JUnit ausgeführt.
 Das dabei entstehende Klassendiagramm sowie Objektdiagramme werden dann in den entsprechenden Bereichen angezeigt.
 Um das sofortige Feedback zu erleichtern, wird das Scenario immer automatisch ausgeführt, wenn es länger als eine Sekunde unverändert bleibt.
 Somit muss nicht manuell auf ``Compile and Run'' geklickt werden.
@@ -51,8 +50,7 @@ In den Tutorial-Scenarios ist beschreibender Text mit \code{//}-Kommentaren real
 Diese bewirken, dass der Text auch im Java-Code auftaucht, was die Zuordnung von Sätzen zu Anweisungen vereinfacht.
 Durch Abschnitte erfolgt eine visuelle Trennung von unabhängigen Teil-Scenarios.
 
-Am Ende jedes Tutorials gibt es Links zu entsprechenden Abschnitten in der Dokumentation,
-die detaillierte Informationen zu den verwendeten Sprachkonzepten enthalten.
+Am Ende jedes Tutorials gibt es Links zu entsprechenden Abschnitten in der Dokumentation, die detaillierte Informationen zu den verwendeten Sprachkonzepten enthalten.
 Darunter sind auch formale Definitionen der Syntax in Form einer Grammatik sowie Erklärungen zu häufigen Problemfällen zu finden.
 
 Die von Tutorials stammenden Scenarios können frei verändert werden.
@@ -66,8 +64,7 @@ Damit lässt sich das Fenster zur Projektkonfiguration öffnen, welches in Abbil
 In diesem werden Einstellungen zum Projekt durchgeführt, zu dem das Scenario später gehören soll.
 Genauer lassen sich dessen Name und Version sowie Paket und Dateiname des Scenarios einstellen.
 Diese werden wie der Scenario-Text im Browser gespeichert, damit sie beim erneuten Aufrufen der Seite bestehen bleiben.
-Eingestellte Werte haben nur geringen Einfluss auf die Funktionalität der Webseite selbst,
-jedoch sind sie beim Herunterladen eines Projekts von Relevanz.
+Eingestellte Werte haben nur geringen Einfluss auf die Funktionalität der Webseite selbst, jedoch sind sie beim Herunterladen eines Projekts von Relevanz.
 Dies ist mit einem Button im unteren Teil des Fensters möglich.
 Klickt man auf diesen, wird das Scenario zusammen mit einigen Konfigurationsdateien in einem Zip-Archiv verpackt und heruntergeladen.
 Bei den Konfigurationsdateien handelt es sich um jene, die das Build-Tool Gradle~\cite{gradle} benötigt.
@@ -83,8 +80,7 @@ Das Projekt ist voreingestellt, um den Scenario-Compiler in den Build-Prozess zu
 
 Entpackt man das heruntergeladene Archiv, erhält man einen fertigen Projektordner.
 Dieser kann in einer IDE mit Gradle-Unterstützung wie z.B.\ IntelliJ geöffnet werden.
-Führt man daraufhin den \code{check}-Task mit Gradle aus (Kommandozeile: \code{./gradlew check} im Projektordner),
-wird das zuvor auf fulib.org geschriebene Scenario kompiliert und generierte Java-Dateien in den entsprechenden Ordnern unter \code{src/} abgelegt.
+Führt man daraufhin den \code{check}-Task mit Gradle aus (Kommandozeile: \code{./gradlew check} im Projektordner), wird das zuvor auf fulib.org geschriebene Scenario kompiliert und generierte Java-Dateien in den entsprechenden Ordnern unter \code{src/} abgelegt.
 Außerdem bewirkt \code{check} die Ausführung von generierten Tests.
 Abbildung~\ref{fig:project-downloaded} zeigt, wie ein Projektordner in IntelliJ unmittelbar nach dem Download und nach Ausführen des \code{check}-Tasks aussehen kann.
 Ändert man die Scenario-Datei und führt den Task erneut aus, wird auch der Java-Code angepasst.
@@ -113,8 +109,7 @@ In zwei Hausaufgaben wurde dann der Einsatz beider Tools bewertet.
 Die erste davon befasste sich mit der Modellierung eines einfachen Datenmodells und dem anschließenden Projektexport.
 Ziel der zweiten Hausaufgabe war es, mit Scenarios ein GUI-Mockup zu entwickeln.
 Dafür kam das FulibMockups-Tool zum Einsatz, welches parallel zu FulibScenarios entwickelt wurde und darauf aufbaut.
-Es erlaubt das Modellieren von Benutzeroberflächen als Objektstrukturen,
-aus denen HTML-Seiten sowohl statisch als auch in Form von Klickprototypen generiert werden.
+Es erlaubt das Modellieren von Benutzeroberflächen als Objektstrukturen, aus denen HTML-Seiten sowohl statisch als auch in Form von Klickprototypen generiert werden.
 Beide Hausaufgaben sind in ihrer Bewertung im Vergleich zu anderen Aufgabenblättern im Modul überdurchschnittlich gut ausgefallen.
 
 Am Ende des Semesters konnten die Studierenden bei einer Umfrage ihr Feedback zur Vorlesung hinterlassen.
@@ -150,12 +145,10 @@ Diese war zum Zeitpunkt der Verwendung durch die Studierenden unvollständig, we
 Inzwischen wurde diese wesentlich erweitert und ist nun auf fulib.org verlinkt.
 
 Auch wurde die Verständlichkeit der Fehlermeldungen kritisiert.
-Wie im folgenden Abschnitt erläutert wird,
-wurden auch diese erweitert, um die Lösungssuche zu erleichtern.
+Wie im folgenden Abschnitt erläutert wird, wurden auch diese erweitert, um die Lösungssuche zu erleichtern.
 Die Beispielscenarios wurden angepasst, um verständlicher zu sein.
 Zusätzlich wurden sie mit Links zur Dokumentation ausgestattet.
-Gleichzeitig kann auch in der Dokumentation auf Beispiele verlinkt werden,
-um die darin enthaltene Beschreibung von Sprachkonzepten interaktiv zu ergänzen.
+Gleichzeitig kann auch in der Dokumentation auf Beispiele verlinkt werden, um die darin enthaltene Beschreibung von Sprachkonzepten interaktiv zu ergänzen.
 
 Das FulibMockups-Projekt befindet sich derzeit im einem frühem Stadium der Entwicklung.
 In Zukunft soll es insbesondere in der Typsicherheit und Ausdrucksstärke verbessert werden.
@@ -177,8 +170,7 @@ Zu lokale Daten zählen auf der Hauptseite der Scenario-Text sowie die Projektei
 Erlaubt man die lokale Speicherung nicht, werden diese nach erneutem Laden der Seite auf Standardwerte zurückgesetzt.
 Außerdem wird die Auswahl der Datenschutzeinstellung selbst lokal gespeichert.
 Ist dies nicht erlaubt, öffnet sich das Einstellungsfenster bei jedem Besuch von fulib.org automatisch.
-Für datenschutzbewusste Benutzer, die dies als Störung empfinden, gibt es daher die vierte Option,
-welche die lokale Datenspeicherung lediglich zum Verstecken des Fensters nutzt.
+Für datenschutzbewusste Benutzer, die dies als Störung empfinden, gibt es daher die vierte Option, welche die lokale Datenspeicherung lediglich zum Verstecken des Fensters nutzt.
 
 Die serverseitige Datenspeicherung umfasst sämtliche ``Compile and Run''-Anfragen, die an den Server gestellt werden.
 Der Server speichert dann die vollständige Anfrage (d.h. Scenario-Text und Projektkonfiguration) und die vollständige Antwort.
@@ -233,6 +225,5 @@ Warnmeldungen sind hier ausschließlich Deprecations, welche bei Verwendungen vo
 Die Statistik, welche Fehler am meisten auftraten, hatte besonderen Wert bei der Verbesserung der Fehlermeldungen.
 So konnte priorisiert werden, welche Änderungen die größte Wirkung erzielen können.
 Im Verlauf dieser Arbeit ist eine Hinweismeldung hinzugekommen, welche auf eventuelle Tippfehler bei Werten und Attribut- und Assoziationsnamen verweist.
-Diese findet bei zehn in der Tabelle gezeigten Fehlerarten Anwendung (vier davon unter ``sonstige''),
-welche insgesamt 775 Mal aufgetreten sind.
+Diese findet bei zehn in der Tabelle gezeigten Fehlerarten Anwendung (vier davon unter ``sonstige''), welche insgesamt 775 Mal aufgetreten sind.
 Dies entspricht einer Verbesserung von etwa zwei dritteln aller Fehlermeldungen.
