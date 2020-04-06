@@ -1,7 +1,7 @@
 \section{Hauptseite}\label{sec:main-page}
 
 Die Hauptseite erreicht man, wenn man fulib.org das erste Mal öffnet.
-Dabei präsentiert sich der sogenannte Vier-Panel-Editor, welcher in Abbildung~\ref{fig:four-pane-editor} gezeigt wird.
+Dabei präsentiert sich der sogenannte Vier-Panel-Editor, welcher in Abbildung~\ref{fig:four-pane-editor} dargestellt wird.
 Diese zeigt oben links den Scenario-Editor sowie die darüberliegende Toolbar.
 Oben rechts gibt es ein Fenster für den generierten Java-Code, welches auch die Konsolenausgabe des Compilers enthält.
 Darüber zeigt eine Statusleiste, ob das Kompilieren und Ausführen erfolgreich war und wenn nicht, welches Tool fehlgeschlagen ist.
@@ -16,9 +16,9 @@ Im unteren Teil werden links das Klassendiagramm und rechts die Objektdiagramme 
 Am unteren Rand der Seite befindet sich stets der Footer.
 Dieser enthält Links zur Navigation innerhalb der Webseite und zu externen Referenzen.
 Unter ``Legal'' befinden sich Links zu Impressum und Datenschutzrichtlinien sowie die Einstellungen zum Datenschutz.
-``What's New'' ermöglicht das Einsehen des Versionsverlaufs der Webseite und verwendeter Fulib-Bibliotheken und -Tools.
+``What's New'' zeigt den Versionsverlauf der Webseite und anderer Fulib-Bibliotheken und -Tools.
 Die Schaltfläche ``Feedback'' öffnet ein Fenster, in dem Probleme gemeldet, Änderungen vorgeschlagen und Hilfe angefordert werden können.
-Auch der Schalter zum Wechseln in den Nachtmodus ist stets im Footer sichtbar.
+Auch der Schalter zum Wechseln in den Nachtmodus (eng.: Dark Mode) ist stets im Footer sichtbar.
 
 \subsection{Interaktiver Spielplatz}\label{subsec:interactive-playground}
 
@@ -28,7 +28,7 @@ Das dabei entstehende Klassendiagramm sowie Objektdiagramme werden dann in den e
 Um das sofortige Feedback zu erleichtern, wird das Scenario immer automatisch ausgeführt, wenn es länger als eine Sekunde unverändert bleibt.
 Somit muss nicht manuell auf ``Compile and Run'' geklickt werden.
 Alternativ kann die automatische Ausführung im Dropdown-Menü neben dem ``Compile and Run''-Button deaktiviert werden.
-Manuell lässt es sich dann weiterhin durch Klick oder Verwenden der Tastenkürzel (\code{Strg/Cmd-S}, \code{Strg/Cmd-Enter}) auslösen.
+Manuell lässt sie sich dann weiterhin durch Klick oder Verwenden der Tastenkürzel (\code{Strg/Cmd-S}, \code{Strg/Cmd-Enter}) auslösen.
 
 Im Fenster für den Java-Code werden die Rümpfe sämtlicher Methoden angezeigt, die im Scenario verwendet wurden.
 Davon ausgenommen sind aufgrund ihrer Trivialität Getter und Setter sowie diverse standardmäßig generierte Methoden.
@@ -57,7 +57,7 @@ Die von Tutorials stammenden Scenarios können frei verändert werden.
 Dadurch können die Sprachkonzepte direkt ausprobiert werden.
 Lädt man das entsprechende Tutorial erneut, wird wieder der vordefinierte Scenario-Text verwendet und die Änderungen verworfen.
 
-\subsection{Projektstarter}\label{subsec:project-starter}
+\subsection{Projektexport}\label{subsec:project-export}
 
 Neben dem ``Compile and Run''-Button befindet sich der Button ``Configure Project''.
 Damit lässt sich das Fenster zur Projektkonfiguration öffnen, welches in Abbildung~\ref{fig:project-config} zu sehen ist.
@@ -95,16 +95,16 @@ Abbildung~\ref{fig:project-downloaded} zeigt, wie ein Projektordner in IntelliJ 
 \end{figure}
 
 Der Projektexport ist vor allem dann relevant, wenn das Scenario zu groß wird, um im Editor übersichtlich zu sein.
-In einem eigenen Projekt können dann mehrere Scenario-Dateien angelegt werden, auf die das ursprüngliche Scenario aufgeteilt werden kann.
-Ein weitere Vorteil ist, dass der generierte Java-Code vollständig einsehbar und anpassbar ist.
-Dabei bietet es sich an, das Projekt unter Versionskontrolle wie Git zu stellen.
-Im Projektarchiv enthalten ist eine voreingestellte \code{.gitignore}-Datei, um dessen Einrichtung zu erleichtern.
+In einem eigenständigen Projekt können dann mehrere Scenario-Dateien angelegt werden, auf die das ursprüngliche Scenario aufgeteilt werden kann.
+Ein weiterer Vorteil ist, dass der generierte Java-Code vollständig einsehbar und anpassbar ist.
+Es bietet sich an, das Projekt unter Versionskontrolle wie Git zu stellen.
+Im Projektarchiv ist eine voreingestellte \code{.gitignore}-Datei enthalten, um dessen Einrichtung zu erleichtern.
 
 \subsection{Sicht der Studenten}\label{subsec:students-view}
 
-Im Wintersemester 2019/20 haben Studierende der Uni Kassel die Scenario-Sprache, die fulib.org-Seite und die davon erstellten Projekte verwendet.
+Im Wintersemester 2019/20 haben Studierende der Uni Kassel die Scenario-Sprache, die fulib.org-Seite und die damit erstellten Projekte verwendet.
 Dies geschah im Modul ``Programmieren und Modellieren'', das im Bachelor zum dritten Fachsemester gehört.
-Dabei wurden zunächst die Webseite und die Scenarios in der Vorlesung erklärt.
+Es wurden zunächst die Webseite und die Scenarios in der Vorlesung erklärt.
 In zwei Hausaufgaben wurde dann der Einsatz beider Tools bewertet.
 Die erste davon befasste sich mit der Modellierung eines einfachen Datenmodells und dem anschließenden Projektexport.
 Ziel der zweiten Hausaufgabe war es, mit Scenarios ein GUI-Mockup zu entwickeln.
@@ -136,7 +136,7 @@ Die genaue Verteilung der Noten sowie sonstige Umfrageergebnisse sind in Anhang~
 
 Eine weitere Frage befasste sich mit zukünftigen Features in Form einer Mehrfach-Auswahl.
 Dabei waren insbesondere jene genannt, die den Online-Editor betreffen.
-Die meisten Studierenden (24 von 28) haben sich dabei Syntaxhighlighting gewünscht, gefolgt von der Hervorhebung von Fehlern und Warnungen im Code (20 von 28).
+Die meisten Studierenden (24 von 28) haben sich Syntaxhighlighting gewünscht, gefolgt von der Hervorhebung von Fehlern und Warnungen im Code (20 von 28).
 Auch zur Auswahl standen Autovervollständigung (18 von 28) und die Möglichkeit, mehrere Scenarios gleichzeitig in Tabs zu öffnen (10 von 28).
 
 Durch ein Freitext-Feld gab es die Möglichkeit, allgemeines Feedback zu hinterlassen.
@@ -172,18 +172,18 @@ Außerdem wird die Auswahl der Datenschutzeinstellung selbst lokal gespeichert.
 Ist dies nicht erlaubt, öffnet sich das Einstellungsfenster bei jedem Besuch von fulib.org automatisch.
 Für datenschutzbewusste Benutzer, die dies als Störung empfinden, gibt es daher die vierte Option, welche die lokale Datenspeicherung lediglich zum Verstecken des Fensters nutzt.
 
-Die serverseitige Datenspeicherung umfasst sämtliche ``Compile and Run''-Anfragen, die an den Server gestellt werden.
+Die serverseitige Datenspeicherung umfasst sämtliche ``Compile and Run''-Anfragen, die an den Server gesendet werden.
 Der Server speichert dann die vollständige Anfrage (d.h. Scenario-Text und Projektkonfiguration) und die vollständige Antwort.
-Letztere enthält Compiler-Ausgabe, Methodenrümpfe und Diagramme.
-Weiterhin werden IP-Adresse und User-Agent der Anfragen protokolliert, was deren progressive Anordnung erlaubt.
-Dies ermöglicht beispielsweise die Analyse von dem Zeitaufwand, der für das Lesen und Verstehen der Beispielscenarios benötigt wird.
+Letztere enthält Compiler-Ausgaben, Methodenrümpfe und Diagramme.
+Weiterhin werden IP-Adresse und User-Agent\footnote{Dabei handelt es sich um einen HTTP-Header, der die Browser-Version sowie meist das Betriebssystem identifiziert.} der Anfragen protokolliert, was deren progressive Anordnung erlaubt.
+Dies ermöglicht beispielsweise die Analyse des Zeitaufwands, der für das Lesen und Verstehen der Beispielscenarios benötigt wird.
 
 Während der Vorlesung ``Programmieren und Modellieren'' im Wintersemester 2019/20 konnte serverseitig eine Vielzahl von Daten gesammelt werden.
 Zum Zeitpunkt der Messung am 16.\ Februar 2020, 18:00, wurden seit 1.\ Oktober 2019 etwa 5100 Anfragen gespeichert.
 Aufgrund der veränderlichen Natur von IP-Adressen und User-Agent-Zeichenketten kann nicht auf die Anzahl der unterschiedlichen Benutzer geschlossen werden.
 Außerdem ist nicht bekannt, wie viele Nutzer die serverseitigen Datenspeicherung abgelehnt haben.
 Dennoch haben die gesammelten Daten bereits hohen Wert gezeigt.
-Da die Fehlermeldung des Scenario-Compilers IDs wie \code{[variable.redeclaration]} enthalten, kann in dem Datensatz leicht danach gesucht werden.
+Da die Fehlermeldung des Scenario-Compilers IDs wie \code{[variable.redeclaration]} enthalten, kann in dem Datensatz leicht nach ihnen gesucht werden.
 Von den oben genannten 5100 Anfragen enthielten 847 mindestens eine Fehler- oder Warnmeldung.
 Insgesamt belief sich die Zahl der gefundenen Meldungen auf 1949.
 Tabelle~\ref{tab:error-counts} stellt diese dar.

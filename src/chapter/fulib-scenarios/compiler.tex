@@ -1,14 +1,14 @@
 \section{Compiler}\label{sec:compiler}
 
 Damit eine Programmiersprache praktisch einsetzbar ist, muss sie nicht nur in Syntax und Semantik definiert sein, sondern auch ausführbar sein.
-Dies kann durch direktes Ausführen des Programmtexts geschehen.
+Dies kann einerseits durch direktes Ausführen des Programmtexts geschehen.
 In diesem Fall wird das ausführende Programm Interpreter genannt.
 Andererseits kann eine Programmiersprache auch in ein maschinenlesbares Format übersetzt werden, das dann direkt oder durch eine virtuelle Maschine ausgeführt wird.
 Dieser Ansatz nennt sich Kompilierung.
-In Java wird die Kompilierung durch den Java Compiler (\code{javac}) durchgeführt, welcher Bytecode erzeugt.
-Dieser kann von einer Java Virtual Machine (JVM) ausgeführt werden.
+In Java wird die Kompilierung durch den Java Compiler durchgeführt, welcher Bytecode erzeugt.
+Dieser kann von einer Java Virtual Machine ausgeführt werden.
 
-Scenarios hingegen werden in zwei Schritten kompiliert.
+Aus Scenarios werden in zwei Schritten ausführbar gemacht.
 Zunächst werden die Markdown-Scenario-Quelltexte in Java-Quellcode durch den Scenario-Compiler übersetzt.
 Der erzeugte Quellcode wird dann vom Java-Compiler in ausführbaren Bytecode kompiliert.
 Die Architektur und Implementierung des Scenario-Compilers sind Inhalt dieses Abschnitts.
@@ -30,19 +30,19 @@ Deshalb ist es wichtig, dass ein Compiler sie in einer übersichtlichen Architek
 Diese Schritte werden auch als \emph{Phasen}\cite[S.~4]{dragonbook} bezeichnet.
 Im Groben kann der Scenario-Compiler in drei Phasen unterteilt werden, deren Aufgaben sich stark unterscheiden.
 
-Die erste Phase ist das Frontend, was für das Einlesen und Strukturieren von Quelltext zuständig ist.
+Die erste Phase ist das Frontend, welches für das Einlesen und Strukturieren von Quelltext zuständig ist.
 Es kann einen zusammenhängenden Text als Folge von Wörtern, Ausdrücken und Sätzen verstehen, und daraus anhand der Regeln der Sprache einen Baum bilden, der die Struktur des Texts abbildet.
-Dafür muss der Quelltext der Grammatik der Sprache folgen, andernfalls ist das Frontend für die Ausgabe von Fehlermeldung zuständig, die auf Unstimmigkeiten im Text hindeuten.
+Dafür muss der Quelltext die Grammatik der Sprache befolgen, andernfalls ist das Frontend für die Ausgabe von Fehlermeldung zuständig, die auf Unstimmigkeiten im Text hindeuten.
 
-Die Verarbeitung dieses Baumes ist dann Aufgabe der Analysephase, welche die zweite Phase darstellt\footnote{Aufgrund des großen Umfangs wird hier die Analysephase als eigenständig und nicht als Teil des Frontends aufgefasst.}.
+Die Verarbeitung dieses Baumes ist dann Aufgabe der Analyse- und Transformationsphase, welche die zweite Phase darstellt\footnote{Aufgrund des großen Umfangs wird sie hier als eigenständig und nicht als Teil des Frontends aufgefasst.}.
 Dabei wird der Baum anhand von Regeln, die aus der Semantik der Sprache hervorgehen, umgeformt und geprüft.
 Dazu gehört die Diagnose von Fehlern, die über einfache Syntax hinausgehen.
-Ergebnis der Analysephase ist eine neue Baumstruktur, welche auf der vom Frontend stammenden aufbaut, sie aber um zusätzliche Informationen erweitert oder teilweise vereinfacht.
+Ergebnis der Phase ist eine neue Baumstruktur, welche auf der vom Frontend stammenden aufbaut, sie aber um zusätzliche Informationen erweitert oder teilweise vereinfacht.
 
 Die letzte Phase wird als Backend bezeichnet.
 Dessen Aufgabe ist es, Code in einer Zielsprache anhand des Ergebnisses der Analyse zu generieren.
 Im Fall des Scenario-Compilers ist Java die Zielsprache, jedoch wären auch andere Programmier- oder Maschinensprachen möglich.
-Das Backend kennt dabei die Details zum Aufbau der Zielsprache, und definiert Regeln zur Übersetzung der Baumstruktur.
+Das Backend kennt dabei die Details zum Aufbau der Zielsprache  und definiert Regeln zur Übersetzung der Baumstruktur.
 
 Die drei Phasen sowie deren Unterphasen sind in Abbildung~\ref{fig:compiler-architecture} dargestellt.
 Sie dient als Referenz für die folgenden Unterabschnitte, in denen die Phasen und ihre Unterteilung im Detail erläutert werden.
@@ -60,16 +60,16 @@ Im Compilerbau wird dies klassisch in zwei Schritte unterteilt.
 Der \emph{Lexer} wandelt die Zeichenfolge in eine Liste von Wörtern mit Typinformationen, genannt \emph{Tokens}, um.
 Dann bringt der \emph{Parser} die flache Liste von Tokens nach den Regeln der Grammatik in eine Baumstruktur, die \emph{Concrete Syntax Tree} (CST) genannt wird.
 
-Da die Umwandlung in Tokens und deren Strukturierung in den meisten Compilern Anwendung findet und deren Implementierung meist nach einem festen Muster stattfindet, existieren Tools, die diesen Prozess vereinfachen.
+Da die Umwandlung in Tokens und deren Strukturierung in den meisten Compilern Anwendung findet und deren Implementierung meist nach einem festen Muster stattfindet, existieren Tools, welche diesen Prozess vereinfachen.
 Diese werden \emph{Compiler-Compiler} oder \emph{Lexer-} und \emph{Parsergeneratoren} genannt.
 
 Das Frontend des Scenario-Compilers basiert auf dem Parsergenerator ANTLR4~\cite{antlr4-reference}.
 Mit diesem können Grammatiken in einem EBNF-ähnlichen Format spezifiziert werden.
-Aus der Grammatik generiert das Tool dann Java-Code, der Dateien einlesen kann und einen CST generiert.
+Aus der Grammatik generiert das Tool dann Java-Code, der Dateien einlesen kann und daraus einen CST generiert.
 
 Zunächst soll betrachtet werden, wie die FulibScenarios-Grammatik definiert ist.
 Dies beginnt mit dem Lexer.
-In Listing~\ref{lst:ScenarioLexer.g4} ist ein Ausschnitt der ANTLR4-Grammatik zu sehen, die diesen definiert.
+In Listing~\ref{lst:ScenarioLexer.g4} ist ein Ausschnitt der ANTLR4-Grammatik zu sehen, welche diesen definiert.
 Der Ausschnitt ist ausreichend, um das Scenario aus Listing~\ref{lst:CompilationExample.md} verarbeiten zu können.
 Die eigentliche Grammatik von FulibScenarios besteht aus vielen weiteren Regeln, um alle Funktionen der Sprache zu implementieren.
 Sie ist unter~\cite{lexer-grammar} zu finden.
@@ -96,7 +96,7 @@ Wendet man die Regeln aus Listing~\ref{lst:ScenarioLexer.g4} auf das Scenario au
 
 Als nächstes sollen diese Tokens in einen CST umgewandelt werden.
 Dies ist die Aufgabe des Parsers.
-Listing~\ref{lst:ScenarioParser.g4} zeigt wieder einen Ausschnitt der Grammatik, die diesen für das Beispiel-Scenario ausreichend beschreibt.
+Listing~\ref{lst:ScenarioParser.g4} zeigt wieder einen Ausschnitt der Grammatik, welche diesen für das Beispiel-Scenario ausreichend beschreibt.
 Die vollständige Parser-Grammatik ist unter~\cite{parser-grammar} definiert.
 
 \codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioParser.g4}{Ausschnitt der Scenario-Parser-Grammatik}
@@ -130,7 +130,6 @@ Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
 Der CST ist eng an die Struktur der Grammatik gebunden.
 Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsam genutzten Hilfsregeln beim Refactoring, ändert sich auch die Struktur des CST\@.
 Würde man also den CST für weitere Schritte des Compile-Vorgangs verwenden, müsste man die Implementierung dieser Schritte bei Änderung der Grammatik an die neue CST-Struktur anpassen, was zu einem Wartungsproblem führt.
-
 Deshalb hat das Frontend zusätzlich die Aufgabe, den CST in eine umgänglichere Form umzuwandeln.
 Diese nennt man \emph{Abstract Syntax Tree} (AST).
 Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
@@ -138,13 +137,12 @@ Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
 Technisch gesehen besteht der AST aus einem weiteren Datenmodell neben dem Datenmodell des Parsers.
 Während letzteres von ANTLR aus der Grammatik hergeleitet und generiert wird, ist das Datenmodell des AST manuell definiert und am logischen Aufbau eines Szenarios orientiert.
 So gibt es AST-Klassen für Pakete, Dateien, Scenarios in Dateien und jegliche Arten von Sätzen und Ausdrücken.
-Für bestimmte Konstrukte, die in mehreren Sätzen vorkommen, gibt es Hilfsklassen um Code-Duplizierung zu vermeiden.
+Für bestimmte Konstrukte, die in mehreren Sätzen vorkommen, gibt es Hilfsklassen, die Code-Duplizierung vermeiden.
 Dazu gehören z.B.\ mit Namen versehene Ausdrücke.
 
 Das Datenmodell des AST wird ebenfalls automatisch generiert.
 Grund dafür ist, dass jede AST-Klasse lediglich aus Klassenvariablen, Gettern und Settern sowie einer Factory-Methode besteht.
 Diese können mit einer Liste von Attributen ausreichend definiert werden.
-
 Die Generierung des AST erfolgt durch das von mir entwickelte GenTreeSrc-Tool~\cite{gentreesrc}.
 Dieses erlaubt die Definition von Klassen und Attributen in einer \code{gts}-Datei, aus der dann Java-Dateien generiert werden können.
 Listing~\ref{lst:FulibScenarios1.gts} zeigt einen Ausschnitt der \code{gts}-Datei von FulibScenarios, in dem die für Beispiel~\ref{lst:CompilationExample.md} benötigten Definitionen abgebildet sind.
@@ -152,12 +150,12 @@ Die vollständige Definitionsdatei ist unter~\cite{gts-definitions} zu finden.
 
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios1.gts}{Ausschnitt der FulibScenarios.gts-Datei}
 
-Diese Datei verwendet die Syntax von GenTreeSrc, welche wie folgt zu lesen ist:
+Die Definitionsdatei verwendet die Syntax von GenTreeSrc, welche wie folgt zu lesen ist:
 Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, z.B. \code{org.fulib.scenarios. ast.Node}. % space added before ast to allow line break
 Das Schlüsselwort \code{abstract} bedeutet hier, dass diese ein Interface ist und nicht instanziiert werden kann.
 In den geschweiften Klammern nach einer Klassendefinition werden weitere Klassen definiert, die von dieser erben.
 Diese werden entweder im selben Package (z.B.\ \code{org.fulib.scenarios.ast.ScenarioFile}) oder in einem Unterpackage (z.B.\ \code{org.fulib.scenarios.ast.decl.Name}) abgelegt.
-Runde Klammern nach dem Klassennamen enthalten die Attribute, die die Syntax \code{name: Typ} verwenden.
+Runde Klammern nach dem Klassennamen enthalten die Attribute, welche die Syntax \code{name: Typ} verwenden.
 Die Typausdrücke \code{[T]} und \code{[T:U]} stehen für \code{List<T>} und \code{Map<T, U>}.
 Einfache Attribute haben einen Getter und Setter, außer das Schlüsselwort \code{readonly} ist vorhanden, da dieses dafür sorgt, dass kein Setter erzeugt wird.
 Aus jedem Attribut wird ein Parameter im Konstruktor bzw.\ der Factory-Methode der generierten Klasse.
@@ -179,16 +177,16 @@ Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten CST ist
 Sobald der AST im Frontend erzeugt wurde, beginnt die Analyse- und Transformationsphase.
 Deren Aufgabe ist es, den AST auf semantische Gültigkeit zu überprüfen und ihn so vorzubereiten, dass in der folgenden Codegenerierungsphase alle Informationen bereitstehen.
 
-Bei der Analyse werden die Fehler- und Warnmeldungen erzeugt, die die Ausgabe des Compilers bilden.
+Bei der Analyse werden die Fehler- und Warnmeldungen erzeugt, welche die Ausgabe des Compilers bilden.
 Dafür werden im AST durch das Frontend Positionsinformationen von Tokens hinterlegt, die es ermöglichen, in den Meldungen Dateinamen, Zeilen- und Spaltennummern einzubringen.
-Die entsprechenden Attribute in AST-Klassen wurden hier zur Einfachheit ausgelassen, sie sind jedoch unter~\cite{gts-definitions} vollständig verfasst.
+Die entsprechenden Attribute in AST-Klassen wurden hier zur Einfachheit ausgelassen, sie sind jedoch unter~\cite{gts-definitions} vollständig erfasst.
 
 Die Analyse- und Transformationphase besteht im Scenario-Compiler aus zwei logisch getrennten Unterphasen, der Gruppierung und der Namensauflösung.
 Die Gruppierung ist zuständig dafür, aus der linearen Abfolge von Sätzen in einem Scenario eine Baumstruktur zur erzeugen, wenn Sätze anderen untergeordnet werden können.
 Dies ist beispielsweise bei jenen Sätzen der Fall, die unter einem \code{Call}-Satz stehen, welche im vorherigen Abschnitt unter~\ref{subsec:methods} näher erläutert wurden.
 Jeder Satz, dessen Subjekt dem des \code{Call}-Satzes entspricht, wird diesem untergeordnet und ist nicht länger Element der Satzliste des Scenarios.
 Grund dafür ist, dass der Code für diese Sätze später nicht im Test, sondern in der entsprechenden Methode auftaucht.
-Da für die Bestimmung von Subjekten keine komplexe Namensauflösung notwendig ist, die Unterordnung von Sätzen jedoch die Verfügbarkeit von Namen beeinflusst, geschieht die Gruppierung vor der Namensauflösung.
+Da für die Bestimmung von Subjekten keine komplexe Namensauflösung notwendig ist, die Unterordnung von Sätzen jedoch die Sichtbarkeit von Namen beeinflusst, geschieht die Gruppierung vor der Namensauflösung.
 
 Die Namensauflösung umfasst mehrere Teilaufgaben:
 
@@ -220,7 +218,7 @@ Die Fehlermeldungen sind so strukturiert, dass sie alle nötigen Informationen z
 Zu Beginn stehen Dateiname, Zeile und Spalte, die mit einer IDE direkt an der richtigen Stelle geöffnet werden können.
 Nach der Angabe der Dringlichkeit der Meldung, die im Beispiel \code{error} ist, aber auch \code{syntax}, \code{warning} oder \code{note} sein könnte, folgt eine kurze Beschreibung der Problemursache.
 In den eckigen Klammern steht eine feste Meldungs-ID, nach der beispielsweise in der Dokumentation, bei Google oder StackOverflow gesucht werden kann.
-Dadurch kann auch die Formulierung der Beschriebung geändert oder in eine andere Sprache übersetzt werden, wonach Online-Suchergebnisse weiterhin auffindbar wären.
+Dadurch kann auch die Formulierung der Beschreibung geändert oder in eine andere Sprache übersetzt werden, wonach Online-Suchergebnisse weiterhin auffindbar wären.
 Viele (Fehler-)Meldungen enthalten außerdem einige Zeilen mit zusätzlichen Informationen, wie hier die Informationen zur vorherigen und jetzigen Deklaration der Assoziation.
 Diese sollen den Entwickler ebenfalls bei der Problembehebung unterstützen.
 
@@ -244,17 +242,17 @@ Im nächsten Schritt werden die neu erzeugten \code{Sentence}-Knoten aufgelöst.
 Meist ist an dem Wort \code{Unresolved} im Klassennamen zu erkennen, dass ein AST-Knoten aufgelöst werden muss.
 Im \code{IsSentence}-Knoten fällt mit dieser Eigenschaft der Typ der \code{CreationExpr} auf.
 
-Der Compiler verwendet für die Auflösung einen Scope, der aus mehreren Ebenen besteht, die jeweils Variablen und andere Deklarationen enthalten können.
+Der Compiler verwendet für die Auflösung einen \emph{Scope}, der aus mehreren Ebenen besteht, die jeweils Variablen und andere Deklarationen sichtbar machen.
 Beim Auflösen eines Namens wird, beginnend beim inneren Scope, eine Deklaration mit diesem Namen gesucht.
 Falls die Suche kein Ergebnis liefert, wird der jeweils nächstäußeren Scope betrachtet.
-Gelangt man im äußersten Scope an ohne eine Deklaration gefunden zu haben, kann diese entweder automatisch erzeugt werden, oder eine Fehlermeldung wird generiert.
+Gelangt man im äußersten Scope an, ohne eine Deklaration gefunden zu haben, kann diese entweder automatisch erzeugt werden, oder eine Fehlermeldung wird generiert.
 Dies findet wieder auf der zuständigen Scope-Ebene statt.
 
 Die Scope-Hierarchie ist im Fall der \code{CreationExpr} von außen nach innen wie folgt:
 Global, Paket, Scenario-Datei, Scenario, Satz-Liste.
 Dabei ist die Satz-Liste für das Auflösen und Anlegen von lokalen Variablen zuständig.
 Die Scenario-Datei macht Methoden sichtbar, die Teil des Tests sind.
-Das Paket umfasst alle Arten von Klassen, während der globale Scope nur externe\footnote{Der Scenario-Compiler bietet die Möglichkeit an, Bibliotheken einzubinden.
+Das Paket ermöglicht die Auflösung darin enthaltener Klassen, während der globale Scope zusätzlich externe\footnote{Der Scenario-Compiler bietet die Möglichkeit an, Bibliotheken einzubinden.
 Dies ist aufgrund der Komplexität hier nicht näher erläutert.} Klassen bereitstellt.
 Wird nun versucht, den Typnamen \code{Student} in diesem Scope aufzulösen, findet man zunächst keine entsprechende Deklaration.
 Deshalb wird ein neues Objekt im Datenmodell des Compilers angelegt, das die Klasse \code{Student} repräsentiert und deren Zugehörigkeit zum gleichen Paket wie die Scenario-Datei deklariert.
@@ -271,7 +269,7 @@ Die Auflösung von \code{UnresolvedName(value: "name")} als Teil der \code{Named
 Hier erfolgt nicht wie üblich eine Suche im aktuellen Scope, sondern im Typ des Empfängers.
 Der Empfänger ist hier die Variable \code{var1}, die im \code{object} des \code{HasSentence} referenziert wird.
 Ihr Typ ist \code{Student}, wie beim Auflösen des \code{IsSentence} inferiert wurde.
-Nun wird in der Klasse \code{Student} nach einem Attribute oder einer Assoziation namens \code{name} gesucht.
+Nun wird in der Klasse \code{Student} nach einem Attribut oder einer Assoziation namens \code{name} gesucht.
 Wäre eines davon bereits vorhanden, würde der Compiler diverse Überprüfungen durchführen, ob diese mit dem Typ des Attributwerts kompatibel sind.
 Da die Klasse \code{Student} jedoch bisher noch keine Attribute oder Assoziationen hat, wird ein neues Attribut mit dem Namen \code{name} und dem Typ \code{String} angelegt und im Datenmodell der Klasse \code{Student} gespeichert.
 Daraufhin wird der \code{UnresolvedName} durch einen \code{ResolvedName} ausgetauscht, der auf das neue Attribut verweist.
@@ -289,13 +287,13 @@ Die darin verwendeten neuen AST-Definitionen sind in Listing~\ref{lst:FulibScena
 % Intro
 Die letzte Aufgabe des Scenario-Compilers ist die Codegenerierung.
 Dabei werden mit den in vorherigen Phasen gesammelten Informationen neue Java-Dateien erzeugt bzw.\ bestehende verändert.
-Der Scenario-Compiler verwendet für diesen Zweck die Fulib\cite{fulib}-Bibliothek.
+Der Scenario-Compiler verwendet für diesen Zweck die Fulib-Bibliothek\cite{fulib}.
 Diese stellt wie der Scenario-Compiler ein Datenmodell für Klassen, Attribute, Assoziationen und Methoden bereit, bietet aber auch deren Umwandlung in Java-Code an.
 Der Codegenerator von Fulib unterstützt dabei das Zusammenführen von bestehenden Java-Dateien mit neu generiertem Code, wodurch er mit handgeschriebenem Code kompatibel ist.
 
 % Model vs Test Classes
 Der Scenario-Codegenerator sieht eine logische Trennung von Modell und Tests vor.
-Fulib selbst kennt diese Trennung nicht, daher erzeugt der Scenario-Compiler zwei getrennte Fulib-Datenmodelle, welche später auch in getrennten Verzeichnissen Java-Dateien ablegen.
+Fulib selbst kennt diese Trennung nicht, daher erzeugt der Scenario-Compiler zwei getrennte Fulib-Datenmodelle, welche später auch Java-Dateien in getrennten Verzeichnissen ablegen.
 Test-Klassen und -Methoden werden ansonsten vom Scenario-Compiler bei der Codegenerierung wie Modelklassen behandelt und sind daher an dieser Stelle nicht näher erläutert.
 
 % Model Conversion
@@ -312,7 +310,7 @@ Zuletzt wird im Datenmodell von Fulib ein Objekt angelegt, welches diese Zeichen
 % New Files
 Mit dem fertigen Datenmodell kann Fulib dann die Java-Dateien erzeugen bzw.\ verändern.
 Beim Anlegen neuer Dateien ist dieser Prozess relativ einfach.
-Es genügt, für Attribute, Assoziationen und Methoden einige Vorlagen zu definieren, die diese in Zeichenketten umwandeln.
+Es genügt, für Attribute, Assoziationen und Methoden einige Vorlagen zu definieren, welche diese in Zeichenketten umwandeln.
 Diese werden dann aneinandergehängt und in die entsprechende Datei geschrieben.
 
 % Existing Files - Parsing and Fragments

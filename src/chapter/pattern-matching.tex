@@ -3,16 +3,16 @@
 Unter Pattern Matching versteht man im Allgemeinen den Abgleich von konkreten Strukturen mit Suchvorlagen.
 Im Kontext dieser Arbeit soll speziell in Objektstrukturen nach bestimmten Mustern gesucht werden.
 Dabei können Muster sowohl die Attribute von Objekten als auch Kanten zwischen diesen betreffen.
-In diesem Kapitel werden drei Verfahren erläutert, die die Definition von Mustern und deren Suche auf Objektenstrukturen erlauben.
+In diesem Kapitel werden drei Verfahren erläutert, welche die Definition von Mustern und deren Suche auf Objektenstrukturen erlauben.
 Dafür wird zunächst die FulibTables\cite{fulibTables}-Bibliothek betrachtet, welche die Mustererkennung mit Java auf zwei verschiedene Weisen ermöglicht.
-Darauf aufbauend wird eine Erweiterung der Scenario-Sprache vorgestellt, die aufbauend auf FulibTables Syntax zum Pattern Matching einführt.
+Darauf aufbauend wird eine Erweiterung der Scenario-Sprache vorgestellt, die Syntax zum Pattern Matching einführt.
 
 \section{FulibTables}\label{sec:fulib-tables}
 
-FulibTables\cite{fulibTables} ist eine Java-Bibliothek, mit der Objektstrukturen als Tabellen behandelt werden können.
+FulibTables ist eine Java-Bibliothek, mit der Objektstrukturen als Tabellen behandelt werden können.
 Diese Tabellen dienen als Grundlage für einen Pattern Matcher, den die Bibliothek ebenfalls anbietet.
 Im folgenden Abschnitt werden zunächst die Tabellen und deren Operationen anhand eines einfachen Beispiels vorgestellt.
-Daraufhin werden die Möglichkeiten zum Pattern Matching betrachtet.
+Daraufhin werden die Möglichkeiten zum Pattern Matching mit FulibTables betrachtet.
 
 \subsection{Tabellen}\label{subsec:tables}
 
@@ -65,8 +65,7 @@ Das Objektdiagramm in Abbildung~\ref{fig:tables-object-diagram} zeigt, wie das D
 \end{figure}
 
 Zunächst wird nur eine Tabelle mit einer Spalte und einer Zeile benötigt.
-Dafür müssen der Name der ersten Spalte sowie eine Liste von Objekten, die die Zeilen dieser Spalte bilden, angegeben werden.
-Hier wird zunächst nur eine Zeile gebraucht.
+Dafür müssen der Name der ersten Spalte sowie eine Liste von Objekten, welche die Zeilen dieser Spalte bilden, angegeben werden.
 
 \begin{jcodeblock}
     ObjectTable<Game> games = new ObjectTable<>("Game", game);
@@ -83,7 +82,7 @@ Die Tabelle lässt sich wie folgt darstellen\footnote{FulibTables ermöglicht da
 \end{tabular}
 
 Auf dieser Tabelle lässt sich nun eine Erweiterung durchführen, die mit der Methode \code{expand} erreicht wird.
-Diese erwartet zuerst einen Namen für die neue Spalte, die der alten Tabelle hinzugefügt wird und auf die die neue Tabellen-Instanz zeigen soll.
+Diese erwartet zuerst einen Namen für die neue Spalte, welche der alten Tabelle hinzugefügt wird und auf welche die neue Tabellen-Instanz zeigen soll.
 Weiterhin wird eine Funktion in Form eines Lambda-Ausdrucks übergeben.
 Diese wird für jede Zeile der Tabelle aufgerufen.
 Die Ergebnisse bilden dann die Zeilen der neuen Spalte.
@@ -143,7 +142,7 @@ Bei Bob und Charlie ist dies nicht der Fall.
 \end{tabular}
 
 U.U.\ ist der Name des zu erweiternden Attributs nicht bekannt.
-Dafür wurde als Teil dieser Arbeit eine alternative \code{expandAll}-Operation entwickelt, bei der kein Lambda-Ausdruck übergeben wird und somit auch kein Name bekannt sein muss.
+Dafür wurde als Teil dieser Arbeit eine alternative \code{expandAll}-Operation entwickelt, bei der kein Lambda-Ausdruck übergeben wird und somit auch kein Name angegeben werden muss.
 Stattdessen werden die existierenden Attribute und Assoziationen der Objekte zur Laufzeit ermittelt.
 Dabei wird aus jedem Attributwert und jedem Assoziationsziel jedes Objekts der Spalte \code{Houses} eine neue Zeile.
 Zu-N-Assoziationen und mehrwertige Attribute (Listen) werden dabei abgeflacht.
@@ -192,7 +191,7 @@ Durch Auflisten aller Attribute und anschließendem Filtern kann eine Spalte fü
 \end{tabular}
 
 Alternativ kann auch eine Filterung über alle Spalten durchgeführt werden, wofür die \code{filterRows}-Operation eingesetzt wird.
-Diese bekomment einen Lambda-Ausdruck übergeben, der für jede Zeile die Werte aller Spalten erhält.
+Diese bekommt einen Lambda-Ausdruck übergeben, der für jede Zeile die Werte aller Spalten erhält.
 Die Werte befinden sich in einer \code{Map}, die einen Spaltennamen zu dem Wert in der aktuellen Zeile zuordnet.
 Ist das Ergebnis des Lambda-Ausdrucks \jcode{true}, wird wie beim einfachen Filter die Zeile behalten, andernfalls wird sie entfernt.
 In diesem Beispiel sorgt die Filter-Operation dafür, dass nur die Zeile mit Spieler Charlie übrig bleibt:
@@ -231,7 +230,7 @@ Des Weiteren werden Tabellen imperativ mit einer Folge von Anweisungen bearbeite
 Ein Pattern besteht aus einer Menge von \emph{Pattern-Objekten} und \emph{Constraints} auf diesen.
 Pattern-Objekte dienen als Platzhalter für Objekte und Werte, nach denen gesucht wird, während Constraints deren Beziehungen und Einschränkungen modellieren.
 
-Es soll nun die zuvor mit Tabellen realisierte Suche nach einem Gewinner mit Patterns realisert werden.
+Es soll nun die zuvor mit Tabellen realisierte Suche nach einem Gewinner mit Patterns umgesetzt werden.
 Das Datenmodell und die angelegten Objekte werden hier wiederverwendet.
 Zunächst werden einige Pattern-Objekte benötigt, um die verschiedenen Arten von Objekten und Werten abzubilden.
 Diese lassen sich mit einem \code{PatternBuilder} anlegen.
@@ -263,7 +262,7 @@ Dies geschieht unter Angabe der Attribut- bzw.\ Assoziationsnamen mit der \code{
 \end{jcodeblock}
 
 Zu beachten ist in der letzten Zeile der Name ``\code{*}''.
-Dieser dient als Platzhalter für den unbekannten Attributnamen.
+Dieser dient als Platzhalter für einen unbekannten Attributnamen.
 Er bewirkt, dass dem Pattern-Objekt \code{housePO} nur Objekte zugewiesen werden können, bei denen mindestens ein Attributwert auch \code{unitsPO} zugewiesen werden kann.
 Die Unterstützung für den  ``\code{*}''-Platzhalter wurde als Teil dieser Arbeit entwickelt und baut auf der zuvor gezeigten \code{expandAll}-Operation auf.
 Wie im vorherigen Beispiel sind nicht alle Attribute von Häusern interessant, weshalb auch hier auf ganze Zahlen eingeschränkt werden soll.
@@ -285,11 +284,11 @@ Analog zu \code{filterRows} bei Tabellen kommt dafür bei Patterns ein \emph{Mat
 \end{jcodeblock}
 
 Der Lambda-Ausdruck entspricht hier jenem, der mit \code{filterRows} gebraucht wurde.
-Zu beachten ist jedoch die darauffolgende Angabe der verwendeten Pattern-Objekte.
+Zu beachten ist die darauffolgende Angabe der verwendeten Pattern-Objekte.
 I.A.\ können Match-Constraints erst dann verarbeitet werden, wenn alle Pattern-Objekte gefunden wurden, die sie verwenden.
-Wären diese nicht explizit angegeben, müsste davon ausgegangen werden, dass das Match-Constraint \emph{alle} Pattern-Objekten verwendet.
+Wären diese nicht explizit angegeben, müsste davon ausgegangen werden, dass das Match-Constraint \emph{alle} Pattern-Objekte verwendet.
 Dann müssten zunächst alle Pattern-Objekte zugewiesen werden, bevor das Match-Constraint verarbeitet werden kann.
-Dabei würden jedoch große Zwischenergebnisse entstehen, was zu erheblich längeren Ausführungszeiten führen kann.
+Dabei könnten jedoch große Zwischenergebnisse entstehen, was zu erheblich längeren Ausführungszeiten führen kann.
 
 Nun sind alle Pattern-Objekte und Constraints angelegt.
 Mit \code{builder.getPattern()} lässt sich ein Objekt erhalten, dass all diese kapselt.
@@ -298,7 +297,7 @@ Dafür wird zunächst ein \code{PatternMatcher} benötigt, der mit \code{new Pat
 Alternativ kann er auch direkt mit dem \code{builder} angelegt werden, wie das untenstehende Beispiel zeigt.
 Dem Matcher werden dann ein oder mehr \emph{Root-Objekte} und \emph{Root-Pattern-Objekte} zugewiesen.
 Diese entsprechen den Objekten und Pattern-Objekten, bei denen die Suche begonnen wird.
-Ferner werden daraus die Zeilen und Spalten der Tabelle, die intern als Datenstruktur dient.
+Ferner werden daraus die initialen Zeilen und Spalten der Tabelle, die intern als Datenstruktur dient.
 
 \begin{jcodeblock}
     PatternMatcher matcher = builder.matcher();
@@ -308,12 +307,12 @@ Ferner werden daraus die Zeilen und Spalten der Tabelle, die intern als Datenstr
 \end{jcodeblock}
 
 Die Methode \code{match()} führt nach Einrichten des Matchers den eigentlichen Match-Vorgang durch.
-Dabei werden ausgehend von der Root-Tabelle nacheinander die Attribut-, Link- und Match-Constraints angewendet.
-Dies erfolgt durch Ausführung der \code{filter}-, \code{expand} / \code{expandAll} und \code{filterRows}-Operationen auf der internen Tabelle.
-Die Reihenfolge ist so gewählt, dass zu jedem Zeitpunkt möglichst wenige Tabellenzeilen entstehen, um den Aufwand gering zu halten.
+Dabei werden ausgehend von der internen Tabelle nacheinander die Attribut-, Link- und Match-Constraints angewendet.
+Dies erfolgt durch Ausführung der \code{filter}-, \code{expand} / \code{expandAll} und \code{filterRows}-Operationen auf der Tabelle.
+Die Reihenfolge wird automatisch so gewählt, dass zu jedem Zeitpunkt möglichst wenige Tabellenzeilen entstehen, um den Aufwand gering zu halten.
 Dazu werden Attribut-\ und Match-Constraints, welche die Zeilenanzahl nur verringern können, den Link-Constraints, die neue Spalten und Zeilen erzeugen, vorgezogen.
-Letztere werden immer erst dann abgearbeitet, wenn erstere nicht anwendbar sind.
-Insgesamt haben Patterns also den Vorteil, dass der Nutzer sich anders als mit Tabellen nicht die Reihenfolge der Operationen überlegen muss, sondern sich auf die Suchkriterien konzentrieren kann.
+Letztere werden immer erst dann abgearbeitet, wenn keine der Ersteren anwendbar sind.
+Durch die automatische Optimierung haben Patterns also den Vorteil, dass der Nutzer sich anders als mit Tabellen nicht die Reihenfolge der Operationen überlegen muss, sondern sich auf die Suchkriterien konzentrieren kann.
 
 Nach dem Match-Vorgang lassen sich die Ergebnisse anhand der Pattern-Objekte extrahieren:
 
@@ -340,7 +339,7 @@ Seine umfangreiche Syntax ist Thema dieses Abschnitts.
 
 Ein Match-Satz ist an dem Schlüsselwort \code{match} bzw.\ \code{matches} erkennbar, dem ein Subjekt voransteht.
 Es folgt eine Liste von Pattern-Objekten, die an den Schlüsselwörten \code{some} und \code{all} zu erkennen sind.
-Das folgende Beispiel zeigt den einfachsten möglichen Match-Satz, der nach genau einem beliebigen Objekt sucht und es an den Namen \code{g} bindet.
+Das folgende Beispiel zeigt den einfachsten möglichen Match-Satz, der nach genau einem Objekt sucht und es an den Namen \code{g} bindet.
 
 \begin{mdcodeblock}
     There is a Game.
@@ -358,7 +357,7 @@ Es handelt sich dabei um genau jenen Code, der zur Einrichtung von Patterns und 
         PatternBuilder builder = FulibTables.patternBuilder();
         PatternObject gPO = builder.buildPatternObject("g");
         // Matcher
-        PatternMatcher matcher = FulibTables.matcher(builder.getPattern());
+        PatternMatcher matcher = builder.matcher();
         matcher.withRootPatternObjects(gPO);
         matcher.withRootObjects(new ReflectorMap("org.example").discoverObjects(game));
         matcher.match();
@@ -392,7 +391,7 @@ Dies wirkt sich auf das Pattern-Objekt im Java-Code aus.
     // builder.buildAttributeConstraint(gPO, g -> g instanceof Game);
 \end{jcodeblock}
 
-Typ-Constraints können nützlich sein, wenn statt nach \emph{einem} bestimmten Objekt nach \emph{allen} Objekten eines Typs gesucht wird.
+Typ-Constraints können nützlich sein, wenn statt nach \emph{einem} Objekt nach \emph{allen} Objekten eines Typs gesucht wird.
 Dafür kann statt \code{some} das Schlüsselwort \code{all} verwendet werden:
 
 \begin{mdcodeblock}
@@ -422,7 +421,7 @@ Die Liste lässt sich wie gewohnt im Scenario weiterverwenden:
 
 Auf Pattern-Objekte in Match-Sätzen folgt eine Liste von Constraints.
 Eine einfache Art davon ist ein Attributwert-Constraint.
-Wie das folgende Beispiel zeigt, verwendet dieser eine ähnliche Syntax wie die Zuweisung von Attributen mit There-Sätzen.
+Wie das folgende Beispiel zeigt, verwendet dieser eine ähnliche Syntax wie die Angabe von Attributen in There-Sätzen.
 
 \begin{mdcodeblock}
     There is a Game with min-score 50.
@@ -430,7 +429,7 @@ Wie das folgende Beispiel zeigt, verwendet dieser eine ähnliche Syntax wie die 
     We match some object g with min-score 50.
 \end{mdcodeblock}
 
-Durch Hinzunahme des Constraints kommt im Java-Code ein weiteres Pattern-Objekt hinzu, was von außen jedoch nicht sichtbar ist.
+Durch Hinzunahme des Constraints entsteht im Java-Code ein weiteres Pattern-Objekt, was von außen jedoch nicht sichtbar ist.
 Es ist mit dem Pattern-Objekt von \code{g} über einen Link-Constraint verbunden und wird durch einen Gleichheits-Constraint eingeschränkt.
 
 \begin{jcodeblock*}{breaklines,escapeinside=||}
@@ -449,7 +448,7 @@ Es ist mit dem Pattern-Objekt von \code{g} über einen Link-Constraint verbunden
 \subsection{Attribut-Constraints mit Vergleichsoperatoren}
 
 Attributwert-Constraint müssen nicht nach exakten Werten prüfen.
-Sie können stattdessen auch nach bestimmten Bedingungen wie etwa Zahlenvergleichen oder regulären Ausdrücken eingeschränkt werden.
+Sie können stattdessen auch mit bestimmten Bedingungen wie etwa Zahlenvergleichen oder regulären Ausdrücken eingeschränkt werden.
 Die Syntax ändert sich dabei leicht durch Verwendung des Schlüsselworts \code{whose}.
 
 \begin{mdcodeblock}
@@ -522,7 +521,7 @@ Beide Schreibweisen bewirken, dass sowohl nach \code{g} als auch nach \code{p1} 
 
 % Ungleichheits-Bedingung
 Ferner impliziert die Existenz mehrerer Pattern-Objekte im gleichen Match-Satz, dass diese ungleich sein müssen.
-Genau diese Ungleichheits-Bedingung bewirkt, dass die reine Deklaration mehrerer Pattern-Objekte \emph{nicht} gleichbedeutend mit der Verwendung mehrerer Match-Sätze ist\footnote{Ein Beispiel mit mehreren Match-Sätzen wäre \code{We match some object g. We match some object p1.}.}.
+Genau diese Ungleichheits-Bedingung bewirkt, dass die reine Deklaration mehrerer Pattern-Objekte \emph{nicht} gleichbedeutend mit der Verwendung mehrerer Match-Sätze ist\footnote{Ein Beispiel mit mehreren Match-Sätzen wäre: \code{We match some object g. We match some object p1.}.}.
 
 \begin{jcodeblock}
     builder.buildDistinctConstraint(gPO, p1PO);
@@ -533,7 +532,7 @@ Konkret hat dies die Konsequenz, dass \code{g} und \code{p1} in keinem Fall das 
 Ohne weitere Einschränkung kann mit diesem Beispiel kein erfolgreiches Match erzielt werden, unabhängig davon welche Objekte davor erstellt werden.
 Wird vor dem Match-Satz nur genau ein Objekt deklariert, kann dieses entweder \code{g} oder \code{p1} zugewiesen werden, aber nicht beiden Pattern-Objekten gleichzeitig.
 Dies bewirkt ein Fehlschlagen des Match-Vorgangs mit einer \code{NoMatchException}.
-Wenn mehr als ein Objekt wie z.B.\ \code{game} und \code{Alice} deklariert wurden, sind sowohl \code{g=game, p1=Alice} als auch \code{g=Alice, p1=game} mögliche Zuweisungen des Patterns.
+Wenn mehrere Objekte wie z.B.\ \code{game} und \code{Alice} deklariert werden, sind sowohl \code{g=game, p1=Alice} als auch \code{g=Alice, p1=game} mögliche Zuweisungen des Patterns.
 Diese Uneindeutigkeit bewirkt, dass der Match-Vorgang mit einer \code{AmbiguousMatchException} abbricht.
 Durch Wiedereinführung des Attribut-Constraints des Spielernamens kann das Problem behoben werden.
 Damit wird die eindeutige Zuweisung \code{g=game, p1=Alice} erzwungen.
@@ -542,7 +541,7 @@ Damit wird die eindeutige Zuweisung \code{g=game, p1=Alice} erzwungen.
 
 % Some Link To
 Es soll nun nach einer Verknüpfung zwischen den andernfalls unabhängigen Objekten gesucht werden.
-Ist der Name der Assoziation unwichtig, kommt das Constraint \code{with some link to} zum Einsatz:
+Ist der Name der Assoziation unwichtig oder unbekannt, kommt das Constraint \code{with some link to} zum Einsatz:
 
 \begin{mdcodeblock}
     We match:
@@ -594,14 +593,14 @@ So kann durch Hinzufügen eines explizit benannten Root-Pattern-Objekts der Wert
 \end{mdcodeblock}
 
 Statt \code{with min-score} kann auch \code{where some attribute is} eingesetzt werden, wenn der Name des Attributs nicht bekannt ist.
-Sogar \code{with some link to} wäre hier einsetzbar und semantisch äquivalent.
-Davon ist jedoch abzuraten, da es sich bei \code{ws} um einen Wert und kein Objekt im Sinne der Modellierung handelt.
+Ferner wäre auch \code{with some link to} einsetzbar und in diesem Beispiel semantisch äquivalent zu \code{where some attribute is}.
+Davon ist jedoch abzuraten, da es sich bei \code{ws} um einen Wert und kein Objekt im Sinne der Modellierung handelt, weshalb die Bezeichnung ``Link'' irreführend wäre.
 
 \subsection{Match-Constraints}
 
 Auch Match-Constraints werden von der Scenario-Sprache in Match-Sätzen unterstützt.
 Dafür kommt erneut das Schlüsselwort \code{where} zum Einsatz.
-Auf dieses folgt ein beliebiger Bedingungsausdruck, der beliebig viele andere Pattern-Objekte des gleichen Match-Satzes enthalten kann.
+Auf dieses folgt ein beliebiger Bedingungsausdruck, der beliebig viele Pattern-Objekte des gleichen Match-Satzes enthalten kann.
 
 \begin{mdcodeblock*}{breaklines}
     We match:
@@ -610,7 +609,7 @@ Auf dieses folgt ein beliebiger Bedingungsausdruck, der beliebig viele andere Pa
     where min-score of g is 0 or score of p1 is greater than min-score of g.
 \end{mdcodeblock*}
 
-Im Java-Code ist ersichtlich, dass automatisch die Abhängigkeit des Constraints auf die Pattern-Objekte \code{g} und \code{p1} erkannt wurde.
+Im Java-Code ist ersichtlich, dass automatisch die Abhängigkeit des Match-Constraints von den Pattern-Objekten \code{g} und \code{p1} erkannt wurde.
 Des Weiteren wurden deren Namen im Bedingungsausdruck durch Hilfsvariablen ersetzt, da die eigentlichen Variablen noch nicht verfügbar sind.
 
 \begin{jcodeblock*}{breaklines}
