@@ -1,13 +1,14 @@
 \section{Assignments}\label{sec:assignments}
 
-Assignments bezeichnen ein Feature von fulib.org, welches sich mit dem Anlegen, Lösen und Bewerten von Hausaufgabenblättern sowie Online-Kursen beschäftigt.
+Assignments bezeichnen ein Feature von fulib.org, welches sich mit dem Anlegen, Lösen und Bewerten von Aufgabenblättern sowie Online-Kursen beschäftigt.
 Es handelt sich dabei um Modellierungsaufgaben in der Scenario-Sprache.
 Diese können sowohl automatisch geprüft als auch manuell bewertet werden.
-Der Unterabschnitt~\ref{subsec:creation} befasst sich zunächst mit dem Anlegen der Assignments aus Sicht des Kursleiters.
-Daraufhin wird unter~\ref{subsec:solution} der Lösungsvorgang aus Sicht der Studierenden erläutert.
-In Unterabschnitt~\ref{subsec:correcting} wird das Vorgehen der Korrekteure zum Bewerten der Lösungen beschrieben.
-Daraufhin wird die Kurs-Funktion unter~\ref{subsec:courses} vorgestellt.
-Zuletzt widmet sich Unterabschnitt~\ref{subsec:assignment-pattern-matching} einem vollständigem Beispielassignment, welches von der im vorherigen Kapitel eingeführten Mustererkennung Gebrauch macht.
+In diesem Kapitel wird der chronologische Ablauf beschrieben, der bei Aufgabenblättern durchlaufen wird.
+Der Unterabschnitt~\ref{subsec:creation} befasst sich zunächst mit deren Anlegen aus Sicht des Kursleiters.
+Daraufhin wird unter~\ref{subsec:solution} der Lösungsvorgang aus Perspektive der Studierenden erläutert.
+In Unterabschnitt~\ref{subsec:correcting} wird als letzten Schritt das Vorgehen der Korrekteure zum Bewerten der Lösungen beschrieben.
+Weiterführend wird die Kurs-Funktion unter~\ref{subsec:courses} vorgestellt, welche die Gruppierung von Aufgabenblättern sowie das selbstständige und unbeaufsichtigte Lernen in größeren Themengebieten ermöglichen.
+Zuletzt widmet sich Unterabschnitt~\ref{subsec:assignment-pattern-matching} einem vollständigem Beispielassignment, welches die im vorherigen Kapitel eingeführte Mustererkennung einsetzt.
 
 \subsection{Anlegen}\label{subsec:creation}
 
@@ -215,7 +216,7 @@ Daraufhin zeigt sich die Tabelle, die in Abbildung~\ref{fig:solution-table} zu s
 \end{figure}
 
 Über der Tabelle befindet sich eine Übersicht der Aufgabenstellung inklusive Eckdaten, Beschreibung, Tasks und eventueller Musterlösung.
-Dies vereinfacht die Korrektur, da keine separate Seite geöffnet werden muss, um diese einzusehen.
+Dies vereinfacht die Korrektur, da keine separate Seite geöffnet werden muss, um die Anforderungen einzusehen.
 Das Suchfeld erlaubt es, die angezeigten Lösungen einzuschränken.
 Dies ist sowohl als Freitextsuche über alle Spalten als auch für bestimmte Spalten möglich.
 So lässt sich beispielsweise mit \code{assignee:Peter} nach allen Lösungen suchen, die dem Korrekteur \code{Peter} zugewiesen sind.
@@ -235,8 +236,7 @@ Durch Klicken auf ``View'' gelangt man zur Detailseite der Lösung, die in Abbil
 \end{figure}
 
 Hier wird erneut die Aufgabenstellung angezeigt.
-Die Task-Liste zeigt hier, wie bei der Bearbeitung, die erreichte Punktzahl.
-Mit ``Grade'' kann der Korrekteur darin die Bewertung anpassen.
+Die Task-Liste zeigt die erreichte Punktzahl, welche mittels ``Grade'' durch den Korrekteur angepasst werden kann.
 Dabei muss die zu vergebende Punktzahl, ein kurzer Kommentar und der eigene Name angegeben werden.
 In der Historie werden alle Änderungen der Bewertung aufgelistet.
 Auch Studierende können diese einsehen, jedoch nicht verändern, da dafür das Token des Assignments benötigt wird.
