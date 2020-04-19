@@ -8,7 +8,7 @@ Dieser Ansatz nennt sich Kompilierung.
 In Java wird die Kompilierung durch den Java Compiler durchgeführt, welcher Bytecode erzeugt.
 Dieser kann von einer Java Virtual Machine ausgeführt werden.
 
-Aus Scenarios werden in zwei Schritten ausführbar gemacht.
+Scenarios werden in zwei Schritten ausführbar gemacht.
 Zunächst werden die Markdown-Scenario-Quelltexte in Java-Quellcode durch den Scenario-Compiler übersetzt.
 Der erzeugte Quellcode wird dann vom Java-Compiler in ausführbaren Bytecode kompiliert.
 Die Architektur und Implementierung des Scenario-Compilers sind Inhalt dieses Abschnitts.
@@ -280,7 +280,7 @@ Die darin verwendeten neuen AST-Definitionen sind in Listing~\ref{lst:FulibScena
 
 \codelisting{java}{chapter/fulib-scenarios/trees}{FinalAST.txt}{AST nach Analyse und Transformation}
 
-\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios3.gts}{Für Auflösung und vollständingen AST benötigte AST-Definitionen}
+\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios3.gts}{Neue AST-Definitionen für Namensauflösung und vollständigen AST}
 
 \subsection{Codegenerierung}\label{subsec:codegen-fulib}
 

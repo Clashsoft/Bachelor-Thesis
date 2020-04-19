@@ -162,8 +162,7 @@ Um diese bidirektional zu machen, muss der Name sowie die Kardinalität der Rüc
 
 Dabei ist \code{cities} der Name der Rückrichtung.
 Die zugehörige Java-Zeile ist wie zuvor \jcode{kassel.setCountry(germany);}.
-\code{one of} gibt an, dass es sich dabei um eine Zu-n-Assoziation handelt;
-durch dessen Entfernen kann auch die Rückrichtung zu-1 gemacht werden.
+Durch den Zusatz \code{one of} handelt es sich um eine Zu-n-Assoziation, ohne diesen wäre die Rückrichtung zu-1.
 Dies ist aber in diesem Beispiel unerwünscht, da ein Land mehr als eine Stadt haben kann.
 
 Alternativ kann die Assoziation auch ausgehend vom \code{Germany}-Objekt definiert werden:
