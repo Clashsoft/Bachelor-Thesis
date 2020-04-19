@@ -271,7 +271,7 @@ Der Empfänger ist hier die Variable \code{var1}, die im \code{object} des \code
 Ihr Typ ist \code{Student}, wie beim Auflösen des \code{IsSentence} inferiert wurde.
 Nun wird in der Klasse \code{Student} nach einem Attribut oder einer Assoziation namens \code{name} gesucht.
 Wäre eines davon bereits vorhanden, würde der Compiler diverse Überprüfungen durchführen, ob diese mit dem Typ des Attributwerts kompatibel sind.
-Da die Klasse \code{Student} jedoch bisher noch keine Attribute oder Assoziationen hat, wird ein neues Attribut mit dem Namen \code{name} und dem Typ \code{String} angelegt und im Datenmodell der Klasse \code{Student} gespeichert.
+Da die Klasse \code{Student} jedoch bisher keine Attribute oder Assoziationen hat, wird ein neues Attribut mit dem Namen \code{name} und dem Typ \code{String} angelegt und im Datenmodell der Klasse \code{Student} gespeichert.
 Daraufhin wird der \code{UnresolvedName} durch einen \code{ResolvedName} ausgetauscht, der auf das neue Attribut verweist.
 
 Die Analyse und Transformation des AST ist nun abgeschlossen.

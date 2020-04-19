@@ -53,9 +53,14 @@ Listing~\ref{lst:basic-example} zeigt, dass lediglich der Zeilenkommentar aus de
 
 Sätze bilden den Inhalt eines Scenarios und definieren dessen Ablauf.
 Die Scenario-Sprache definiert eine Vielzahl von Satzarten, die sich sowohl in ihrer Funktionalität ergänzen, als auch syntaktische Alternativen mit gleicher Semantik füreinander darstellen.
+Aus fast jedem Satz werden eine oder mehrere Anweisungen im Rumpf der Testmethode, die durch eine Überschrift eingeleitet wurde.
+Ausnahmen bilden Sätze, die den Rumpf von Methoden beschreiben und somit nicht Teil eines Tests werden.
+Dies ist in Unterabschnitt~\ref{subsec:methods} näher erläutert.
+Im Folgenden werden einige Arten von Sätzen vorgestellt.
+Es wird stets gezeigt, in welchen Java-Code diese übersetzt werden.
 
 Die einfachste Art von Satz ist der \code{Is}-Satz.
-Dieser ermöglicht es, ein Objekt zu definieren und diesem einen Name und Typ zuzuweisen.
+Dieser ermöglicht es, ein Objekt zu definieren und diesem einen Namen und einen Typ zuzuweisen.
 Ein Beispiel dafür ist:
 
 \begin{codeblock}
@@ -73,7 +78,7 @@ Die äquivalente Java-Anweisung ist:
 Zu beachten ist hier, dass die Klasse \code{City} nicht vorher deklariert werden muss.
 Durch Benennung im Scenario wird diese automatisch angelegt.
 Es gibt in der Scenario-Sprache bisher keine Syntax für die manuelle Definition von Klassen.
-Es ist zudem auffällig, dass \code{kassel} im Java-Code kleingeschrieben ist.
+Im Java-Code ist sichtbar, dass \code{kassel} nun kleingeschrieben ist.
 Bei der Umwandlung wird automatisch die passende Namenskonvention angewandt (Variablen- und Methodennamen \code{lowerCamelCase}, Klassennamen \code{UpperCamelCase}).
 Dies ist insbesondere bei Bezeichnern mit Leerzeichen oder Bindestrichen der Fall:
 \code{Uni Kassel} wird zu \code{uniKassel}, \code{Student-ID} zu \code{studentID}.
@@ -157,8 +162,6 @@ Um diese bidirektional zu machen, muss der Name sowie die Kardinalität der Rüc
 
 Dabei ist \code{cities} der Name der Rückrichtung.
 Die zugehörige Java-Zeile ist wie zuvor \jcode{kassel.setCountry(germany);}.
-Offensichtlich ist der Name der Rückrichtung nicht in dieser vertreten.
-Lediglich anhand des Quellcodes der \code{City}- bzw. \code{Country}-Klassen lässt sich dieser Zusammenhang erschließen.
 \code{one of} gibt an, dass es sich dabei um eine Zu-n-Assoziation handelt;
 durch dessen Entfernen kann auch die Rückrichtung zu-1 gemacht werden.
 Dies ist aber in diesem Beispiel unerwünscht, da ein Land mehr als eine Stadt haben kann.
@@ -173,10 +176,6 @@ Wichtig ist dabei, dass mehrere Zielobjekte angegeben werden (\code{Kassel} und 
 Andernfalls würde aus \code{cities} trotz der Pluralform eine Zu-1-Assoziation werden.
 
 \subsection{Test-Sätze und Diagramme}\label{subsec:test-sentences-and-diagrams}
-
-Während die erzeugten Klassen zum Programmquellcode gehören, werden aus den Sätzen eines Scenarios Tests generiert.
-Genauer wird aus jeder Scenario-Datei eine Testklasse, und aus jedem Scenario wird eine Testmethode.
-Mit Ausnahme von Sätzen, die zu Aufrufen gehören (siehe Unterabschnitt~\ref{subsec:methods}), werden aus jedem Satz eine oder mehrere Anweisungen im Rumpf dieser Testmethode.
 
 Damit Tests aussagekräftig sind, müssen sie die Ergebnisse der durchgeführten Aktionen überprüfen.
 Dazu dienen in Java Assertions, welche sowohl als Schlüsselwort als auch von verschiedenen Test-Frameworks bereitgestellt werden.
@@ -296,13 +295,16 @@ Dieser nimmt die Form \code{We take a <name> from <expr> and <sentence...>} an, 
 Im folgenden Beispiel wird dies deutlich:
 
 \begin{codeblock}
-    We take a student from students of uni and we add 1 to the semester of student.
+    There is the university UniKassel.
+    Alice has uni and is one of the students of UniKassel.
+
+    We take a student from students of UniKassel and we add 1 to the semester of student.
 \end{codeblock}
 
-Übersetzt in Java-Code ergibt sich die \code{for}-Schleife:
+Die Übersetzung des Take-Satzes in Java-Code ergibt die nachfolgende For-Schleife:
 
 \begin{jcodeblock}
-    for (Student student : uni.getStudents()) {
+    for (Student student : uniKassel.getStudents()) {
         student.setSemester(student.getSemester() + 1);
     }
 \end{jcodeblock}
@@ -315,7 +317,7 @@ Es ist jedoch auch möglich, Listenausdrücke zu verwenden.
 Diese bestehen in der einfachsten Form aus anderen Ausdrücken, die durch Komma oder \code{and} getrennt sind.
 Beispiele dafür sind \code{1, 2, 3}, \code{Alice, Bob and Charlie} und \code{'left' and 'right'}.
 In Java werden daraus Ausdrücke wie \code{Arrays.asList(1, 2, 3)} vom Typ \code{List<Integer>}.
-Diese Listen lassen sich beispielsweise mit \code{write}-Sätzen in einer Variable speichern:
+Diese Listen lassen sich beispielsweise mit \code{Write}-Sätzen in einer Variable speichern:
 
 \begin{codeblock}
     We write Alice, Bob and Charlie into students.
@@ -329,7 +331,7 @@ Daraus entsteht der folgende Java-Code:
 
 Zu beachten ist hier die Verwendung von \code{ArrayList};
 sie ermöglicht es, später Elemente der Liste hinzuzufügen oder aus ihr zu entfernen.
-Dies ist mit den \code{add}- und \code{remove}-Schlüsselwörtern möglich:
+Dies ist mit den Schlüsselwörtern \code{add} und \code{remove} möglich:
 
 \begin{codeblock}
     We add David to students.
@@ -437,11 +439,12 @@ Im Java-Code ist erkennbar, dass aus \code{a1} im Rumpf eine Referenz auf den \c
 \end{jcodeblock}
 
 Mehrere Parameter werden wie üblich durch \code{and} und Kommata getrennt.
-Diese sind zwar benannt, müssen aber dennoch bei jedem Aufruf in der gleichen Reihenfolge stehen.
+Zwar werden bei jedem Aufruf die Parameternamen angegeben, jedoch müssen sie stets in der gleichen Reihenfolge stehen.
+Dadurch werden Inkonsistenzen in der Ausführungsreihenfolge vermieden.
 
 Die bisher gezeigten Beispiele für Methoden zeichneten sich durch ihren Gebrauch von Seiteneffekten aus.
 Dies ist nicht immer gewünscht und u.U.\ hinderlich, weshalb die Scenario-Sprache auch Syntax für Rückgabewerte bereitstellt.
-Dies erfolgt durch \code{Answer}-Sätze, welche Return-Anweisungen in Java entsprechen.
+Dabei handelt es sich um die \code{Answer}-Sätze, welche Return-Anweisungen in Java entsprechen.
 
 \begin{codeblock}
     We call produce on factory.
@@ -468,7 +471,7 @@ Wird diese Methode erneut aufgerufen, darf der Rumpf nicht wiederholt werden.
 Somit ist auch kein Variablenname für das Ergebnis angegeben.
 Darauf kann jedoch ohne einen solchen nicht nach dem Aufruf zugegriffen werden.
 Aus diesem Grund existiert der \code{Answer}-Ausdruck, der das Ergebnis des letzten Methodenaufrufs bezeichnet.
-Das folgende Beispiel illustriert dessen Verwendung:
+Das folgende Beispiel illustriert die Verwendung des Ausdrucks:
 
 \begin{codeblock}
     We call produce on factory.
