@@ -79,7 +79,7 @@ Sie ist unter~\cite{lexer-grammar} zu finden.
 Die Grammatik besteht aus mehreren Regeln, die einem Muster einen Namen zuordnen.
 Dieser Name wird später den Tokens zugeordnet.
 So haben Tokens mit dem Text \code{and} später den Namen \code{AND} und jene, die ein Wort darstellen, den Namen \code{WORD}.
-Im Folgenden werden Tokens mit der Kurzschreibweise \code{<name>(<text>)} bezeichnet, z.B.\ \code{AND(and)} und \code{WORD(Alice)}.
+Im Folgenden werden Tokens mit der Kurzschreibweise \code{<name>(<text>)} bezeichnet, beispielsweise \code{AND(and)} und \code{WORD(Alice)}.
 
 Die rechte Seite jeder Regel ähnelt einem regulären Ausdruck.
 Bei Schlüsselwörtern wie \code{a}, \code{is} und \code{with} muss der Text exakt der vorgegebenen Schreibweise entsprechen, während \code{There} beispielsweise auch kleingeschrieben werden kann.
@@ -151,10 +151,10 @@ Die vollständige Definitionsdatei ist unter~\cite{gts-definitions} zu finden.
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios1.gts}{Ausschnitt der FulibScenarios.gts-Datei}
 
 Die Definitionsdatei verwendet die Syntax von GenTreeSrc, welche wie folgt zu lesen ist:
-Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, z.B. \code{org.fulib.scenarios. ast.Node}. % space added before ast to allow line break
+Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, zum Beispiel \code{org.fulib.scenarios.ast.Node}.
 Das Schlüsselwort \code{abstract} bedeutet hier, dass diese ein Interface ist und nicht instanziiert werden kann.
 In den geschweiften Klammern nach einer Klassendefinition werden weitere Klassen definiert, die von dieser erben.
-Diese werden entweder im selben Package (z.B.\ \code{org.fulib.scenarios.ast.ScenarioFile}) oder in einem Unterpackage (z.B.\ \code{org.fulib.scenarios.ast.decl.Name}) abgelegt.
+Diese werden entweder im selben Package (zum Beispiel \code{org.fulib.scenarios.ast.ScenarioFile}) oder in einem Unterpackage (\code{org.fulib.scenarios.ast.decl.Name}) abgelegt.
 Runde Klammern nach dem Klassennamen enthalten die Attribute, welche die Syntax \code{name: Typ} verwenden.
 Die Typausdrücke \code{[T]} und \code{[T:U]} stehen für \code{List<T>} und \code{Map<T, U>}.
 Einfache Attribute haben einen Getter und Setter, außer das Schlüsselwort \code{readonly} ist vorhanden, da dieses dafür sorgt, dass kein Setter erzeugt wird.
@@ -199,7 +199,7 @@ Die Namensauflösung umfasst mehrere Teilaufgaben:
 
 Der Grund für die Zusammenfassung der Teilaufgaben ist, dass diese eng verzahnt und meist in einem Schritt ausführbar sind.
 Beispielsweise beim Auflösen einer Assoziation kann diese angelegt werden, falls es sie noch nicht gibt, andernfalls muss die bestehene Assoziation mit der neuen Definition auf Konsistenz überprüft und ggf.\ eine Fehlermeldung erzeugt werden.
-Diese kann z.B.\ auftreten, wenn bei der zweiten Verwendung versehentlich die Rückrichtung falsch benannt wird:
+Diese kann zum Beispiel auftreten, wenn bei der zweiten Verwendung versehentlich die Rückrichtung falsch benannt wird:
 
 \begin{codeblock}
     Kassel has country and is one of the cities of Germany.

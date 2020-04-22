@@ -245,7 +245,7 @@ Diese lassen sich mit einem \code{PatternBuilder} anlegen.
     PatternObject unitsPO = builder.buildPatternObject("Units");
 \end{jcodeblock*}
 
-Pattern-Objekte werden nicht nur für Objekte im Datenmodell (z.B.\ \code{gamePO}, \code{playerPO}, \code{housePO}), sondern auch für deren Attribute benötigt (\code{winScorePO} und \code{unitsPO}).
+Pattern-Objekte werden nicht nur für Objekte im Datenmodell (\code{gamePO}, \code{playerPO}, \code{housePO}) benötigt, sondern auch für deren Attribute (\code{winScorePO} und \code{unitsPO}).
 Intern entspricht jedes Pattern-Objekt einer Spalte der Tabelle, die am Ende des Match-Vorgangs alle Ergebnisse enthält.
 
 Nun müssen die Pattern-Objekte verbunden werden.
@@ -532,7 +532,7 @@ Konkret hat dies die Konsequenz, dass \code{g} und \code{p1} in keinem Fall das 
 Ohne weitere Einschränkung kann mit diesem Beispiel kein erfolgreiches Match erzielt werden, unabhängig davon welche Objekte davor erstellt werden.
 Wird vor dem Match-Satz nur genau ein Objekt deklariert, kann dieses entweder \code{g} oder \code{p1} zugewiesen werden, aber nicht beiden Pattern-Objekten gleichzeitig.
 Dies bewirkt ein Fehlschlagen des Match-Vorgangs mit einer \code{NoMatchException}.
-Wenn mehrere Objekte wie z.B.\ \code{game} und \code{Alice} deklariert werden, sind sowohl \code{g=game, p1=Alice} als auch \code{g=Alice, p1=game} mögliche Zuweisungen des Patterns.
+Wenn mehrere Objekte wie beispielsweise \code{game} und \code{Alice} deklariert werden, sind sowohl \code{g=game, p1=Alice} als auch \code{g=Alice, p1=game} mögliche Zuweisungen des Patterns.
 Diese Uneindeutigkeit bewirkt, dass der Match-Vorgang mit einer \code{AmbiguousMatchException} abbricht.
 Durch Wiedereinführung des Attribut-Constraints des Spielernamens kann das Problem behoben werden.
 Damit wird die eindeutige Zuweisung \code{g=game, p1=Alice} erzwungen.
