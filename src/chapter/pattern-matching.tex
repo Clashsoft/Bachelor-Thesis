@@ -285,7 +285,7 @@ Analog zu \code{filterRows} bei Tabellen kommt dafür bei Patterns ein \emph{Mat
 
 Der Lambda-Ausdruck entspricht hier jenem, der mit \code{filterRows} gebraucht wurde.
 Zu beachten ist die darauffolgende Angabe der verwendeten Pattern-Objekte.
-I.A.\ können Match-Constraints erst dann verarbeitet werden, wenn alle Pattern-Objekte gefunden wurden, die sie verwenden.
+Im Allgemeinen können Match-Constraints erst dann verarbeitet werden, wenn alle von ihnen verwendeten Pattern-Objekte gefunden wurden.
 Wären diese nicht explizit angegeben, müsste davon ausgegangen werden, dass das Match-Constraint \emph{alle} Pattern-Objekte verwendet.
 Dann müssten zunächst alle Pattern-Objekte zugewiesen werden, bevor das Match-Constraint verarbeitet werden kann.
 Dabei könnten jedoch große Zwischenergebnisse entstehen, was zu erheblich längeren Ausführungszeiten führen kann.
@@ -369,8 +369,8 @@ Es handelt sich dabei um genau jenen Code, der zur Einrichtung von Patterns und 
 Besonders ist hier die Zeile mit \code{withRootObjects}.
 Der Aufruf von \code{discoverObjects} bewirkt in diesem Beispiel, dass alle von \code{game} ausgehenden Objekte, deren Typ zum Package \code{org.example} gehört, als Root-Objekte behandelt werden.
 Dies umfasst \code{game} selber sowie alle über direkte und transitive Assoziationen verknüpften Objekte, damit also die gesamte Objektstruktur.
-I.A.\ werden an \code{discoverObjects} alle sich im Scope befindenden Variablen übergeben.
-Dabei können auch Objekte, die nicht direkt zugänglich sind, gefunden werden.
+Der Scenario-Compiler sammelt alle sich im Scope befindenden Variablen und übergibt sie an \code{discoverObjects}.
+Die Methode stellt sicher, dass auch Objekte gefunden werden, die nicht direkt zugänglich sind.
 Wichtig ist jedoch, dass nicht direkt nach Objekten gesucht werden kann, die nicht zum Package des Scenarios gehören.
 Dies betrifft insbesondere einfache Werte wie Zahlen oder Strings.
 
