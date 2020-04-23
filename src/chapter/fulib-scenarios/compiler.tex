@@ -107,7 +107,7 @@ Die \code{thereSentence}-Regel aus Listing~\ref{lst:ScenarioParser.g4} beginnt b
 Beim Ableiten eines konkreten Syntaxbaumes werden alle Terminale zu den Blättern, während die Nicht-Terminale zu Elternknoten werden.
 
 In Listing~\ref{lst:ScenarioParser.g4} dient \code{file} als Startregel.
-Nun wird diese Regel \emph{abgeleitet}, d.h.\ die Tokens, die derzeit am Anfang der Token-Liste stehen, werden entweder einem Terminal zugeordnet oder ein Nicht-Terminal wird rekursiv abgeleitet.
+Nun wird diese Regel \emph{abgeleitet}, indem entweder die Tokens, die derzeit am Anfang der Token-Liste stehen, einem Terminal zugeordnet werden, oder ein Nicht-Terminal rekursiv abgeleitet wird.
 Da \code{file} mit dem Nicht-Terminal \code{heading} beginnt, wird zunächst dieses abgeleitet.
 Dabei wird dem Terminal \code{HEADLINE} das Token \code{HEADLINE(# My First Scenario)} zugeordnet.
 Als nächstes werden \code{sentence} und \code{thereSentence} abgeleitet, wobei den Terminalen \code{THERE}, \code{IS} und \code{A} und \code{WORD} das entsprechende Token zugeordnet wird.
@@ -257,7 +257,7 @@ Dies ist aufgrund der Komplexität hier nicht näher erläutert.} Klassen bereit
 Wird nun versucht, den Typnamen \code{Student} in diesem Scope aufzulösen, findet man zunächst keine entsprechende Deklaration.
 Deshalb wird ein neues Objekt im Datenmodell des Compilers angelegt, das die Klasse \code{Student} repräsentiert und deren Zugehörigkeit zum gleichen Paket wie die Scenario-Datei deklariert.
 Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese neue Klasse verweist.
-Nun ist der Typ der \code{CreationExpr} aufgelöst und kann als Typ der Variable \code{alice} inferiert\footnote{D.h.\ automatisch ermittelt und nicht explizit angegeben.} werden.
+Nun ist der Typ der \code{CreationExpr} aufgelöst und wird gleichzeitig zum Typ der Variable \code{alice}.
 
 Als nächstes muss \code{UnresolvedName(value: "Alice")} im \code{HasSentence} bearbeitet werden.
 Der \code{HasSentence} fügt der Scope-Hierarchie eine weitere Ebene hinzu, die den Namen \code{alice} \emph{versteckt}.
