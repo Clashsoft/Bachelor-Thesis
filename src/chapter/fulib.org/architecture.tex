@@ -81,7 +81,7 @@ Aus Java-Dateien werden relevante Methodenrümpfe durch einen einfachen Parser e
 % Database
 Die Kommunikation mit der Datenbank ist besonders bei Assignments und verwandter Funktionalität relevant.
 Alle dafür zuständigen Endpunkte lesen entweder aus der Datenbank oder erzeugen darin neue Datensätze.
-Beim Anlegen ist das Anfrageformat stets JSON, welches der Server zunächst in sein eigenes Datenmodell konvertiert.
+Beim Anlegen ist das Anfrageformat stets JSON, das der Server zunächst in sein eigenes Datenmodell konvertiert.
 Dieses wird beim Speichern in der Datenbank in deren natives Format konvertiert.
 Umgekehrt ist es bei Leseanfragen, bei denen der Server Anfragen an die Datenbank stellt, deren Ergebnis in sein Datenmodell konvertiert und dies als JSON in der Antwort zurückgibt.
 Das Backend ist bei sämtlichen Anfragen für die Prüfung von Tokens zur Autorisierung zuständig, wobei sichergestellt wird, dass keine Daten bei unbefugten Anfragen preisgegeben werden.

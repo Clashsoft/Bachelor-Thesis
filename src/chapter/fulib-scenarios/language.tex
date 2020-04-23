@@ -33,12 +33,12 @@ In der Scenario-Sprache verfasster Quellcode wird in \code{.md}-Dateien abgelegt
 Listing~\ref{lst:basic-example} zeigt links ein Beispiel für eine solche.
 Rechts davon ist der Java-Code zu sehen, der zu dieser Datei äquivalent ist.
 
-Eine Scenario-Datei beginnt stets mit einer Überschrift, welche in Markdown mit dem \mdcode{#}-Symbol angedeutet werden.
+Eine Scenario-Datei beginnt stets mit einer Überschrift, die in Markdown mit dem \mdcode{#}-Symbol angedeutet werden.
 Mit der Überschrift beginnt ein Scenario, das nach dieser Überschrift benannt ist.
 Während aus der Scenario-Datei die Testklasse wird, werden die Scenarios zu den Testmethoden.
 Da eine Testklasse mehrere Testmethoden enthalten kann, liegt es nahe, dass eine Scenario-Datei auch aus mehreren Überschriften und damit mehreren Scenarios bestehen kann.
 
-Nach einer Überschrift können ein oder mehrere Sätze und Überschriften zweiten Grades folgen, welche den Rumpf des Scenarios bilden.
+Nach einer Überschrift können ein oder mehrere Sätze und Überschriften zweiten Grades folgen, die den Rumpf des Scenarios bilden.
 Überschriften zweiten Grades sind an \mdcode{##} am Anfang einer Zeile zu erkennen und ermöglichen die Strukturierung von langen Scenarios.
 Im Java-Code wird daraus ein Kommentar, damit auch dieser leichter lesbar ist (vgl.\ Listing~\ref{lst:basic-example}, Zeile 4).
 
@@ -91,7 +91,7 @@ Ein Beispiel dafür ist folgendes:
     Kassel has postcode 34117.
 \end{codeblock}
 
-Dabei ist \code{Kassel} der Name des Zielobjekts, in diesem Fall jenes, welches zuvor mit dem \code{Is}-Satz angelegt wurde.
+Dabei ist \code{Kassel} der Name des Zielobjekts, in diesem Fall jenes, das zuvor mit dem \code{Is}-Satz angelegt wurde.
 \code{postcode} ist der Name des Attributs; \code{34117} der zuzuweisende Wert.
 Aus diesem Satz wird der folgende Java-Code:
 
@@ -177,7 +177,7 @@ Andernfalls würde aus \code{cities} trotz der Pluralform eine Zu-1-Assoziation 
 \subsection{Test-Sätze und Diagramme}\label{subsec:test-sentences-and-diagrams}
 
 Damit Tests aussagekräftig sind, müssen sie die Ergebnisse der durchgeführten Aktionen überprüfen.
-Dazu dienen in Java Assertions, welche sowohl als Schlüsselwort als auch von verschiedenen Test-Frameworks bereitgestellt werden.
+Dazu dienen in Java Assertions, die sowohl als Schlüsselwort als auch von verschiedenen Test-Frameworks bereitgestellt werden.
 Die Scenario-Sprache generiert Test-Code, der das Framework JUnit~4~\cite{junit4} verwendet.
 Sie bietet einige Sätze an, die zu Assertions übersetzt und zusammengefasst als \code{Expect}-Sätze bezeichnet werden.
 
@@ -210,7 +210,7 @@ Die Scenario-Sprache bietet neben automatischen Tests auch die Möglichkeit, Obj
 Diese können sowohl der Verständlichkeit dienen als auch für die Dokumentation verwendet werden.
 Dafür kommen Diagrammsätze zum Einsatz, die die Markdown-Syntax für Bilder (\mdcode{![Beschreibung](dateiname.png)}) verwenden und daher keine englischen Sätze im eigentlichen Sinne sind.
 Als Beschreibung dienen ein oder mehrere Objekte.
-Davon ausgehend wird die vollständige Objektstruktur ermittelt, welche dann in einem Objektdiagramm dargestellt wird.
+Davon ausgehend wird die vollständige Objektstruktur ermittelt, die dann in einem Objektdiagramm dargestellt wird.
 Dafür wird die FulibTools\cite{fulibTools}-Bibliothek verwendet.
 Diese kann gegeben einige Startobjekte einen Objektgraphen bilden, diesen übersichtlich anordnen und als Raster- oder Vektorgrafik zeichnen.
 Um die zuvor definierten Objekte darzustellen, kann der folgende Diagramm-Satz verwendet werden:
@@ -238,13 +238,13 @@ Abbildung~\ref{fig:germany.png} zeigt das Objektdiagramm, das von dieser darstel
 Neben der Dateiendung \code{.png} wird auch \code{.svg} für Vektorgrafiken unterstützt.
 Diese können beliebig ohne Qualitätsverlust vergrößert werden.
 Sie sind für die Einbettung in Markdown aber nur beschränkt geeignet, da nicht alle Anzeigeprogramme das Bildformat unterstützen.
-Des Weiteren existieren diverse weitere Ausgabeformate, welche in der FulibScenarios-Dokumentation~\cite{documentation} unter Language > Sentences > Test Sentences > Diagram Sentences näher erläutert werden.
+Des Weiteren existieren diverse weitere Ausgabeformate, die in der FulibScenarios-Dokumentation~\cite{documentation} unter Language > Sentences > Test Sentences > Diagram Sentences näher erläutert werden.
 
 \subsection{Kontrollstrukturen}\label{subsec:control-structures}
 
 Mit Scenarios lassen sich nicht nur statische Objektstrukturen erzeugen.
 Es ist auch möglich, zur Laufzeit Entscheidungen zu fällen und davon abhängig unterschiedliche Ergebnisse zu erzeugen.
-Dafür kommen \code{As}-Sätze zum Einsatz, welche If-Anweisungen in Java entsprechen.
+Dafür kommen \code{As}-Sätze zum Einsatz, die If-Anweisungen in Java entsprechen.
 Der konzeptuelle Unterschied ist jedoch, dass im Scenario vom Eintreten der Bedingung ausgegangen wird.
 Daraus folgt sowohl die Verwendung des Schlüsselworts \code{As} statt \code{If}, als auch die fehlende Syntax für \code{else}-Zweige\footnote{
 Dies lässt sich durch Verwenden von zwei \code{As}-Sätzen mit gegensätzlichen Bedingungen umgehen.
@@ -373,7 +373,7 @@ In der Testklasse wird eine Methode \code{init} angelegt, die an der Stelle des 
 Nach dem \code{Call}-Satz folgt der Rumpf.
 Da es in der Scenario-Sprache keine geschweiften Klammern oder ähnliche Konstrukte gibt, muss auf andere Weise unterschieden werden, welche Sätzen zum Rumpf gehören und welche in der Testmethode auf den Aufruf folgen sollen.
 Dafür dienen die Subjekte jedes Satzes.
-Bei den meisten bisher kennengelernten Sätzen war dies \code{We}, welches sich stets auf die Testmethode bezieht.
+Bei den meisten bisher kennengelernten Sätzen war dies \code{We}, das sich stets auf die Testmethode bezieht.
 Viele Sätze erlauben jedoch alternativ die Angabe eines Methodennamens wie \code{init} aus dem obigen Beispiel.
 So kann festgelegt werden, dass sie zum Rumpf eines vorherigen Aufrufs gehören.
 Die \code{init}-Methode kann also wie folgt gefüllt werden:
@@ -443,7 +443,7 @@ Dadurch werden Inkonsistenzen in der Ausführungsreihenfolge vermieden.
 
 Die bisher gezeigten Beispiele für Methoden zeichneten sich durch ihren Gebrauch von Seiteneffekten aus.
 Dies ist nicht immer gewünscht und unter Umständen hinderlich, weshalb die Scenario-Sprache auch Syntax für Rückgabewerte bereitstellt.
-Dabei handelt es sich um die \code{Answer}-Sätze, welche Return-Anweisungen in Java entsprechen.
+Dabei handelt es sich um die \code{Answer}-Sätze, die Return-Anweisungen in Java entsprechen.
 
 \begin{codeblock}
     We call produce on factory.
@@ -500,7 +500,7 @@ Dazu gehören die Klassen \code{User} und \code{UserRegistry}, die über eine As
 Von beiden Klassen wird jeweils ein Objekt angelegt.
 
 Unter \code{Get Existing} folgt der erste Aufruf der Methode \code{getOrCreate} in \code{UserRegistry}, der eine ID als Parameter übergeben wird.
-Im Rumpf wird mit einer Schleife nach einem bereits existierenden \code{User} mit dieser ID gesucht, welcher mit der Registry verknüpft ist.
+Im Rumpf wird mit einer Schleife nach einem bereits existierenden \code{User} mit dieser ID gesucht, der mit der Registry verknüpft ist.
 Da unter \code{Setup} bereits ein solcher angelegt wurde, ist die Suche erfolgreich und endet mit dessen Rückgabe.
 Daraufhin wird mit einem \code{Expect}-Satz sichergestellt, dass auch wirklich das richtige Objekt zurückgegeben wurde.
 

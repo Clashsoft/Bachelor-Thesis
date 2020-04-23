@@ -5,7 +5,7 @@ Dies kann einerseits durch direktes Ausführen des Programmtexts geschehen.
 In diesem Fall wird das ausführende Programm Interpreter genannt.
 Andererseits kann eine Programmiersprache auch in ein maschinenlesbares Format übersetzt werden, das dann direkt oder durch eine virtuelle Maschine ausgeführt wird.
 Dieser Ansatz nennt sich Kompilierung.
-In Java wird die Kompilierung durch den Java Compiler durchgeführt, welcher Bytecode erzeugt.
+In Java wird die Kompilierung durch den Java Compiler durchgeführt, der Bytecode erzeugt.
 Dieser kann von einer Java Virtual Machine ausgeführt werden.
 
 Scenarios werden in zwei Schritten ausführbar gemacht.
@@ -30,14 +30,14 @@ Deshalb ist es wichtig, dass ein Compiler sie in einer übersichtlichen Architek
 Diese Schritte werden auch als \emph{Phasen}\cite[S.~4]{dragonbook} bezeichnet.
 Im Groben kann der Scenario-Compiler in drei Phasen unterteilt werden, deren Aufgaben sich stark unterscheiden.
 
-Die erste Phase ist das Frontend, welches für das Einlesen und Strukturieren von Quelltext zuständig ist.
+Die erste Phase ist das Frontend, das für das Einlesen und Strukturieren von Quelltext zuständig ist.
 Es kann einen zusammenhängenden Text als Folge von Wörtern, Ausdrücken und Sätzen verstehen, und daraus anhand der Regeln der Sprache einen Baum bilden, der die Struktur des Texts abbildet.
 Dafür muss der Quelltext die Grammatik der Sprache befolgen, andernfalls ist das Frontend für die Ausgabe von Fehlermeldung zuständig, die auf Unstimmigkeiten im Text hindeuten.
 
 Die Verarbeitung dieses Baumes ist dann Aufgabe der Analyse- und Transformationsphase, welche die zweite Phase darstellt\footnote{Aufgrund des großen Umfangs wird sie hier als eigenständig und nicht als Teil des Frontends aufgefasst.}.
 Dabei wird der Baum anhand von Regeln, die aus der Semantik der Sprache hervorgehen, umgeformt und geprüft.
 Dazu gehört die Diagnose von Fehlern, die über einfache Syntax hinausgehen.
-Ergebnis der Phase ist eine neue Baumstruktur, welche auf der vom Frontend stammenden aufbaut, sie aber um zusätzliche Informationen erweitert oder teilweise vereinfacht.
+Ergebnis der Phase ist eine neue Baumstruktur, die auf der vom Frontend stammenden aufbaut, sie aber um zusätzliche Informationen erweitert oder teilweise vereinfacht.
 
 Die letzte Phase wird als Backend bezeichnet.
 Dessen Aufgabe ist es, Code in einer Zielsprache anhand des Ergebnisses der Analyse zu generieren.
@@ -150,7 +150,7 @@ Die vollständige Definitionsdatei ist unter~\cite{gts-definitions} zu finden.
 
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios1.gts}{Ausschnitt der FulibScenarios.gts-Datei}
 
-Die Definitionsdatei verwendet die Syntax von GenTreeSrc, welche wie folgt zu lesen ist:
+Die Definitionsdatei verwendet die Syntax von GenTreeSrc, die wie folgt zu lesen ist:
 Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, zum Beispiel \code{org.fulib.scenarios.ast.Node}.
 Das Schlüsselwort \code{abstract} bedeutet hier, dass diese ein Interface ist und nicht instanziiert werden kann.
 In den geschweiften Klammern nach einer Klassendefinition werden weitere Klassen definiert, die von dieser erben.
@@ -293,7 +293,7 @@ Der Codegenerator von Fulib unterstützt dabei das Zusammenführen von bestehend
 
 % Model vs Test Classes
 Der Scenario-Codegenerator sieht eine logische Trennung von Modell und Tests vor.
-Fulib selbst kennt diese Trennung nicht, daher erzeugt der Scenario-Compiler zwei getrennte Fulib-Datenmodelle, welche später auch Java-Dateien in getrennten Verzeichnissen ablegen.
+Fulib selbst kennt diese Trennung nicht, daher erzeugt der Scenario-Compiler zwei getrennte Fulib-Datenmodelle, die später auch Java-Dateien in getrennten Verzeichnissen ablegen.
 Test-Klassen und -Methoden werden ansonsten vom Scenario-Compiler bei der Codegenerierung wie Modelklassen behandelt und sind daher an dieser Stelle nicht näher erläutert.
 
 % Model Conversion
@@ -305,7 +305,7 @@ Der Scenario-Compiler ist also dafür zuständig, Methodenrümpfe zeilenweise zu
 Um dies zu gewährleisten, ist für jede Satzart eine Regel definiert, die anhand von Informationen aus der Analyse- und Transformationsphase eine oder mehrere Java-Anweisungen erzeugt.
 Ähnlich werden Ausdrücke der Scenario-Sprache in Java-Ausdrücke übersetzt.
 Dabei wird in einer Zeichenkette der Methodenrumpf zusammengebaut.
-Zuletzt wird im Datenmodell von Fulib ein Objekt angelegt, welches diese Zeichenkette sowie Name, Rückgabetyp und Parameter der Methode speichert.
+Zuletzt wird im Datenmodell von Fulib ein Objekt angelegt, das diese Zeichenkette sowie Name, Rückgabetyp und Parameter der Methode speichert.
 
 % New Files
 Mit dem fertigen Datenmodell kann Fulib dann die Java-Dateien erzeugen bzw.\ verändern.
