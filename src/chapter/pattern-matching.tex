@@ -312,7 +312,7 @@ Dies erfolgt durch Ausführung der \code{filter}-, \code{expand} / \code{expandA
 Die Reihenfolge wird automatisch so gewählt, dass zu jedem Zeitpunkt möglichst wenige Tabellenzeilen entstehen, um den Aufwand gering zu halten.
 Dazu werden Attribut-\ und Match-Constraints, welche die Zeilenanzahl nur verringern können, den Link-Constraints, die neue Spalten und Zeilen erzeugen, vorgezogen.
 Letztere werden immer erst dann abgearbeitet, wenn keine der Ersteren anwendbar sind.
-Durch die automatische Optimierung haben Patterns also den Vorteil, dass der Nutzer sich anders als mit Tabellen nicht die Reihenfolge der Operationen überlegen muss, sondern sich auf die Suchkriterien konzentrieren kann.
+Durch die automatische Optimierung haben Patterns den Vorteil, dass der Nutzer sich anders als mit Tabellen nicht die Reihenfolge der Operationen überlegen muss, sondern sich auf die Suchkriterien konzentrieren kann.
 
 Nach dem Match-Vorgang lassen sich die Ergebnisse anhand der Pattern-Objekte extrahieren:
 
@@ -368,7 +368,7 @@ Es handelt sich dabei um genau jenen Code, der zur Einrichtung von Patterns und 
 
 Besonders ist hier die Zeile mit \code{withRootObjects}.
 Der Aufruf von \code{discoverObjects} bewirkt in diesem Beispiel, dass alle von \code{game} ausgehenden Objekte, deren Typ zum Package \code{org.example} gehört, als Root-Objekte behandelt werden.
-Dies umfasst \code{game} selber sowie alle über direkte und transitive Assoziationen verknüpften Objekte, damit also die gesamte Objektstruktur.
+Dies umfasst \code{game} selber sowie alle über direkte und transitive Assoziationen verknüpften Objekte, demnach die gesamte Objektstruktur.
 Der Scenario-Compiler sammelt alle sich im Scope befindenden Variablen und übergibt sie an \code{discoverObjects}.
 Die Methode stellt sicher, dass auch Objekte gefunden werden, die nicht direkt zugänglich sind.
 Wichtig ist jedoch, dass nicht direkt nach Objekten gesucht werden kann, die nicht zum Package des Scenarios gehören.

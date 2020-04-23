@@ -129,7 +129,7 @@ Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
 
 Der CST ist eng an die Struktur der Grammatik gebunden.
 Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsam genutzten Hilfsregeln beim Refactoring, ändert sich auch die Struktur des CST\@.
-Würde man also den CST für weitere Schritte des Compile-Vorgangs verwenden, müsste man die Implementierung dieser Schritte bei Änderung der Grammatik an die neue CST-Struktur anpassen, was zu einem Wartungsproblem führt.
+Würde man den CST für weitere Schritte des Compile-Vorgangs verwenden, müsste folglich die Implementierung dieser Schritte bei Änderung der Grammatik an die neue CST-Struktur angepasst werden, was zu einem Wartungsproblem führt.
 Deshalb hat das Frontend zusätzlich die Aufgabe, den CST in eine umgänglichere Form umzuwandeln.
 Diese nennt man \emph{Abstract Syntax Tree} (AST).
 Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
@@ -301,7 +301,7 @@ Zu Beginn der Codegenerierung konvertiert der Scenario-Compiler sein an die Scen
 Für Klassen, Attribute und Assoziationen ist diese Umwandlung annähernd eins-zu-eins;
 lediglich Methoden werden gesondert gehandhabt.
 Grund dafür ist, dass das Datenmodell von Fulib zwar Methodendeklarationen versteht, deren Rumpf jedoch als Zeichenkette modelliert, da es kein Modell für Anweisungen und Ausdrücke bereitstellt.
-Der Scenario-Compiler ist also dafür zuständig, Methodenrümpfe zeilenweise zusammenzusetzen.
+Der Scenario-Compiler ist folglich dafür zuständig, Methodenrümpfe zeilenweise zusammenzusetzen.
 Um dies zu gewährleisten, ist für jede Satzart eine Regel definiert, die anhand von Informationen aus der Analyse- und Transformationsphase eine oder mehrere Java-Anweisungen erzeugt.
 Ähnlich werden Ausdrücke der Scenario-Sprache in Java-Ausdrücke übersetzt.
 Dabei wird in einer Zeichenkette der Methodenrumpf zusammengebaut.
@@ -334,7 +334,7 @@ Dies ermöglicht die spätere Reproduktion dieser Formatierung.
 Die Vorlagen für Attribute, Assoziationen und Methoden lassen sich ebenfalls als Fragmente verwenden.
 Ein Attribut hat beispielsweise vier Vorlagen, je eine für die Konstante, die Variable, und die Getter- und Setter- Methoden.
 In diesem Beispiel wurde die Variable \code{name} sowie deren Getter bereits von Hand geschrieben.
-Es fehlen also in der bestehenden Datei der Setter von \code{name} sowie die zugehörige Konstante.
+Es fehlen somit in der bestehenden Datei der Setter von \code{name} sowie die zugehörige Konstante.
 
 % Merging Fragments
 Nun gilt es, die Fragmente für die neuen Deklarationen in die bestehenden zu integrieren.
