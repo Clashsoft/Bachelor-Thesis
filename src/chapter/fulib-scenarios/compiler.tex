@@ -183,7 +183,7 @@ Die entsprechenden Attribute in AST-Klassen wurden hier zur Einfachheit ausgelas
 
 Die Analyse- und Transformationphase besteht im Scenario-Compiler aus zwei logisch getrennten Unterphasen, der Gruppierung und der Namensauflösung.
 Die Gruppierung ist zuständig dafür, aus der linearen Abfolge von Sätzen in einem Scenario eine Baumstruktur zur erzeugen, wenn Sätze anderen untergeordnet werden können.
-Dies ist beispielsweise bei jenen Sätzen der Fall, die unter einem \code{Call}-Satz stehen, welche im vorherigen Abschnitt unter~\ref{subsec:methods} näher erläutert wurden.
+Dies ist beispielsweise bei jenen Sätzen der Fall, die unter einem \code{Call}-Satz stehen, wie im vorherigen Abschnitt unter~\ref{subsec:methods} näher erläutert wurde.
 Jeder Satz, dessen Subjekt dem des \code{Call}-Satzes entspricht, wird diesem untergeordnet und ist nicht länger Element der Satzliste des Scenarios.
 Grund dafür ist, dass der Code für diese Sätze später nicht im Test, sondern in der entsprechenden Methode auftaucht.
 Da für die Bestimmung von Subjekten keine komplexe Namensauflösung notwendig ist, die Unterordnung von Sätzen jedoch die Sichtbarkeit von Namen beeinflusst, geschieht die Gruppierung vor der Namensauflösung.

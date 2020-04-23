@@ -349,7 +349,7 @@ Aus Platzgründen sind diese hier nicht weiter erläutert, sie sind jedoch in de
 \subsection{Methoden}\label{subsec:methods}
 
 Bisher wurde sämtlicher Code von Sätzen in Testmethoden generiert.
-Die Scenario-Sprache sieht es aber auch vor, Aktionen mit Objekten durchzuführen, welche in Methoden gekapselt werden.
+Die Scenario-Sprache sieht es aber auch vor, Aktionen mit Objekten durchzuführen und Abläufe in Methoden zu kapseln.
 Sie stellt Syntax bereit, die den Aufruf von Methoden und die Definition von Methodenrümpfen ermöglicht.
 
 Ein Methodenaufruf in der Scenario-Sprache beginnt stets mit einem \code{Call}-Satz.
@@ -371,7 +371,7 @@ In der Testklasse wird eine Methode \code{init} angelegt, die an der Stelle des 
 \end{jcodeblock}
 
 Nach dem \code{Call}-Satz folgt der Rumpf.
-Da es in der Scenario-Sprache keine geschweiften Klammern oder ähnliche Konstrukte gibt, muss auf andere Weise unterschieden werden, welche Sätzen zum Rumpf gehören und welche in der Testmethode auf den Aufruf folgen sollen.
+Da es in der Scenario-Sprache keine geschweiften Klammern oder ähnliche Konstrukte gibt, muss auf andere Weise unterschieden werden, welche Sätze zum Rumpf gehören und welche in der Testmethode auf den Aufruf folgen sollen.
 Dafür dienen die Subjekte jedes Satzes.
 Bei den meisten bisher kennengelernten Sätzen war dies \code{We}, das sich stets auf die Testmethode bezieht.
 Viele Sätze erlauben jedoch alternativ die Angabe eines Methodennamens wie \code{init} aus dem obigen Beispiel.
@@ -485,7 +485,7 @@ Das folgende Beispiel illustriert die Verwendung des Ausdrucks:
 Hier wird das Ergebnis des Aufrufs in der automatisch benannten Variable \code{result1} gespeichert.
 Aus \code{the answer} wird dann im Java-Code ein Zugriff darauf.
 
-Zuletzt soll das Konzept der \emph{Stückweisen Definition}, welches bei Methoden Anwendung findet, betrachtet werden.
+Zuletzt soll das Konzept der \emph{Stückweisen Definition}, das Anwendung bei Methoden findet, betrachtet werden.
 Dieses erlaubt es, bei jedem Aufruf einer Methode einen Teil ihres Rumpfes zu definieren.
 Beim Umwandeln des Scenarios in Java-Code werden diese Teile zusammengefügt, um den ganzen Rumpf der Methode zu bilden.
 Dazu soll nun ein vollständiges Beispiel betrachtet werden, dessen Ziel es ist, eine Datenbank zu modellieren, in der Benutzer mit IDs abgelegt werden.
