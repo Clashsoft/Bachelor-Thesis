@@ -164,7 +164,7 @@ Mit den generierten Klassen kann nun ein AST erzeugt werden.
 Dafür implementiert das Frontend einen Übersetzungsschritt für eine Vielzahl von CST-Knoten, der diese bei den Blättern beginnend in AST-Knoten umwandelt.
 
 Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten CST ist der AST, der in Listing~\ref{lst:CompilationExampleAST.txt} in seinem Ausgabeformat dargestellt ist\footnote{
-    Im Scenario-Compiler steht auf der obersten Ebene ein \code{CompilationContext}-Knoten, der u.a.\ Kompilierungsoptionen enthält.
+    Im Scenario-Compiler steht auf der obersten Ebene ein \code{CompilationContext}-Knoten, der unter anderem Kompilierungsoptionen enthält.
     Darunter befinden sich Knoten für Pakete;
     erst diese enthalten den \code{ScenarioFile}-Knoten.
     Aus Gründen der Einfachheit wurden diese beiden Ebenen hier ausgelassen.

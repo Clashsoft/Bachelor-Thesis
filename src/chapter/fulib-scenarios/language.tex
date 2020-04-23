@@ -388,8 +388,7 @@ Dazu gehören beispielsweise \code{Expect}- und Diagrammsätze.
 Bei anderen Sätzen wie \code{is} und \code{has} hat das Subjekt eine andere Bedeutung, wodurch sie automatisch zum aktuell beschriebenen Rumpf oder Test gehören.
 Zudem lassen sich Subjekte nicht mischen.
 Verwendet ein Satz ein anderes Subjekt als der vorherige, wird der vorherige Aufruf geschlossen.
-Hat ein \code{call}-Satz ein anderes Subjekt als \code{we}, können geschachtelte Methodenaufrufe stattfinden.
-Dadurch lässt sich u.a.\ Rekursion realisieren.
+Geschachtelte Aufrufe können stattfinden, wenn das Subjekt eines \code{Call}-Satzes einem darüberliegenden Methodennamen entspricht.
 Der geschachtelte Aufruf kann zwar wieder einen neuen Rumpf beginnen, davon ist jedoch aus Gründen der Verständlichkeit abzuraten.
 
 Während eine \code{init}-Methode für gemeinsam genutzen Code in einem Test akzeptabel ist, sollten Methoden mit anwendungsspezifischer Logik üblicherweise nicht in Testklassen implementiert sein.
