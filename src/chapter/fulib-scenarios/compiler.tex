@@ -58,14 +58,14 @@ Sie dient als Referenz für die folgenden Unterabschnitte, in denen die Phasen u
 Die Übersetzung der Markdown-Datei beginnt mit deren Einlesen und Umwandeln in verarbeitbare Daten.
 Im Compilerbau wird dies klassisch in zwei Schritte unterteilt.
 Der \emph{Lexer} wandelt die Zeichenfolge in eine Liste von Wörtern mit Typinformationen, genannt \emph{Tokens}, um.
-Dann bringt der \emph{Parser} die flache Liste von Tokens nach den Regeln der Grammatik in eine Baumstruktur, die \emph{Concrete Syntax Tree} (CST) genannt wird.
+Dann bringt der \emph{Parser} die flache Liste von Tokens nach den Regeln der Grammatik in eine Baumstruktur, die \acfi{cst} genannt wird.
 
 Da die Umwandlung in Tokens und deren Strukturierung in den meisten Compilern Anwendung findet und deren Implementierung meist nach einem festen Muster stattfindet, existieren Tools, welche diesen Prozess vereinfachen.
 Diese werden \emph{Compiler-Compiler} oder \emph{Lexer-} und \emph{Parsergeneratoren} genannt.
 
 Das Frontend des Scenario-Compilers basiert auf dem Parsergenerator ANTLR4~\cite{antlr4-reference}.
 Mit diesem können Grammatiken in einem EBNF-ähnlichen Format spezifiziert werden.
-Aus der Grammatik generiert das Tool dann Java-Code, der Dateien einlesen kann und daraus einen CST generiert.
+Aus der Grammatik generiert das Tool dann Java-Code, der Dateien einlesen kann und daraus einen \ac{cst} generiert.
 
 Zunächst soll betrachtet werden, wie die FulibScenarios-Grammatik definiert ist.
 Dies beginnt mit dem Lexer.
@@ -94,7 +94,7 @@ Wendet man die Regeln aus Listing~\ref{lst:ScenarioLexer.g4} auf das Scenario au
 
 \codelisting{text}{chapter/fulib-scenarios/trees}{CompilationExampleTokens.txt}{Aus Listing~\ref{lst:CompilationExample.md} abgeleitete Token-Liste}
 
-Als nächstes sollen diese Tokens in einen CST umgewandelt werden.
+Als nächstes sollen diese Tokens in einen \ac{cst} umgewandelt werden.
 Dies ist die Aufgabe des Parsers.
 Listing~\ref{lst:ScenarioParser.g4} zeigt wieder einen Ausschnitt der Grammatik, welche diesen für das Beispiel-Scenario ausreichend beschreibt.
 Die vollständige Parser-Grammatik ist unter~\cite{parser-grammar} definiert.
@@ -127,10 +127,10 @@ Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
     \label{fig:parsetree}
 \end{figure}
 
-Der CST ist eng an die Struktur der Grammatik gebunden.
-Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsam genutzten Hilfsregeln beim Refactoring, ändert sich auch die Struktur des CST\@.
-Würde man den CST für weitere Schritte des Compile-Vorgangs verwenden, müsste folglich die Implementierung dieser Schritte bei Änderung der Grammatik an die neue CST-Struktur angepasst werden, was zu einem Wartungsproblem führt.
-Deshalb hat das Frontend zusätzlich die Aufgabe, den CST in eine umgänglichere Form umzuwandeln.
+Der \ac{cst} ist eng an die Struktur der Grammatik gebunden.
+Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsam genutzten Hilfsregeln beim Refactoring, ändert sich auch die Struktur des \ac{cst}.
+Würde man den \ac{cst} für weitere Schritte des Compile-Vorgangs verwenden, müsste folglich die Implementierung dieser Schritte bei Änderung der Grammatik an die neue \ac{cst}-Struktur angepasst werden, was zu einem Wartungsproblem führt.
+Deshalb hat das Frontend zusätzlich die Aufgabe, den \ac{cst} in eine umgänglichere Form umzuwandeln.
 Diese nennt man \emph{Abstract Syntax Tree} (AST).
 Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
 
@@ -161,9 +161,9 @@ Einfache Attribute haben einen Getter und Setter, außer das Schlüsselwort \cod
 Aus jedem Attribut wird ein Parameter im Konstruktor bzw.\ der Factory-Methode der generierten Klasse.
 
 Mit den generierten Klassen kann nun ein AST erzeugt werden.
-Dafür implementiert das Frontend einen Übersetzungsschritt für eine Vielzahl von CST-Knoten, der diese bei den Blättern beginnend in AST-Knoten umwandelt.
+Dafür implementiert das Frontend einen Übersetzungsschritt für eine Vielzahl von \ac{cst}-Knoten, der diese bei den Blättern beginnend in AST-Knoten umwandelt.
 
-Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten CST ist der AST, der in Listing~\ref{lst:CompilationExampleAST.txt} in seinem Ausgabeformat dargestellt ist\footnote{
+Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten \ac{cst} ist der AST, der in Listing~\ref{lst:CompilationExampleAST.txt} in seinem Ausgabeformat dargestellt ist\footnote{
     Im Scenario-Compiler steht auf der obersten Ebene ein \code{CompilationContext}-Knoten, der unter anderem Kompilierungsoptionen enthält.
     Darunter befinden sich Knoten für Pakete;
     erst diese enthalten den \code{ScenarioFile}-Knoten.
