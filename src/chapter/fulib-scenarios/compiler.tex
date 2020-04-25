@@ -131,7 +131,7 @@ Der \ac{cst} ist eng an die Struktur der Grammatik gebunden.
 Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsam genutzten Hilfsregeln beim Refactoring, ändert sich auch die Struktur des \ac{cst}.
 Würde man den \ac{cst} für weitere Schritte des Compile-Vorgangs verwenden, müsste folglich die Implementierung dieser Schritte bei Änderung der Grammatik an die neue \ac{cst}-Struktur angepasst werden, was zu einem Wartungsproblem führt.
 Deshalb hat das Frontend zusätzlich die Aufgabe, den \ac{cst} in eine umgänglichere Form umzuwandeln.
-Diese wird \aci{ast} genannt.
+Diese wird \acfi{ast} genannt.
 Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
 
 Technisch gesehen besteht der \ac{ast} aus einem weiteren Datenmodell neben dem Datenmodell des Parsers.
@@ -230,13 +230,13 @@ Weiterführendes Ziel ist es, den im vorherigen Abschnitt angelegten \ac{ast}, d
 Da die Gruppierung in diesem Beispiel keine Veränderungen durchführt, kann als nächstes die Namensauflösung betrachtet werden.
 Dabei führt der Scenario-Compiler zunächst einen Umformungsschritt durch, der den \code{ThereSentence} durch einen \code{IsSentence} und einen \code{HasSentence} ersetzt.
 Diese Umformung erhält die Semantik, wie im vorherigen Abschnitt unter~\ref{subsec:simple-sentences-and-expressions} gezeigt wurde.
-In Listing~\ref{lst:Preprocessed\ac{ast}.txt} ist der \ac{ast} nach dieser Umformung abgebildet.
+In Listing~\ref{lst:PreprocessedAST.txt} ist der \ac{ast} nach dieser Umformung abgebildet.
 Zur Vereinfachung ist nur der \code{Scenario}-Knoten gezeigt, da der \code{ScenarioFile}- sowie darüberliegende Knoten unverändert geblieben sind.
 Listing~\ref{lst:FulibScenarios2.gts} zeigt die neuen \ac{ast}-Klassendefinitionen, die dafür notwendig sind.
 
-\codelisting{java}{chapter/fulib-scenarios/trees}{Preprocessed\ac{ast}.txt}{\ac{ast} nach Umformung von \code{ThereSentence} zu \code{IsSentence} + \code{HasSentence}}
+\codelisting{java}{chapter/fulib-scenarios/trees}{PreprocessedAST.txt}{\ac{ast} nach Umformung von \code{ThereSentence} zu \code{IsSentence} + \code{HasSentence}}
 
-\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios2.gts}{Neue \ac{ast}-Klassendefinitionen für Listing~\ref{lst:Preprocessed\ac{ast}.txt}}
+\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios2.gts}{Neue \ac{ast}-Klassendefinitionen für Listing~\ref{lst:PreprocessedAST.txt}}
 
 Im nächsten Schritt werden die neu erzeugten \code{Sentence}-Knoten aufgelöst.
 Meist ist an dem Wort \code{Unresolved} im Klassennamen zu erkennen, dass ein \ac{ast}-Knoten aufgelöst werden muss.
@@ -275,10 +275,10 @@ Da die Klasse \code{Student} jedoch bisher keine Attribute oder Assoziationen ha
 Daraufhin wird der \code{UnresolvedName} durch einen \code{ResolvedName} ausgetauscht, der auf das neue Attribut verweist.
 
 Die Analyse und Transformation des \ac{ast} ist nun abgeschlossen.
-Listing~\ref{lst:Final\ac{ast}.txt} zeigt den vollständigen \ac{ast}, der nun für die Codegenerierung vorbereitet ist.
+Listing~\ref{lst:FinalAST.txt} zeigt den vollständigen \ac{ast}, der nun für die Codegenerierung vorbereitet ist.
 Die darin verwendeten neuen \ac{ast}-Definitionen sind in Listing~\ref{lst:FulibScenarios3.gts} zu finden.
 
-\codelisting{java}{chapter/fulib-scenarios/trees}{Final\ac{ast}.txt}{\ac{ast} nach Analyse und Transformation}
+\codelisting{java}{chapter/fulib-scenarios/trees}{FinalAST.txt}{\ac{ast} nach Analyse und Transformation}
 
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios3.gts}{Neue \ac{ast}-Definitionen für Namensauflösung und vollständigen \ac{ast}}
 
