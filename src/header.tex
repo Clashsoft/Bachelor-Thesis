@@ -9,6 +9,13 @@
 \cfoot{}
 \fancypagestyle{plain}{}
 
+\newcommand{\Chapter}[1]{%
+    \chapter*{#1}%
+    % Inhaltsverzeichnis und Kopfzeile
+    \addcontentsline{toc}{chapter}{#1}%
+    \markboth{#1}{#1}%
+}
+
 % Select input encodung, usually utf8 is the best choice, on windows, \usepackage[latin1]{inputenc} maybe required
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
