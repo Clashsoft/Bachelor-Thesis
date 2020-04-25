@@ -6,7 +6,7 @@ Ziel der Scenario-Sprache ist es, verständlich für jeden zu sein, der die engl
 Um als Programmiersprache funktionsfähig zu sein, hat sie im Gegensatz zu Englisch eine feste und eingeschränkte grammatikalische Struktur.
 Somit handelt es sich um eine Untermenge der englischen Sprache.
 Des Weiteren basiert die Scenario-Sprache auf dem Markdown-Format, das es erlaubt, einfachen Text mit Überschriften, Fett- und Kursivschreibung, Bildern und anderen Formatierungsmerkmalen zu versehen.
-Markdown-Dateien können leicht in HTML umgewandelt werden, wodurch in der Scenario-Sprache verfasste Texte auch als Dokumentation einsetzbar sind.
+Markdown-Dateien können leicht in \ac{html} umgewandelt werden, wodurch in der Scenario-Sprache verfasste Texte auch als Dokumentation einsetzbar sind.
 Im Folgenden werden einige Grundlagen der Scenario-Sprache dargestellt und erklärt.
 
 \subsection{Grundlagen}\label{subsec:basics}
@@ -44,9 +44,9 @@ Im Java-Code wird daraus ein Kommentar, damit auch dieser leichter lesbar ist (v
 
 Im Rumpf von Scenarios gibt es einige Möglichkeiten, Kommentare zu hinterlassen.
 Mit \jcode{//} wird wie in anderen Programmiersprachen ein Zeilenkommentar begonnen, der mit dem nächsten Zeilenumbruch endet.
-Dieser ist sowohl nach Umwandeln des Markdown in HTML sichtbar, als auch im erzeugten Java-Quellcode vorhanden.
-Text, der in runden Klammern \code{(...)} steht, ist ebenfalls im HTML sichtbar, jedoch nicht im Java-Quellcode.
-Zuletzt können mit \mdcode{<!-- ... -->} Kommentare eingebettet werden, die weder im HTML sichtbar noch im Java-Code vorhanden sind.
+Dieser ist sowohl nach Umwandeln des Markdown in \ac{html} sichtbar, als auch im erzeugten Java-Quellcode vorhanden.
+Text, der in runden Klammern \code{(...)} steht, ist ebenfalls im \ac{html} sichtbar, jedoch nicht im Java-Quellcode.
+Zuletzt können mit \mdcode{<!-- ... -->} Kommentare eingebettet werden, die weder im \ac{html} sichtbar noch im Java-Code vorhanden sind.
 Listing~\ref{lst:basic-example} zeigt, dass lediglich der Zeilenkommentar aus dem Scenario in den Test übernommen wurde (Zeile 5).
 
 \subsection{Einfache Sätze und Ausdrücke}\label{subsec:simple-sentences-and-expressions}
