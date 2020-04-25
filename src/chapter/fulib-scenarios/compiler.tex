@@ -131,19 +131,19 @@ Der \ac{cst} ist eng an die Struktur der Grammatik gebunden.
 Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsam genutzten Hilfsregeln beim Refactoring, ändert sich auch die Struktur des \ac{cst}.
 Würde man den \ac{cst} für weitere Schritte des Compile-Vorgangs verwenden, müsste folglich die Implementierung dieser Schritte bei Änderung der Grammatik an die neue \ac{cst}-Struktur angepasst werden, was zu einem Wartungsproblem führt.
 Deshalb hat das Frontend zusätzlich die Aufgabe, den \ac{cst} in eine umgänglichere Form umzuwandeln.
-Diese nennt man \emph{Abstract Syntax Tree} (AST).
+Diese wird \aci{ast} genannt.
 Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
 
-Technisch gesehen besteht der AST aus einem weiteren Datenmodell neben dem Datenmodell des Parsers.
-Während letzteres von ANTLR aus der Grammatik hergeleitet und generiert wird, ist das Datenmodell des AST manuell definiert und am logischen Aufbau eines Szenarios orientiert.
-So gibt es AST-Klassen für Pakete, Dateien, Scenarios in Dateien und jegliche Arten von Sätzen und Ausdrücken.
+Technisch gesehen besteht der \ac{ast} aus einem weiteren Datenmodell neben dem Datenmodell des Parsers.
+Während letzteres von ANTLR aus der Grammatik hergeleitet und generiert wird, ist das Datenmodell des \ac{ast} manuell definiert und am logischen Aufbau eines Szenarios orientiert.
+So gibt es \ac{ast}-Klassen für Pakete, Dateien, Scenarios in Dateien und jegliche Arten von Sätzen und Ausdrücken.
 Für bestimmte Konstrukte, die in mehreren Sätzen vorkommen, gibt es Hilfsklassen, die Code-Duplizierung vermeiden.
 Dazu gehören z.B.\ mit Namen versehene Ausdrücke.
 
-Das Datenmodell des AST wird ebenfalls automatisch generiert.
-Grund dafür ist, dass jede AST-Klasse lediglich aus Klassenvariablen, Gettern und Settern sowie einer Factory-Methode besteht.
+Das Datenmodell des \ac{ast} wird ebenfalls automatisch generiert.
+Grund dafür ist, dass jede \ac{ast}-Klasse lediglich aus Klassenvariablen, Gettern und Settern sowie einer Factory-Methode besteht.
 Diese können mit einer Liste von Attributen ausreichend definiert werden.
-Die Generierung des AST erfolgt durch das von mir entwickelte GenTreeSrc-Tool~\cite{gentreesrc}.
+Die Generierung des \ac{ast} erfolgt durch das von mir entwickelte GenTreeSrc-Tool~\cite{gentreesrc}.
 Dieses erlaubt die Definition von Klassen und Attributen in einer \code{gts}-Datei, aus der dann Java-Dateien generiert werden können.
 Listing~\ref{lst:FulibScenarios1.gts} zeigt einen Ausschnitt der \code{gts}-Datei von FulibScenarios, in dem die für Beispiel~\ref{lst:CompilationExample.md} benötigten Definitionen abgebildet sind.
 Die vollständige Definitionsdatei ist unter~\cite{gts-definitions} zu finden.
@@ -160,26 +160,26 @@ Die Typausdrücke \code{[T]} und \code{[T:U]} stehen für \code{List<T>} und \co
 Einfache Attribute haben einen Getter und Setter, außer das Schlüsselwort \code{readonly} ist vorhanden, da dieses dafür sorgt, dass kein Setter erzeugt wird.
 Aus jedem Attribut wird ein Parameter im Konstruktor bzw.\ der Factory-Methode der generierten Klasse.
 
-Mit den generierten Klassen kann nun ein AST erzeugt werden.
-Dafür implementiert das Frontend einen Übersetzungsschritt für eine Vielzahl von \ac{cst}-Knoten, der diese bei den Blättern beginnend in AST-Knoten umwandelt.
+Mit den generierten Klassen kann nun ein \ac{ast} erzeugt werden.
+Dafür implementiert das Frontend einen Übersetzungsschritt für eine Vielzahl von \ac{cst}-Knoten, der diese bei den Blättern beginnend in \ac{ast}-Knoten umwandelt.
 
-Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten \ac{cst} ist der AST, der in Listing~\ref{lst:CompilationExampleAST.txt} in seinem Ausgabeformat dargestellt ist\footnote{
+Ergebnis der Übersetzung des in Abbildung~\ref{fig:parsetree} gezeigten \ac{cst} ist der \ac{ast}, der in Listing~\ref{lst:CompilationExample\ac{ast}.txt} in seinem Ausgabeformat dargestellt ist\footnote{
     Im Scenario-Compiler steht auf der obersten Ebene ein \code{CompilationContext}-Knoten, der unter anderem Kompilierungsoptionen enthält.
     Darunter befinden sich Knoten für Pakete;
     erst diese enthalten den \code{ScenarioFile}-Knoten.
     Aus Gründen der Einfachheit wurden diese beiden Ebenen hier ausgelassen.
 }.
 
-\codelisting{java}{chapter/fulib-scenarios/trees}{CompilationExampleAST.txt}{AST von Listing~\ref{lst:CompilationExample.md}}
+\codelisting{java}{chapter/fulib-scenarios/trees}{CompilationExample\ac{ast}.txt}{\ac{ast} von Listing~\ref{lst:CompilationExample.md}}
 
 \subsection{Analyse und Transformation}\label{subsec:data-model-gentreesrc}
 
-Sobald der AST im Frontend erzeugt wurde, beginnt die Analyse- und Transformationsphase.
-Deren Aufgabe ist es, den AST auf semantische Gültigkeit zu überprüfen und ihn so vorzubereiten, dass in der folgenden Codegenerierungsphase alle Informationen bereitstehen.
+Sobald der \ac{ast} im Frontend erzeugt wurde, beginnt die Analyse- und Transformationsphase.
+Deren Aufgabe ist es, den \ac{ast} auf semantische Gültigkeit zu überprüfen und ihn so vorzubereiten, dass in der folgenden Codegenerierungsphase alle Informationen bereitstehen.
 
 Bei der Analyse werden die Fehler- und Warnmeldungen erzeugt, welche die Ausgabe des Compilers bilden.
-Dafür werden im AST durch das Frontend Positionsinformationen von Tokens hinterlegt, die es ermöglichen, in den Meldungen Dateinamen, Zeilen- und Spaltennummern einzubringen.
-Die entsprechenden Attribute in AST-Klassen wurden hier zur Einfachheit ausgelassen, sie sind jedoch unter~\cite{gts-definitions} vollständig erfasst.
+Dafür werden im \ac{ast} durch das Frontend Positionsinformationen von Tokens hinterlegt, die es ermöglichen, in den Meldungen Dateinamen, Zeilen- und Spaltennummern einzubringen.
+Die entsprechenden Attribute in \ac{ast}-Klassen wurden hier zur Einfachheit ausgelassen, sie sind jedoch unter~\cite{gts-definitions} vollständig erfasst.
 
 Die Analyse- und Transformationphase besteht im Scenario-Compiler aus zwei logisch getrennten Unterphasen, der Gruppierung und der Namensauflösung.
 Die Gruppierung ist zuständig dafür, aus der linearen Abfolge von Sätzen in einem Scenario eine Baumstruktur zur erzeugen, wenn Sätze anderen untergeordnet werden können.
@@ -194,7 +194,7 @@ Die Namensauflösung umfasst mehrere Teilaufgaben:
     \item Die direkte Auflösung und Erzeugung sichtbarer Variablen, Klassen und Methoden
     \item Die Auflösung und Erzeugung von Attributen, Assoziationen und Methoden in Klassen und dem dadurch definierten Namensraum
     \item Das Erzeugen von Diagnosenachrichten
-    \item Die Umstrukturierung des AST
+    \item Die Umstrukturierung des \ac{ast}
 \end{itemize}
 
 Der Grund für die Zusammenfassung der Teilaufgaben ist, dass diese eng verzahnt und meist in einem Schritt ausführbar sind.
@@ -222,24 +222,24 @@ Dadurch kann auch die Formulierung der Beschreibung geändert oder in eine ander
 Viele (Fehler-)Meldungen enthalten außerdem einige Zeilen mit zusätzlichen Informationen, wie hier die Informationen zur vorherigen und jetzigen Deklaration der Assoziation.
 Diese sollen den Entwickler ebenfalls bei der Problembehebung unterstützen.
 
-Eine weitere Aufgabe der Transformationsphase ist es, den AST vor der Auflösung zu vereinfachen.
-Bildet man beispielsweise eine Art von AST-Knoten immer auf eine andere ab, müssen folgende Schritte nicht mehr für die erste Knotenart implementiert werden, da man sichergehen kann, dass sie nicht mehr vorkommt.
+Eine weitere Aufgabe der Transformationsphase ist es, den \ac{ast} vor der Auflösung zu vereinfachen.
+Bildet man beispielsweise eine Art von \ac{ast}-Knoten immer auf eine andere ab, müssen folgende Schritte nicht mehr für die erste Knotenart implementiert werden, da man sichergehen kann, dass sie nicht mehr vorkommt.
 Dadurch kann Code-Duplizierung vermieden und die Code-Generierung vereinfacht werden.
 
-Weiterführendes Ziel ist es, den im vorherigen Abschnitt angelegten AST, der in Listing~\ref{lst:CompilationExampleAST.txt} gezeigt wurde, weiter zu verarbeiten.
+Weiterführendes Ziel ist es, den im vorherigen Abschnitt angelegten \ac{ast}, der in Listing~\ref{lst:CompilationExample\ac{ast}.txt} gezeigt wurde, weiter zu verarbeiten.
 Da die Gruppierung in diesem Beispiel keine Veränderungen durchführt, kann als nächstes die Namensauflösung betrachtet werden.
 Dabei führt der Scenario-Compiler zunächst einen Umformungsschritt durch, der den \code{ThereSentence} durch einen \code{IsSentence} und einen \code{HasSentence} ersetzt.
 Diese Umformung erhält die Semantik, wie im vorherigen Abschnitt unter~\ref{subsec:simple-sentences-and-expressions} gezeigt wurde.
-In Listing~\ref{lst:PreprocessedAST.txt} ist der AST nach dieser Umformung abgebildet.
+In Listing~\ref{lst:Preprocessed\ac{ast}.txt} ist der \ac{ast} nach dieser Umformung abgebildet.
 Zur Vereinfachung ist nur der \code{Scenario}-Knoten gezeigt, da der \code{ScenarioFile}- sowie darüberliegende Knoten unverändert geblieben sind.
-Listing~\ref{lst:FulibScenarios2.gts} zeigt die neuen AST-Klassendefinitionen, die dafür notwendig sind.
+Listing~\ref{lst:FulibScenarios2.gts} zeigt die neuen \ac{ast}-Klassendefinitionen, die dafür notwendig sind.
 
-\codelisting{java}{chapter/fulib-scenarios/trees}{PreprocessedAST.txt}{AST nach Umformung von \code{ThereSentence} zu \code{IsSentence} + \code{HasSentence}}
+\codelisting{java}{chapter/fulib-scenarios/trees}{Preprocessed\ac{ast}.txt}{\ac{ast} nach Umformung von \code{ThereSentence} zu \code{IsSentence} + \code{HasSentence}}
 
-\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios2.gts}{Neue AST-Klassendefinitionen für Listing~\ref{lst:PreprocessedAST.txt}}
+\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios2.gts}{Neue \ac{ast}-Klassendefinitionen für Listing~\ref{lst:Preprocessed\ac{ast}.txt}}
 
 Im nächsten Schritt werden die neu erzeugten \code{Sentence}-Knoten aufgelöst.
-Meist ist an dem Wort \code{Unresolved} im Klassennamen zu erkennen, dass ein AST-Knoten aufgelöst werden muss.
+Meist ist an dem Wort \code{Unresolved} im Klassennamen zu erkennen, dass ein \ac{ast}-Knoten aufgelöst werden muss.
 Im \code{IsSentence}-Knoten fällt mit dieser Eigenschaft der Typ der \code{CreationExpr} auf.
 
 Der Compiler verwendet für die Auflösung einen \emph{Scope}, der aus mehreren Ebenen besteht, die jeweils Variablen und andere Deklarationen sichtbar machen.
@@ -274,13 +274,13 @@ Wäre eines davon bereits vorhanden, würde der Compiler diverse Überprüfungen
 Da die Klasse \code{Student} jedoch bisher keine Attribute oder Assoziationen hat, wird ein neues Attribut mit dem Namen \code{name} und dem Typ \code{String} angelegt und im Datenmodell der Klasse \code{Student} gespeichert.
 Daraufhin wird der \code{UnresolvedName} durch einen \code{ResolvedName} ausgetauscht, der auf das neue Attribut verweist.
 
-Die Analyse und Transformation des AST ist nun abgeschlossen.
-Listing~\ref{lst:FinalAST.txt} zeigt den vollständigen AST, der nun für die Codegenerierung vorbereitet ist.
-Die darin verwendeten neuen AST-Definitionen sind in Listing~\ref{lst:FulibScenarios3.gts} zu finden.
+Die Analyse und Transformation des \ac{ast} ist nun abgeschlossen.
+Listing~\ref{lst:Final\ac{ast}.txt} zeigt den vollständigen \ac{ast}, der nun für die Codegenerierung vorbereitet ist.
+Die darin verwendeten neuen \ac{ast}-Definitionen sind in Listing~\ref{lst:FulibScenarios3.gts} zu finden.
 
-\codelisting{java}{chapter/fulib-scenarios/trees}{FinalAST.txt}{AST nach Analyse und Transformation}
+\codelisting{java}{chapter/fulib-scenarios/trees}{Final\ac{ast}.txt}{\ac{ast} nach Analyse und Transformation}
 
-\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios3.gts}{Neue AST-Definitionen für Namensauflösung und vollständigen AST}
+\codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios3.gts}{Neue \ac{ast}-Definitionen für Namensauflösung und vollständigen \ac{ast}}
 
 \subsection{Codegenerierung}\label{subsec:codegen-fulib}
 
