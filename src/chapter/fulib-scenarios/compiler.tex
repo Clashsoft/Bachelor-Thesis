@@ -64,7 +64,7 @@ Da die Umwandlung in Tokens und deren Strukturierung in den meisten Compilern An
 Diese werden \emph{Compiler-Compiler} oder \emph{Lexer-} und \emph{Parsergeneratoren} genannt.
 
 Das Frontend des Scenario-Compilers basiert auf dem Parsergenerator ANTLR4~\cite{antlr4-reference}.
-Mit diesem können Grammatiken in einem EBNF-ähnlichen Format spezifiziert werden.
+Mit diesem können Grammatiken in einem \ac{ebnf}-ähnlichen Format spezifiziert werden.
 Aus der Grammatik generiert das Tool dann Java-Code, der Dateien einlesen kann und daraus einen \ac{cst} generiert.
 
 Zunächst soll betrachtet werden, wie die FulibScenarios-Grammatik definiert ist.
@@ -215,7 +215,7 @@ Dies erzeugt die folgende Fehlermeldung in der Konsolenausgabe des Compilers:
 \end{codeblock}
 
 Die Fehlermeldungen sind so strukturiert, dass sie alle nötigen Informationen zur Lösung des Problems enthalten:
-Zu Beginn stehen Dateiname, Zeile und Spalte, die mit einer IDE direkt an der richtigen Stelle geöffnet werden können.
+Zu Beginn stehen Dateiname, Zeile und Spalte, die mit einer \ac{IDE} direkt an der richtigen Stelle geöffnet werden können.
 Nach der Angabe der Dringlichkeit der Meldung, die im Beispiel \code{error} ist, aber auch \code{syntax}, \code{warning} oder \code{note} sein könnte, folgt eine kurze Beschreibung der Problemursache.
 In den eckigen Klammern steht eine feste Meldungs-ID, nach der beispielsweise in der Dokumentation, bei Google oder StackOverflow gesucht werden kann.
 Dadurch kann auch die Formulierung der Beschreibung geändert oder in eine andere Sprache übersetzt werden, wonach Online-Suchergebnisse weiterhin auffindbar wären.
