@@ -132,9 +132,8 @@ Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsam gen
 Würde man den \ac{cst} für weitere Schritte des Compile-Vorgangs verwenden, müsste folglich die Implementierung dieser Schritte bei Änderung der Grammatik an die neue \ac{cst}-Struktur angepasst werden, was zu einem Wartungsproblem führt.
 Deshalb hat das Frontend zusätzlich die Aufgabe, den \ac{cst} in eine umgänglichere Form umzuwandeln.
 Diese wird \acfi{ast} genannt.
-Die Namensgebung folgt daher, dass über die Grammatik abstrahiert wird.
 
-Technisch gesehen besteht der \ac{ast} aus einem weiteren Datenmodell neben dem Datenmodell des Parsers.
+Der \ac{ast} besteht aus einem weiteren Datenmodell, das vollständing von dem für den Parser verwendeten getrennt ist.
 Während letzteres von ANTLR aus der Grammatik hergeleitet und generiert wird, ist das Datenmodell des \ac{ast} manuell definiert und am logischen Aufbau eines Szenarios orientiert.
 So gibt es \ac{ast}-Klassen für Pakete, Dateien, Scenarios in Dateien und jegliche Arten von Sätzen und Ausdrücken.
 Für bestimmte Konstrukte, die in mehreren Sätzen vorkommen, gibt es Hilfsklassen, die Code-Duplizierung vermeiden.
@@ -153,8 +152,9 @@ Die vollständige Definitionsdatei ist unter~\cite{gts-definitions} zu finden.
 Die Definitionsdatei verwendet die Syntax von GenTreeSrc, die wie folgt zu lesen ist:
 Auf der obersten Ebene werden Klassen inkl.\ Package-Name definiert, zum Beispiel \code{org.fulib.scenarios.ast.Node}.
 Das Schlüsselwort \code{abstract} bedeutet hier, dass diese ein Interface ist und nicht instanziiert werden kann.
-In den geschweiften Klammern nach einer Klassendefinition werden weitere Klassen definiert, die von dieser erben.
-Diese werden entweder im selben Package (zum Beispiel \code{org.fulib.scenarios.ast.ScenarioFile}) oder in einem Unterpackage (\code{org.fulib.scenarios.ast.decl.Name}) abgelegt.
+In den geschweiften Klammern nach einer Klassendefinition werden weitere Klassen definiert, die von dieser erben sollen.
+So erbt beispielsweise \code{ScenarioFile} von \code{Node} und gehört ebenfalls zum Package \code{org.fulib.scenarios.ast}.
+Relative Package-Namen wie \code{decl.Name} bewirken, dass die Klassen in einem Unterpackage relativ zu ihren Elternklassen ablegt werden, in diesem Fall wäre der qualifizierte Klassenname folglich \code{org.fulib.scenarios.ast.decl.Name}.
 Runde Klammern nach dem Klassennamen enthalten die Attribute, welche die Syntax \code{name: Typ} verwenden.
 Die Typausdrücke \code{[T]} und \code{[T:U]} stehen für \code{List<T>} und \code{Map<T, U>}.
 Einfache Attribute haben einen Getter und Setter, außer das Schlüsselwort \code{readonly} ist vorhanden, da dieses dafür sorgt, dass kein Setter erzeugt wird.
