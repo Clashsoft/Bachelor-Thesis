@@ -1,16 +1,16 @@
 \section{Compiler}\label{sec:compiler}
 
 Damit eine Programmiersprache praktisch einsetzbar ist, muss sie nicht nur in Syntax und Semantik definiert sein, sondern auch ausführbar sein.
-Dies kann einerseits durch direktes Ausführen des Programmtexts geschehen.
-In diesem Fall wird das ausführende Programm Interpreter genannt.
+Dies kann einerseits durch direktes Ausführen des Programmtexts geschehen, wie es beispielsweise bei Skriptsprachen der Fall ist.
 Andererseits kann eine Programmiersprache auch in ein maschinenlesbares Format übersetzt werden, das dann direkt oder durch eine virtuelle Maschine ausgeführt wird.
 Dieser Ansatz nennt sich Kompilierung.
-In Java wird die Kompilierung durch den Java Compiler durchgeführt, der Bytecode erzeugt.
-Dieser kann von einer Java Virtual Machine ausgeführt werden.
+In Java wird sie durch den Java Compiler durchgeführt, der Bytecode erzeugt.
+Dieser kann von einer \ac{jvm} ausgeführt werden.
 
 Scenarios werden in zwei Schritten ausführbar gemacht.
-Zunächst werden die Markdown-Scenario-Quelltexte in Java-Quellcode durch den Scenario-Compiler übersetzt.
-Der erzeugte Quellcode wird dann vom Java-Compiler in ausführbaren Bytecode kompiliert.
+Zunächst werden deren Quelltexte durch den Scenario-Compiler in Java-Quellcode übersetzt.
+Der entstehende Quellcode wird dann vom Java-Compiler in ausführbaren Bytecode kompiliert, der letzlich von einer \ac{jvm} ausgeführt werden kann.
+Dieses Vorgehen wurde der direkten Ausführung vorgezogen, da der Java-Code als Zwischenergebnis einerseits dem Verständnis durch Vertrautheit dient und andererseits die Anpassung und Erweiterung um Aspekte erlaubt, für welche die Scenario-Sprache nicht vorgesehen ist.
 Die Architektur und Implementierung des Scenario-Compilers sind Inhalt dieses Abschnitts.
 Dabei wird des Öfteren auf das Beispiel in Listing~\ref{lst:CompilationExample.md} Bezug genommen, dessen Übersetzung bis zum Java-Quellcode in den einzelnen Teilabschnitten stückweise erarbeitet wird.
 
@@ -19,7 +19,7 @@ Dabei wird des Öfteren auf das Beispiel in Listing~\ref{lst:CompilationExample.
     \code{src/main/scenarios/org/example/CompilationExample.md}
     \inputminted{md}{chapter/fulib-scenarios/scenarios/CompilationExample.md}
     \vspace{-3ex}
-    \caption{Beispiel-Szenario zur Demonstration des Scenario-Compilers}
+    \caption{Beispiel-Scenario zur Demonstration des Scenario-Compilers}
     \label{lst:CompilationExample.md}
 \end{listing}
 
@@ -27,7 +27,7 @@ Dabei wird des Öfteren auf das Beispiel in Listing~\ref{lst:CompilationExample.
 
 Die Kompilierung von Programmiersprachen ist eine komplexe Aufgabe, bei der viele Schritte zusammenwirken müssen und zum Ergebnis beitragen.
 Deshalb ist es wichtig, dass ein Compiler sie in einer übersichtlichen Architektur aufbaut.
-Diese Schritte werden auch als \emph{Phasen}\cite[S.~4]{dragonbook} bezeichnet.
+Die Schritte werden auch als \emph{Phasen}\cite[S.~4]{dragonbook} bezeichnet.
 Im Groben kann der Scenario-Compiler in drei Phasen unterteilt werden, deren Aufgaben sich stark unterscheiden.
 
 Die erste Phase ist das Frontend, das für das Einlesen und Strukturieren von Quelltext zuständig ist.
@@ -36,7 +36,7 @@ Dafür muss der Quelltext die Grammatik der Sprache befolgen, andernfalls ist da
 
 Die Verarbeitung dieses Baumes ist dann Aufgabe der Analyse- und Transformationsphase, welche die zweite Phase darstellt\footnote{Aufgrund des großen Umfangs wird sie hier als eigenständig und nicht als Teil des Frontends aufgefasst.}.
 Dabei wird der Baum anhand von Regeln, die aus der Semantik der Sprache hervorgehen, umgeformt und geprüft.
-Dazu gehört die Diagnose von Fehlern, die über einfache Syntax hinausgehen.
+Zur Analyse gehört ferner die Diagnose von Problemen, die über einfache Syntaxfehler hinausgehen.
 Ergebnis der Phase ist eine neue Baumstruktur, die auf der vom Frontend stammenden aufbaut, sie aber um zusätzliche Informationen erweitert oder teilweise vereinfacht.
 
 Die letzte Phase wird als Backend bezeichnet.
@@ -64,12 +64,12 @@ Da die Umwandlung in Tokens und deren Strukturierung in den meisten Compilern An
 Diese werden \emph{Compiler-Compiler} oder \emph{Lexer-} und \emph{Parsergeneratoren} genannt.
 
 Das Frontend des Scenario-Compilers basiert auf dem Parsergenerator ANTLR~4~\cite{antlr4-reference}.
-Mit diesem können Grammatiken in einem \ac{ebnf}-ähnlichen Format spezifiziert werden.
-Aus der Grammatik generiert das Tool dann Java-Code, der Dateien einlesen kann und daraus einen \ac{cst} generiert.
+Mit diesem können Grammatiken in einem Format spezifiziert werden, das einer formalen Grammatik für reguläre und kontextfreie Sprachen ähnelt.
+Daraus generiert das Tool dann Java-Code, der Dateien einlesen kann und daraus einen \ac{cst} generiert.
 
 Zunächst soll betrachtet werden, wie die FulibScenarios-Grammatik definiert ist.
-Dies beginnt mit dem Lexer.
-In Listing~\ref{lst:ScenarioLexer.g4} ist ein Ausschnitt der ANTLR-Grammatik zu sehen, welche diesen definiert.
+Diese ist für Lexer und Parser getrennt.
+In Listing~\ref{lst:ScenarioLexer.g4} ist ein Ausschnitt der ANTLR-Grammatik zu sehen, welche den Lexer definiert.
 Der Ausschnitt ist ausreichend, um das Scenario aus Listing~\ref{lst:CompilationExample.md} verarbeiten zu können.
 Die eigentliche Grammatik von FulibScenarios besteht aus vielen weiteren Regeln, um alle Funktionen der Sprache zu implementieren.
 Sie ist unter~\cite{lexer-grammar} zu finden.
@@ -94,10 +94,10 @@ Wendet man die Regeln aus Listing~\ref{lst:ScenarioLexer.g4} auf das Scenario au
 
 \codelisting{text}{chapter/fulib-scenarios/trees}{CompilationExampleTokens.txt}{Aus Listing~\ref{lst:CompilationExample.md} abgeleitete Token-Liste}
 
-Als nächstes sollen diese Tokens in einen \ac{cst} umgewandelt werden.
+Als Nächstes sollen diese Tokens in einen \ac{cst} umgewandelt werden.
 Dies ist die Aufgabe des Parsers.
-Listing~\ref{lst:ScenarioParser.g4} zeigt wieder einen Ausschnitt der Grammatik, welche diesen für das Beispiel-Scenario ausreichend beschreibt.
-Die vollständige Parser-Grammatik ist unter~\cite{parser-grammar} definiert.
+Listing~\ref{lst:ScenarioParser.g4} zeigt einen für das Beispiel-Scenario ausreichenden Ausschnitt der Grammatik, die den Parser definiert.
+Die vollständige Parser-Grammatik ist unter~\cite{parser-grammar} auffindbar.
 
 \codelisting{antlr}{chapter/fulib-scenarios/grammars}{ScenarioParser.g4}{Ausschnitt der Scenario-Parser-Grammatik}
 
@@ -108,14 +108,10 @@ Beim Ableiten eines konkreten Syntaxbaumes werden alle Terminale zu den Blätter
 
 In Listing~\ref{lst:ScenarioParser.g4} dient \code{file} als Startregel.
 Nun wird diese Regel \emph{abgeleitet}, indem entweder die Tokens, die derzeit am Anfang der Token-Liste stehen, einem Terminal zugeordnet werden, oder ein Nicht-Terminal rekursiv abgeleitet wird.
-Da \code{file} mit dem Nicht-Terminal \code{heading} beginnt, wird zunächst dieses abgeleitet.
+Da \code{file} mit dem Nicht-Terminal \code{header} beginnt, wird zunächst dieses abgeleitet.
 Dabei wird dem Terminal \code{HEADLINE} das Token \code{HEADLINE(# My First Scenario)} zugeordnet.
-Als nächstes werden \code{sentence} und \code{thereSentence} abgeleitet, wobei den Terminalen \code{THERE}, \code{IS} und \code{A} und \code{WORD} das entsprechende Token zugeordnet wird.
-Bei der Ableitung von \code{withClause} muss entschieden werden, welche Alternative der Regel zutrifft.
-Im Fall des Teilsatzes \code{with name Alice} wird die erste Alternative ausgewählt, da \code{name} ein \code{WORD}-Token ist und nicht dem \code{INTEGER}-Terminal zugeordnet werden kann.
-Der Ausdruck \code{withClause (AND withClause)*} in der \code{thereSentence}-Regel bedeutet, dass auf eine \code{with}-Klausel beliebig viele weitere \code{with}-Klauseln folgen können, solange dazwischen ein \code{AND}-Token steht.
-Da dies im Beispiel der Fall ist, wird \code{AND(and)} dem \code{AND}-Terminal zugeordnet und \code{withClause} erneut abgeleitet.
-Diesmal wird dabei die zweite Alternative gewählt, da \code{INTEGER(30)} dem \code{INTEGER}-Terminal zugeordnet werden kann.
+Als Nächstes werden \code{sentence} und \code{thereSentence} abgeleitet, wobei den Terminalen \code{THERE}, \code{IS} und \code{A} und \code{WORD} das entsprechende Token zugeordnet wird.
+Die Ableitung von \code{withClause} erfolgt durch einfache Zuweisung der drei nächsten Tokens zu den entsprechenden Terminalen.
 Zuletzt wird der Punkt am Ende des Satzes dem \code{FULL_STOP}-Terminal zugeordnet.
 
 Nun sind alle Token, die der Lexer aus der Eingabe produziert hat, verbraucht, und der Parse-Vorgang ist abgeschlossen.
@@ -129,7 +125,7 @@ Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
 
 Der \ac{cst} ist eng an die Struktur der Grammatik gebunden.
 Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsam genutzten Hilfsregeln beim Refactoring, ändert sich auch die Struktur des \ac{cst}.
-Würde man den \ac{cst} für weitere Schritte des Compile-Vorgangs verwenden, müsste folglich die Implementierung dieser Schritte bei Änderung der Grammatik an die neue \ac{cst}-Struktur angepasst werden, was zu einem Wartungsproblem führt.
+Würde man den \ac{cst} für weitere Schritte des Compile-Vorgangs verwenden, müsste die Implementierung dieser Schritte bei Änderung der Grammatik an die neue \ac{cst}-Struktur angepasst werden, was zu einem Wartungsproblem führt.
 Deshalb hat das Frontend zusätzlich die Aufgabe, den \ac{cst} in eine umgänglichere Form umzuwandeln.
 Diese wird \acfi{ast} genannt.
 
@@ -157,7 +153,7 @@ So erbt beispielsweise \code{ScenarioFile} von \code{Node} und gehört ebenfalls
 Relative Package-Namen wie \code{decl.Name} bewirken, dass die Klassen in einem Unterpackage relativ zu ihren Elternklassen ablegt werden, in diesem Fall wäre der qualifizierte Klassenname folglich \code{org.fulib.scenarios.ast.decl.Name}.
 Runde Klammern nach dem Klassennamen enthalten die Attribute, welche die Syntax \code{name: Typ} verwenden.
 Die Typausdrücke \code{[T]} und \code{[T:U]} stehen für \code{List<T>} und \code{Map<T, U>}.
-Einfache Attribute haben einen Getter und Setter, außer das Schlüsselwort \code{readonly} ist vorhanden, da dieses dafür sorgt, dass kein Setter erzeugt wird.
+Einfache Attribute haben einen Getter und, sofern nicht das Schlüsselwort \code{readonly} vorhanden ist, einen Setter.
 Aus jedem Attribut wird ein Parameter im Konstruktor bzw.\ der Factory-Methode der generierten Klasse.
 
 Mit den generierten Klassen kann nun ein \ac{ast} erzeugt werden.
@@ -199,7 +195,7 @@ Die Namensauflösung umfasst mehrere Teilaufgaben:
 
 Der Grund für die Zusammenfassung der Teilaufgaben ist, dass diese eng verzahnt und meist in einem Schritt ausführbar sind.
 Beispielsweise beim Auflösen einer Assoziation kann diese angelegt werden, falls es sie noch nicht gibt, andernfalls muss die bestehene Assoziation mit der neuen Definition auf Konsistenz überprüft und ggf.\ eine Fehlermeldung erzeugt werden.
-Diese kann zum Beispiel auftreten, wenn bei der zweiten Verwendung versehentlich die Rückrichtung falsch benannt wird:
+Diese kann zum Beispiel auftreten, wenn bei der zweiten Verwendung die Rückrichtung falsch benannt wird:
 
 \begin{codeblock}
     Kassel has country and is one of the cities of Germany.
@@ -214,20 +210,21 @@ Dies erzeugt die folgende Fehlermeldung in der Konsolenausgabe des Compilers:
     now: Country.capital, association to one 'City'
 \end{codeblock}
 
-Die Fehlermeldungen sind so strukturiert, dass sie alle nötigen Informationen zur Lösung des Problems enthalten:
+Die Fehlermeldungen sind so strukturiert, dass sie alle nötigen Informationen zur Lösung des Problems enthalten.
 Zu Beginn stehen Dateiname, Zeile und Spalte, die mit einer \ac{ide} direkt an der richtigen Stelle geöffnet werden können.
 Nach der Angabe der Dringlichkeit der Meldung, die im Beispiel \code{error} ist, aber auch \code{syntax}, \code{warning} oder \code{note} sein könnte, folgt eine kurze Beschreibung der Problemursache.
 In den eckigen Klammern steht eine feste Meldungs-ID, nach der beispielsweise in der Dokumentation, bei Google oder StackOverflow gesucht werden kann.
-Dadurch kann auch die Formulierung der Beschreibung geändert oder in eine andere Sprache übersetzt werden, wonach Online-Suchergebnisse weiterhin auffindbar wären.
+Dadurch kann auch die Formulierung der Beschreibung geändert oder in eine andere Sprache übersetzt werden, ohne dass Online-Suchen erschwert werden.
 Viele (Fehler-)Meldungen enthalten außerdem einige Zeilen mit zusätzlichen Informationen, wie hier die Informationen zur vorherigen und jetzigen Deklaration der Assoziation.
 Diese sollen den Entwickler ebenfalls bei der Problembehebung unterstützen.
 
 Eine weitere Aufgabe der Transformationsphase ist es, den \ac{ast} vor der Auflösung zu vereinfachen.
 Bildet man beispielsweise eine Art von \ac{ast}-Knoten immer auf eine andere ab, müssen folgende Schritte nicht mehr für die erste Knotenart implementiert werden, da man sichergehen kann, dass sie nicht mehr vorkommt.
-Dadurch kann Code-Duplizierung vermieden und die Code-Generierung vereinfacht werden.
+Dadurch kann Codeduplizierung vermieden und die Codegenerierung vereinfacht werden.
 
-Weiterführendes Ziel ist es, den im vorherigen Abschnitt angelegten \ac{ast}, der in Listing~\ref{lst:CompilationExampleAST.txt} gezeigt wurde, weiter zu verarbeiten.
-Da die Gruppierung in diesem Beispiel keine Veränderungen durchführt, kann als nächstes die Namensauflösung betrachtet werden.
+Der im vorherigen Abschnitt angelegte \ac{ast}, der in Listing~\ref{lst:CompilationExampleAST.txt} gezeigt wurde, soll nun weiter verarbeitet werden.
+Da im Beispiel keine \code{Call}-Sätze vorkommen, nimmt die Gruppierung keine Änderungen am \ac{ast} vor.
+Daher soll als Nächstes die Namensauflösung betrachtet werden.
 Dabei führt der Scenario-Compiler zunächst einen Umformungsschritt durch, der den \code{ThereSentence} durch einen \code{IsSentence} und einen \code{HasSentence} ersetzt.
 Diese Umformung erhält die Semantik, wie im vorherigen Abschnitt unter~\ref{subsec:simple-sentences-and-expressions} gezeigt wurde.
 In Listing~\ref{lst:PreprocessedAST.txt} ist der \ac{ast} nach dieser Umformung abgebildet.
@@ -239,14 +236,14 @@ Listing~\ref{lst:FulibScenarios2.gts} zeigt die neuen \ac{ast}-Klassendefinition
 \codelisting{java}{chapter/fulib-scenarios/definitions}{FulibScenarios2.gts}{Neue \ac{ast}-Klassendefinitionen für Listing~\ref{lst:PreprocessedAST.txt}}
 
 Im nächsten Schritt werden die neu erzeugten \code{Sentence}-Knoten aufgelöst.
-Meist ist an dem Wort \code{Unresolved} im Klassennamen zu erkennen, dass ein \ac{ast}-Knoten aufgelöst werden muss.
+Meist ist an dem Wort \code{Unresolved} im Klassennamen eines \ac{ast}-Knotens zu erkennen, dass dieser aufgelöst werden muss.
 Im \code{IsSentence}-Knoten fällt mit dieser Eigenschaft der Typ der \code{CreationExpr} auf.
 
 Der Compiler verwendet für die Auflösung einen \emph{Scope}, der aus mehreren Ebenen besteht, die jeweils Variablen und andere Deklarationen sichtbar machen.
 Beim Auflösen eines Namens wird, beginnend beim inneren Scope, eine Deklaration mit diesem Namen gesucht.
-Falls die Suche kein Ergebnis liefert, wird der jeweils nächstäußeren Scope betrachtet.
+Falls die Suche kein Ergebnis liefert, wird der jeweils nächstäußere Scope betrachtet.
 Gelangt man im äußersten Scope an, ohne eine Deklaration gefunden zu haben, kann diese entweder automatisch erzeugt werden, oder eine Fehlermeldung wird generiert.
-Dies findet wieder auf der zuständigen Scope-Ebene statt.
+Beides findet wieder auf der zuständigen Scope-Ebene statt.
 
 Die Scope-Hierarchie ist im Fall der \code{CreationExpr} von außen nach innen wie folgt:
 Global, Paket, Scenario-Datei, Scenario, Satz-Liste.
@@ -259,8 +256,8 @@ Deshalb wird ein neues Objekt im Datenmodell des Compilers angelegt, das die Kla
 Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese neue Klasse verweist.
 Nun ist der Typ der \code{CreationExpr} aufgelöst und wird gleichzeitig zum Typ der Variable \code{alice}.
 
-Als nächstes muss \code{UnresolvedName(value: "Alice")} im \code{HasSentence} bearbeitet werden.
-Der \code{HasSentence} fügt der Scope-Hierarchie eine weitere Ebene hinzu, die den Namen \code{alice} \emph{versteckt}.
+Als Nächstes muss \code{UnresolvedName(value: "Alice")} im \code{HasSentence} bearbeitet werden.
+Der \code{HasSentence} fügt der Scope-Hierarchie eine weitere Ebene hinzu, die den Namen \code{alice} versteckt.
 Deshalb wird die gleichnamige Variable \emph{nicht} dem \code{UnresolvedName} zugeordnet.
 Wäre dies der Fall, würde der \code{Has}-Satz eine Assoziation von \code{Student} zu sich selbst erzeugen, was nicht der Semantik des ursprünglichen \code{There}-Satzes entspricht.
 Da \code{alice} nicht aufgelöst werden kann, werden sowohl der \code{UnresolvedName} als auch der umgebende \code{NameAccess} durch ein \code{StringLiteral} ersetzt.
@@ -270,7 +267,7 @@ Hier erfolgt nicht wie üblich eine Suche im aktuellen Scope, sondern im Typ des
 Der Empfänger ist hier die Variable \code{var1}, die im \code{object} des \code{HasSentence} referenziert wird.
 Ihr Typ ist \code{Student}, wie beim Auflösen des \code{IsSentence} inferiert wurde.
 Nun wird in der Klasse \code{Student} nach einem Attribut oder einer Assoziation namens \code{name} gesucht.
-Wäre eines davon bereits vorhanden, würde der Compiler diverse Überprüfungen durchführen, ob diese mit dem Typ des Attributwerts kompatibel sind.
+Wäre eines davon bereits vorhanden, würde der Compiler diverse Überprüfungen durchführen, ob die alte und neue Deklaration kompatibel sind.
 Da die Klasse \code{Student} jedoch bisher keine Attribute oder Assoziationen hat, wird ein neues Attribut mit dem Namen \code{name} und dem Typ \code{String} angelegt und im Datenmodell der Klasse \code{Student} gespeichert.
 Daraufhin wird der \code{UnresolvedName} durch einen \code{ResolvedName} ausgetauscht, der auf das neue Attribut verweist.
 
@@ -325,14 +322,14 @@ Darin deutet ein Kommentar der Form \jcode{// <kind>:<signature>} den Beginn ein
 % Listing Explanation
 Hier ist zu erkennen, dass aus jeder Art von Deklaration (Klasse, Variable, Methode) ein Fragment wurde.
 Auch andere Deklarationen wie Imports oder Package-Angaben, die im Beispiel nicht gezeigt sind, werden zu Fragmenten.
-In der Regel bildet der Name der Deklaration die Signatur, während bei Methoden auch die Parametertypen darauf Einfluss nehmen.
+In der Regel bilden Art und Name der Deklaration die Signatur, während bei Methoden auch die Parametertypen darin vorkommen.
 Diese müssen bei der korrekten Handhabung von überladenen Methoden beachtet werden.
 Im Beispiel ist sichtbar, dass die Leerzeilen zwischen den Deklarationen zu Fragmenten wurden, die mit \code{gap:} bezeichnet wurden.
-Dies ermöglicht die spätere Reproduktion dieser Formatierung.
+Dies ermöglicht die spätere Wiederherstellung der Formatierung.
 
 % Templates
 Die Vorlagen für Attribute, Assoziationen und Methoden lassen sich ebenfalls als Fragmente verwenden.
-Ein Attribut hat beispielsweise vier Vorlagen, je eine für die Konstante, die Variable, und die Getter- und Setter- Methoden.
+Ein Attribut hat beispielsweise vier Vorlagen, je eine für die Klassenvariable, eine Konstante für den Attributnamen als Zeichenkette sowie die Getter- und Setter-Methoden.
 In diesem Beispiel wurde die Variable \code{name} sowie deren Getter bereits von Hand geschrieben.
 Es fehlen somit in der bestehenden Datei der Setter von \code{name} sowie die zugehörige Konstante.
 
