@@ -30,12 +30,12 @@ Somit muss nicht manuell auf ``Compile and Run'' geklickt werden.
 Alternativ kann die automatische Ausführung im Dropdown-Menü neben dem ``Compile and Run''-Button deaktiviert werden.
 Manuell lässt sie sich dann weiterhin durch Klick oder Verwenden der Tastenkürzel (\code{Strg/Cmd-S}, \code{Strg/Cmd-Enter}) auslösen.
 
-Im Fenster für den Java-Code werden die Rümpfe sämtlicher Methoden angezeigt, die im Scenario verwendet wurden.
+Im Fenster für den Java-Code werden die Rümpfe sämtlicher Methoden angezeigt, die im Scenario definiert wurden.
 Davon ausgenommen sind aufgrund ihrer Trivialität Getter und Setter sowie diverse standardmäßig generierte Methoden.
 Die Ausgabe des Scenario- und Java-Compilers sowie der JUnit-Testausführung werden ebenfalls in diesem Fenster angezeigt.
 Dabei sind die Meldungen des Scenario-Compilers besonders relevant, da diese auf Fehler im Scenario hinweisen.
 
-Objektdiagramme werden unter Tabs angeordnet.
+Objektdiagramme und andere von Diagramm-Sätzen erzeugte Ausgaben werden unter Tabs im rechten unteren Viertel angeordnet.
 Dies vermeidet Unübersichtlichkeit bei der Verwendung von vielen Diagramm-Sätzen im Scenario.
 Die einzelnen Darstellungen lassen sich dann getrennt voneinander betrachten.
 
@@ -63,7 +63,7 @@ Neben dem ``Compile and Run''-Button befindet sich der Button ``Configure Projec
 Damit lässt sich das Fenster zur Projektkonfiguration öffnen, das in Abbildung~\ref{fig:project-config} zu sehen ist.
 In diesem werden Einstellungen zum Projekt durchgeführt, zu dem das Scenario später gehören soll.
 Genauer lassen sich dessen Name und Version sowie Paket und Dateiname des Scenarios einstellen.
-Diese werden wie der Scenario-Text im Browser gespeichert, damit sie beim erneuten Aufrufen der Seite bestehen bleiben.
+Die Einstellungen werden wie der Scenario-Text im Browser gespeichert, damit sie beim erneuten Aufrufen der Seite bestehen bleiben.
 Eingestellte Werte haben nur geringen Einfluss auf die Funktionalität der Webseite selbst, jedoch sind sie beim Herunterladen eines Projekts von Relevanz.
 Dies ist mit einem Button im unteren Teil des Fensters möglich.
 Klickt man auf diesen, wird das Scenario zusammen mit einigen Konfigurationsdateien in einem Zip-Archiv verpackt und heruntergeladen.
@@ -106,7 +106,7 @@ Im Wintersemester 2019/20 haben Studierende der Uni Kassel die Scenario-Sprache,
 Dies geschah im Modul ``Programmieren und Modellieren'', das im Bachelor zum dritten Fachsemester gehört.
 Es wurden zunächst die Webseite und die Scenarios in der Vorlesung erklärt.
 In zwei Hausaufgaben wurde dann der Einsatz beider Tools bewertet.
-Die erste davon befasste sich mit der Modellierung eines einfachen Datenmodells und dem anschließenden Projektexport.
+Die erste Aufgabe befasste sich mit der Modellierung eines einfachen Datenmodells und dem anschließenden Projektexport.
 Ziel der zweiten Hausaufgabe war es, mit Scenarios ein \ac{gui}-Mockup zu entwickeln.
 Dafür kam das FulibMockups-Tool zum Einsatz, das parallel zu FulibScenarios entwickelt wurde und darauf aufbaut.
 Es erlaubt das Modellieren von Benutzeroberflächen als Objektstrukturen, aus denen \ac{html}-Seiten sowohl statisch als auch in Form von Klickprototypen generiert werden.
@@ -142,7 +142,7 @@ Auch zur Auswahl standen Autovervollständigung (18 von 28) und die Möglichkeit
 Durch ein Freitext-Feld gab es die Möglichkeit, allgemeines Feedback zu hinterlassen.
 Darin wurde mehrfach die fehlende Dokumentation kritisiert.
 Diese war zum Zeitpunkt der Verwendung durch die Studierenden unvollständig, weshalb sie nicht öffentlich zugänglich war.
-Inzwischen wurde diese wesentlich erweitert und ist nun auf fulib.org verlinkt.
+Inzwischen wurde die Dokumentation wesentlich erweitert und ist nun auf fulib.org verlinkt.
 
 Auch wurde die Verständlichkeit der Fehlermeldungen kritisiert.
 Wie im folgenden Abschnitt erläutert wird, wurden auch diese erweitert, um die Lösungssuche zu erleichtern.
@@ -150,7 +150,8 @@ Die Beispielscenarios wurden angepasst, um verständlicher zu sein.
 Zusätzlich wurden sie mit Links zur Dokumentation ausgestattet.
 Gleichzeitig kann auch in der Dokumentation auf Beispiele verlinkt werden, um die darin enthaltene Beschreibung von Sprachkonzepten interaktiv zu ergänzen.
 
-Das FulibMockups-Projekt befindet sich derzeit im einem frühem Stadium der Entwicklung.
+Das FulibMockups-Projekt befindet sich derzeit in einem frühen Stadium der Entwicklung.
+Das Werkzeug ist teilweise fehleranfällig und nicht intuitiv, wodurch den Studierenden die Verwendung erschwert wurde.
 In Zukunft soll es insbesondere in der Typsicherheit und Ausdrucksstärke verbessert werden.
 Das Hinzufügen von Autovervollständigung kann dessen Gebrauch auch vereinfachen.
 
@@ -175,8 +176,8 @@ Für datenschutzbewusste Benutzer, die dies als Störung empfinden, gibt es dahe
 Die serverseitige Datenspeicherung umfasst sämtliche ``Compile and Run''-Anfragen, die an den Server gesendet werden.
 Dabei werden die Anfrage inklusive Scenario-Text und Projektkonfiguration sowie die Antwort protokolliert.
 Letztere enthält Compiler-Ausgaben, Methodenrümpfe und Diagramme.
-Weiterhin werden \ac{ip}-Adresse und User-Agent\footnote{Dabei handelt es sich um einen \ac{http}-Header, der die Browser-Version sowie meist das Betriebssystem identifiziert.} der Anfragen protokolliert, was deren progressive Anordnung erlaubt.
-Dies ermöglicht beispielsweise die Analyse des Zeitaufwands, der für das Lesen und Verstehen der Beispielscenarios benötigt wird.
+Weiterhin werden Zeitstempel, \ac{ip}-Adresse und User-Agent\footnote{Dabei handelt es sich um einen \ac{http}-Header, der die Browser-Version sowie meist das Betriebssystem identifiziert.} der Anfragen protokolliert, wodurch sie gruppiert werden können.
+Dies ermöglicht unter anderem die Analyse des Zeitaufwands, der für das Lesen und Verstehen der Beispielscenarios benötigt wird, sowie Einblicke in das Vorgehen beim Lösen von Fehlermeldungen.
 
 Während der Vorlesung ``Programmieren und Modellieren'' im Wintersemester 2019/20 konnte serverseitig eine Vielzahl von Daten gesammelt werden.
 Zum Zeitpunkt der Messung am 16.\ Februar 2020, 18:00, wurden seit 1.\ Oktober 2019 etwa 5100 Anfragen gespeichert.
@@ -219,7 +220,7 @@ Tabelle~\ref{tab:error-counts} stellt diese dar.
 \end{table}
 
 Zu den häufigsten Meldungen zählen hier \code{[property.declaration.first]} und \code{[variable. declaration.first]}. % manual line break
-Dabei handelt es sich weder um Fehler, noch um Warnungen.
+Dabei handelt es sich weder um Fehler noch um Warnungen.
 Diese Meldungen sind Hinweise und treten in Kombination mit den Fehlern \code{[association.reverse.conflict]} und \code{[property.redeclaration.conflict]} bzw. \code{[variable.redeclaration]} auf.
 Die Hinweise deuten auf vorherige Stellen im Scenario und erleichtern dadurch das Verständnis und die Lösung der Probleme.
 Warnmeldungen sind hier ausschließlich Deprecations, die bei Verwendung von Syntax auftreten, die in Zukunft nicht mehr unterstützt werden soll.
