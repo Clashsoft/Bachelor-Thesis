@@ -67,8 +67,7 @@ Ein Beispiel dafür ist:
     Kassel is a City.
 \end{codeblock}
 
-Dabei ist \code{Kassel} der Name des Objekts und \code{City} dessen Typ.
-\code{is} und \code{a} sind Schlüsselwörter.
+Dabei ist \code{Kassel} der Name des Objekts und \code{City} dessen Typ, während \code{is} und \code{a} Schlüsselwörter sind.
 Die äquivalente Java-Anweisung ist:
 
 \begin{jcodeblock}
@@ -80,12 +79,12 @@ Durch Benennung im Scenario wird diese automatisch angelegt.
 Es gibt in der Scenario-Sprache bisher keine Syntax für die manuelle Definition von Klassen.
 Im Java-Code ist sichtbar, dass \code{kassel} nun kleingeschrieben ist.
 Bei der Umwandlung wird automatisch die passende Namenskonvention angewandt (Variablen- und Methodennamen \code{lowerCamelCase}, Klassennamen \code{UpperCamelCase}).
-Dies ist insbesondere bei Bezeichnern mit Leerzeichen oder Bindestrichen der Fall:
+Dies ist auch bei Bezeichnern mit Leerzeichen oder Bindestrichen der Fall:
 \code{Uni Kassel} wird zu \code{uniKassel}, \code{Student-ID} zu \code{studentID}.
 
 Ein weiterer einfacher Satz ist der \code{Has}-Satz.
 Damit können Attribute von bereits bestehenden Objekten einen Wert zugewiesen bekommen.
-Ein Beispiel dafür ist folgendes:
+Ein Beispiel dafür ist Folgendes:
 
 \begin{codeblock}
     Kassel has postcode 34117.
@@ -102,9 +101,9 @@ Aus diesem Satz wird der folgende Java-Code:
 Wieder ist zu beachten, dass das Attribut \code{postcode} bzw.\ der Setter \code{setPostcode} nicht im Vorhinein deklariert wurde;
 diese wurden durch die Verwendung automatisch angelegt.
 Durch den Ausdruck \code{34117} konnte ermittelt werden, dass der Typ dieses Attributes \code{int} sein muss.
-Wäre der Wert stattdessen \code{D-34117}, was von der Scenario-Sprache als Zeichenkette verstanden wird, hätte das Attribut den Typ \code{String} erhalten und der entsprechende Java-Code wäre \jcode{kassel.setPostcode("D-34117")}.
+Wäre der Wert stattdessen \code{D-34117}, der von der Scenario-Sprache als Zeichenkette verstanden wird, hätte das Attribut den Typ \code{String} erhalten und der entsprechende Java-Code wäre \jcode{kassel.setPostcode("D-34117")}.
 
-Da die Definition von Objekten und die Zuweisung von Attributen sehr häufig in Kombination geschehen, bietet die Scenario-Sprache eine alternative Satzart an, die beides gleichzeitig durchführt.
+Da die Definition von Objekten und die Zuweisung von Attributen sehr häufig in Kombination geschehen, bietet die Scenario-Sprache eine alternative Satzart an, die beides zusammen durchführt.
 Diese Sätze heißen \code{There}-Sätze.
 Die obigen Beispiele lassen sich mit einem \code{There}-Satz verkürzen:
 
@@ -136,8 +135,8 @@ Der entsprechende Java-Code ist wie folgt:
     kassel.setPostcode(34117);
 \end{jcodeblock}
 
-Als nächstes soll die \code{City}-Klasse eine Assoziation erhalten.
-Dafür wird zunächst ein anderes Objekt, hier \code{Germany}, und eine andere Klasse, hier \code{Country}, benötigt.
+Als Nächstes soll die \code{City}-Klasse eine Assoziation erhalten.
+Dafür wird zunächst ein weiteres Objekt, hier \code{Germany}, und eine zweite Klasse, hier \code{Country}, benötigt.
 Eine Assoziation von \code{Kassel} zu \code{Germany} kann nun mit der gleichen Syntax wie ein Attribut angelegt werden.
 
 \begin{codeblock}
@@ -145,7 +144,7 @@ Eine Assoziation von \code{Kassel} zu \code{Germany} kann nun mit der gleichen S
     Kassel has country Germany.
 \end{codeblock}
 
-Der entsprechende Java-Code ist:
+Dies entspricht dem Java-Code:
 
 \begin{jcodeblock}
     Country germany = new Country();
@@ -162,8 +161,8 @@ Um diese bidirektional zu machen, muss der Name sowie die Kardinalität der Rüc
 
 Dabei ist \code{cities} der Name der Rückrichtung.
 Die zugehörige Java-Zeile ist wie zuvor \jcode{kassel.setCountry(germany);}.
-Durch den Zusatz \code{one of} handelt es sich um eine Zu-n-Assoziation, ohne diesen wäre die Rückrichtung zu-1.
-Dies ist aber in diesem Beispiel unerwünscht, da ein Land mehr als eine Stadt haben kann.
+Durch den Zusatz \code{one of} handelt es sich um eine Zu-n-Assoziation, ohne diesen wäre die Rückrichtung eine Zu-1-Assoziation.
+In diesem Beispiel wäre eine solche jedoch nicht sonnvoll, da ein Land mehr als eine Stadt haben kann.
 
 Alternativ kann die Assoziation auch ausgehend vom \code{Germany}-Objekt definiert werden:
 
@@ -187,7 +186,7 @@ Ein Beispiel für einen \code{Expect}-Satz auf dem im vorherigen Unterabschnitt 
     We expect that Kassel has postcode 34117.
 \end{codeblock}
 
-Dieser Satz fragt den Wert des \code{postcode}-Attributs des \code{Kassel}-Objekts ab, und prüft ob dieser gleich 34117 ist.
+Dieser Satz fragt den Wert des \code{postcode}-Attributs des \code{Kassel}-Objekts ab und prüft, ob dieser gleich 34117 ist.
 Zu beachten ist hierbei die Analogie zu dem \code{Has}-Satz, der im vorherigen Unterabschnitt das Attribut des \code{Kassel}-Objekts gesetzt hat.
 Der Satz erzeugt die folgende Java-Anweisung:
 
@@ -207,10 +206,10 @@ Neben diesem existieren weitere Operatoren zum Vergleichen von Werten;
 diese werden in Unterabschnitt~\ref{subsec:control-structures} näher erläutert.
 
 Die Scenario-Sprache bietet neben automatischen Tests auch die Möglichkeit, Objektstrukturen zu visualisieren.
-Diese können sowohl der Verständlichkeit dienen als auch für die Dokumentation verwendet werden.
-Dafür kommen Diagrammsätze zum Einsatz, die die Markdown-Syntax für Bilder (\mdcode{![Beschreibung](dateiname.png)}) verwenden und daher keine englischen Sätze im eigentlichen Sinne sind.
+Verschiedene Darstellungsformen können sowohl der Verständlichkeit dienen als auch für die Dokumentation verwendet werden.
+Als sprachliches Mittel kommen Diagramm-Sätze zum Einsatz, welche die Markdown-Syntax für Bilder (\mdcode{![Beschreibung](dateiname.png)}) verwenden und daher keine englischen Sätze im eigentlichen Sinne sind.
 Als Beschreibung dienen ein oder mehrere Objekte.
-Davon ausgehend wird die vollständige Objektstruktur ermittelt, die dann in einem Objektdiagramm dargestellt wird.
+Von diesen ausgehend wird die vollständige Objektstruktur ermittelt, die dann in einem Objektdiagramm dargestellt wird.
 Dafür wird die FulibTools\cite{fulibTools}-Bibliothek verwendet.
 Diese kann gegeben einige Startobjekte einen Objektgraphen bilden, diesen übersichtlich anordnen und als Raster- oder Vektorgrafik zeichnen.
 Um die zuvor definierten Objekte darzustellen, kann der folgende Diagramm-Satz verwendet werden:
@@ -238,7 +237,7 @@ Abbildung~\ref{fig:germany.png} zeigt das Objektdiagramm, das von dieser darstel
 Neben der Dateiendung \code{.png} wird auch \code{.svg} für Vektorgrafiken unterstützt.
 Diese können beliebig ohne Qualitätsverlust vergrößert werden.
 Sie sind für die Einbettung in Markdown aber nur beschränkt geeignet, da nicht alle Anzeigeprogramme das Bildformat unterstützen.
-Des Weiteren existieren diverse weitere Ausgabeformate, die in der FulibScenarios-Dokumentation~\cite{documentation} unter Language > Sentences > Test Sentences > Diagram Sentences näher erläutert werden.
+Des Weiteren existieren diverse andere Ausgabeformate, die in der FulibScenarios-Dokumentation~\cite{documentation} unter Language > Sentences > Test Sentences > Diagram Sentences näher erläutert werden.
 
 \subsection{Kontrollstrukturen}\label{subsec:control-structures}
 
@@ -276,12 +275,14 @@ Der zum \code{As}-Satz im obigen Beispiel gehörende Java-Code ist:
     }
 \end{jcodeblock}
 
-Um mehrere Anweisungen im Rumpf der If-Anweisung zu erhalten, können mehrere Sätze hinter dem \code{As}-Satz stehen, die durch \code{and} getrennt werden:
+Um mehr als eine Anweisung im Rumpf der If-Anweisung durchzuführen, können mehrere Sätze hinter dem \code{As}-Satz stehen, die durch \code{and} getrennt werden:
 
 \begin{codeblock}
     As courses of Alice contain Maths, we add 6 to credits of Alice
     and we remove 3 from motivation of Alice.
 \end{codeblock}
+
+Das Beispiel wird wie folgt in Java-Code übersetzt:
 
 \begin{jcodeblock}
     if (alice.getCourses().contains(maths)) {
@@ -309,10 +310,9 @@ Die Übersetzung des Take-Satzes in Java-Code ergibt die nachfolgende For-Schlei
     }
 \end{jcodeblock}
 
-Wichtig bei der Verwendung von \code{take} ist, dass der Ausdruck nach \code{from} einen \emph{Listentyp} hat.
-Diese entsprechen in Java dem Typ \jcode{java.util.List<T>}, wobei \code{T} der Elementtyp ist.
+Wichtig bei der Verwendung von \code{take} ist, dass der Ausdruck nach \code{from} einen Listentyp hat.
+Diese entsprechen in Java dem generischen Typ \jcode{java.util.List<T>}, wobei \code{T} der Elementtyp ist.
 Der Getter von Zu-n-Assoziationen hat automatisch einen Listentyp mit der Zielklasse als Elementtyp.
-
 Es ist jedoch auch möglich, Listenausdrücke zu verwenden.
 Diese bestehen in der einfachsten Form aus anderen Ausdrücken, die durch Komma oder \code{and} getrennt sind.
 Beispiele dafür sind \code{1, 2, 3}, \code{Alice, Bob and Charlie} und \code{'left' and 'right'}.
@@ -338,6 +338,8 @@ Dies ist mit den Schlüsselwörtern \code{add} und \code{remove} möglich:
     We remove Bob and Charlie from students.
 \end{codeblock}
 
+Die beiden Sätze erzeugen die Java-Zeilen:
+
 \begin{jcodeblock}
     students.add(david);
     students.removeAll(bob, charlie);
@@ -357,15 +359,18 @@ Dieser nimmt die Form \code{We call <name> on <receiver> with <parameters...>} a
 Ein einfaches Beispiel ist folglich:
 
 \begin{codeblock}
+    # Example
     We call init.
 \end{codeblock}
 
 Da sich \code{we} auf den Test bezieht und es keinen Empfänger gibt, ist das Testobjekt der Empfänger.
-In der Testklasse wird eine Methode \code{init} angelegt, die an der Stelle des Satzes aufgerufen wird:
+In der Testklasse wird eine Methode \code{init} angelegt, die in der vom Scenario definierten Testmethode aufgerufen wird:
 
 \begin{jcodeblock}
-    init();
-    // ...
+    @Test void example() {
+        init();
+    }
+
     void init() {
     }
 \end{jcodeblock}
@@ -388,22 +393,27 @@ Zu beachten ist, dass einige Sätze nur in Tests erlaubt sind.
 Dazu gehören beispielsweise \code{Expect}- und Diagrammsätze.
 Bei anderen Sätzen wie \code{is} und \code{has} hat das Subjekt eine andere Bedeutung, wodurch sie automatisch zum aktuell beschriebenen Rumpf oder Test gehören.
 Zudem lassen sich Subjekte nicht mischen.
-Verwendet ein Satz ein anderes Subjekt als der vorherige, wird der vorherige Aufruf geschlossen.
+Verwendet ein Satz ein anderes Subjekt als der vorherige, wird der zuvorstehende Aufruf geschlossen.
 Geschachtelte Aufrufe können stattfinden, wenn das Subjekt eines \code{Call}-Satzes einem darüberliegenden Methodennamen entspricht.
 Der geschachtelte Aufruf kann zwar wieder einen neuen Rumpf beginnen, davon ist jedoch aus Gründen der Verständlichkeit abzuraten.
 
 Während eine \code{init}-Methode für gemeinsam genutzen Code in einem Test akzeptabel ist, sollten Methoden mit anwendungsspezifischer Logik üblicherweise nicht in Testklassen implementiert sein.
-Um dies zu vermeiden, kommt der Empfänger bei \code{Call}-Sätzen zum Einsatz, der zum Empfänger des Aufrufs in Java wird.
-Wie das folgende Beispiel zeigt, wird die Methode Teil der Klasse des Empfängers:
+Um dies zu vermeiden, kommt der Empfänger bei \code{Call}-Sätzen zum Einsatz, wie das folgende Beispiel zeigt.
 
 \begin{codeblock}
     We call do-work on Alice.
     Do-work removes 1 from the motivation of Alice.
 \end{codeblock}
 
+In der Testmethode entsteht ein Aufruf mit Empfänger:
+
 \begin{jcodeblock}
     alice.doWork();
+\end{jcodeblock}
 
+Die \code{doWork}-Methode sowie deren Implementierung werden Teil der Datenmodell-Klasse:
+
+\begin{jcodeblock}
     class Student {
         // ...
         void doWork() {
@@ -429,6 +439,7 @@ Im Java-Code ist erkennbar, dass aus \code{a1} im Rumpf eine Referenz auf den \c
 \begin{jcodeblock}
     alice.giveAssignment(a1);
 
+    // Student.java
     class Student {
         // ...
         void giveAssignment(Assignment assignment) {
@@ -457,6 +468,7 @@ Am Java-Code ist zu erkennen, dass durch die Verwendung eines benannten Objekts 
 \begin{jcodeblock}
     Product product = factory.produce();
 
+    // Factory.java
     class Factory {
         // ...
         Product produce() {
@@ -476,6 +488,8 @@ Das folgende Beispiel illustriert die Verwendung des Ausdrucks:
     We call produce on factory.
     We add the answer to payload of transporter.
 \end{codeblock}
+
+Dies wird wie folgt in Java-Code übersetzt:
 
 \begin{jcodeblock}
     Product result1 = factory.produce();
@@ -511,7 +525,7 @@ Dabei wird ein Objekt erzeugt und mit der Registry verknüpft.
 Das neue Objekt wird daraufhin zurückgegeben und erneut durch den Test geprüft.
 
 Betrachtet man nun den generierten Java-Code für die \code{UserRegistry}-Klasse, wird deutlich, wie die beiden Teildefinitionen des Methodenrumpfes zusammengefügt wurden.
-In Listing~\ref{lst:UserRegistry_getOrCreate.java} ist dies an \code{(1)} und \code{(2)} sichtbar.
+In Listing~\ref{lst:UserRegistry_getOrCreate.java} ist dies unter \code{(1)} und \code{(2)} sichtbar.
 
 \codelisting{java}{chapter/fulib-scenarios/java}{UserRegistry_getOrCreate.java}{\code{UserRegistry.getOrCreate}-Methode}
 
