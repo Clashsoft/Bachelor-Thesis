@@ -1,19 +1,19 @@
 \section{Assignments}\label{sec:assignments}
 
-Assignments bezeichnen ein Feature von fulib.org, das sich mit dem Anlegen, Lösen und Bewerten von Aufgabenblättern sowie Online-Kursen beschäftigt.
+Assignments bezeichnen ein Feature von fulib.org, das sich mit dem Anlegen, Lösen und Bewerten von Aufgabenblättern und Online-Kursen beschäftigt.
 Es handelt sich dabei um Modellierungsaufgaben in der Scenario-Sprache.
 Diese können sowohl automatisch geprüft als auch manuell bewertet werden.
-In diesem Kapitel wird der chronologische Ablauf beschrieben, der bei Aufgabenblättern durchlaufen wird.
+In diesem Kapitel wird der chronologische Ablauf von der Konzeption bis zur Bewertung von Aufgabenblättern beschrieben.
 Der Unterabschnitt~\ref{subsec:creation} befasst sich zunächst mit deren Anlegen aus Sicht des Kursleiters.
 Daraufhin wird unter~\ref{subsec:solution} der Lösungsvorgang aus Perspektive der Studierenden erläutert.
 In Unterabschnitt~\ref{subsec:correcting} wird als letzten Schritt das Vorgehen der Korrekteure zum Bewerten der Lösungen beschrieben.
-Weiterführend wird die Kurs-Funktion unter~\ref{subsec:courses} vorgestellt, welche die Gruppierung von Aufgabenblättern sowie das selbstständige und unbeaufsichtigte Lernen in größeren Themengebieten ermöglichen.
+Weiterführend wird die Kurs-Funktionalität unter~\ref{subsec:courses} vorgestellt, welche die Gruppierung von Aufgabenblättern sowie das selbstständige und unbeaufsichtigte Lernen in größeren Themengebieten ermöglichen.
 Zuletzt widmet sich Unterabschnitt~\ref{subsec:assignment-pattern-matching} einem vollständigem Beispielassignment, das die im vorherigen Kapitel eingeführte Mustererkennung einsetzt.
 
 \subsection{Anlegen}\label{subsec:creation}
 
 Das Anlegen von Assignments ist mit dem in Abbildung~\ref{fig:create-assignment} gezeigten Formular möglich.
-Dafür muss lediglich im stets sichtbaren Seitenfooter unter ``Assignments'' der Menüeintrag ``Create Assignment'' ausgewählt werden.
+Um dieses anzuzeigen, muss im stets sichtbaren Seitenfooter unter ``Assignments'' der Menüeintrag ``Create Assignment'' ausgewählt werden.
 
 \begin{figure}
     \centering
@@ -31,16 +31,16 @@ es können folglich Überschriften, Tabellen, Listen, Bilder etc.\ eingebracht w
 Als Nächstes werden die Teilaufgaben (Tasks) eingetragen.
 Mit dem Button ``Add Task'' kann der Liste ein neuer Task hinzugefügt werden.
 Jeder Task hat eine kurze Beschreibung und eine maximal erreichbare Punktzahl.
-Der mit ``Verification'' bezeichnete Editor ist dafür vorgesehen, einen Teil eines Scenarios mit Expect-Sätzen einzutragen.
+Der mit ``Verification'' bezeichnete Editor ist dafür vorgesehen, einen Teil eines Scenarios einzutragen.
 Ein Task wird später wie folgt automatisch bewertet:
 Zunächst wird das unter ``Verification'' eingetragene Teilscenario an die Lösung des Studierenden angehängt.
 Das entstehende Scenario wird dann kompiliert und die entstandenen Tests werden ausgeführt.
-Erzeugt dies einen Compilerfehler und schlägt der Test fehl, gilt die Teilaufgabe als nicht bestanden und wird mit null Punkten bewertet.
+Erzeugt dies einen Compilerfehler oder schlägt ein Test fehl, gilt die Teilaufgabe als nicht bestanden und wird mit null Punkten bewertet.
 Andernfalls wird die maximal erreichbare Punktzahl vergeben.
 
 Dies lässt sich an einem einfachen Beispiel demonstrieren.
 Angenommen, die Beschreibung eines Tasks lautet, dass ein Objekt \code{alice} mit dem Wert \code{Alice} in einem Attribut \code{name} erstellt werden soll.
-Der folgende Verifikationscode könnte dies prüfen:
+Der folgende Verifizierungscode könnte dies prüfen:
 
 \begin{mdcodeblock}
     We expect that alice has name 'Alice'.
@@ -52,7 +52,7 @@ Eine mögliche Lösung wäre dann folgender Satz:
     There is a Student with name Alice.
 \end{mdcodeblock}
 
-Bei deren Prüfung wird diese automatisch mit dem Verifizierungscode in ein vollständiges Scenario verpackt:
+Bei der Prüfung wird die Lösung automatisch mit dem Verifizierungscode zu einem vollständigen Scenario zusammengefügt:
 
 \begin{mdcodeblock}
     # Scenario
@@ -116,16 +116,16 @@ Um darauf zugreifen zu können, wird das gezeigte Token benötigt.
 Dieses muss vom Kursleiter an die Korrekteure weitergeleitet werden.
 Ohne das Token-System könnten Studierende die Lösungen von Anderen einsehen und übernehmen.
 
-Assignments sind nach dem Einreichen nicht mehr veränderbar.
+Assignments sind nach der Veröffentlichung nicht mehr veränderbar.
 Dies ist gewünscht, da das nachträgliche Verändern von Assignments, die schon von Studierenden bearbeitet wurden, für diese nachteilhaft sein kann.
 Wird im Nachhinein ein Fehler in der Aufgabenstellung erkannt, kann das gleiche Assignment erneut eingereicht werden.
 Dabei werden neue Links und Token generiert, die wieder entsprechend geteilt werden müssen.
 
 Wählt man im Footer Assignments > My Assignments aus, gelangt man zur Übersicht der eigenen Assignments.
 Abbildung~\ref{fig:my-assignments} zeigt, wie diese Seite aussehen kann.
-Zu eigenen Assignments zählen diejenigen, deren Token im Browser gespeichert ist.
+Zu eigenen Assignments zählen genau diejenigen, deren Token im Browser gespeichert ist.
 Dies umfasst einerseits die eigens erstellten Assignments, andererseits diejenigen, deren Lösungsliste bereits geöffnet und mit dem Token freigeschaltet wurde.
-Diese Liste kann nützlich sein, wenn ein Link nicht mehr auffindbar ist.
+Somit können auch Korrekteure hier die Assignments finden, für die sie zuständig sind.
 Ein Klick auf einen Eintrag der Liste leitet auf die Liste mit Lösungen für das jeweilige Assignment weiter.
 
 \begin{figure}
@@ -155,7 +155,7 @@ Dabei werden erfüllte Tasks grün und nicht erfüllte Tasks rot markiert.
 Auch die erreichte Punktzahl wird ermittelt und angezeigt.
 Bei nicht erfüllten Tasks lässt sich mit ``View Output'' die Ausgabe des Scenario-Compilers anzeigen, die auf die Fehlerursache hinweist.
 Abbildung~\ref{fig:solve-tasks} zeigt, wie dies bei einer Teillösung aussehen kann.
-Der Studierende kann dann seine Lösung anpassen, um alle Tasks zu erfüllen.
+Studierende können dann ihre Lösung anpassen, um alle Tasks zu erfüllen.
 Es ist jedoch auch möglich, eine teilweise oder vollständig fehlerhafte Lösung abzugeben.
 
 \begin{figure}
@@ -165,7 +165,7 @@ Es ist jedoch auch möglich, eine teilweise oder vollständig fehlerhafte Lösun
     \label{fig:solve-tasks}
 \end{figure}
 
-Um die Lösung abzugeben, muss der Studierende zunächst Namen, Matrikelnummer und E-Mail-Adresse angeben.
+Um die Lösung abzugeben, müssen Studierende zunächst Namen, Matrikelnummer und E-Mail-Adresse angeben.
 Daraufhin kann mit ``Submit'' die Lösung eingereicht werden.
 Dies öffnet das in Abbildung~\ref{fig:solution-submitted} dargestellte Fenster.
 
@@ -183,9 +183,9 @@ Dies ist aus Sicherheitsgründen nur mit dem Token möglich, das zwar im Browser
 Nach der Abgabe kann der Lösungsentwurf weiter bearbeitet werden.
 Dazu muss lediglich das Bestätigungsfenster geschlossen werden.
 Durch erneutes Betätigen von ``Submit'' wird die neue Lösung eingereicht;
-die alte Abgabe bleibt jedoch unverändert und weiterhin einsehbar.
+die alte Abgabe bleibt jedoch unverändert und weiterhin einsehbar, wodurch ein Versionsverlauf entsteht.
 Auch bei einem späteren Besuch der Seite bleiben sämtliche Eingaben bestehen, da sie im Browser gespeichert werden.
-Dadurch kann an einer angefangen Lösung bedenkenlos später weitergearbeitet werden, ohne sie zwischenzeitlich einreichen zu müssen.
+Dadurch kann an einer angefangenen Lösung bedenkenlos später weitergearbeitet werden, ohne sie zwischenzeitlich einreichen zu müssen.
 
 Studierende können ihre abgegebenen Lösungen einsehen, indem sie die Seite unter Assignments > My Solutions im Footer öffnen.
 Dort finden sie sämtliche eingereichte Versionen nach Assignment gruppiert.
@@ -206,7 +206,7 @@ Diese kann von der zuletzt abgegebenen Version abweichen, wenn Änderungen vorge
 Einstiegspunkt für die Korrektur ist die Seite, auf der abgegebene Lösungen für ein Assignment einsehbar sind.
 Diese ist unter dem zweiten Link erreichbar, der nach Anlegen eines Assignments erzeugt wurde.
 Der Kursleiter kann diesen an die Korrekteure zusammen mit dem Token weiterleiten.
-Beim ersten Besuch des Links muss letzteres angebeben werden, um die Lösungen anzuzeigen.
+Beim ersten Besuch des Links muss das Token angebeben werden, um die Lösungen anzuzeigen.
 Daraufhin zeigt sich die Tabelle, die in Abbildung~\ref{fig:solution-table} zu sehen ist.
 
 \begin{figure}
@@ -222,7 +222,7 @@ Das Suchfeld erlaubt es, die angezeigten Lösungen einzuschränken.
 Dies ist sowohl als Freitextsuche über alle Spalten als auch für bestimmte Spalten möglich.
 So lässt sich beispielsweise mit \code{assignee:Peter} nach allen Lösungen suchen, die dem Korrekteur \code{Peter} zugewiesen sind.
 Die Zuweisung erfolgt durch Ändern des Eingabefelds unter ``Assignee'' und wird sofort übernommen.
-In der Regel kann der Kursleiter diese Zuordnung durchführen, woraufhin die Korrekteure nach ihnen zugewiesenen Lösungen suchen können.
+Beispielsweise kann der Kursleiter die Zuordnung durchführen, woraufhin die Korrekteure nach ihnen zugewiesenen Lösungen suchen können.
 
 Die Tabelle gibt zunächst eine Übersicht über die Randangaben der Lösung.
 Dazu gehören neben den Angaben zum Studierenden auch das Abgabedatum sowie die erreichte Punktzahl.
@@ -279,7 +279,7 @@ Diese lassen sich dann mit dem dafür vorgesehenen Feld dem Kurs hinzufügen.
 Alternativ können beliebige Assignments von anderen Erstellern eingebunden werden, solange der zugehörige Link bekannt ist.
 Die dabei entstehenden Liste erlaubt das Entfernen der hinzugefügten Assignments sowie das Ändern ihrer Reihenfolge.
 Dafür werden die gleichen Steuerelemente wie in der Task-Liste beim Anlegen eines Assignments verwendet.
-Zum Erstellen genügt nach Ausfüllen des Formulars ein Klick auf den Button ``Submit''.
+Zum Veröffentlichen genügt nach Ausfüllen des Formulars ein Klick auf den Button ``Submit''.
 Dabei wird ein Link generiert, unter dem der Kurs abrufbar ist.
 Abbildung~\ref{fig:course-view} zeigt die Seite, die damit aufgerufen wird.
 
@@ -302,16 +302,16 @@ In diesem kommt ein Button hinzu, der das Fortschreiten zum nächsten Assignment
 \subsection{Pattern Matching in Assignments}\label{subsec:assignment-pattern-matching}
 
 Die vorherigen Beispiele für Assignments verwendeten nur einfache Funktionalität der Scenario-Sprache zum Prüfen von Bedingungen.
-Es wird nun anhand der in Kapitel~\ref{ch:pattern-matching} vorgestellten Konzepte ein vollständiges Beispiel vorgestellt, dessen Aufgabe es sein soll, das im gleichen Kapitel erklärte Spiel zu modellieren.
+Es wird nun anhand der in Kapitel~\ref{ch:pattern-matching} eingeführten Konzepte ein vollständiges Beispiel vorgestellt, dessen Aufgabe es sein soll, das im gleichen Kapitel erklärte Spiel zu modellieren.
 Die Aufgabenstellung soll bewusst Freiheiten bei der Benennung von Klassen und Attributen erlauben;
 lediglich die Struktur des zu erstellenden Modells wird vorgegeben.
 Vorgaben werden durch die Tasks des Assignments gestellt, die nach Möglichkeit unabhängig voneinander sein sollen.
-Dadurch soll es möglich sein, Teilpunkte zu erhalten.
+Dadurch soll es möglich sein, Teilpunkte zu erhalten, auch wenn einige Tasks nicht bearbeitet werden.
 
 Zu einem vollständigen Assignment gehören zunächst die Eckdaten.
 Der Titel des Assignments kann beispielsweise ``Game Model'' lauten.
 Name und E-Mail sind in diesem Fall nicht relevant, ebenso wenig die Deadline.
-Als Beschreibung wäre etwa folgender Text vorstellbar:
+Als Beschreibung wäre folgender Text möglich:
 
 \begin{quote}
     This assignment is about modelling a simple game with multiple players.
@@ -397,7 +397,7 @@ Eine Musterlösung könnte das folgende Scenario sein:
     Charlie has houses c1.
 \end{mdcodeblock}
 
-Dabei können die Klassennamen \code{Game}, \code{Player} und \code{House} sowie die Attribut-\ und Assoziationsnamen \code{min-score}, \code{name}, \code{players/game}, \code{units} und \code{houses/player} beliebig verändert werden, ohne dass die Lösung ihre Gültigkeit verliert.
+Dabei können die Klassennamen \code{Game}, \code{Player} und \code{House} sowie die Attribut-\ und Assoziationsnamen \code{min-score}, \code{name}, \code{players/game}, \code{units} und \code{houses/player} beliebig umbenannt werden, ohne dass die Lösung ihre Gültigkeit verliert.
 Beim Schreiben der Lösung fällt auf, dass mit jedem Absatz ein weiterer Task erfüllt und damit grün markiert wird.
 Lässt man den dritten oder den letzten Absatz aus, sind die Tasks 1, 2 und 4 noch immer erfüllt.
 Dies wird durch die unabhängige Verifizierung erreicht.
