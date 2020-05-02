@@ -13,7 +13,7 @@ Zuletzt widmet sich Unterabschnitt~\ref{subsec:assignment-pattern-matching} eine
 \subsection{Anlegen}\label{subsec:creation}
 
 Das Anlegen von Assignments ist mit dem in Abbildung~\ref{fig:create-assignment} gezeigten Formular möglich.
-Um dieses anzuzeigen, muss im stets sichtbaren Seitenfooter unter ``Assignments'' der Menüeintrag ``Create Assignment'' ausgewählt werden.
+Um dieses anzuzeigen, muss im stets sichtbaren Seitenfooter unter \textbf{Assignments} der Menüeintrag \textbf{Create Assignment} ausgewählt werden.
 
 \begin{figure}
     \centering
@@ -24,16 +24,16 @@ Um dieses anzuzeigen, muss im stets sichtbaren Seitenfooter unter ``Assignments'
 
 Hier werden zunächst der Titel des Assignments sowie Name und E-Mail-Adresse des Kursleiters eingetragen.
 Ebenso kann eine Deadline festgelegt werden.
-Das mit ``Description'' bezeichnete Feld ist für die Aufgabenstellung vorgesehen.
+Das mit \textbf{Description} bezeichnete Feld ist für die Aufgabenstellung vorgesehen.
 Dabei wird Markdown-Syntax unterstützt;
 es können folglich Überschriften, Tabellen, Listen, Bilder etc.\ eingebracht werden.
 
 Als Nächstes werden die Teilaufgaben (Tasks) eingetragen.
-Mit dem Button ``Add Task'' kann der Liste ein neuer Task hinzugefügt werden.
+Mit dem Button \textbf{Add Task} kann der Liste ein neuer Task hinzugefügt werden.
 Jeder Task hat eine kurze Beschreibung und eine maximal erreichbare Punktzahl.
-Der mit ``Verification'' bezeichnete Editor ist dafür vorgesehen, einen Teil eines Scenarios einzutragen.
+Der mit \textbf{Verification} bezeichnete Editor ist dafür vorgesehen, einen Teil eines Scenarios einzutragen.
 Ein Task wird später wie folgt automatisch bewertet:
-Zunächst wird das unter ``Verification'' eingetragene Teilscenario an die Lösung des Studierenden angehängt.
+Zunächst wird das unter \textbf{Verification} eingetragene Teilscenario an die Lösung des Studierenden angehängt.
 Das entstehende Scenario wird dann kompiliert und die entstandenen Tests werden ausgeführt.
 Erzeugt dies einen Compilerfehler oder schlägt ein Test fehl, gilt die Teilaufgabe als nicht bestanden und wird mit null Punkten bewertet.
 Andernfalls wird die maximal erreichbare Punktzahl vergeben.
@@ -72,9 +72,9 @@ Andererseits entspricht die folgende Lösung nicht der Aufgabenstellung:
 Fügt man die Lösung wie oben mit dem Verifizierungscode zusammen und kompiliert das Resultat, wird der Scenario-Compiler aufgrund der fehlenden Variable \code{alice} eine Fehlermeldung bei \code{alice has name ...} erzeugen.
 Die Fehlermeldung wird als Nichterfüllung des Tasks aufgefasst, wodurch er mit null Punkten bewertet wird.
 
-Zur Übersichtlichkeit lassen sich die einzelnen Tasks mit dem ``+''- bzw.\ ``-''-Button ein- und ausklappen.
+Zur Übersichtlichkeit lassen sich die einzelnen Tasks mit dem \textbf{$+$}- bzw.\ \textbf{$-$}-Button ein- und ausklappen.
 Mit der Schaltfläche rechts davon lassen sich Tasks durch Ziehen mit Maus bzw.\ Finger anordnen.
-Der rote ``$\times$''-Button löscht den Task aus der Liste.
+Der rote \textbf{$\times$}-Button löscht den Task aus der Liste.
 
 Unter der Task-Liste befinden sich die Eingabefenster für die Lösungsvorlage (Template Solution) und die Musterlösung (Sample Solution).
 Beide lassen sich mit den entsprechenden Buttons ein- und ausklappen, um das Formular übersichtlicher zu machen.
@@ -92,12 +92,12 @@ Dies deutet an, dass es entweder ein Problem in der Musterlösung oder im Verifi
 Sämtliche Änderungen am Formular werden sofort im Browser gespeichert.
 Dadurch wird Datenverlust beim Verlassen der Seite oder bei Ausfall der Internetverbindung vermieden.
 Dennoch gibt es die Möglichkeit, den Entwurf des Assignments als Datei auf der Festplatte zu speichern.
-Dies ist mit dem ``Export''-Button möglich.
-Später kann die Datei dann wieder in das Formular übernommen werden, indem sie im Feld neben dem ``Import''-Button ausgewählt und anschließend auf diesen geklickt wird.
+Dies ist mit dem \textbf{Export}-Button möglich.
+Später kann die Datei dann wieder in das Formular übernommen werden, indem sie im Feld neben dem \textbf{Import}-Button ausgewählt und anschließend auf diesen geklickt wird.
 Die Import/Export-Funktion erlaubt ferner, ein Assignment für die spätere Bearbeitung zu speichern und ein neues zu erstellen.
 Heruntergeladene Dateien können weiterhin über E-Mail oder Dateifreigabe an andere weitergegeben werden, die das Assignment dann importieren und prüfen oder verändern können.
 
-Um ein fertiges Assignment zu veröffentlichen, genügt ein Klick auf den ``Submit''-Button.
+Um ein fertiges Assignment zu veröffentlichen, genügt ein Klick auf den \textbf{Submit}-Button.
 Dieser bewirkt, dass das ausgefüllte Formular an den Server gesendet wird, der das erstellte Assignment speichert und zwei Links generiert.
 Abbildung~\ref{fig:create-assignment-success} zeigt das Fenster, das sich daraufhin öffnet und beide Links enthält.
 
@@ -153,7 +153,7 @@ In Abbildung~\ref{fig:assignment-solve} enthält dieser bereits die vom Erstelle
 Sobald man das Scenario im Editor bearbeitet, beginnt die automatische Prüfung anhand der Tasks.
 Dabei werden erfüllte Tasks grün und nicht erfüllte Tasks rot markiert.
 Auch die erreichte Punktzahl wird ermittelt und angezeigt.
-Bei nicht erfüllten Tasks lässt sich mit ``View Output'' die Ausgabe des Scenario-Compilers anzeigen, die auf die Fehlerursache hinweist.
+Bei nicht erfüllten Tasks lässt sich mit \textbf{View Output} die Ausgabe des Scenario-Compilers anzeigen, die auf die Fehlerursache hinweist.
 Abbildung~\ref{fig:solve-tasks} zeigt, wie dies bei einer Teillösung aussehen kann.
 Studierende können dann ihre Lösung anpassen, um alle Tasks zu erfüllen.
 Es ist jedoch auch möglich, eine teilweise oder vollständig fehlerhafte Lösung abzugeben.
@@ -166,7 +166,7 @@ Es ist jedoch auch möglich, eine teilweise oder vollständig fehlerhafte Lösun
 \end{figure}
 
 Um die Lösung abzugeben, müssen Studierende zunächst Namen, Matrikelnummer und E-Mail-Adresse angeben.
-Daraufhin kann mit ``Submit'' die Lösung eingereicht werden.
+Daraufhin kann mit \textbf{Submit} die Lösung eingereicht werden.
 Dies öffnet das in Abbildung~\ref{fig:solution-submitted} dargestellte Fenster.
 
 \begin{figure}
@@ -182,7 +182,7 @@ Dies ist aus Sicherheitsgründen nur mit dem Token möglich, das zwar im Browser
 
 Nach der Abgabe kann der Lösungsentwurf weiter bearbeitet werden.
 Dazu muss lediglich das Bestätigungsfenster geschlossen werden.
-Durch erneutes Betätigen von ``Submit'' wird die neue Lösung eingereicht;
+Durch erneutes Betätigen von \textbf{Submit} wird die neue Lösung eingereicht;
 die alte Abgabe bleibt jedoch unverändert und weiterhin einsehbar, wodurch ein Versionsverlauf entsteht.
 Auch bei einem späteren Besuch der Seite bleiben sämtliche Eingaben bestehen, da sie im Browser gespeichert werden.
 Dadurch kann an einer angefangenen Lösung bedenkenlos später weitergearbeitet werden, ohne sie zwischenzeitlich einreichen zu müssen.
@@ -190,7 +190,7 @@ Dadurch kann an einer angefangenen Lösung bedenkenlos später weitergearbeitet 
 Studierende können ihre abgegebenen Lösungen einsehen, indem sie die Seite unter \textbf{Assignments > My Solutions} im Footer öffnen.
 Dort finden sie sämtliche eingereichte Versionen nach Assignment gruppiert.
 Abbildung~\ref{fig:my-solutions} zeigt, wie dies aussehen kann.
-Der Button ``Edit'' erlaubt die Bearbeitung und erneute Abgabe einer Lösung.
+Der Button \textbf{Edit} erlaubt die Bearbeitung und erneute Abgabe einer Lösung.
 Genauer öffnet er nur die Bearbeitungsseite des Assignments, wo die zuletzt im Browser gespeicherte Lösung angezeigt wird.
 Diese kann von der zuletzt abgegebenen Version abweichen, wenn Änderungen vorgenommen aber nicht eingereicht wurden.
 
@@ -221,13 +221,13 @@ Dies vereinfacht die Korrektur, da keine separate Seite geöffnet werden muss, u
 Das Suchfeld erlaubt es, die angezeigten Lösungen einzuschränken.
 Dies ist sowohl als Freitextsuche über alle Spalten als auch für bestimmte Spalten möglich.
 So lässt sich beispielsweise mit \code{assignee:Peter} nach allen Lösungen suchen, die dem Korrekteur \code{Peter} zugewiesen sind.
-Die Zuweisung erfolgt durch Ändern des Eingabefelds unter ``Assignee'' und wird sofort übernommen.
+Die Zuweisung erfolgt durch Ändern des Eingabefelds unter \textbf{Assignee} und wird sofort übernommen.
 Beispielsweise kann der Kursleiter die Zuordnung durchführen, woraufhin die Korrekteure nach ihnen zugewiesenen Lösungen suchen können.
 
 Die Tabelle gibt zunächst eine Übersicht über die Randangaben der Lösung.
 Dazu gehören neben den Angaben zum Studierenden auch das Abgabedatum sowie die erreichte Punktzahl.
 Nach der Deadline abgegebene Lösungen werden rot hervorgehoben.
-Durch Klicken auf ``View'' gelangt man zur Detailseite der Lösung, die in Abbildung~\ref{fig:solution} dargestellt ist.
+Durch Klicken auf \textbf{View} gelangt man zur Detailseite der Lösung, die in Abbildung~\ref{fig:solution} dargestellt ist.
 
 \begin{figure}
     \centering
@@ -237,7 +237,7 @@ Durch Klicken auf ``View'' gelangt man zur Detailseite der Lösung, die in Abbil
 \end{figure}
 
 Hier wird erneut die Aufgabenstellung angezeigt.
-Die Task-Liste zeigt die erreichte Punktzahl, die mittels ``Grade'' durch den Korrekteur angepasst werden kann.
+Die Task-Liste zeigt die erreichte Punktzahl, die mittels \textbf{Grade} durch den Korrekteur angepasst werden kann.
 Dabei muss die zu vergebende Punktzahl, ein kurzer Kommentar und der eigene Name angegeben werden.
 In der Historie werden alle Änderungen der Bewertung aufgelistet.
 Auch Studierende können diese einsehen, jedoch nicht verändern, da dafür das Token des Assignments benötigt wird.
@@ -279,7 +279,7 @@ Diese lassen sich dann mit dem dafür vorgesehenen Feld dem Kurs hinzufügen.
 Alternativ können beliebige Assignments von anderen Erstellern eingebunden werden, solange der zugehörige Link bekannt ist.
 Die dabei entstehenden Liste erlaubt das Entfernen der hinzugefügten Assignments sowie das Ändern ihrer Reihenfolge.
 Dafür werden die gleichen Steuerelemente wie in der Task-Liste beim Anlegen eines Assignments verwendet.
-Zum Veröffentlichen genügt nach Ausfüllen des Formulars ein Klick auf den Button ``Submit''.
+Zum Veröffentlichen genügt nach Ausfüllen des Formulars ein Klick auf den Button \textbf{Submit}.
 Dabei wird ein Link generiert, unter dem der Kurs abrufbar ist.
 Abbildung~\ref{fig:course-view} zeigt die Seite, die damit aufgerufen wird.
 
