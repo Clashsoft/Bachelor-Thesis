@@ -260,10 +260,10 @@ Dies geschieht unter Angabe der Attribut- bzw.\ Assoziationsnamen mit der \code{
     builder.buildPatternLink(housePO, "*", unitsPO);
 \end{jcodeblock}
 
-Zu beachten ist in der letzten Zeile der Name ``\code{*}''.
+Zu beachten ist in der letzten Zeile der Name "\code{*}".
 Dieser dient als Platzhalter für einen unbekannten Attributnamen.
 Er bewirkt, dass dem Pattern-Objekt \code{housePO} nur Objekte zugewiesen werden können, bei denen mindestens ein Attributwert auch \code{unitsPO} zugewiesen werden kann.
-Die Unterstützung für den  ``\code{*}''-Platzhalter wurde als Teil dieser Arbeit entwickelt und baut auf der zuvor gezeigten \code{expandAll}-Operation auf.
+Die Unterstützung für den  "\code{*}"-Platzhalter wurde als Teil dieser Arbeit entwickelt und baut auf der zuvor gezeigten \code{expandAll}-Operation auf.
 Wie im vorherigen Beispiel sind nicht alle Attribute von Häusern interessant, weshalb auch hier auf ganze Zahlen eingeschränkt werden soll.
 Dafür kommt ein \emph{Attribut-Constraint} zum Einsatz, das wie folgt angelegt wird:
 
@@ -594,7 +594,7 @@ So kann durch Hinzufügen eines explizit benannten Root-Pattern-Objekts der Wert
 
 Statt \code{with min-score} kann auch \code{where some attribute is} eingesetzt werden, wenn der Name des Attributs nicht bekannt ist.
 Ferner wäre auch \code{with some link to} einsetzbar und in diesem Beispiel semantisch äquivalent zu \code{where some attribute is}.
-Davon ist jedoch abzuraten, da es sich bei \code{ws} um einen Wert und kein Objekt im Sinne der Modellierung handelt, weshalb die Bezeichnung ``Link'' irreführend wäre.
+Davon ist jedoch abzuraten, da es sich bei \code{ws} um einen Wert und kein Objekt im Sinne der Modellierung handelt, weshalb die Bezeichnung "Link" irreführend wäre.
 
 \subsection{Match-Constraints}
 
