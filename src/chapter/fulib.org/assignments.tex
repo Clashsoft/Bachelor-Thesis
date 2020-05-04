@@ -6,7 +6,7 @@ Diese können sowohl automatisch geprüft als auch manuell bewertet werden.
 In diesem Kapitel wird der chronologische Ablauf von der Konzeption bis zur Bewertung von Aufgabenblättern beschrieben.
 Der Unterabschnitt~\ref{subsec:creation} befasst sich zunächst mit deren Anlegen aus Sicht des Kursleiters.
 Daraufhin wird unter~\ref{subsec:solution} der Lösungsvorgang aus Perspektive der Studierenden erläutert.
-In Unterabschnitt~\ref{subsec:correcting} wird als letzten Schritt das Vorgehen der Korrekteure zum Bewerten der Lösungen beschrieben.
+In Unterabschnitt~\ref{subsec:correcting} wird als letzter Schritt das Vorgehen zum Bewerten der Lösungen beschrieben.
 Weiterführend wird die Kurs-Funktionalität unter~\ref{subsec:courses} vorgestellt, welche die Gruppierung von Aufgabenblättern sowie das selbstständige und unbeaufsichtigte Lernen in größeren Themengebieten ermöglichen.
 Zuletzt widmet sich Unterabschnitt~\ref{subsec:assignment-pattern-matching} einem vollständigem Beispielassignment, das die im vorherigen Kapitel eingeführte Mustererkennung einsetzt.
 
@@ -111,9 +111,9 @@ Abbildung~\ref{fig:create-assignment-success} zeigt das Fenster, das sich darauf
 Der erste Link ist dafür vorgesehen, ihn an die Studierenden weiterzuleiten.
 Öffnen sie diesen, zeigt sich die Seite, in der ihre Lösung des Assignments erstellt und abgegeben werden kann.
 Dieser Vorgang ist Thema des nächsten Unterabschnitts.
-Der zweite Link ist für den Kursleiter und die Korrekteure, da darunter eine Liste aller abgegebenen Lösungen zu finden ist.
+Der zweite Link ist für den Kursleiter und die Bewerter, da darunter eine Liste aller abgegebenen Lösungen zu finden ist.
 Um darauf zugreifen zu können, wird das gezeigte Token benötigt.
-Dieses muss vom Kursleiter an die Korrekteure weitergeleitet werden.
+Dieses muss vom Kursleiter an die Bewerter weitergeleitet werden.
 Ohne das Token-System könnten Studierende die Lösungen von Anderen einsehen und übernehmen.
 
 Assignments sind nach der Veröffentlichung nicht mehr veränderbar.
@@ -125,7 +125,7 @@ Wählt man im Footer \textbf{Assignments > My Assignments} aus, gelangt man zur 
 Abbildung~\ref{fig:my-assignments} zeigt, wie diese Seite aussehen kann.
 Zu eigenen Assignments zählen genau diejenigen, deren Token im Browser gespeichert ist.
 Dies umfasst einerseits die eigens erstellten Assignments, andererseits diejenigen, deren Lösungsliste bereits geöffnet und mit dem Token freigeschaltet wurde.
-Somit können auch Korrekteure hier die Assignments finden, für die sie zuständig sind.
+Somit können auch Bewerter hier die Assignments finden, für die sie zuständig sind.
 Ein Klick auf einen Eintrag der Liste leitet auf die Liste mit Lösungen für das jeweilige Assignment weiter.
 
 \begin{figure}
@@ -205,7 +205,7 @@ Diese kann von der zuletzt abgegebenen Version abweichen, wenn Änderungen vorge
 
 Einstiegspunkt für die Korrektur ist die Seite, auf der abgegebene Lösungen für ein Assignment einsehbar sind.
 Diese ist unter dem zweiten Link erreichbar, der nach Anlegen eines Assignments erzeugt wurde.
-Der Kursleiter kann diesen an die Korrekteure zusammen mit dem Token weiterleiten.
+Der Kursleiter kann diesen an die Bewerter zusammen mit dem Token weiterleiten.
 Beim ersten Besuch des Links muss das Token angebeben werden, um die Lösungen anzuzeigen.
 Daraufhin zeigt sich die Tabelle, die in Abbildung~\ref{fig:solution-table} zu sehen ist.
 
@@ -220,9 +220,9 @@ Daraufhin zeigt sich die Tabelle, die in Abbildung~\ref{fig:solution-table} zu s
 Dies vereinfacht die Korrektur, da keine separate Seite geöffnet werden muss, um die Anforderungen einzusehen.
 Das Suchfeld erlaubt es, die angezeigten Lösungen einzuschränken.
 Dies ist sowohl als Freitextsuche über alle Spalten als auch für bestimmte Spalten möglich.
-So lässt sich beispielsweise mit \code{assignee:Peter} nach allen Lösungen suchen, die dem Korrekteur \code{Peter} zugewiesen sind.
+So lässt sich beispielsweise mit \code{assignee:Peter} nach allen Lösungen suchen, die dem Bewerter \code{Peter} zugewiesen sind.
 Die Zuweisung erfolgt durch Ändern der Eingabefelder in der Spalte \textbf{Assignee}.
-Beispielsweise kann der Kursleiter die Zuordnung durchführen, woraufhin die Korrekteure nach ihnen zugewiesenen Lösungen suchen können.
+Beispielsweise kann der Kursleiter die Zuordnung durchführen, woraufhin die Bewerter nach Lösungen suchen können, für die sie zuständig sind.
 
 Die Tabelle gibt zunächst eine Übersicht über die Randangaben der Lösung.
 Dazu gehören neben den Angaben zum Studierenden auch das Abgabedatum sowie die erreichte Punktzahl.
@@ -237,7 +237,7 @@ Durch Klicken auf \textbf{View} gelangt man zur Detailseite der Lösung, die in 
 \end{figure}
 
 Hier wird erneut die Aufgabenstellung angezeigt.
-Die Task-Liste zeigt die erreichte Punktzahl, die mittels \textbf{Grade} durch den Korrekteur angepasst werden kann.
+Die Task-Liste zeigt die erreichte Punktzahl, die mittels \textbf{Grade} durch den Bewerter angepasst werden kann.
 Dabei muss die zu vergebende Punktzahl, ein kurzer Kommentar und der eigene Name angegeben werden.
 In der Historie werden alle Änderungen der Bewertung aufgelistet.
 Auch Studierende können diese einsehen, jedoch nicht verändern, da dafür das Token des Assignments benötigt wird.
@@ -252,16 +252,16 @@ Aufgrund der Vergabe von Teilpunkten wurde der entsprechende Task gelb markiert,
 \end{figure}
 
 Am unteren Ende der Seite befindet sich der Kommentarbereich.
-Hier können Studierende und Korrekteure Fragen, Antworten und Anmerkungen zur Bewertung hinterlassen.
+Hier können Studierende und Bewerter Fragen, Antworten und Anmerkungen zur Bewertung hinterlassen.
 Ist das Token des Assignments vorhanden und ein Kommentar wird erstellt, wird dieser mit einem Häkchen hinter dem Namen hervorgehoben.
-Dies verhindert, dass Studierende den Kursleiter oder einen Korrekteur imitieren können, indem sie deren Namen angeben.
+Dies verhindert, dass Studierende den Kursleiter oder Bewerter imitieren können, indem sie deren Namen angeben.
 
 \subsection{Kurse}\label{subsec:courses}
 
 Kurse sind Sammlungen von Assignments, die eine feste Reihenfolge vorgeben.
 Sie ermöglichen die Vergabe von mehreren Aufgabenstellungen, die inhaltlich zusammengehören und aufeinander aufbauen können.
 So ist es beispielsweise möglich, einen unbeaufsichtigten, von einer Vorlesung unabhängigen Kurs zu erstellen, mit dem die Scenario-Sprache erlernt werden kann.
-Interessierte können diesen aufrufen und selbstständig Assignments bearbeiten, die nicht von Korrekteuren bewertet werden.
+Interessierte können diesen aufrufen und selbstständig Assignments bearbeiten, die nicht bewertet werden.
 
 Kurse werden erstellt, indem im Footer \textbf{Assignments > Create Course} ausgewählt wird.
 Dies öffnet die in Abbildung~\ref{fig:create-course} gezeigte Seite.
