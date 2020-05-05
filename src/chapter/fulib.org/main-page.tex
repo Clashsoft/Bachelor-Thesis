@@ -1,6 +1,6 @@
 \section{Hauptseite}\label{sec:main-page}
 
-Die Hauptseite erreicht man, wenn man fulib.org das erste Mal öffnet.
+Die Hauptseite erscheint, wenn fulib.org das erste Mal geöffnet wird.
 Dabei präsentiert sich der sogenannte Vier-Panel-Editor, der in Abbildung~\ref{fig:four-pane-editor} dargestellt wird.
 Diese zeigt oben links den Scenario-Editor sowie die darüberliegende Toolbar.
 Oben rechts gibt es ein Fenster für den generierten Java-Code, das auch die Konsolenausgabe des Compilers enthält.
@@ -23,7 +23,7 @@ Auch der Schalter zum Wechseln in den Nachtmodus (eng.: Dark Mode) ist stets im 
 \subsection{Scenario-Editor}\label{subsec:scenario-editor}
 
 Die wichtigste Funktion der Hauptseite ist der Scenario-Editor.
-Gibt man darin ein Scenario ein und klickt auf \textbf{Compile and Run}, wird daraus Java-Code generiert und dessen Tests mit JUnit ausgeführt.
+Gibt der Benutzer darin ein Scenario ein und klickt auf \textbf{Compile and Run}, wird daraus Java-Code generiert und dessen Tests mit JUnit ausgeführt.
 Das dabei entstehende Klassendiagramm sowie Objektdiagramme werden dann in den entsprechenden Bereichen angezeigt.
 Um das sofortige Feedback zu erleichtern, wird das Scenario immer automatisch ausgeführt, wenn es länger als eine Sekunde unverändert bleibt.
 Somit muss nicht manuell auf \textbf{Compile and Run} geklickt werden.
@@ -42,7 +42,7 @@ Die einzelnen Darstellungen lassen sich dann getrennt voneinander betrachten.
 \subsection{Tutorials}\label{subsec:tutorials}
 
 Über dem Scenario-Editor befindet sich ein Auswahlfeld für vordefinierte Tutorials.
-Wählt man eines davon aus, wird dessen Scenario-Text in den Editor übernommen und sofort ausgeführt.
+Durch Auswählen eines Tutorials wird dessen Scenario-Text in den Editor übernommen und sofort ausgeführt.
 Die Tutorials sind in Kategorien angeordnet und bauen in ihrer Reihenfolge aufeinander auf.
 Somit werden die behandelten Sprachkonzepte zunehmend komplexer.
 
@@ -55,7 +55,7 @@ Darunter sind auch formale Definitionen der Syntax in Form einer Grammatik sowie
 
 Die von Tutorials stammenden Scenarios können frei verändert werden.
 Dadurch können die Sprachkonzepte direkt ausprobiert werden.
-Lädt man das entsprechende Tutorial erneut, wird wieder der vordefinierte Scenario-Text verwendet und die Änderungen verworfen.
+Durch erneutes Laden des Tutorials wird wieder der vordefinierte Scenario-Text verwendet und die Änderungen verworfen.
 
 \subsection{Projektexport}\label{subsec:project-export}
 
@@ -66,7 +66,7 @@ Genauer lassen sich dessen Name und Version sowie Paket und Dateiname des Scenar
 Die Einstellungen werden wie der Scenario-Text im Browser gespeichert, damit sie beim erneuten Aufrufen der Seite bestehen bleiben.
 Eingestellte Werte haben nur geringen Einfluss auf die Funktionalität der Webseite selbst, jedoch sind sie beim Herunterladen eines Projekts von Relevanz.
 Dies ist mit einem Button im unteren Teil des Fensters möglich.
-Klickt man auf diesen, wird das Scenario zusammen mit einigen Konfigurationsdateien in einem Zip-Archiv verpackt und heruntergeladen.
+Er bewirkt, dass das Scenario zusammen mit einigen Konfigurationsdateien in einem Zip-Archiv verpackt und heruntergeladen wird.
 Bei den Konfigurationsdateien handelt es sich um jene, die das Build-Tool Gradle~\cite{gradle} benötigt.
 Dieses ist zuständig für Kompilierung, Dependency-Management, Test-Ausführung und andere Build-Aufgaben in Java-Projekten.
 Das Projekt ist voreingestellt, um den Scenario-Compiler in den Build-Prozess zu integrieren.
@@ -78,12 +78,12 @@ Das Projekt ist voreingestellt, um den Scenario-Compiler in den Build-Prozess zu
     \label{fig:project-config}
 \end{figure}
 
-Entpackt man das heruntergeladene Archiv, erhält man einen fertigen Projektordner.
+Das Entpacken des heruntergeladenen Archivs ergibt einen fertigen Projektordner.
 Dieser kann in einer \ac{ide} mit Gradle-Unterstützung wie IntelliJ geöffnet werden.
-Führt man daraufhin den \code{check}-Task mit Gradle aus (Kommandozeile: \code{./gradlew check} im Projektordner), wird das zuvor auf fulib.org geschriebene Scenario kompiliert und generierte Java-Dateien in den entsprechenden Ordnern unter \code{src/} abgelegt.
+Daraufhin kann der \code{check}-Task mit Gradle ausgeführt werden (Kommandozeile: \code{./gradlew check} im Projektordner), wodurch das zuvor auf fulib.org geschriebene Scenario kompiliert und generierte Java-Dateien in den entsprechenden Ordnern unter \code{src/} abgelegt werden.
 Außerdem bewirkt \code{check} die Ausführung von generierten Tests.
 Abbildung~\ref{fig:project-downloaded} zeigt, wie ein Projektordner in IntelliJ unmittelbar nach dem Download und nach Ausführen des \code{check}-Tasks aussehen kann.
-Ändert man die Scenario-Datei und führt den Task erneut aus, wird auch der Java-Code angepasst.
+Nach Änderung der Scenario-Datei und erneuter Ausführung des Tasks wird auch der Java-Code angepasst.
 
 \begin{figure}
     \centering
@@ -157,8 +157,8 @@ Das Hinzufügen von Autovervollständigung kann dessen Gebrauch auch vereinfache
 
 \subsection{Datensammlung}\label{subsec:data-collection}
 
-Öffnet man fulib.org das erste Mal, erscheint das Fenster mit den Datenschutz-Einstellungen, das in Abbildung~\ref{fig:privacy} gezeigt ist.
-Darin kann ausgewählt werden, ob man Datenspeicherung lokal im Browser oder seitens des Servers erlauben möchte.
+Wird fulib.org das erste Mal geöffnet, erscheint das Fenster mit den Datenschutzeinstellungen, das in Abbildung~\ref{fig:privacy} gezeigt ist.
+Darin kann ausgewählt werden, ob die Datenspeicherung lokal im Browser oder seitens des Servers erwünscht ist.
 
 \begin{figure}
     \centering
@@ -168,7 +168,7 @@ Darin kann ausgewählt werden, ob man Datenspeicherung lokal im Browser oder sei
 \end{figure}
 
 Zu lokale Daten zählen auf der Hauptseite der Scenario-Text sowie die Projekteinstellungen.
-Erlaubt man die lokale Speicherung nicht, werden diese nach erneutem Laden der Seite auf Standardwerte zurückgesetzt.
+Ist die lokale Speicherung nicht erlaubt, werden die Daten nach erneutem Laden der Seite auf Standardwerte zurückgesetzt.
 Außerdem wird die Auswahl der Datenschutzeinstellung selbst lokal gespeichert.
 Ist dies nicht erlaubt, öffnet sich das Einstellungsfenster bei jedem Besuch von fulib.org automatisch.
 Für datenschutzbewusste Benutzer, die dies als Störung empfinden, gibt es daher die vierte Option, welche die lokale Datenspeicherung lediglich zum Verstecken des Fensters nutzt.

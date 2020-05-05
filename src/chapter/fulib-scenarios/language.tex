@@ -194,7 +194,7 @@ Der Satz erzeugt die folgende Java-Anweisung:
     assertEquals(34117, kassel.getPostcode())
 \end{jcodeblock}
 
-Der gleiche Java-Code wird generiert, wenn man den Satz umstellt:
+Der gleiche Java-Code wird generiert, wenn der Satz umstellt wird:
 
 \begin{codeblock}
     We expect that postcode of Kassel is 34117.
@@ -224,8 +224,8 @@ Dies entspricht dem Aufruf zur Verwendung von FulibTools:
     FulibTools.objectDiagrams().dumpPng("germany.png", germany);
 \end{jcodeblock}
 
-Führt man das Scenario aus, wird die Datei \code{germany.png} erstellt.
-Abbildung~\ref{fig:germany.png} zeigt das Objektdiagramm, das von dieser darstellt wird.
+Wird das Scenario ausgeführt, wird die Datei \code{germany.png} erstellt.
+Abbildung~\ref{fig:germany.png} zeigt das Objektdiagramm aus der Datei.
 
 \begin{figure}
     \centering
@@ -542,7 +542,7 @@ Deshalb beschreibt das Scenario an dieser Stelle, wie die \code{getOrCreate}-Met
 Dabei wird ein Objekt erzeugt und mit der Registry verknüpft.
 Das neue Objekt wird daraufhin zurückgegeben und erneut durch den Test geprüft.
 
-Betrachtet man nun den generierten Java-Code für die \code{UserRegistry}-Klasse, wird deutlich, wie die beiden Teildefinitionen des Methodenrumpfes zusammengefügt wurden.
+Bei Betrachtung des generierten Java-Codes für die \code{UserRegistry}-Klasse wird deutlich, wie die beiden Teildefinitionen des Methodenrumpfes zusammengefügt wurden.
 In Listing~\ref{lst:UserRegistry_getOrCreate.java} ist dies unter \code{(1)} und \code{(2)} sichtbar.
 
 \codelisting{java}{chapter/fulib-scenarios/java}{UserRegistry_getOrCreate.java}{\code{UserRegistry.getOrCreate}-Methode}

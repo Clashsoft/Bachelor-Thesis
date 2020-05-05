@@ -1,6 +1,6 @@
 \chapter{Pattern Matching}\label{ch:pattern-matching}
 
-Unter Pattern Matching versteht man im Allgemeinen den Abgleich von konkreten Strukturen mit Suchvorlagen.
+Pattern Matching bezeichnet im Allgemeinen den Abgleich von konkreten Strukturen mit Suchvorlagen.
 Im Kontext dieser Arbeit soll speziell in Objektstrukturen nach bestimmten Mustern gesucht werden.
 Dabei können Muster sowohl die Attribute von Objekten als auch Kanten zwischen diesen betreffen.
 In diesem Kapitel werden drei Verfahren erläutert, welche die Definition von Mustern und deren Suche auf Objektenstrukturen erlauben.
@@ -323,7 +323,7 @@ Nach dem Match-Vorgang lassen sich die Ergebnisse anhand der Pattern-Objekte ext
 Die \code{findOne}-Methode stellt sicher, dass es auch wirklich genau ein Objekt gibt, das \code{playerPO} zugewiesen ist.
 Gäbe es keinen Spieler, der das Minimum an Einheiten erreicht hat, würde sie eine \code{NoMatchException} werfen.
 Andererseits würde die Existenz mehrerer solcher Spieler eine \code{AmbiguousMatchException} verursachen.
-Möchte man dies erlauben, kann stattdessen \code{findAll} verwendet werden.
+Sind keine oder mehrere Ergebnisse erwünscht, kann stattdessen \code{findAll} verwendet werden.
 Dies gibt eine Menge aller gematchten Objekte zurück, die auch leer sein kann.
 
 \begin{jcodeblock}
@@ -564,7 +564,7 @@ Auch hier wird statt eines konkreten Verknüpfungsnamens der Platzhalter \code{*
 
 % Named Links with Attribute Constraints
 Bei Link-Constraints kann auch der Name der Assoziation angegeben werden.
-Dies ist möglich, indem man die Syntax für Attribute verwendet, aber statt eines Werts den Namen eines Pattern-Objekts angibt:
+Dies ist möglich, indem die Syntax für Attribute mit dem Namen eines Pattern-Objekts statt eines Wertes verwendet wird:
 
 \begin{mdcodeblock}
     We match:

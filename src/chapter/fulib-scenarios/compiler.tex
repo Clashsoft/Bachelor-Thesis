@@ -90,7 +90,7 @@ Falls mehrere Regeln infrage kommen würden, wird zunächst die längstmögliche
 falls das nicht eindeutig bestimmbar ist, wird die als erste definierte Regel bevorzugt.
 So wird aus dem Text \code{ampersand} nicht die Token-Folge \code{A(a), WORD(mpers), AND(and)}, sondern \code{WORD(ampersand)}.
 
-Wendet man die Regeln aus Listing~\ref{lst:ScenarioLexer.g4} auf das Scenario aus Listing~\ref{lst:CompilationExample.md} an, so erhält man die in Listing~\ref{lst:CompilationExampleTokens.txt} gezeigte Liste von Tokens.
+Werden die Regeln aus Listing~\ref{lst:ScenarioLexer.g4} auf das Scenario aus Listing~\ref{lst:CompilationExample.md} angewendet, so ergibt sich die in Listing~\ref{lst:CompilationExampleTokens.txt} gezeigte Liste von Tokens.
 
 \codelisting{text}{chapter/fulib-scenarios/trees}{CompilationExampleTokens.txt}{Aus Listing~\ref{lst:CompilationExample.md} abgeleitete Token-Liste}
 
@@ -125,7 +125,7 @@ Das Ergebnis ist der in Abbildung~\ref{fig:parsetree} sichtbare Syntaxbaum.
 
 Der \ac{cst} ist eng an die Struktur der Grammatik gebunden.
 Bei Änderungen an der Grammatik, beispielsweise dem Einfügen von gemeinsam genutzten Hilfsregeln beim Refactoring, ändert sich auch die Struktur des \ac{cst}.
-Würde man den \ac{cst} für weitere Schritte des Compile-Vorgangs verwenden, müsste die Implementierung dieser Schritte bei Änderung der Grammatik an die neue \ac{cst}-Struktur angepasst werden, was zu einem Wartungsproblem führt.
+Würde der \ac{cst} für weitere Schritte des Compile-Vorgangs verwendet werden, müsste die Implementierung dieser Schritte bei Änderung der Grammatik an die neue \ac{cst}-Struktur angepasst werden, was zu einem Wartungsproblem führt.
 Deshalb hat das Frontend zusätzlich die Aufgabe, den \ac{cst} in eine umgänglichere Form umzuwandeln.
 Diese wird \acfi{ast} genannt.
 
@@ -219,7 +219,7 @@ Viele (Fehler-)Meldungen enthalten außerdem einige Zeilen mit zusätzlichen Inf
 Diese sollen den Entwickler ebenfalls bei der Problembehebung unterstützen.
 
 Eine weitere Aufgabe der Transformationsphase ist es, den \ac{ast} vor der Auflösung zu vereinfachen.
-Bildet man beispielsweise eine Art von \ac{ast}-Knoten immer auf eine andere ab, müssen folgende Schritte nicht mehr für die erste Knotenart implementiert werden, da man sichergehen kann, dass sie nicht mehr vorkommt.
+Wird beispielsweise eine Art von \ac{ast}-Knoten immer auf eine andere abgebildet, müssen folgende Schritte nicht mehr für die erste Knotenart implementiert werden, da sichergestellt ist, dass sie nicht mehr vorkommt.
 Dadurch kann Codeduplizierung vermieden und die Codegenerierung vereinfacht werden.
 
 Der im vorherigen Abschnitt angelegte \ac{ast}, der in Listing~\ref{lst:CompilationExampleAST.txt} gezeigt wurde, soll nun weiter verarbeitet werden.
@@ -242,7 +242,7 @@ Im \code{IsSentence}-Knoten fällt mit dieser Eigenschaft der Typ der \code{Crea
 Der Compiler verwendet für die Auflösung einen \emph{Scope}, der aus mehreren Ebenen besteht, die jeweils Variablen und andere Deklarationen sichtbar machen.
 Beim Auflösen eines Namens wird, beginnend beim inneren Scope, eine Deklaration mit diesem Namen gesucht.
 Falls die Suche kein Ergebnis liefert, wird der jeweils nächstäußere Scope betrachtet.
-Gelangt man im äußersten Scope an, ohne eine Deklaration gefunden zu haben, kann diese entweder automatisch erzeugt werden, oder eine Fehlermeldung wird generiert.
+Wird der äußerste Scope erreicht, ohne dass eine Deklaration gefunden wurde, kann diese entweder automatisch erzeugt werden, oder eine Fehlermeldung wird generiert.
 Beides findet wieder auf der zuständigen Scope-Ebene statt.
 
 Die Scope-Hierarchie ist im Fall der \code{CreationExpr} von außen nach innen wie folgt:
@@ -251,7 +251,7 @@ Dabei ist die Satz-Liste für das Auflösen und Anlegen von lokalen Variablen zu
 Die Scenario-Datei macht Methoden sichtbar, die Teil des Tests sind.
 Das Paket ermöglicht die Auflösung darin enthaltener Klassen, während der globale Scope zusätzlich externe\footnote{Der Scenario-Compiler bietet die Möglichkeit an, Bibliotheken einzubinden.
 Dies ist aufgrund der Komplexität hier nicht näher erläutert.} Klassen bereitstellt.
-Wird nun versucht, den Typnamen \code{Student} in diesem Scope aufzulösen, findet man zunächst keine entsprechende Deklaration.
+Wird nun versucht, den Typnamen \code{Student} in diesem Scope aufzulösen, ist zunächst keine entsprechende Deklaration auffindbar.
 Deshalb wird ein neues Objekt im Datenmodell des Compilers angelegt, das die Klasse \code{Student} repräsentiert und deren Zugehörigkeit zum gleichen Paket wie die Scenario-Datei deklariert.
 Der \code{UnresolvedType}-Knoten wird zu einem \code{ClassType}, der auf diese neue Klasse verweist.
 Nun ist der Typ der \code{CreationExpr} aufgelöst und wird gleichzeitig zum Typ der Variable \code{alice}.
@@ -346,5 +346,5 @@ In Listing~\ref{lst:StudentFinal.java} ist das Ergebnis der Zusammenführung zu 
 Das Beispiel zeigt, dass die Variable sowie die manuell definierte Methode unverändert blieben.
 Der Getter hingegen wurde überschrieben, wodurch die enthaltene Kommentarzeile gelöscht wurde.
 Am Ende der Klasse wurden die Konstante sowie der Setter eingefügt.
-Fügt man nun die Fragmente zusammen, erhält man die fertige Java-Datei.
+Werden die Fragmente zusammengefügt, ergibt sich die fertige Java-Datei.
 Damit ist die Codegenerierung beendet.

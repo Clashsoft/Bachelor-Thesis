@@ -69,7 +69,7 @@ Andererseits entspricht die folgende Lösung nicht der Aufgabenstellung:
     There is a Student with name Bob.
 \end{mdcodeblock}
 
-Fügt man die Lösung wie oben mit dem Verifizierungscode zusammen und kompiliert das Resultat, wird der Scenario-Compiler aufgrund der fehlenden Variable \code{alice} eine Fehlermeldung bei \code{alice has name ...} erzeugen.
+Wird die Lösung wie oben mit dem Verifizierungscode zusammengefügt und das Resultat kompiliert, erzeugt der Scenario-Compiler aufgrund der fehlenden Variable \code{alice} eine Fehlermeldung bei \code{alice has name ...}.
 Die Fehlermeldung wird als Nichterfüllung des Tasks aufgefasst, wodurch er mit null Punkten bewertet wird.
 
 Zur Übersichtlichkeit lassen sich die einzelnen Tasks mit dem \textbf{$+$}- bzw.\ \textbf{$-$}-Button ein- und ausklappen.
@@ -78,7 +78,7 @@ Der rote \textbf{$\times$}-Button löscht den Task aus der Liste.
 
 Unter der Task-Liste befinden sich die Eingabefenster für die Lösungsvorlage (Template Solution) und die Musterlösung (Sample Solution).
 Beide lassen sich mit den entsprechenden Buttons ein- und ausklappen, um das Formular übersichtlicher zu machen.
-Gibt man eine Vorlage an, so wird diese den Studierenden als Lösung vorgegeben, wenn sie das Assignment öffnen.
+Gibt der Ersteller eine Vorlage an, wird diese den Studierenden als Lösung vorgegeben, wenn sie das Assignment öffnen.
 Die Aufgabenstellung könnte dann beispielsweise sein, dass das vorgegebene Scenario angepasst oder vervollständigt wird.
 Dafür könnten mit "\code{...}" Lücken in der Vorlage gelassen werden, welche die Studierenden ausfüllen sollen.
 Für das zuvor genannte Beispiel wäre beispielsweise \code{There is a ...} als Vorgabe möglich.
@@ -121,7 +121,7 @@ Dies ist gewünscht, da das nachträgliche Verändern von Assignments, die schon
 Wird im Nachhinein ein Fehler in der Aufgabenstellung erkannt, kann das gleiche Assignment erneut eingereicht werden.
 Dabei werden neue Links und Token generiert, die wieder entsprechend geteilt werden müssen.
 
-Wählt man im Footer \textbf{Assignments > My Assignments} aus, gelangt man zur Übersicht der eigenen Assignments.
+Durch Auswählen von \textbf{Assignments > My Assignments} im Footer wird die Übersicht der eigenen Assignments geöffnet.
 Abbildung~\ref{fig:my-assignments} zeigt, wie diese Seite aussehen kann.
 Zu eigenen Assignments zählen genau diejenigen, deren Token im Browser gespeichert ist.
 Dies umfasst einerseits die eigens erstellten Assignments, andererseits diejenigen, deren Lösungsliste bereits geöffnet und mit dem Token freigeschaltet wurde.
@@ -150,7 +150,7 @@ In Abbildung~\ref{fig:assignment-solve} enthält dieser bereits die vom Erstelle
     \label{fig:assignment-solve}
 \end{figure}
 
-Sobald man das Scenario im Editor bearbeitet, beginnt die automatische Prüfung anhand der Tasks.
+Sobald das Scenario im Editor bearbeitet wird, beginnt die automatische Prüfung anhand der Tasks.
 Dabei werden erfüllte Tasks grün und nicht erfüllte Tasks rot markiert.
 Auch die erreichte Punktzahl wird ermittelt und angezeigt.
 Bei nicht erfüllten Tasks lässt sich mit \textbf{View Output} die Ausgabe des Scenario-Compilers anzeigen, die auf die Fehlerursache hinweist.
@@ -227,7 +227,7 @@ Beispielsweise kann der Kursleiter die Zuordnung durchführen, woraufhin die Bew
 Die Tabelle gibt zunächst eine Übersicht über die Randangaben der Lösung.
 Dazu gehören neben den Angaben zum Studierenden auch das Abgabedatum sowie die erreichte Punktzahl.
 Nach der Deadline abgegebene Lösungen werden rot hervorgehoben.
-Durch Klicken auf \textbf{View} gelangt man zur Detailseite der Lösung, die in Abbildung~\ref{fig:solution} dargestellt ist.
+Durch Klicken auf \textbf{View} wird die Detailseite der Lösung geöffnet, die in Abbildung~\ref{fig:solution} dargestellt ist.
 
 \begin{figure}
     \centering
@@ -296,7 +296,7 @@ Darin werden das aktuell angezeigte sowie bereits bearbeitete Assignments hervor
 Die Assignments eines Kurses können in beliebiger Reihenfolge bearbeitet werden.
 Grund dafür ist, dass sie auch außerhalb des Kurses beliebig abruf- und bearbeitbar sind und somit die Einschränkung leicht umgangen werden könnte.
 In der Regel ist es jedoch sinnvoll, sich an den vorgegebenen Ablauf zu halten.
-Bearbeitet man ein Assignment als Teil eines Kurses und reicht eine Lösung ein, verändert sich das Bestätigungsfenster der Abgabe.
+Wird ein Assignment als Teil eines Kurses bearbeitet und eine Lösung eingereicht, verändert sich das Bestätigungsfenster der Abgabe.
 In diesem kommt ein Button hinzu, der das Fortschreiten zum nächsten Assignment im Kurs erlaubt.
 
 \subsection{Pattern Matching in Assignments}\label{subsec:assignment-pattern-matching}
@@ -399,7 +399,7 @@ Eine Musterlösung könnte das folgende Scenario sein:
 
 Dabei können die Klassennamen \code{Game}, \code{Player} und \code{House} sowie die Attribut-\ und Assoziationsnamen \code{min-score}, \code{name}, \code{players/game}, \code{units} und \code{houses/player} beliebig umbenannt werden, ohne dass die Lösung ihre Gültigkeit verliert.
 Beim Schreiben der Lösung fällt auf, dass mit jedem Absatz ein weiterer Task erfüllt und damit grün markiert wird.
-Lässt man den dritten oder den letzten Absatz aus, sind die Tasks 1, 2 und 4 noch immer erfüllt.
+Werden der dritte oder der letzte Absatz nicht übernommen oder gelöscht, bleiben die Tasks 1, 2 und 4 erfüllt.
 Dies wird durch die unabhängige Verifizierung erreicht.
 So können Studierende, die beispielsweise nicht wissen, wie Assoziationen definiert werden, noch Teilpunkte auf das Aufgabenblatt erhalten, indem sie nur Objekte und Attribute anlegen.
 Eine Teillösung, die diese beiden Aspekte einbezieht, könnte folgende sein:
