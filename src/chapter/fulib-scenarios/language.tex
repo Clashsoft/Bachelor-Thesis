@@ -363,7 +363,7 @@ Ein einfaches Beispiel ist folglich:
     We call init.
 \end{codeblock}
 
-Da sich \code{we} auf den Test bezieht und es keinen Empfänger gibt, ist das Testobjekt der Empfänger.
+Da sich \code{We} auf den Test bezieht und es keinen Empfänger gibt, ist das Testobjekt der Empfänger.
 In der Testklasse wird eine Methode \code{init} angelegt, die in der vom Scenario definierten Testmethode aufgerufen wird:
 
 \begin{jcodeblock}
@@ -379,25 +379,24 @@ Nach dem \code{Call}-Satz folgt der Rumpf.
 Da es in der Scenario-Sprache keine geschweiften Klammern oder ähnliche Konstrukte gibt, muss auf andere Weise unterschieden werden, welche Sätze zum Rumpf gehören und welche in der Testmethode auf den Aufruf folgen sollen.
 Dafür dienen die Subjekte jedes Satzes.
 Bei den meisten bisher kennengelernten Sätzen war dies \code{We}, das sich stets auf die Testmethode bezieht.
-Viele Sätze erlauben jedoch alternativ die Angabe eines Methodennamens wie \code{init} aus dem obigen Beispiel.
-So kann festgelegt werden, dass sie zum Rumpf eines vorherigen Aufrufs gehören.
-Das Beispiel kann demnach wie folgt erweitert werden:
+Viele Sätze erlauben jedoch alternativ die Angabe eines Methodennamens wie \code{init}, der die Zugehörigkeit zum letzten übereinstimmenden \code{Call}-Satz anzeigt.
+Das obige Beispiel kann demnach wie folgt erweitert werden:
 
 \begin{codeblock}
     # Example
     We call init.
-    (1) Init creates a Student with name Alice.
-    (2) Alice has 10 motivation.
-    (3) We expect that Alice is 'Alice'.
+    Init creates a Student with name Alice. (1)
+    Alice has 10 motivation.                (2)
+    We expect that Alice is 'Alice'.        (3)
 \end{codeblock}
 
 Bei \code{(1)} wird ein \code{Create}-Satz verwendet, der semantisch einem \code{There}-Satz entspricht.
 Unterschied ist die Präsenz des Subjekts \code{Init}, wodurch der Satz seine Zugehörigkeit zum Aufruf anzeigt.
 Der \code{Has}-Satz bei \code{(2)} gehört trotz des unterschiedlichen Subjekts zum Rumpf der \code{init}-Methode.
-Grund dafür ist, dass das Subjekt in \code{Has}- sowie \code{Is}-Sätzen eine andere syntaktische Bedeutung hat.
+Grund dafür ist, dass das Subjekt in \code{Has}- sowie \code{Is}-Sätzen kein Handlungsträger ist.
 %
 Einige Sätze wie \code{Expect} oder Diagramme sind nur in Tests erlaubt.
-Dadurch gehört der Satz hinter \code{(3)} wieder zum Rumpf der Testmethode.
+Dadurch gehört der Satz bei \code{(3)} wieder zum Rumpf der Testmethode.
 Der Aufruf der \code{init}-Methode ist folglich abgeschlossen.
 Ihr Rumpf kann nur erweitert werden, indem ein weiterer \code{Call}-Satz eingeleitet wird.
 %
