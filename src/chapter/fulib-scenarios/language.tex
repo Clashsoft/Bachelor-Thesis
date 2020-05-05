@@ -161,7 +161,7 @@ Um diese bidirektional zu machen, muss der Name sowie die Kardinalität der Rüc
 
 Dabei ist \code{cities} der Name der Rückrichtung.
 Die zugehörige Java-Zeile ist wie zuvor \jcode{kassel.setCountry(germany);}.
-Durch den Zusatz \code{one of} handelt es sich um eine Zu-n-Assoziation, ohne diesen wäre die Rückrichtung eine Zu-1-Assoziation.
+Durch den Zusatz \code{one of} handelt es sich um eine Zu-N-Assoziation, ohne diesen wäre die Rückrichtung eine Zu-1-Assoziation.
 In diesem Beispiel wäre eine solche jedoch nicht sonnvoll, da ein Land mehr als eine Stadt haben kann.
 
 Alternativ kann die Assoziation auch ausgehend vom \code{Germany}-Objekt definiert werden:
@@ -312,7 +312,7 @@ Die Übersetzung des Take-Satzes in Java-Code ergibt die nachfolgende For-Schlei
 
 Wichtig bei der Verwendung von \code{take} ist, dass der Ausdruck nach \code{from} einen Listentyp hat.
 Diese entsprechen in Java dem generischen Typ \jcode{java.util.List<T>}, wobei \code{T} der Elementtyp ist.
-Der Getter von Zu-n-Assoziationen hat automatisch einen Listentyp mit der Zielklasse als Elementtyp.
+Der Getter von Zu-N-Assoziationen hat automatisch einen Listentyp mit der Zielklasse als Elementtyp.
 Es ist jedoch auch möglich, Listenausdrücke zu verwenden.
 Diese bestehen in der einfachsten Form aus anderen Ausdrücken, die durch Komma oder \code{and} getrennt sind.
 Beispiele dafür sind \code{1, 2, 3}, \code{Alice, Bob and Charlie} und \code{'left' and 'right'}.

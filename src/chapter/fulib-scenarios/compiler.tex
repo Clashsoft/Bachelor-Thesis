@@ -138,7 +138,7 @@ Dazu gehören z.B.\ mit Namen versehene Ausdrücke.
 Das Datenmodell des \ac{ast} wird ebenfalls automatisch generiert.
 Grund dafür ist, dass jede \ac{ast}-Klasse lediglich aus Klassenvariablen, Gettern und Settern sowie einer Factory-Methode besteht.
 Diese können mit einer Liste von Attributen ausreichend definiert werden.
-Die Generierung des \ac{ast} erfolgt durch das von mir entwickelte GenTreeSrc-Tool~\cite{gentreesrc}.
+Die Generierung der \ac{ast}-Klassen erfolgt durch das von mir entwickelte GenTreeSrc-Tool~\cite{gentreesrc}.
 Dieses erlaubt die Definition von Klassen und Attributen in einer \code{gts}-Datei, aus der dann Java-Dateien generiert werden können.
 Listing~\ref{lst:FulibScenarios1.gts} zeigt einen Ausschnitt der \code{gts}-Datei von FulibScenarios, in dem die für Beispiel~\ref{lst:CompilationExample.md} benötigten Definitionen abgebildet sind.
 Die vollständige Definitionsdatei ist unter~\cite{gts-definitions} zu finden.
@@ -284,7 +284,7 @@ Die darin verwendeten neuen \ac{ast}-Definitionen sind in Listing~\ref{lst:Fulib
 % Intro
 Die letzte Aufgabe des Scenario-Compilers ist die Codegenerierung.
 Dabei werden mit den in vorherigen Phasen gesammelten Informationen neue Java-Dateien erzeugt bzw.\ bestehende verändert.
-Der Scenario-Compiler verwendet für diesen Zweck die Fulib-Bibliothek\cite{fulib}.
+Der Scenario-Compiler verwendet für diesen Zweck die Bibliothek Fulib~\cite{fulib}.
 Diese stellt wie der Scenario-Compiler ein Datenmodell für Klassen, Attribute, Assoziationen und Methoden bereit, bietet aber auch deren Umwandlung in Java-Code an.
 Der Codegenerator von Fulib unterstützt dabei das Zusammenführen von bestehenden Java-Dateien mit neu generiertem Code, wodurch er mit handgeschriebenem Code kompatibel ist.
 

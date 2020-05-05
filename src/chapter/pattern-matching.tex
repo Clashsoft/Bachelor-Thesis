@@ -4,7 +4,7 @@ Unter Pattern Matching versteht man im Allgemeinen den Abgleich von konkreten St
 Im Kontext dieser Arbeit soll speziell in Objektstrukturen nach bestimmten Mustern gesucht werden.
 Dabei können Muster sowohl die Attribute von Objekten als auch Kanten zwischen diesen betreffen.
 In diesem Kapitel werden drei Verfahren erläutert, welche die Definition von Mustern und deren Suche auf Objektenstrukturen erlauben.
-Dafür wird zunächst die FulibTables\cite{fulibTables}-Bibliothek betrachtet, welche die Mustererkennung mit Java auf zwei verschiedene Weisen ermöglicht.
+Dafür wird zunächst die Bibliothek FulibTables~\cite{fulibTables} betrachtet, welche die Mustererkennung mit Java auf zwei verschiedene Weisen ermöglicht.
 Darauf aufbauend wird eine Erweiterung der Scenario-Sprache vorgestellt, die Syntax zum Pattern Matching einführt.
 
 \section{FulibTables}\label{sec:fulib-tables}
@@ -244,7 +244,7 @@ Diese lassen sich mit einem \code{PatternBuilder} anlegen.
     PatternObject unitsPO = builder.buildPatternObject("Units");
 \end{jcodeblock*}
 
-Pattern-Objekte werden nicht nur für Objekte im Datenmodell (\code{gamePO}, \code{playerPO}, \code{housePO}) benötigt, sondern auch für deren Attribute (\code{winScorePO} und \code{unitsPO}).
+Pattern-Objekte werden nicht nur für Objekte im Datenmodell (\code{gamePO}, \code{playerPO} und \code{housePO}) benötigt, sondern auch für deren Attribute (\code{winScorePO} und \code{unitsPO}).
 Intern entspricht jedes Pattern-Objekt einer Spalte der Tabelle, die am Ende des Match-Vorgangs alle Ergebnisse enthält.
 
 Nun müssen die Pattern-Objekte verbunden werden.
@@ -367,7 +367,7 @@ Es handelt sich dabei um genau jenen Code, der zur Einrichtung von Patterns und 
 \end{jcodeblock*}
 
 Eine Besonderheit ist der Aufruf von \code{withRootObjects} bei \code{(1)}.
-Der Aufruf von \code{discoverObjects} bewirkt in diesem Beispiel, dass alle von \code{game} ausgehenden Objekte, deren Typ zum Package \code{org.example} gehört, als Root-Objekte behandelt werden.
+In diesem Beispiel bewirkt \code{discoverObjects}, dass alle von \code{game} ausgehenden Objekte, deren Typ zum Package \code{org.example} gehört, als Root-Objekte behandelt werden.
 Dies umfasst \code{game} selber sowie alle über direkte und transitive Assoziationen verknüpften Objekte, demnach die gesamte Objektstruktur.
 Der Scenario-Compiler sammelt alle sich im Scope befindenden Variablen und übergibt sie an \code{discoverObjects}.
 Die Methode stellt sicher, dass auch Objekte gefunden werden, die nicht direkt zugänglich sind.
