@@ -381,23 +381,43 @@ Dafür dienen die Subjekte jedes Satzes.
 Bei den meisten bisher kennengelernten Sätzen war dies \code{We}, das sich stets auf die Testmethode bezieht.
 Viele Sätze erlauben jedoch alternativ die Angabe eines Methodennamens wie \code{init} aus dem obigen Beispiel.
 So kann festgelegt werden, dass sie zum Rumpf eines vorherigen Aufrufs gehören.
-Die \code{init}-Methode kann demnach wie folgt gefüllt werden:
+Das Beispiel kann demnach wie folgt erweitert werden:
 
 \begin{codeblock}
+    # Example
     We call init.
-    Init writes ... into students.
-    Init takes a student from students and init adds ... .
+    (1) Init creates a Student with name Alice.
+    (2) Alice has 10 motivation.
+    (3) We expect that Alice is 'Alice'.
 \end{codeblock}
 
-Zu beachten ist, dass einige Sätze nur in Tests erlaubt sind.
-Dazu gehören beispielsweise \code{Expect}- und Diagrammsätze.
-Bei anderen Sätzen wie \code{is} und \code{has} hat das Subjekt eine andere Bedeutung, wodurch sie automatisch zum aktuell beschriebenen Rumpf oder Test gehören.
-Zudem lassen sich Subjekte nicht mischen.
-Verwendet ein Satz ein anderes Subjekt als der vorherige, wird der zuvorstehende Aufruf geschlossen.
-Geschachtelte Aufrufe können stattfinden, wenn das Subjekt eines \code{Call}-Satzes einem darüberliegenden Methodennamen entspricht.
-Der geschachtelte Aufruf kann zwar wieder einen neuen Rumpf beginnen, davon ist jedoch aus Gründen der Verständlichkeit abzuraten.
+Bei \code{(1)} wird ein \code{Create}-Satz verwendet, der semantisch einem \code{There}-Satz entspricht.
+Unterschied ist die Präsenz des Subjekts \code{Init}, wodurch der Satz seine Zugehörigkeit zum Aufruf anzeigt.
+Der \code{Has}-Satz bei \code{(2)} gehört trotz des unterschiedlichen Subjekts zum Rumpf der \code{init}-Methode.
+Grund dafür ist, dass das Subjekt in \code{Has}- sowie \code{Is}-Sätzen eine andere syntaktische Bedeutung hat.
+%
+Einige Sätze wie \code{Expect} oder Diagramme sind nur in Tests erlaubt.
+Dadurch gehört der Satz hinter \code{(3)} wieder zum Rumpf der Testmethode.
+Der Aufruf der \code{init}-Methode ist folglich abgeschlossen.
+Ihr Rumpf kann nur erweitert werden, indem ein weiterer \code{Call}-Satz eingeleitet wird.
+%
+Außerhalb des Aufrufs sind die darin definierten Variablen nicht mehr zugänglich.
+Der \code{Expect}-Satz verdeutlicht dies, indem er erwartet, dass \code{Alice} eine String-Konstante und kein Objekt ist.
+Im Java-Code wird die zuvor erklärte Verhaltensweise anschaulich:
 
-Während eine \code{init}-Methode für gemeinsam genutzen Code in einem Test akzeptabel ist, sollten Methoden mit anwendungsspezifischer Logik üblicherweise nicht in Testklassen implementiert sein.
+\begin{jcodeblock}
+    @Test void example() {
+        init();
+        assertEquals("Alice", "Alice");
+    }
+
+    void init() {
+        Student alice = new Student().setName("Alice");
+        alice.setMotivation(10);
+    }
+\end{jcodeblock}
+
+Während eine \code{init}-Methode für gemeinsam genutzen Code in einem Test akzeptabel ist, sollten Methoden mit anwendungsspezifischer Logik üblicherweise nicht in Testklassen implementiert werden.
 Um dies zu vermeiden, kommt der Empfänger bei \code{Call}-Sätzen zum Einsatz, wie das folgende Beispiel zeigt.
 
 \begin{codeblock}
@@ -462,7 +482,6 @@ Dabei handelt es sich um die \code{Answer}-Sätze, die Return-Anweisungen in Jav
     Produce answers with the product.
 \end{codeblock}
 
-Dieses Beispiel verwendet den \code{Create}-Satz, der semantisch einem \code{There}-Satz entspricht, aber durch die Präsenz eines Subjekts in Methoden Anwendung findet.
 Am Java-Code ist zu erkennen, dass durch die Verwendung eines benannten Objekts als Rückgabewert auch beim Aufruf eine Variable erzeugt wird:
 
 \begin{jcodeblock}
