@@ -9,6 +9,8 @@
 \cfoot{}
 \fancypagestyle{plain}{}
 
+\RedeclareSectionCommand[beforeskip=1.5cm,afterskip=1cm]{chapter}
+
 % Select input encodung, usually utf8 is the best choice, on windows, \usepackage[latin1]{inputenc} maybe required
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -56,7 +58,6 @@
 \newcommand{\codelisting}[4]{%
     \begin{listing}[htp]
         \inputminted{#1}{#2/#3}
-        \vspace{-3ex}
         \caption{#4}
         \label{lst:#3}
     \end{listing}%
