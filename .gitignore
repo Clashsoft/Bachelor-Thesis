@@ -16,6 +16,7 @@ _minted-*/
 *.pdf
 *.pyg
 *.synctex.gz
+*.synctex(busy)
 *.toc
 
 !**/img/*.pdf
