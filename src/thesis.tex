@@ -36,23 +36,23 @@
 
     \pagenumbering{roman}
 
-    \input{titlepage}
-    \input{abstract}
+    \include{titlepage}
+    \include{abstract}
 
     \tableofcontents
 
-    \input{acronyms}
+    \include{acronyms}
 
     \pagebreak
     \pagenumbering{arabic}
     \addtocontents{toc}{\protect\vspace{1.0cm}}
 
-    \input{chapter/introduction}
-    \input{chapter/goals}
-    \input{chapter/fulib-scenarios}
-    \input{chapter/pattern-matching}
-    \input{chapter/fulib.org}
-    \input{chapter/results}
+    \include{chapter/introduction}
+    \include{chapter/goals}
+    \include{chapter/fulib-scenarios}
+    \include{chapter/pattern-matching}
+    \include{chapter/fulib.org}
+    \include{chapter/results}
 
     \addtocontents{toc}{\protect\vspace{1.0cm}}
 
@@ -65,7 +65,7 @@
     \listoflistings
 
     \appendix
-    \input{appendix}
+    \include{appendix}
 
-    \input{declaration}
+    \include{declaration}
 \end{document}
